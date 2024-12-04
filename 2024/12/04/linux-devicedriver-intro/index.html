@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Penn&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Linux Device Driver IntroductionIntroduction to the Linux Kernel EcosystemThe Linux kernel represents a complex and powerful operating system core that serves as the fundamental interface between comp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Penn&#39;s Blog">
+<meta property="og:url" content="https://apexpeng.github.io/2024/12/04/linux-devicedriver-intro/index.html">
+<meta property="og:site_name" content="Penn&#39;s Blog">
+<meta property="og:description" content="Linux Device Driver IntroductionIntroduction to the Linux Kernel EcosystemThe Linux kernel represents a complex and powerful operating system core that serves as the fundamental interface between comp">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-04T07:02:24.977Z">
+<meta property="article:modified_time" content="2024-12-04T07:02:24.978Z">
+<meta property="article:author" content="Zhang Peng">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Penn's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Penn&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://apexpeng.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-linux-devicedriver-intro" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/04/linux-devicedriver-intro/" class="article-date">
+  <time class="dt-published" datetime="2024-12-04T07:02:24.977Z" itemprop="datePublished">2024-12-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Linux-Device-Driver-Introduction"><a href="#Linux-Device-Driver-Introduction" class="headerlink" title="Linux Device Driver Introduction"></a>Linux Device Driver Introduction</h1><h2 id="Introduction-to-the-Linux-Kernel-Ecosystem"><a href="#Introduction-to-the-Linux-Kernel-Ecosystem" class="headerlink" title="Introduction to the Linux Kernel Ecosystem"></a>Introduction to the Linux Kernel Ecosystem</h2><p>The Linux kernel represents a complex and powerful operating system core that serves as the fundamental interface between computer hardware and software applications. As an open-source marvel, it manages system resources, provides essential services, and enables the seamless operation of diverse hardware configurations.</p>
+<h2 id="System-Startup-From-U-Boot-to-Linux-Kernel-Initialization"><a href="#System-Startup-From-U-Boot-to-Linux-Kernel-Initialization" class="headerlink" title="System Startup: From U-Boot to Linux Kernel Initialization"></a>System Startup: From U-Boot to Linux Kernel Initialization</h2><h3 id="U-Boot-The-Initial-Bootloader"><a href="#U-Boot-The-Initial-Bootloader" class="headerlink" title="U-Boot: The Initial Bootloader"></a>U-Boot: The Initial Bootloader</h3><p>U-Boot (Universal Bootloader) plays a crucial role in the system startup process, especially in embedded systems and various hardware platforms. Its primary responsibilities include:</p>
+<ol>
+<li><p><strong>Hardware Initialization</strong>: U-Boot initializes critical hardware components, including:</p>
+<ul>
+<li>CPU configuration</li>
+<li>Memory controller setup</li>
+<li>Basic peripheral initialization</li>
+</ul>
+</li>
+<li><p><strong>Image Loading</strong>: It loads the Linux kernel image from various storage mediums such as:</p>
+<ul>
+<li>Flash memory</li>
+<li>SD cards</li>
+<li>Network boot (TFTP)</li>
+<li>USB storage</li>
+</ul>
+</li>
+<li><p><strong>Environment Configuration</strong>: U-Boot sets up essential boot parameters, including:</p>
+<ul>
+<li>Kernel load address</li>
+<li>Command-line arguments</li>
+<li>Device tree blob location</li>
+</ul>
+</li>
+</ol>
+<h3 id="Linux-Kernel-Startup-Process"><a href="#Linux-Kernel-Startup-Process" class="headerlink" title="Linux Kernel Startup Process"></a>Linux Kernel Startup Process</h3><p>The Linux kernel initialization is a multi-stage process that transforms the system from a dormant state to a fully operational environment:</p>
+<ol>
+<li><p><strong>Kernel Entry Point</strong></p>
+<ul>
+<li>The kernel begins execution at its entry point defined in the architecture-specific startup code</li>
+<li>Switches to supervisor mode</li>
+<li>Sets up initial page tables</li>
+<li>Configures CPU-specific features</li>
+</ul>
+</li>
+<li><p><strong>Early Initialization</strong></p>
+<ul>
+<li>Validates and sets up memory management</li>
+<li>Initializes essential data structures</li>
+<li>Configures processor-specific features</li>
+<li>Sets up interrupt handling mechanisms</li>
+</ul>
+</li>
+<li><p><strong>Architecture-Independent Initialization</strong></p>
+<ul>
+<li>Mounts the initial RAM disk (initrd)</li>
+<li>Starts the first user-space process (typically systemd)</li>
+<li>Completes device and module initialization</li>
+</ul>
+</li>
+</ol>
+<h2 id="Virtual-Filesystem-VFS-in-Linux-Kernel"><a href="#Virtual-Filesystem-VFS-in-Linux-Kernel" class="headerlink" title="Virtual Filesystem (VFS) in Linux Kernel"></a>Virtual Filesystem (VFS) in Linux Kernel</h2><h3 id="Virtual-Filesystem-Concept"><a href="#Virtual-Filesystem-Concept" class="headerlink" title="Virtual Filesystem Concept"></a>Virtual Filesystem Concept</h3><p>The Virtual Filesystem (VFS) is a crucial abstraction layer in the Linux kernel that provides a unified interface for multiple filesystem types. It acts as an intermediary between user-space applications and various filesystem implementations.</p>
+<h4 id="Key-VFS-Abstractions"><a href="#Key-VFS-Abstractions" class="headerlink" title="Key VFS Abstractions"></a>Key VFS Abstractions</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">vfs_operations</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dentry</span> * (*<span class="title">lookup</span>) (<span class="keyword">struct</span> <span class="title">inode</span> *, <span class="keyword">struct</span> <span class="title">dentry</span> *, <span class="title">unsigned</span> <span class="title">int</span>);</span></span><br><span class="line">    <span class="type">int</span> (*create) (<span class="keyword">struct</span> inode *, <span class="keyword">struct</span> dentry *, <span class="type">umode_t</span>, <span class="type">bool</span>);</span><br><span class="line">    <span class="type">int</span> (*mkdir) (<span class="keyword">struct</span> inode *, <span class="keyword">struct</span> dentry *, <span class="type">umode_t</span>);</span><br><span class="line">    <span class="type">ssize_t</span> (*read) (<span class="keyword">struct</span> file *, <span class="type">char</span> __user *, <span class="type">size_t</span>, <span class="type">loff_t</span> *);</span><br><span class="line">    <span class="type">ssize_t</span> (*write) (<span class="keyword">struct</span> file *, <span class="type">const</span> <span class="type">char</span> __user *, <span class="type">size_t</span>, <span class="type">loff_t</span> *);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">file_system_type</span> &#123;</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *name;</span><br><span class="line">    <span class="type">int</span> fs_flags;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dentry</span> *(*<span class="title">mount</span>) (<span class="keyword">struct</span> <span class="title">file_system_type</span> *, <span class="title">int</span>, </span></span><br><span class="line"><span class="class">                              <span class="title">const</span> <span class="title">char</span> *, <span class="title">void</span> *);</span></span><br><span class="line">    <span class="type">void</span> (*kill_sb) (<span class="keyword">struct</span> super_block *);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="VFS-Integration-with-Linux-Kernel"><a href="#VFS-Integration-with-Linux-Kernel" class="headerlink" title="VFS Integration with Linux Kernel"></a>VFS Integration with Linux Kernel</h3><p>The VFS provides a common interface for:</p>
+<ol>
+<li>File operations across different filesystem types</li>
+<li>Filesystem-independent file handling</li>
+<li>Unified system call implementation</li>
+</ol>
+<h2 id="Linux-Device-Driver-Fundamentals"><a href="#Linux-Device-Driver-Fundamentals" class="headerlink" title="Linux Device Driver Fundamentals"></a>Linux Device Driver Fundamentals</h2><h3 id="Device-Driver-Classification"><a href="#Device-Driver-Classification" class="headerlink" title="Device Driver Classification"></a>Device Driver Classification</h3><p>Linux supports three primary types of device drivers:</p>
+<ol>
+<li><p><strong>Character Device Drivers</strong></p>
+<ul>
+<li>Handle data streams as sequential character sequences</li>
+<li>Support operations like read(), write(), open(), close()</li>
+<li>Examples: Serial ports, keyboards, sound cards</li>
+<li>Implemented using <code>struct cdev</code></li>
+<li>Key operations managed through file operations structure</li>
+</ul>
+</li>
+<li><p><strong>Block Device Drivers</strong></p>
+<ul>
+<li>Manage block-oriented storage devices</li>
+<li>Support random access to fixed-size blocks</li>
+<li>Examples: Hard drives, SSDs, RAM disks</li>
+<li>Utilize block I&#x2F;O request queue mechanisms</li>
+<li>Implement advanced caching and optimization strategies</li>
+</ul>
+</li>
+<li><p><strong>Network Device Drivers</strong></p>
+<ul>
+<li>Manage network interface communication</li>
+<li>Handle packet transmission and reception</li>
+<li>Implement protocol-specific communication layers</li>
+<li>Utilize Linux networking stack abstractions</li>
+<li>Provide standard network interface operations</li>
+</ul>
+</li>
+</ol>
+<h2 id="Practical-Device-Driver-Implementation"><a href="#Practical-Device-Driver-Implementation" class="headerlink" title="Practical Device Driver Implementation"></a>Practical Device Driver Implementation</h2><h3 id="Char-Device-Driver-Comprehensive-Example"><a href="#Char-Device-Driver-Comprehensive-Example" class="headerlink" title="Char Device Driver: Comprehensive Example"></a>Char Device Driver: Comprehensive Example</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/kernel.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/fs.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/cdev.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/device.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/uaccess.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DEVICE_NAME <span class="string">&quot;simple_char_dev&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLASS_NAME  <span class="string">&quot;simple_char_class&quot;</span></span></span><br><span class="line"></span><br><span class="line">MODULE_LICENSE(<span class="string">&quot;GPL&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> majorNumber;</span><br><span class="line"><span class="type">static</span> <span class="type">char</span> message[<span class="number">256</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">static</span> <span class="type">short</span> size_of_message;</span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="keyword">class</span>*  <span class="title">charClass</span>  =</span> <span class="literal">NULL</span>;</span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">device</span>* <span class="title">charDevice</span> =</span> <span class="literal">NULL</span>;</span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">cdev</span> <span class="title">charCdev</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Prototype functions</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span>     <span class="title function_">dev_open</span><span class="params">(<span class="keyword">struct</span> inode *, <span class="keyword">struct</span> file *)</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">int</span>     <span class="title function_">dev_release</span><span class="params">(<span class="keyword">struct</span> inode *, <span class="keyword">struct</span> file *)</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">dev_read</span><span class="params">(<span class="keyword">struct</span> file *, <span class="type">char</span> __user *, <span class="type">size_t</span>, <span class="type">loff_t</span> *)</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">dev_write</span><span class="params">(<span class="keyword">struct</span> file *, <span class="type">const</span> <span class="type">char</span> __user *, <span class="type">size_t</span>, <span class="type">loff_t</span> *)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// File operations structure</span></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">file_operations</span> <span class="title">fops</span> =</span> &#123;</span><br><span class="line">    .open = dev_open,</span><br><span class="line">    .read = dev_read,</span><br><span class="line">    .write = dev_write,</span><br><span class="line">    .release = dev_release,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Module initialization and exit functions (implementation omitted for brevity)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Procfs-Integration-Example"><a href="#Procfs-Integration-Example" class="headerlink" title="Procfs Integration Example"></a>Procfs Integration Example</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/kernel.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/proc_fs.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/uaccess.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PROC_NAME <span class="string">&quot;driver_status&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_BUFFER 1024</span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">proc_dir_entry</span> *<span class="title">proc_file</span>;</span></span><br><span class="line"><span class="type">static</span> <span class="type">char</span> kernel_buffer[MAX_BUFFER];</span><br><span class="line"><span class="type">static</span> <span class="type">unsigned</span> <span class="type">long</span> procfs_buffer_size = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Procfs read and write operations</span></span><br><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">procfs_read</span><span class="params">(<span class="keyword">struct</span> file *file, <span class="type">char</span> __user *buffer, </span></span><br><span class="line"><span class="params">                           <span class="type">size_t</span> count, <span class="type">loff_t</span> *pos)</span> &#123;</span><br><span class="line">    <span class="comment">// Read implementation details</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">procfs_write</span><span class="params">(<span class="keyword">struct</span> file *file, <span class="type">const</span> <span class="type">char</span> __user *buffer, </span></span><br><span class="line"><span class="params">                            <span class="type">size_t</span> count, <span class="type">loff_t</span> *pos)</span> &#123;</span><br><span class="line">    <span class="comment">// Write implementation details</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Sysfs-Integration-Example"><a href="#Sysfs-Integration-Example" class="headerlink" title="Sysfs Integration Example"></a>Sysfs Integration Example</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/kernel.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/device.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/kobject.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/sysfs.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">kobject</span> *<span class="title">driver_kobject</span>;</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> driver_value = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Sysfs show and store methods</span></span><br><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">driver_show</span><span class="params">(<span class="keyword">struct</span> kobject *kobj, </span></span><br><span class="line"><span class="params">                           <span class="keyword">struct</span> kobj_attribute *attr, <span class="type">char</span> *buf)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sprintf</span>(buf, <span class="string">&quot;%d\n&quot;</span>, driver_value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">driver_store</span><span class="params">(<span class="keyword">struct</span> kobject *kobj, </span></span><br><span class="line"><span class="params">                            <span class="keyword">struct</span> kobj_attribute *attr, </span></span><br><span class="line"><span class="params">                            <span class="type">const</span> <span class="type">char</span> *buf, <span class="type">size_t</span> count)</span> &#123;</span><br><span class="line">    <span class="built_in">sscanf</span>(buf, <span class="string">&quot;%d&quot;</span>, &amp;driver_value);</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="User-Space-Interaction-Examples"><a href="#User-Space-Interaction-Examples" class="headerlink" title="User-Space Interaction Examples"></a>User-Space Interaction Examples</h3><h4 id="Procfs-Interaction-C-Program"><a href="#Procfs-Interaction-C-Program" class="headerlink" title="Procfs Interaction (C Program)"></a>Procfs Interaction (C Program)</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PROC_FILE <span class="string">&quot;/proc/driver_status&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> fd;</span><br><span class="line">    <span class="type">char</span> buffer[<span class="number">1024</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Write to and read from procfs</span></span><br><span class="line">    fd = open(PROC_FILE, O_WRONLY);</span><br><span class="line">    write(fd, <span class="string">&quot;Hello from User Space&quot;</span>, <span class="number">21</span>);</span><br><span class="line">    close(fd);</span><br><span class="line">    </span><br><span class="line">    fd = open(PROC_FILE, O_RDONLY);</span><br><span class="line">    read(fd, buffer, <span class="keyword">sizeof</span>(buffer));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Read from procfs: %s\n&quot;</span>, buffer);</span><br><span class="line">    close(fd);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Kernel-Filesystem-Interfaces"><a href="#Kernel-Filesystem-Interfaces" class="headerlink" title="Kernel Filesystem Interfaces"></a>Kernel Filesystem Interfaces</h2><h3 id="Procfs-proc"><a href="#Procfs-proc" class="headerlink" title="Procfs (&#x2F;proc)"></a>Procfs (&#x2F;proc)</h3><ul>
+<li>Virtual filesystem providing kernel and process information</li>
+<li>Allows runtime system information access</li>
+<li>Primarily read-only kernel diagnostic interface</li>
+</ul>
+<h3 id="Sysfs-sys"><a href="#Sysfs-sys" class="headerlink" title="Sysfs (&#x2F;sys)"></a>Sysfs (&#x2F;sys)</h3><ul>
+<li>Represents device, driver, and bus relationships</li>
+<li>Provides unified device model representation</li>
+<li>Enables dynamic device configuration</li>
+<li>Supports runtime device attribute manipulation</li>
+</ul>
+<h2 id="Driver-Bus-Relationship"><a href="#Driver-Bus-Relationship" class="headerlink" title="Driver-Bus Relationship"></a>Driver-Bus Relationship</h2><p>The Linux device model establishes a sophisticated relationship between drivers, devices, and buses:</p>
+<ul>
+<li><strong>Bus</strong>: Represents a communication pathway</li>
+<li><strong>Device</strong>: Physical or logical hardware component</li>
+<li><strong>Driver</strong>: Software controlling device functionality</li>
+</ul>
+<p>Communication flow:</p>
+<ol>
+<li>Bus discovers devices</li>
+<li>Driver matches with compatible devices</li>
+<li>Kernel facilitates device-driver binding</li>
+<li>Driver registers device-specific operations</li>
+</ol>
+<h2 id="Device-Driver-APIs-and-Interfaces"><a href="#Device-Driver-APIs-and-Interfaces" class="headerlink" title="Device Driver APIs and Interfaces"></a>Device Driver APIs and Interfaces</h2><p>Key Linux kernel APIs for device driver development:</p>
+<ul>
+<li><p><strong>Registration Mechanisms</strong></p>
+<ul>
+<li><code>register_chrdev()</code></li>
+<li><code>register_netdev()</code></li>
+<li><code>blk_mq_alloc_queue()</code></li>
+</ul>
+</li>
+<li><p><strong>Synchronization Primitives</strong></p>
+<ul>
+<li>Spinlocks</li>
+<li>Mutexes</li>
+<li>Completion variables</li>
+<li>Wait queues</li>
+</ul>
+</li>
+<li><p><strong>Memory Management</strong></p>
+<ul>
+<li><code>kmalloc()</code> and <code>kfree()</code></li>
+<li>DMA buffer allocation</li>
+<li>Kernel memory mapping utilities</li>
+</ul>
+</li>
+</ul>
+<h2 id="Best-Practices-and-Recommendations"><a href="#Best-Practices-and-Recommendations" class="headerlink" title="Best Practices and Recommendations"></a>Best Practices and Recommendations</h2><ol>
+<li><p><strong>Kernel Space Development</strong></p>
+<ul>
+<li>Minimize kernel space code complexity</li>
+<li>Use appropriate synchronization mechanisms</li>
+<li>Implement robust error handling</li>
+<li>Follow kernel coding standards</li>
+</ul>
+</li>
+<li><p><strong>Memory Management</strong></p>
+<ul>
+<li>Be cautious with dynamic memory allocation</li>
+<li>Use appropriate memory barriers</li>
+<li>Handle potential memory leaks</li>
+</ul>
+</li>
+<li><p><strong>Performance Considerations</strong></p>
+<ul>
+<li>Optimize critical path operations</li>
+<li>Minimize lock contention</li>
+<li>Use efficient data structures</li>
+</ul>
+</li>
+</ol>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Linux device drivers represent a sophisticated ecosystem of hardware abstraction, offering developers powerful tools for system-level programming. The intricate relationships between VFS, device drivers, and kernel subsystems provide a flexible and extensible framework for hardware interaction.</p>
+<h2 id="Recommended-Learning-Path"><a href="#Recommended-Learning-Path" class="headerlink" title="Recommended Learning Path"></a>Recommended Learning Path</h2><ol>
+<li>Study basic C programming</li>
+<li>Learn kernel module development</li>
+<li>Understand Linux kernel internals</li>
+<li>Practice with simple device driver examples</li>
+<li>Explore advanced driver development techniques</li>
+</ol>
+<p><strong>Note</strong>: Device driver development requires deep understanding of both software principles and hardware interactions. Continuous learning and practical experience are key to mastering this domain.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/04/linux-devicedriver-intro/" data-id="cm49jk5kd0000dkmx9u8l7hct" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/12/04/linux-input-subsystem/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/12/04/uboot-s3c2440/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/04/linux-pci-intro/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/04/linux-usb-intro/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/04/linux-userspace-debug/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/04/linux-kernel-debug/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/04/linux-i2c-lm87/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 Zhang Peng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Penn&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Exploring the Linux Input System: Events, Key Management, Touchscreens, and Sensor IntegrationThe Linux input subsystem is a robust framework for handling input devices such as keyboards, mice, touchs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Penn&#39;s Blog">
+<meta property="og:url" content="https://apexpeng.github.io/2024/12/04/linux-input-subsystem/index.html">
+<meta property="og:site_name" content="Penn&#39;s Blog">
+<meta property="og:description" content="Exploring the Linux Input System: Events, Key Management, Touchscreens, and Sensor IntegrationThe Linux input subsystem is a robust framework for handling input devices such as keyboards, mice, touchs">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-04T07:03:03.095Z">
+<meta property="article:modified_time" content="2024-12-04T07:03:03.095Z">
+<meta property="article:author" content="Zhang Peng">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Penn's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Penn&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://apexpeng.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-linux-input-subsystem" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/04/linux-input-subsystem/" class="article-date">
+  <time class="dt-published" datetime="2024-12-04T07:03:03.095Z" itemprop="datePublished">2024-12-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Exploring-the-Linux-Input-System-Events-Key-Management-Touchscreens-and-Sensor-Integration"><a href="#Exploring-the-Linux-Input-System-Events-Key-Management-Touchscreens-and-Sensor-Integration" class="headerlink" title="Exploring the Linux Input System: Events, Key Management, Touchscreens, and Sensor Integration"></a>Exploring the Linux Input System: Events, Key Management, Touchscreens, and Sensor Integration</h1><p>The Linux input subsystem is a robust framework for handling input devices such as keyboards, mice, touchscreens, and sensors. This article delves into the architecture and functionality of the Linux input system, covering events, key management, touchscreen handling, and sensor integration. We’ll also explore how Linux interfaces with hardware buses like I²C, SPI, and ADC&#x2F;DAC, complemented by reference code examples.</p>
+<hr>
+<h2 id="1-Understanding-the-Linux-Input-Event-System"><a href="#1-Understanding-the-Linux-Input-Event-System" class="headerlink" title="1. Understanding the Linux Input Event System"></a><strong>1. Understanding the Linux Input Event System</strong></h2><h3 id="What-Is-an-Event-in-Linux"><a href="#What-Is-an-Event-in-Linux" class="headerlink" title="What Is an Event in Linux?"></a>What Is an Event in Linux?</h3><p>An <strong>event</strong> in the Linux input system represents an input action. For example:</p>
+<ul>
+<li>A key press on a keyboard generates a <code>KEY_PRESS</code> event.</li>
+<li>A touchscreen tap produces <code>ABS</code> (absolute position) events.</li>
+<li>Sensor data updates trigger events for user-space applications.</li>
+</ul>
+<h3 id="How-Events-Are-Generated-and-Delivered"><a href="#How-Events-Are-Generated-and-Delivered" class="headerlink" title="How Events Are Generated and Delivered"></a>How Events Are Generated and Delivered</h3><p>The Linux kernel manages events using the <strong>event device interface</strong> (<code>/dev/input/eventX</code>). Events are represented as structures of type <code>input_event</code> in <code>linux/input.h</code>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">input_event</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">time</span>;</span>  <span class="comment">// Timestamp</span></span><br><span class="line">    __u16 type;           <span class="comment">// Event type (e.g., EV_KEY, EV_ABS)</span></span><br><span class="line">    __u16 code;           <span class="comment">// Event code (specific key or axis)</span></span><br><span class="line">    __s32 value;          <span class="comment">// Event value (pressed/released or position)</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p><strong>Event Generation</strong>  </p>
+<ul>
+<li>A driver populates an <code>input_event</code> structure and calls <code>input_event()</code> or <code>input_sync()</code> to propagate the event.</li>
+<li>Example: A key press might call:</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">input_event(dev, EV_KEY, KEY_A, <span class="number">1</span>); <span class="comment">// Press &#x27;A&#x27;</span></span><br><span class="line">input_sync(dev);                   <span class="comment">// Sync the event</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Event Delivery</strong>  </p>
+<ul>
+<li>Events are written to <code>/dev/input/eventX</code> and can be read by user-space applications.</li>
+<li>Use the <strong>evdev</strong> interface in user-space to read events.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="2-Linux-Key-Management-System"><a href="#2-Linux-Key-Management-System" class="headerlink" title="2. Linux Key Management System"></a><strong>2. Linux Key Management System</strong></h2><p>Linux manages keyboard input through the <strong>key management system</strong>, handling actions like key presses and releases. Keycodes are mapped to specific actions using <strong>keymaps</strong>.</p>
+<h3 id="Implementing-Key-Events"><a href="#Implementing-Key-Events" class="headerlink" title="Implementing Key Events"></a>Implementing Key Events</h3><p>Example: A keyboard driver generating a key event:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/input.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">example_key_event</span><span class="params">(<span class="keyword">struct</span> input_dev *dev)</span> &#123;</span><br><span class="line">    input_event(dev, EV_KEY, KEY_A, <span class="number">1</span>); <span class="comment">// Key A pressed</span></span><br><span class="line">    input_sync(dev);                   <span class="comment">// Synchronize event</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reading-Key-Events-in-User-Space"><a href="#Reading-Key-Events-in-User-Space" class="headerlink" title="Reading Key Events in User Space"></a>Reading Key Events in User Space</h3><p>In user space, use the <strong>evdev API</strong> to read key events:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/input.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">input_event</span> <span class="title">ev</span>;</span></span><br><span class="line">    <span class="type">int</span> fd = open(<span class="string">&quot;/dev/input/event0&quot;</span>, O_RDONLY);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (fd &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Failed to open event device&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (read(fd, &amp;ev, <span class="keyword">sizeof</span>(ev)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Event type: %d, code: %d, value: %d\n&quot;</span>, ev.type, ev.code, ev.value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    close(fd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-Touchscreen-Management-in-Linux"><a href="#3-Touchscreen-Management-in-Linux" class="headerlink" title="3. Touchscreen Management in Linux"></a><strong>3. Touchscreen Management in Linux</strong></h2><p>Touchscreens use the <strong>absolute position (EV_ABS)</strong> event type to report x&#x2F;y coordinates, pressure, and multitouch gestures.</p>
+<h3 id="Handling-Touch-Events-in-a-Driver"><a href="#Handling-Touch-Events-in-a-Driver" class="headerlink" title="Handling Touch Events in a Driver"></a>Handling Touch Events in a Driver</h3><p>Touchscreen drivers report events using <code>EV_ABS</code>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/input.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">report_touch</span><span class="params">(<span class="keyword">struct</span> input_dev *dev, <span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> pressure)</span> &#123;</span><br><span class="line">    input_event(dev, EV_ABS, ABS_X, x);</span><br><span class="line">    input_event(dev, EV_ABS, ABS_Y, y);</span><br><span class="line">    input_event(dev, EV_ABS, ABS_PRESSURE, pressure);</span><br><span class="line">    input_sync(dev);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reading-Touch-Events"><a href="#Reading-Touch-Events" class="headerlink" title="Reading Touch Events"></a>Reading Touch Events</h3><p>Use <code>evdev</code> to capture touch events:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">input_event</span> <span class="title">ev</span>;</span></span><br><span class="line"><span class="keyword">while</span> (read(fd, &amp;ev, <span class="keyword">sizeof</span>(ev)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ev.type == EV_ABS) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;ABS event: code=%d, value=%d\n&quot;</span>, ev.code, ev.value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="4-Sensor-Integration-in-Linux"><a href="#4-Sensor-Integration-in-Linux" class="headerlink" title="4. Sensor Integration in Linux"></a><strong>4. Sensor Integration in Linux</strong></h2><p>Sensors (e.g., temperature, accelerometers) often connect via I²C, SPI, or ADC&#x2F;DAC. Linux supports sensors through the <strong>Industrial I&#x2F;O (IIO)</strong> subsystem or custom drivers.</p>
+<h3 id="I²C-Example-Reading-Sensor-Data"><a href="#I²C-Example-Reading-Sensor-Data" class="headerlink" title="I²C Example: Reading Sensor Data"></a>I²C Example: Reading Sensor Data</h3><p>An I²C-based driver might communicate with a temperature sensor:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/i2c.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">read_sensor</span><span class="params">(<span class="keyword">struct</span> i2c_client *client)</span> &#123;</span><br><span class="line">    u8 buf[<span class="number">2</span>];</span><br><span class="line">    <span class="type">int</span> ret = i2c_master_recv(client, buf, <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">if</span> (ret &lt; <span class="number">0</span>) <span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> temp = (buf[<span class="number">0</span>] &lt;&lt; <span class="number">8</span>) | buf[<span class="number">1</span>]; <span class="comment">// Combine bytes</span></span><br><span class="line">    <span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="SPI-Example-Writing-to-a-Sensor"><a href="#SPI-Example-Writing-to-a-Sensor" class="headerlink" title="SPI Example: Writing to a Sensor"></a>SPI Example: Writing to a Sensor</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/spi/spi.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">write_sensor</span><span class="params">(<span class="keyword">struct</span> spi_device *spi, u8 reg, u8 value)</span> &#123;</span><br><span class="line">    u8 tx_buf[<span class="number">2</span>] = &#123; reg, value &#125;;</span><br><span class="line">    <span class="keyword">return</span> spi_write(spi, tx_buf, <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ADC-DAC-for-Analog-Sensors"><a href="#ADC-DAC-for-Analog-Sensors" class="headerlink" title="ADC&#x2F;DAC for Analog Sensors"></a>ADC&#x2F;DAC for Analog Sensors</h3><p>For sensors with analog output, the kernel’s IIO subsystem handles ADC sampling. Configure the ADC driver to provide sensor values in <code>/sys/bus/iio</code>.</p>
+<hr>
+<h2 id="5-Using-Events-to-Manage-Sensors"><a href="#5-Using-Events-to-Manage-Sensors" class="headerlink" title="5. Using Events to Manage Sensors"></a><strong>5. Using Events to Manage Sensors</strong></h2><p>Sensors can trigger events when thresholds are exceeded, using the <code>input_event</code> API or dedicated mechanisms like GPIO interrupts.</p>
+<h3 id="Example-Event-Based-Temperature-Alert"><a href="#Example-Event-Based-Temperature-Alert" class="headerlink" title="Example: Event-Based Temperature Alert"></a>Example: Event-Based Temperature Alert</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">handle_temp_event</span><span class="params">(<span class="keyword">struct</span> input_dev *dev, <span class="type">int</span> temp)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (temp &gt; THRESHOLD) &#123;</span><br><span class="line">        input_event(dev, EV_MSC, MSC_SERIAL, temp); <span class="comment">// Report temperature</span></span><br><span class="line">        input_sync(dev);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>User space can read and act on these events as described above.</p>
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>The Linux input system is highly versatile, enabling developers to handle various input sources, from traditional keyboards to advanced sensors. By leveraging the event-driven architecture, key management, and integration with buses like I²C and SPI, developers can create powerful, responsive applications. Whether you’re managing a touchscreen or an industrial sensor network, understanding these core concepts ensures seamless input handling in Linux systems. </p>
+<p>For further exploration, consult the Linux kernel documentation and experiment with the provided code examples!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/04/linux-input-subsystem/" data-id="cm49jk5km0001dkmxgrkp5uhx" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/12/04/linux-i2c-lm87/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/12/04/linux-devicedriver-intro/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/04/linux-pci-intro/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/04/linux-usb-intro/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/04/linux-userspace-debug/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/04/linux-kernel-debug/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/04/linux-i2c-lm87/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 Zhang Peng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

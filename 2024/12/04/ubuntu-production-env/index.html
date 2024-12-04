@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Penn&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Ubuntu as a Production Development EnvironmentIntroductionUbuntu has emerged as a powerful and versatile operating system for developers, offering a robust platform for software development and produc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Penn&#39;s Blog">
+<meta property="og:url" content="https://apexpeng.github.io/2024/12/04/ubuntu-production-env/index.html">
+<meta property="og:site_name" content="Penn&#39;s Blog">
+<meta property="og:description" content="Ubuntu as a Production Development EnvironmentIntroductionUbuntu has emerged as a powerful and versatile operating system for developers, offering a robust platform for software development and produc">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-04T03:12:39.852Z">
+<meta property="article:modified_time" content="2024-12-04T03:12:39.852Z">
+<meta property="article:author" content="Zhang Peng">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Penn's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Penn&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://apexpeng.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-ubuntu-production-env" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/04/ubuntu-production-env/" class="article-date">
+  <time class="dt-published" datetime="2024-12-04T03:12:39.852Z" itemprop="datePublished">2024-12-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Ubuntu-as-a-Production-Development-Environment"><a href="#Ubuntu-as-a-Production-Development-Environment" class="headerlink" title="Ubuntu as a Production Development Environment"></a>Ubuntu as a Production Development Environment</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Ubuntu has emerged as a powerful and versatile operating system for developers, offering a robust platform for software development and production environments. This guide explores essential tools and techniques for leveraging Ubuntu effectively in professional software development.</p>
+<h2 id="System-Preparation-and-Management"><a href="#System-Preparation-and-Management" class="headerlink" title="System Preparation and Management"></a>System Preparation and Management</h2><h3 id="Initial-Setup"><a href="#Initial-Setup" class="headerlink" title="Initial Setup"></a>Initial Setup</h3><ol>
+<li><p><strong>System Update</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update &amp;&amp; <span class="built_in">sudo</span> apt upgrade -y</span><br></pre></td></tr></table></figure>
+<p>This command ensures your system has the latest security patches and software updates.</p>
+</li>
+<li><p><strong>Essential Development Packages</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install build-essential git curl wget software-properties-common</span><br></pre></td></tr></table></figure>
+<p>Installs critical development tools, version control, and utility packages.</p>
+</li>
+</ol>
+<h2 id="Command-Line-Mastery"><a href="#Command-Line-Mastery" class="headerlink" title="Command-Line Mastery"></a>Command-Line Mastery</h2><h3 id="1-Vi-Vim-Advanced-Text-Editing"><a href="#1-Vi-Vim-Advanced-Text-Editing" class="headerlink" title="1. Vi&#x2F;Vim: Advanced Text Editing"></a>1. Vi&#x2F;Vim: Advanced Text Editing</h3><p>Vi is a powerful text editor crucial for developers working in terminal environments.</p>
+<p><strong>Basic Vi Commands:</strong></p>
+<ul>
+<li><code>vi filename</code>: Open or create a file</li>
+<li><code>i</code>: Enter insert mode</li>
+<li><code>Esc</code>: Exit insert mode</li>
+<li><code>:w</code>: Save changes</li>
+<li><code>:q</code>: Quit</li>
+<li><code>:wq</code>: Save and quit</li>
+<li><code>/search_term</code>: Search within document</li>
+<li><code>dd</code>: Delete entire line</li>
+<li><code>yy</code>: Copy entire line</li>
+<li><code>p</code>: Paste copied content</li>
+</ul>
+<p><strong>Advanced Vi Editing:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Replace text globally</span></span><br><span class="line">:%s/old_text/new_text/g</span><br><span class="line"></span><br><span class="line"><span class="comment"># Line numbering</span></span><br><span class="line">:<span class="built_in">set</span> number</span><br><span class="line"></span><br><span class="line"><span class="comment"># Syntax highlighting</span></span><br><span class="line">:syntax on</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Sed-Stream-Editor-for-Text-Manipulation"><a href="#2-Sed-Stream-Editor-for-Text-Manipulation" class="headerlink" title="2. Sed: Stream Editor for Text Manipulation"></a>2. Sed: Stream Editor for Text Manipulation</h3><p>Sed provides powerful text transformation capabilities.</p>
+<p><strong>Practical Sed Examples:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Replace text in a file</span></span><br><span class="line">sed <span class="string">&#x27;s/original/replacement/g&#x27;</span> input.txt &gt; output.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Delete specific lines</span></span><br><span class="line">sed <span class="string">&#x27;1,5d&#x27;</span> file.txt  <span class="comment"># Deletes first 5 lines</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Insert text at beginning of file</span></span><br><span class="line">sed <span class="string">&#x27;1i\New headline&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove empty lines</span></span><br><span class="line">sed <span class="string">&#x27;/^$/d&#x27;</span> file.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Grep-Advanced-Text-Search"><a href="#3-Grep-Advanced-Text-Search" class="headerlink" title="3. Grep: Advanced Text Search"></a>3. Grep: Advanced Text Search</h3><p>Grep enables complex text searching across files.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Search for pattern in files</span></span><br><span class="line">grep <span class="string">&quot;search_pattern&quot;</span> filename</span><br><span class="line"></span><br><span class="line"><span class="comment"># Recursive search in directory</span></span><br><span class="line">grep -R <span class="string">&quot;pattern&quot;</span> /path/to/directory</span><br><span class="line"></span><br><span class="line"><span class="comment"># Case-insensitive search</span></span><br><span class="line">grep -i <span class="string">&quot;pattern&quot;</span> filename</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show line numbers</span></span><br><span class="line">grep -n <span class="string">&quot;pattern&quot;</span> filename</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Awk-Text-Processing-Powerhouse"><a href="#4-Awk-Text-Processing-Powerhouse" class="headerlink" title="4. Awk: Text Processing Powerhouse"></a>4. Awk: Text Processing Powerhouse</h3><p>Awk excels at processing structured text data.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Print specific columns from CSV</span></span><br><span class="line">awk -F<span class="string">&#x27;,&#x27;</span> <span class="string">&#x27;&#123;print $2, $3&#125;&#x27;</span> data.csv</span><br><span class="line"></span><br><span class="line"><span class="comment"># Calculate column sum</span></span><br><span class="line">awk <span class="string">&#x27;&#123;sum+=$1&#125; END &#123;print sum&#125;&#x27;</span> numbers.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Complex filtering</span></span><br><span class="line">awk <span class="string">&#x27;$3 &gt; 50 &#123;print $1, $2&#125;&#x27;</span> data.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="Development-Environment-Configuration"><a href="#Development-Environment-Configuration" class="headerlink" title="Development Environment Configuration"></a>Development Environment Configuration</h2><h3 id="1-Version-Management"><a href="#1-Version-Management" class="headerlink" title="1. Version Management"></a>1. Version Management</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install NVM (Node Version Manager)</span></span><br><span class="line">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install Python Version Management</span></span><br><span class="line"><span class="built_in">sudo</span> apt install python3-pip</span><br><span class="line">pip3 install virtualenv</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Firewall-Configuration"><a href="#2-Firewall-Configuration" class="headerlink" title="2. Firewall Configuration"></a>2. Firewall Configuration</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Enable Ubuntu Firewall</span></span><br><span class="line"><span class="built_in">sudo</span> ufw <span class="built_in">enable</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Allow specific ports</span></span><br><span class="line"><span class="built_in">sudo</span> ufw allow 22/tcp   <span class="comment"># SSH</span></span><br><span class="line"><span class="built_in">sudo</span> ufw allow 80/tcp   <span class="comment"># HTTP</span></span><br><span class="line"><span class="built_in">sudo</span> ufw allow 443/tcp  <span class="comment"># HTTPS</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Security-Best-Practices"><a href="#Security-Best-Practices" class="headerlink" title="Security Best Practices"></a>Security Best Practices</h2><ol>
+<li><p><strong>Regular Updates</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Automatic security updates</span></span><br><span class="line"><span class="built_in">sudo</span> dpkg-reconfigure --priority=low unattended-upgrades</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>User Management</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Create development user</span></span><br><span class="line"><span class="built_in">sudo</span> adduser devuser</span><br><span class="line"></span><br><span class="line"><span class="comment"># Grant sudo privileges</span></span><br><span class="line"><span class="built_in">sudo</span> usermod -aG <span class="built_in">sudo</span> devuser</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Performance-Monitoring"><a href="#Performance-Monitoring" class="headerlink" title="Performance Monitoring"></a>Performance Monitoring</h2><h3 id="Essential-Monitoring-Tools"><a href="#Essential-Monitoring-Tools" class="headerlink" title="Essential Monitoring Tools"></a>Essential Monitoring Tools</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install monitoring utilities</span></span><br><span class="line"><span class="built_in">sudo</span> apt install htop iotop nethogs</span><br><span class="line"></span><br><span class="line"><span class="comment"># Real-time system monitoring</span></span><br><span class="line">htop</span><br><span class="line"></span><br><span class="line"><span class="comment"># Network traffic monitoring</span></span><br><span class="line">nethogs</span><br><span class="line"></span><br><span class="line"><span class="comment"># Disk I/O monitoring</span></span><br><span class="line">iotop</span><br></pre></td></tr></table></figure>
+
+<h2 id="Software-Development-Toolchain"><a href="#Software-Development-Toolchain" class="headerlink" title="Software Development Toolchain"></a>Software Development Toolchain</h2><h3 id="Integrated-Development-Environments-IDEs"><a href="#Integrated-Development-Environments-IDEs" class="headerlink" title="Integrated Development Environments (IDEs)"></a>Integrated Development Environments (IDEs)</h3><p>Ubuntu offers a robust selection of development environments for various programming languages and workflows:</p>
+<ol>
+<li><p><strong>Visual Studio Code</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install VS Code</span></span><br><span class="line">wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor &gt; packages.microsoft.gpg</span><br><span class="line"><span class="built_in">sudo</span> install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg</span><br><span class="line"><span class="built_in">sudo</span> sh -c <span class="string">&#x27;echo &quot;deb [arch=amd64 signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main&quot; &gt; /etc/apt/sources.list.d/vscode.list&#x27;</span></span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install code</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>JetBrains Toolbox</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Download and install JetBrains Toolbox</span></span><br><span class="line">wget https://download.jetbrains.com/toolbox/jetbrains-toolbox-latest.tar.gz</span><br><span class="line">tar -xzf jetbrains-toolbox-latest.tar.gz</span><br><span class="line">./jetbrains-toolbox</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Language-Specific-Development-Tools"><a href="#Language-Specific-Development-Tools" class="headerlink" title="Language-Specific Development Tools"></a>Language-Specific Development Tools</h3><h4 id="Python-Development"><a href="#Python-Development" class="headerlink" title="Python Development"></a>Python Development</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Python development environment</span></span><br><span class="line"><span class="built_in">sudo</span> apt install python3-dev python3-venv python3-pip</span><br><span class="line">pip3 install poetry  <span class="comment"># Dependency management</span></span><br><span class="line">pip3 install black flake8  <span class="comment"># Code formatting and linting</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Node-js-Development"><a href="#Node-js-Development" class="headerlink" title="Node.js Development"></a>Node.js Development</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Node.js and npm installation</span></span><br><span class="line">curl -fsSL https://deb.nodesource.com/setup_lts.x | <span class="built_in">sudo</span> -E bash -</span><br><span class="line"><span class="built_in">sudo</span> apt-get install -y nodejs</span><br><span class="line"><span class="built_in">sudo</span> npm install -g yarn nx  <span class="comment"># Package management and monorepo tools</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Golang-Development"><a href="#Golang-Development" class="headerlink" title="Golang Development"></a>Golang Development</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Go language installation</span></span><br><span class="line"><span class="built_in">sudo</span> add-apt-repository ppa:longsleep/golang-backports</span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install golang-go</span><br></pre></td></tr></table></figure>
+
+<h3 id="Containerization-and-Virtualization"><a href="#Containerization-and-Virtualization" class="headerlink" title="Containerization and Virtualization"></a>Containerization and Virtualization</h3><ol>
+<li><p><strong>Docker</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Docker installation</span></span><br><span class="line"><span class="built_in">sudo</span> apt-get update</span><br><span class="line"><span class="built_in">sudo</span> apt-get install ca-certificates curl gnupg</span><br><span class="line"><span class="built_in">sudo</span> install -m 0755 -d /etc/apt/keyrings</span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | <span class="built_in">sudo</span> gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> a+r /etc/apt/keyrings/docker.gpg</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add repository and install</span></span><br><span class="line"><span class="built_in">echo</span> \</span><br><span class="line">  <span class="string">&quot;deb [arch=&quot;</span>$(dpkg --print-architecture)<span class="string">&quot; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \</span></span><br><span class="line"><span class="string">  &quot;</span>$(. /etc/os-release &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$VERSION_CODENAME</span>&quot;</span>)<span class="string">&quot; stable&quot;</span> | \</span><br><span class="line">  <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br><span class="line"><span class="built_in">sudo</span> apt-get update</span><br><span class="line"><span class="built_in">sudo</span> apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Virtualization with KVM</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># KVM virtualization setup</span></span><br><span class="line"><span class="built_in">sudo</span> apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager</span><br><span class="line"><span class="built_in">sudo</span> usermod -aG libvirt <span class="variable">$USER</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Hardware-Development-Tools"><a href="#Hardware-Development-Tools" class="headerlink" title="Hardware Development Tools"></a>Hardware Development Tools</h2><h3 id="Embedded-Systems-and-Microcontrollers"><a href="#Embedded-Systems-and-Microcontrollers" class="headerlink" title="Embedded Systems and Microcontrollers"></a>Embedded Systems and Microcontrollers</h3><ol>
+<li><p><strong>Arduino Development</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Arduino IDE installation</span></span><br><span class="line"><span class="built_in">sudo</span> apt-add-repository ppa:arduino-team/ppa</span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install arduino</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Raspberry Pi Development</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Raspberry Pi development tools</span></span><br><span class="line"><span class="built_in">sudo</span> apt install raspberrypi-toolkit</span><br><span class="line"><span class="built_in">sudo</span> apt install rpi-imager</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Microcontroller Toolchains</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ARM GCC Toolchain</span></span><br><span class="line"><span class="built_in">sudo</span> apt install gcc-arm-none-eabi</span><br><span class="line"></span><br><span class="line"><span class="comment"># STM32 Development Tools</span></span><br><span class="line"><span class="built_in">sudo</span> apt install stm32cubemx</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Electronic-Design-Automation-EDA"><a href="#Electronic-Design-Automation-EDA" class="headerlink" title="Electronic Design Automation (EDA)"></a>Electronic Design Automation (EDA)</h3><ol>
+<li><p><strong>PCB Design</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># KiCad PCB design software</span></span><br><span class="line"><span class="built_in">sudo</span> add-apt-repository ppa:kicad/kicad-7.0-releases</span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install kicad</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Simulation Tools</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ngspice circuit simulator</span></span><br><span class="line"><span class="built_in">sudo</span> apt install ngspice</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Hardware-Diagnostics-and-Testing"><a href="#Hardware-Diagnostics-and-Testing" class="headerlink" title="Hardware Diagnostics and Testing"></a>Hardware Diagnostics and Testing</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># System and hardware information tools</span></span><br><span class="line"><span class="built_in">sudo</span> apt install hwinfo lshw stress memtester</span><br></pre></td></tr></table></figure>
+
+<h3 id="Version-Control-for-Hardware-Projects"><a href="#Version-Control-for-Hardware-Projects" class="headerlink" title="Version Control for Hardware Projects"></a>Version Control for Hardware Projects</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Git LFS for large binary files common in hardware projects</span></span><br><span class="line">curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | <span class="built_in">sudo</span> bash</span><br><span class="line"><span class="built_in">sudo</span> apt-get install git-lfs</span><br></pre></td></tr></table></figure>
+
+<h2 id="Continuous-Integration-and-Deployment"><a href="#Continuous-Integration-and-Deployment" class="headerlink" title="Continuous Integration and Deployment"></a>Continuous Integration and Deployment</h2><h3 id="CI-CD-Tools"><a href="#CI-CD-Tools" class="headerlink" title="CI&#x2F;CD Tools"></a>CI&#x2F;CD Tools</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># GitHub Actions Runner</span></span><br><span class="line"><span class="comment"># Download and configure from GitHub UI</span></span><br><span class="line"><span class="comment"># Jenkins</span></span><br><span class="line"><span class="built_in">sudo</span> apt install openjdk-11-jdk</span><br><span class="line">wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | <span class="built_in">sudo</span> apt-key add -</span><br><span class="line"><span class="built_in">sudo</span> sh -c <span class="string">&#x27;echo deb https://pkg.jenkins.io/debian-stable binary/ &gt; /etc/apt/sources.list.d/jenkins.list&#x27;</span></span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install jenkins</span><br></pre></td></tr></table></figure>
+
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Ubuntu provides a comprehensive, secure, and flexible environment for both software and hardware development. The ecosystem supports a wide range of development tools, from high-level software IDEs to embedded systems and electronic design platforms.</p>
+<p><strong>Recommended Next Steps:</strong></p>
+<ul>
+<li>Explore specialized development toolchains</li>
+<li>Set up comprehensive development environments</li>
+<li>Implement robust CI&#x2F;CD pipelines</li>
+<li>Continuously update system and tool knowledge</li>
+</ul>
+<h2 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h2><ul>
+<li>Ubuntu Official Documentation</li>
+<li>LinuxCNC for Hardware Development</li>
+<li>Embedded Linux Wiki</li>
+<li>Professional DevOps and Hardware Design Platforms</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/04/ubuntu-production-env/" data-id="cm49b891t00009cmx07qkhslt" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/12/04/uboot-s3c2440/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/12/04/ubuntu-introduction/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/04/linux-pci-intro/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/04/linux-usb-intro/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/04/linux-userspace-debug/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/04/linux-kernel-debug/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/04/linux-i2c-lm87/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 Zhang Peng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

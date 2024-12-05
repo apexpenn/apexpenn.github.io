@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Penn&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="A Comprehensive Introduction to Android and Its ArchitectureAndroid, developed by Google, is an open-source operating system primarily designed for mobile devices such as smartphones and tablets. Sinc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Penn&#39;s Blog">
+<meta property="og:url" content="https://apexpeng.github.io/2024/12/05/android-intro/index.html">
+<meta property="og:site_name" content="Penn&#39;s Blog">
+<meta property="og:description" content="A Comprehensive Introduction to Android and Its ArchitectureAndroid, developed by Google, is an open-source operating system primarily designed for mobile devices such as smartphones and tablets. Sinc">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-05T02:19:06.279Z">
+<meta property="article:modified_time" content="2019-12-05T05:00:31.113Z">
+<meta property="article:author" content="Zhang Peng">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Penn's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Penn&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://apexpeng.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-android-intro" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/05/android-intro/" class="article-date">
+  <time class="dt-published" datetime="2024-12-05T02:19:06.279Z" itemprop="datePublished">2024-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="A-Comprehensive-Introduction-to-Android-and-Its-Architecture"><a href="#A-Comprehensive-Introduction-to-Android-and-Its-Architecture" class="headerlink" title="A Comprehensive Introduction to Android and Its Architecture"></a>A Comprehensive Introduction to Android and Its Architecture</h1><p>Android, developed by Google, is an open-source operating system primarily designed for mobile devices such as smartphones and tablets. Since its inception in 2008, it has become the world’s most widely used mobile operating system, powering billions of devices globally. Android’s success lies in its flexibility, robust ecosystem, and strong developer support.</p>
+<p>This article will explore Android’s architecture and foundational concepts, with references to official documentation to provide a technical understanding of this versatile platform.</p>
+<hr>
+<h2 id="What-is-Android"><a href="#What-is-Android" class="headerlink" title="What is Android?"></a><strong>What is Android?</strong></h2><p>Android is an open-source platform built on the Linux kernel, designed to enable device manufacturers, developers, and users to create and interact with rich, customizable experiences. It provides the core components needed to create robust applications, including an application framework, libraries, and runtime.</p>
+<p>Android is not just limited to phones and tablets but extends to wearables, TVs, cars, and IoT devices, reflecting its scalability and modularity.</p>
+<hr>
+<h2 id="Android-Architecture"><a href="#Android-Architecture" class="headerlink" title="Android Architecture"></a><strong>Android Architecture</strong></h2><p>The architecture of Android is structured into layers, each serving distinct roles. Understanding these layers is key to grasping how Android operates and supports application development. The architecture comprises the following components:</p>
+<h3 id="1-Linux-Kernel"><a href="#1-Linux-Kernel" class="headerlink" title="1. Linux Kernel"></a><strong>1. Linux Kernel</strong></h3><p>At the base of the Android architecture is the Linux kernel. It provides core system services such as:</p>
+<ul>
+<li><strong>Memory and Process Management:</strong> Manages the allocation and execution of processes and threads.</li>
+<li><strong>Security:</strong> Implements a robust security model, including SELinux for enforcing policies.</li>
+<li><strong>Hardware Abstraction:</strong> Offers drivers for device hardware like display, camera, and sensors.</li>
+<li><strong>Power Management:</strong> Optimizes battery usage by managing resources efficiently.</li>
+</ul>
+<h3 id="2-Hardware-Abstraction-Layer-HAL"><a href="#2-Hardware-Abstraction-Layer-HAL" class="headerlink" title="2. Hardware Abstraction Layer (HAL)"></a><strong>2. Hardware Abstraction Layer (HAL)</strong></h3><p>The HAL serves as a bridge between the hardware and software layers. It provides standardized interfaces to allow Android to communicate with device-specific hardware, enabling developers to build hardware-agnostic applications.</p>
+<h3 id="3-Android-Runtime-ART"><a href="#3-Android-Runtime-ART" class="headerlink" title="3. Android Runtime (ART)"></a><strong>3. Android Runtime (ART)</strong></h3><p>The Android Runtime executes and manages applications. Key features of ART include:</p>
+<ul>
+<li><strong>Ahead-of-Time (AOT) Compilation:</strong> Translates code into native machine instructions for better performance.</li>
+<li><strong>Garbage Collection:</strong> Manages memory efficiently to prevent leaks and optimize resource use.</li>
+<li><strong>JNI (Java Native Interface):</strong> Facilitates the use of native C&#x2F;C++ code within Java-based applications.</li>
+</ul>
+<h3 id="4-Native-Libraries"><a href="#4-Native-Libraries" class="headerlink" title="4. Native Libraries"></a><strong>4. Native Libraries</strong></h3><p>Native libraries are written in C&#x2F;C++ and include essential components such as:</p>
+<ul>
+<li><strong>SQLite:</strong> Lightweight database management.</li>
+<li><strong>WebKit:</strong> Browser engine for rendering web content.</li>
+<li><strong>OpenGL ES:</strong> Graphics rendering API for 2D and 3D applications.</li>
+<li><strong>Media Libraries:</strong> Support for audio, video, and image processing.</li>
+</ul>
+<h3 id="5-Application-Framework"><a href="#5-Application-Framework" class="headerlink" title="5. Application Framework"></a><strong>5. Application Framework</strong></h3><p>The application framework provides APIs that developers use to build Android apps. Key components include:</p>
+<ul>
+<li><strong>Activity Manager:</strong> Manages the lifecycle of applications.</li>
+<li><strong>Resource Manager:</strong> Handles resources like UI layouts and strings.</li>
+<li><strong>Notification Manager:</strong> Enables alerts and notifications.</li>
+<li><strong>Content Providers:</strong> Facilitates data sharing between apps.</li>
+</ul>
+<h3 id="6-Applications"><a href="#6-Applications" class="headerlink" title="6. Applications"></a><strong>6. Applications</strong></h3><p>At the topmost layer are the user-installed and pre-installed applications. These include common apps like the phone dialer, messaging, and email, as well as third-party applications from the Google Play Store or other sources.</p>
+<hr>
+<h2 id="Basics-of-Android"><a href="#Basics-of-Android" class="headerlink" title="Basics of Android"></a><strong>Basics of Android</strong></h2><p>Understanding the basics of Android involves delving into its core principles and features, as outlined in the <a target="_blank" rel="noopener" href="https://source.android.com/docs/core">official Android documentation</a>.</p>
+<h3 id="1-Modularity-and-Customizability"><a href="#1-Modularity-and-Customizability" class="headerlink" title="1. Modularity and Customizability"></a><strong>1. Modularity and Customizability</strong></h3><p>Android is built with a modular architecture that allows device manufacturers to adapt the OS to their hardware while maintaining compatibility with the broader ecosystem. Modularity ensures that updates can target specific components without requiring a complete system upgrade.</p>
+<h3 id="2-Compatibility"><a href="#2-Compatibility" class="headerlink" title="2. Compatibility"></a><strong>2. Compatibility</strong></h3><p>The Compatibility Definition Document (CDD) and Compatibility Test Suite (CTS) ensure that devices adhere to a common standard. This guarantees that applications function consistently across different devices.</p>
+<h3 id="3-Security"><a href="#3-Security" class="headerlink" title="3. Security"></a><strong>3. Security</strong></h3><p>Android incorporates robust security measures at every level, from the kernel to the application sandbox. Key features include:</p>
+<ul>
+<li><strong>Application Sandboxing:</strong> Isolates applications to prevent unauthorized data access.</li>
+<li><strong>Permission System:</strong> Regulates access to sensitive device features like the camera and location.</li>
+<li><strong>Secure Boot:</strong> Ensures that only verified code runs on the device.</li>
+</ul>
+<h3 id="4-Open-Source"><a href="#4-Open-Source" class="headerlink" title="4. Open Source"></a><strong>4. Open Source</strong></h3><p>Android’s open-source nature enables a collaborative development environment. Developers can access the source code, modify it, and even contribute to the platform.</p>
+<h3 id="5-Update-Mechanisms"><a href="#5-Update-Mechanisms" class="headerlink" title="5. Update Mechanisms"></a><strong>5. Update Mechanisms</strong></h3><p>Android uses Project Treble to separate the OS framework from vendor-specific implementations, streamlining updates. This modular approach reduces fragmentation and accelerates the delivery of security patches and feature updates.</p>
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>Android’s architecture and foundational principles reflect its versatility and scalability. Its layered architecture, comprising the Linux kernel, HAL, ART, and application framework, ensures robust performance, security, and ease of development. By leveraging its open-source nature and modular design, Android continues to adapt to the evolving needs of the digital ecosystem, cementing its place as a cornerstone of modern mobile technology.</p>
+<p>For an in-depth understanding, developers and enthusiasts are encouraged to explore the official Android documentation at <a target="_blank" rel="noopener" href="https://source.android.com/">source.android.com</a>.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/05/android-intro/" data-id="cm4b1u7xa0005aomx4pu30sig" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/12/05/android-ril/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android Cellular Connectivity: RIL and Connection Management
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/12/04/linux-network-intro/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Understanding Linux Network Architecture: OSI Model, TCP/IP Stack, and Implementation Details</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/05/android-firewall/">Advanced Concepts in Android Firewall Using Iptables: Stateful vs Stateless Firewalls and Conntrack</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/android-video-IP/">Introduction to Android IP Protection Technologies</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/android-audio-dobly/">Technical Overview of Android Audio System</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/android-wifi-applicatin/">Understanding the Source Code of `Settings.apk`: Wi-Fi Features</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/android-wifi-arch/">Technical Overview of Android Wi-Fi System</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 Zhang Peng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

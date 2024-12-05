@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Technical Overview of Android Wi-Fi System | Penn&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Android’s Wi-Fi subsystem is a comprehensive implementation that includes low-level drivers, user-space daemons, and APIs for developers to leverage connectivity features. This article delves into And">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Technical Overview of Android Wi-Fi System">
+<meta property="og:url" content="https://apexpeng.github.io/2024/12/05/android-wifi-arch/index.html">
+<meta property="og:site_name" content="Penn&#39;s Blog">
+<meta property="og:description" content="Android’s Wi-Fi subsystem is a comprehensive implementation that includes low-level drivers, user-space daemons, and APIs for developers to leverage connectivity features. This article delves into And">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-05T05:46:12.562Z">
+<meta property="article:modified_time" content="2019-12-05T05:47:25.073Z">
+<meta property="article:author" content="Zhang Peng">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Penn's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Penn&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://apexpeng.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-android-wifi-arch" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/05/android-wifi-arch/" class="article-date">
+  <time class="dt-published" datetime="2024-12-05T05:46:12.562Z" itemprop="datePublished">2024-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Technical Overview of Android Wi-Fi System
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Android’s Wi-Fi subsystem is a comprehensive implementation that includes low-level drivers, user-space daemons, and APIs for developers to leverage connectivity features. This article delves into Android’s Wi-Fi architecture, capabilities, and the processes underpinning its operation, as well as the APIs available for development.</p>
+<hr>
+<h4 id="Wi-Fi-Architecture-in-Android"><a href="#Wi-Fi-Architecture-in-Android" class="headerlink" title="Wi-Fi Architecture in Android"></a><strong>Wi-Fi Architecture in Android</strong></h4><p>The Android Wi-Fi stack consists of several key components:</p>
+<ol>
+<li><p><strong>Kernel-Level Drivers</strong>:</p>
+<ul>
+<li>The low-level drivers communicate directly with Wi-Fi hardware.</li>
+<li>Android typically uses the mac80211 framework and cfg80211 for wireless networking, interfacing with hardware-specific drivers like ath10k or brcmfmac.</li>
+</ul>
+</li>
+<li><p><strong>HAL and WPA Supplicant</strong>:</p>
+<ul>
+<li>The Hardware Abstraction Layer (HAL) provides a bridge between the Android framework and kernel drivers.</li>
+<li>WPA Supplicant, a user-space daemon, manages Wi-Fi security and connectivity (e.g., WPA2&#x2F;3 authentication). Recent Android versions use the Wi-Fi HAL as an abstraction layer for the supplicant.</li>
+</ul>
+</li>
+<li><p><strong>Framework Services</strong>:</p>
+<ul>
+<li>Android frameworks handle Wi-Fi management and connectivity services (e.g., scanning, connecting, hotspot setup). These services interact with HAL and user-space components.</li>
+</ul>
+</li>
+<li><p><strong>Passpoint&#x2F;Hotspot 2.0 Support</strong>:</p>
+<ul>
+<li>Android supports Passpoint (802.11u) for seamless access to Wi-Fi networks. It uses features like Generic Advertisement Service (GAS) and Access Network Query Protocol (ANQP) to enable automatic network selection and authentication.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="Wi-Fi-Features-Available-to-Users"><a href="#Wi-Fi-Features-Available-to-Users" class="headerlink" title="Wi-Fi Features Available to Users"></a><strong>Wi-Fi Features Available to Users</strong></h4><p>Android’s Wi-Fi functionality includes:</p>
+<ul>
+<li><p><strong>Standard Connectivity</strong>:</p>
+<ul>
+<li>Join networks with various security protocols (e.g., WPA, WPA2, WPA3).</li>
+<li>Save and manage network credentials.</li>
+</ul>
+</li>
+<li><p><strong>Hotspot &amp; Tethering</strong>:</p>
+<ul>
+<li>Turn devices into Wi-Fi hotspots.</li>
+<li>Share data connections with other devices.</li>
+</ul>
+</li>
+<li><p><strong>Advanced Features</strong>:</p>
+<ul>
+<li>Wi-Fi Direct for peer-to-peer connectivity.</li>
+<li>Support for Wi-Fi Aware (neighbor-aware networking).</li>
+<li>Improved performance with WPA3 and Hotspot 2.0.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="Wi-Fi-Startup-Process"><a href="#Wi-Fi-Startup-Process" class="headerlink" title="Wi-Fi Startup Process"></a><strong>Wi-Fi Startup Process</strong></h4><ol>
+<li><strong>Driver Initialization</strong>:<ul>
+<li>On boot, kernel modules for Wi-Fi hardware are loaded.</li>
+</ul>
+</li>
+<li><strong>HAL and WPA Supplicant</strong>:<ul>
+<li>The HAL interacts with the supplicant to initialize configuration and manage hardware communication.</li>
+</ul>
+</li>
+<li><strong>Framework Initialization</strong>:<ul>
+<li>Android’s <code>WifiManager</code> and <code>WifiService</code> start and handle user-level interactions and APIs.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="Low-Level-Wi-Fi-Driver-Techniques"><a href="#Low-Level-Wi-Fi-Driver-Techniques" class="headerlink" title="Low-Level Wi-Fi Driver Techniques"></a><strong>Low-Level Wi-Fi Driver Techniques</strong></h4><ul>
+<li>Android leverages Linux kernel features like Netlink sockets for communication between the user-space and kernel-space.</li>
+<li>Wireless drivers use the cfg80211 subsystem for configuration, and the mac80211 stack handles packet processing.</li>
+</ul>
+<hr>
+<h4 id="Developer-APIs"><a href="#Developer-APIs" class="headerlink" title="Developer APIs"></a><strong>Developer APIs</strong></h4><p>Developers can use the following key APIs in Android to manage Wi-Fi functionality:</p>
+<ol>
+<li><p><strong><code>WifiManager</code></strong>:</p>
+<ul>
+<li>Provides methods to scan for networks, connect, disconnect, and retrieve network information.</li>
+<li>Example: <code>startScan()</code>, <code>getConnectionInfo()</code>.</li>
+</ul>
+</li>
+<li><p><strong><code>WifiP2pManager</code></strong>:</p>
+<ul>
+<li>Enables peer-to-peer connectivity using Wi-Fi Direct.</li>
+</ul>
+</li>
+<li><p><strong><code>WifiAwareManager</code></strong>:</p>
+<ul>
+<li>Manages Wi-Fi Aware operations, enabling devices to discover and communicate directly without an access point.</li>
+</ul>
+</li>
+<li><p><strong>Network Connectivity APIs</strong>:</p>
+<ul>
+<li><code>ConnectivityManager</code> provides methods to monitor and manage active network connections.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="WPA-Supplicant-and-Protocols"><a href="#WPA-Supplicant-and-Protocols" class="headerlink" title="WPA Supplicant and Protocols"></a><strong>WPA Supplicant and Protocols</strong></h4><ul>
+<li>WPA Supplicant plays a vital role in network authentication and supports protocols like EAP (Extensible Authentication Protocol) for secure access.</li>
+<li>Android HAL uses HIDL or AIDL interfaces to interact with the supplicant based on Android versions.</li>
+</ul>
+<hr>
+<h4 id="Sample-Code-for-Scanning-Wi-Fi-Networks"><a href="#Sample-Code-for-Scanning-Wi-Fi-Networks" class="headerlink" title="Sample Code for Scanning Wi-Fi Networks"></a><strong>Sample Code for Scanning Wi-Fi Networks</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">WifiManager</span> <span class="variable">wifiManager</span> <span class="operator">=</span> (WifiManager) getSystemService(Context.WIFI_SERVICE);</span><br><span class="line">wifiManager.startScan();</span><br><span class="line">List&lt;ScanResult&gt; results = wifiManager.getScanResults();</span><br><span class="line"><span class="keyword">for</span> (ScanResult result : results) &#123;</span><br><span class="line">    Log.d(<span class="string">&quot;WiFiScan&quot;</span>, <span class="string">&quot;SSID: &quot;</span> + result.SSID + <span class="string">&quot;, RSSI: &quot;</span> + result.level);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h4><p>The Android Wi-Fi subsystem is a robust platform for connectivity, offering a rich set of APIs and underlying mechanisms to ensure secure and seamless network management. By understanding its architecture and using the provided APIs, developers can build applications leveraging cutting-edge Wi-Fi capabilities.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/05/android-wifi-arch/" data-id="cm4b1u7xc0009aomxdmlp6btq" data-title="Technical Overview of Android Wi-Fi System" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/12/05/android-wifi-applicatin/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Understanding the Source Code of `Settings.apk`: Wi-Fi Features
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/12/05/android-bt/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">A Technical Overview of Android Bluetooth System</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/05/android-firewall/">Advanced Concepts in Android Firewall Using Iptables: Stateful vs Stateless Firewalls and Conntrack</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/android-video-IP/">Introduction to Android IP Protection Technologies</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/android-audio-dobly/">Technical Overview of Android Audio System</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/android-wifi-applicatin/">Understanding the Source Code of `Settings.apk`: Wi-Fi Features</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/android-wifi-arch/">Technical Overview of Android Wi-Fi System</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 Zhang Peng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

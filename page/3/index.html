@@ -71,6 +71,408 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-linux-i2c-lm87" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/04/linux-i2c-lm87/" class="article-date">
+  <time class="dt-published" datetime="2024-12-04T07:11:29.040Z" itemprop="datePublished">2024-12-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/04/linux-i2c-lm87/">Understanding Linux I2C, SMBus, and Platform Subsystems: A Comprehensive Guide</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Linux provides a robust framework for hardware interaction, enabling developers to write device drivers for various subsystems. This article explores the Linux I2C (Inter-Integrated Circuit), SMBus (System Management Bus), and platform subsystems, providing an overview of their architecture and implementation. We also introduce <code>sysfs</code> for hardware monitoring and show a practical example of an I2C sensor driver.</p>
+<hr>
+<h2 id="Introduction-to-Linux-I2C-and-SMBus"><a href="#Introduction-to-Linux-I2C-and-SMBus" class="headerlink" title="Introduction to Linux I2C and SMBus"></a><strong>Introduction to Linux I2C and SMBus</strong></h2><h3 id="I2C-Overview"><a href="#I2C-Overview" class="headerlink" title="I2C Overview"></a><strong>I2C Overview</strong></h3><p>The I2C protocol is a simple, efficient, and widely used bus protocol for communication between a master device (e.g., microcontroller) and multiple slave devices (e.g., sensors, EEPROMs). I2C operates using two bidirectional lines:</p>
+<ul>
+<li><strong>SDA (Serial Data Line)</strong>: For data transfer.</li>
+<li><strong>SCL (Serial Clock Line)</strong>: For clock synchronization.</li>
+</ul>
+<p>The Linux kernel provides a standardized framework to implement I2C bus and device drivers.</p>
+<h3 id="SMBus-Overview"><a href="#SMBus-Overview" class="headerlink" title="SMBus Overview"></a><strong>SMBus Overview</strong></h3><p>SMBus, built atop the I2C protocol, is specifically designed for system management tasks, such as monitoring voltages, temperatures, and fan speeds. It supports stricter timing and message formatting requirements compared to I2C, ensuring compatibility with system management devices.</p>
+<hr>
+<h2 id="Sysfs-in-the-Linux-Kernel"><a href="#Sysfs-in-the-Linux-Kernel" class="headerlink" title="Sysfs in the Linux Kernel"></a><strong>Sysfs in the Linux Kernel</strong></h2><p><code>sysfs</code> is a virtual filesystem in Linux, providing a user-space interface to kernel objects and their attributes. For hardware devices:</p>
+<ul>
+<li><code>sysfs</code> exposes attributes in <code>/sys/class</code> or <code>/sys/devices</code>.</li>
+<li>It enables user-space applications to query or modify hardware settings.</li>
+</ul>
+<p>For example, the <code>hwmon</code> subsystem uses <code>sysfs</code> to expose sensor readings like temperature, voltage, and fan speed.</p>
+<hr>
+<h2 id="Platform-Subsystem-in-Linux"><a href="#Platform-Subsystem-in-Linux" class="headerlink" title="Platform Subsystem in Linux"></a><strong>Platform Subsystem in Linux</strong></h2><p>The <strong>platform subsystem</strong> is used for devices integrated directly into the system’s motherboard or SoC. Unlike hot-pluggable buses like USB, platform devices are usually initialized during boot.</p>
+<ul>
+<li><strong>Platform Device</strong>: Represents the hardware component.</li>
+<li><strong>Platform Driver</strong>: Interfaces with the platform device, enabling kernel interaction.</li>
+</ul>
+<p>Platform devices and drivers communicate via platform data, often defined in the Device Tree or ACPI tables.</p>
+<hr>
+<h2 id="hwmon-Subsystem"><a href="#hwmon-Subsystem" class="headerlink" title="hwmon Subsystem"></a><strong>hwmon Subsystem</strong></h2><p>The <code>hwmon</code> (Hardware Monitoring) subsystem is responsible for monitoring system hardware like temperatures, voltages, and fan speeds. It uses:</p>
+<ul>
+<li><strong>I2C or SMBus drivers</strong> to read sensor data.</li>
+<li><strong>sysfs</strong> to expose readings to user-space.</li>
+</ul>
+<hr>
+<h2 id="Writing-an-I2C-Driver"><a href="#Writing-an-I2C-Driver" class="headerlink" title="Writing an I2C Driver"></a><strong>Writing an I2C Driver</strong></h2><h3 id="I2C-Bus-Driver"><a href="#I2C-Bus-Driver" class="headerlink" title="I2C Bus Driver"></a><strong>I2C Bus Driver</strong></h3><p>The bus driver manages the physical I2C controller. A basic I2C adapter registration looks like this:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/i2c.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">i2c_adapter</span> <span class="title">my_i2c_adapter</span> =</span> &#123;</span><br><span class="line">    .owner = THIS_MODULE,</span><br><span class="line">    .name = <span class="string">&quot;my_i2c_adapter&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> __init <span class="title function_">my_i2c_bus_init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> i2c_add_adapter(&amp;my_i2c_adapter);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> __exit <span class="title function_">my_i2c_bus_exit</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    i2c_del_adapter(&amp;my_i2c_adapter);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module_init(my_i2c_bus_init);</span><br><span class="line">module_exit(my_i2c_bus_exit);</span><br><span class="line"></span><br><span class="line">MODULE_AUTHOR(<span class="string">&quot;Author&quot;</span>);</span><br><span class="line">MODULE_LICENSE(<span class="string">&quot;GPL&quot;</span>);</span><br><span class="line">MODULE_DESCRIPTION(<span class="string">&quot;Basic I2C Bus Driver&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="I2C-Device-Driver"><a href="#I2C-Device-Driver" class="headerlink" title="I2C Device Driver"></a><strong>I2C Device Driver</strong></h3><p>The device driver communicates with the specific I2C slave device. A typical implementation includes probing the device and defining read&#x2F;write functions.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/i2c.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">my_i2c_probe</span><span class="params">(<span class="keyword">struct</span> i2c_client *client, <span class="type">const</span> <span class="keyword">struct</span> i2c_device_id *id)</span></span><br><span class="line">&#123;</span><br><span class="line">    pr_info(<span class="string">&quot;Probing device: %s\n&quot;</span>, client-&gt;name);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">my_i2c_remove</span><span class="params">(<span class="keyword">struct</span> i2c_client *client)</span></span><br><span class="line">&#123;</span><br><span class="line">    pr_info(<span class="string">&quot;Removing device: %s\n&quot;</span>, client-&gt;name);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">i2c_device_id</span> <span class="title">my_i2c_id</span>[] =</span> &#123;</span><br><span class="line">    &#123;<span class="string">&quot;my_device&quot;</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">i2c_driver</span> <span class="title">my_i2c_driver</span> =</span> &#123;</span><br><span class="line">    .driver = &#123;</span><br><span class="line">        .name = <span class="string">&quot;my_i2c_driver&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    .probe = my_i2c_probe,</span><br><span class="line">    .remove = my_i2c_remove,</span><br><span class="line">    .id_table = my_i2c_id,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">module_i2c_driver(my_i2c_driver);</span><br><span class="line"></span><br><span class="line">MODULE_AUTHOR(<span class="string">&quot;Author&quot;</span>);</span><br><span class="line">MODULE_LICENSE(<span class="string">&quot;GPL&quot;</span>);</span><br><span class="line">MODULE_DESCRIPTION(<span class="string">&quot;Basic I2C Device Driver&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Example-I2C-Sensor-Driver-LM87"><a href="#Example-I2C-Sensor-Driver-LM87" class="headerlink" title="Example: I2C Sensor Driver (LM87)"></a><strong>Example: I2C Sensor Driver (LM87)</strong></h2><p>The <a target="_blank" rel="noopener" href="https://android.googlesource.com/kernel/common/+/refs/heads/android-mainline/drivers/hwmon/lm87.c">LM87</a> driver is an excellent example of integrating an I2C sensor with the <code>hwmon</code> subsystem.</p>
+<h3 id="Key-Functions-in-lm87-c"><a href="#Key-Functions-in-lm87-c" class="headerlink" title="Key Functions in lm87.c"></a><strong>Key Functions in <code>lm87.c</code></strong></h3><h4 id="1-Probe-Function"><a href="#1-Probe-Function" class="headerlink" title="1. Probe Function"></a>1. <strong>Probe Function</strong></h4><p>Registers the device with the <code>hwmon</code> subsystem:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">lm87_probe</span><span class="params">(<span class="keyword">struct</span> i2c_client *client)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Initialization and hardware setup</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    hwmon_device_register_with_info(client-&gt;dev, <span class="string">&quot;lm87&quot;</span>, data, &amp;lm87_chip_info, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-Sysfs-Interface"><a href="#2-Sysfs-Interface" class="headerlink" title="2. Sysfs Interface"></a>2. <strong>Sysfs Interface</strong></h4><p>Exposes sensor data through <code>sysfs</code>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">show_temp_input</span><span class="params">(<span class="keyword">struct</span> device *dev, <span class="keyword">struct</span> device_attribute *attr, <span class="type">char</span> *buf)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Read temperature from sensor</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sprintf</span>(buf, <span class="string">&quot;%d\n&quot;</span>, temp_value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-Device-Initialization"><a href="#3-Device-Initialization" class="headerlink" title="3. Device Initialization"></a>3. <strong>Device Initialization</strong></h4><p>Defines the I2C client and ID table:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">i2c_device_id</span> <span class="title">lm87_id</span>[] =</span> &#123;</span><br><span class="line">    &#123; <span class="string">&quot;lm87&quot;</span>, <span class="number">0</span> &#125;,</span><br><span class="line">    &#123; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">i2c_driver</span> <span class="title">lm87_driver</span> =</span> &#123;</span><br><span class="line">    .driver = &#123;</span><br><span class="line">        .name   = <span class="string">&quot;lm87&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    .probe      = lm87_probe,</span><br><span class="line">    .id_table   = lm87_id,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">module_i2c_driver(lm87_driver);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>The Linux I2C, SMBus, and platform subsystems provide a robust framework for hardware monitoring and device driver development. The <code>lm87.c</code> driver demonstrates effective use of these subsystems, enabling developers to integrate I2C sensors seamlessly. Understanding these components equips developers to write efficient and maintainable drivers for a variety of devices.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/04/linux-i2c-lm87/" data-id="cm4ccjlwl000ft4mxfuiiag7k" data-title="Understanding Linux I2C, SMBus, and Platform Subsystems: A Comprehensive Guide" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-linux-input-subsystem" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/04/linux-input-subsystem/" class="article-date">
+  <time class="dt-published" datetime="2024-12-04T07:03:03.095Z" itemprop="datePublished">2024-12-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/04/linux-input-subsystem/">Exploring the Linux Input System: Events, Key Management, Touchscreens, and Sensor Integration</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>The Linux input subsystem is a robust framework for handling input devices such as keyboards, mice, touchscreens, and sensors. This article delves into the architecture and functionality of the Linux input system, covering events, key management, touchscreen handling, and sensor integration. We’ll also explore how Linux interfaces with hardware buses like I²C, SPI, and ADC&#x2F;DAC, complemented by reference code examples.</p>
+<hr>
+<h2 id="1-Understanding-the-Linux-Input-Event-System"><a href="#1-Understanding-the-Linux-Input-Event-System" class="headerlink" title="1. Understanding the Linux Input Event System"></a><strong>1. Understanding the Linux Input Event System</strong></h2><h3 id="What-Is-an-Event-in-Linux"><a href="#What-Is-an-Event-in-Linux" class="headerlink" title="What Is an Event in Linux?"></a>What Is an Event in Linux?</h3><p>An <strong>event</strong> in the Linux input system represents an input action. For example:</p>
+<ul>
+<li>A key press on a keyboard generates a <code>KEY_PRESS</code> event.</li>
+<li>A touchscreen tap produces <code>ABS</code> (absolute position) events.</li>
+<li>Sensor data updates trigger events for user-space applications.</li>
+</ul>
+<h3 id="How-Events-Are-Generated-and-Delivered"><a href="#How-Events-Are-Generated-and-Delivered" class="headerlink" title="How Events Are Generated and Delivered"></a>How Events Are Generated and Delivered</h3><p>The Linux kernel manages events using the <strong>event device interface</strong> (<code>/dev/input/eventX</code>). Events are represented as structures of type <code>input_event</code> in <code>linux/input.h</code>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">input_event</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">time</span>;</span>  <span class="comment">// Timestamp</span></span><br><span class="line">    __u16 type;           <span class="comment">// Event type (e.g., EV_KEY, EV_ABS)</span></span><br><span class="line">    __u16 code;           <span class="comment">// Event code (specific key or axis)</span></span><br><span class="line">    __s32 value;          <span class="comment">// Event value (pressed/released or position)</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p><strong>Event Generation</strong>  </p>
+<ul>
+<li>A driver populates an <code>input_event</code> structure and calls <code>input_event()</code> or <code>input_sync()</code> to propagate the event.</li>
+<li>Example: A key press might call:</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">input_event(dev, EV_KEY, KEY_A, <span class="number">1</span>); <span class="comment">// Press &#x27;A&#x27;</span></span><br><span class="line">input_sync(dev);                   <span class="comment">// Sync the event</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Event Delivery</strong>  </p>
+<ul>
+<li>Events are written to <code>/dev/input/eventX</code> and can be read by user-space applications.</li>
+<li>Use the <strong>evdev</strong> interface in user-space to read events.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="2-Linux-Key-Management-System"><a href="#2-Linux-Key-Management-System" class="headerlink" title="2. Linux Key Management System"></a><strong>2. Linux Key Management System</strong></h2><p>Linux manages keyboard input through the <strong>key management system</strong>, handling actions like key presses and releases. Keycodes are mapped to specific actions using <strong>keymaps</strong>.</p>
+<h3 id="Implementing-Key-Events"><a href="#Implementing-Key-Events" class="headerlink" title="Implementing Key Events"></a>Implementing Key Events</h3><p>Example: A keyboard driver generating a key event:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/input.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">example_key_event</span><span class="params">(<span class="keyword">struct</span> input_dev *dev)</span> &#123;</span><br><span class="line">    input_event(dev, EV_KEY, KEY_A, <span class="number">1</span>); <span class="comment">// Key A pressed</span></span><br><span class="line">    input_sync(dev);                   <span class="comment">// Synchronize event</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reading-Key-Events-in-User-Space"><a href="#Reading-Key-Events-in-User-Space" class="headerlink" title="Reading Key Events in User Space"></a>Reading Key Events in User Space</h3><p>In user space, use the <strong>evdev API</strong> to read key events:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/input.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">input_event</span> <span class="title">ev</span>;</span></span><br><span class="line">    <span class="type">int</span> fd = open(<span class="string">&quot;/dev/input/event0&quot;</span>, O_RDONLY);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (fd &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Failed to open event device&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (read(fd, &amp;ev, <span class="keyword">sizeof</span>(ev)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Event type: %d, code: %d, value: %d\n&quot;</span>, ev.type, ev.code, ev.value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    close(fd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-Touchscreen-Management-in-Linux"><a href="#3-Touchscreen-Management-in-Linux" class="headerlink" title="3. Touchscreen Management in Linux"></a><strong>3. Touchscreen Management in Linux</strong></h2><p>Touchscreens use the <strong>absolute position (EV_ABS)</strong> event type to report x&#x2F;y coordinates, pressure, and multitouch gestures.</p>
+<h3 id="Handling-Touch-Events-in-a-Driver"><a href="#Handling-Touch-Events-in-a-Driver" class="headerlink" title="Handling Touch Events in a Driver"></a>Handling Touch Events in a Driver</h3><p>Touchscreen drivers report events using <code>EV_ABS</code>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/input.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">report_touch</span><span class="params">(<span class="keyword">struct</span> input_dev *dev, <span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> pressure)</span> &#123;</span><br><span class="line">    input_event(dev, EV_ABS, ABS_X, x);</span><br><span class="line">    input_event(dev, EV_ABS, ABS_Y, y);</span><br><span class="line">    input_event(dev, EV_ABS, ABS_PRESSURE, pressure);</span><br><span class="line">    input_sync(dev);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reading-Touch-Events"><a href="#Reading-Touch-Events" class="headerlink" title="Reading Touch Events"></a>Reading Touch Events</h3><p>Use <code>evdev</code> to capture touch events:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">input_event</span> <span class="title">ev</span>;</span></span><br><span class="line"><span class="keyword">while</span> (read(fd, &amp;ev, <span class="keyword">sizeof</span>(ev)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ev.type == EV_ABS) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;ABS event: code=%d, value=%d\n&quot;</span>, ev.code, ev.value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="4-Sensor-Integration-in-Linux"><a href="#4-Sensor-Integration-in-Linux" class="headerlink" title="4. Sensor Integration in Linux"></a><strong>4. Sensor Integration in Linux</strong></h2><p>Sensors (e.g., temperature, accelerometers) often connect via I²C, SPI, or ADC&#x2F;DAC. Linux supports sensors through the <strong>Industrial I&#x2F;O (IIO)</strong> subsystem or custom drivers.</p>
+<h3 id="I²C-Example-Reading-Sensor-Data"><a href="#I²C-Example-Reading-Sensor-Data" class="headerlink" title="I²C Example: Reading Sensor Data"></a>I²C Example: Reading Sensor Data</h3><p>An I²C-based driver might communicate with a temperature sensor:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/i2c.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">read_sensor</span><span class="params">(<span class="keyword">struct</span> i2c_client *client)</span> &#123;</span><br><span class="line">    u8 buf[<span class="number">2</span>];</span><br><span class="line">    <span class="type">int</span> ret = i2c_master_recv(client, buf, <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">if</span> (ret &lt; <span class="number">0</span>) <span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> temp = (buf[<span class="number">0</span>] &lt;&lt; <span class="number">8</span>) | buf[<span class="number">1</span>]; <span class="comment">// Combine bytes</span></span><br><span class="line">    <span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="SPI-Example-Writing-to-a-Sensor"><a href="#SPI-Example-Writing-to-a-Sensor" class="headerlink" title="SPI Example: Writing to a Sensor"></a>SPI Example: Writing to a Sensor</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/spi/spi.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">write_sensor</span><span class="params">(<span class="keyword">struct</span> spi_device *spi, u8 reg, u8 value)</span> &#123;</span><br><span class="line">    u8 tx_buf[<span class="number">2</span>] = &#123; reg, value &#125;;</span><br><span class="line">    <span class="keyword">return</span> spi_write(spi, tx_buf, <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ADC-DAC-for-Analog-Sensors"><a href="#ADC-DAC-for-Analog-Sensors" class="headerlink" title="ADC&#x2F;DAC for Analog Sensors"></a>ADC&#x2F;DAC for Analog Sensors</h3><p>For sensors with analog output, the kernel’s IIO subsystem handles ADC sampling. Configure the ADC driver to provide sensor values in <code>/sys/bus/iio</code>.</p>
+<hr>
+<h2 id="5-Using-Events-to-Manage-Sensors"><a href="#5-Using-Events-to-Manage-Sensors" class="headerlink" title="5. Using Events to Manage Sensors"></a><strong>5. Using Events to Manage Sensors</strong></h2><p>Sensors can trigger events when thresholds are exceeded, using the <code>input_event</code> API or dedicated mechanisms like GPIO interrupts.</p>
+<h3 id="Example-Event-Based-Temperature-Alert"><a href="#Example-Event-Based-Temperature-Alert" class="headerlink" title="Example: Event-Based Temperature Alert"></a>Example: Event-Based Temperature Alert</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">handle_temp_event</span><span class="params">(<span class="keyword">struct</span> input_dev *dev, <span class="type">int</span> temp)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (temp &gt; THRESHOLD) &#123;</span><br><span class="line">        input_event(dev, EV_MSC, MSC_SERIAL, temp); <span class="comment">// Report temperature</span></span><br><span class="line">        input_sync(dev);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>User space can read and act on these events as described above.</p>
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>The Linux input system is highly versatile, enabling developers to handle various input sources, from traditional keyboards to advanced sensors. By leveraging the event-driven architecture, key management, and integration with buses like I²C and SPI, developers can create powerful, responsive applications. Whether you’re managing a touchscreen or an industrial sensor network, understanding these core concepts ensures seamless input handling in Linux systems. </p>
+<p>For further exploration, consult the Linux kernel documentation and experiment with the provided code examples!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/04/linux-input-subsystem/" data-id="cm4ccjlwm000gt4mxba1vfd1v" data-title="Exploring the Linux Input System: Events, Key Management, Touchscreens, and Sensor Integration" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-linux-devicedriver-intro" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/04/linux-devicedriver-intro/" class="article-date">
+  <time class="dt-published" datetime="2024-12-04T07:02:24.977Z" itemprop="datePublished">2024-12-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/04/linux-devicedriver-intro/">Linux Device Driver Introduction</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction-to-the-Linux-Kernel-Ecosystem"><a href="#Introduction-to-the-Linux-Kernel-Ecosystem" class="headerlink" title="Introduction to the Linux Kernel Ecosystem"></a>Introduction to the Linux Kernel Ecosystem</h2><p>The Linux kernel represents a complex and powerful operating system core that serves as the fundamental interface between computer hardware and software applications. As an open-source marvel, it manages system resources, provides essential services, and enables the seamless operation of diverse hardware configurations.</p>
+<h2 id="System-Startup-From-U-Boot-to-Linux-Kernel-Initialization"><a href="#System-Startup-From-U-Boot-to-Linux-Kernel-Initialization" class="headerlink" title="System Startup: From U-Boot to Linux Kernel Initialization"></a>System Startup: From U-Boot to Linux Kernel Initialization</h2><h3 id="U-Boot-The-Initial-Bootloader"><a href="#U-Boot-The-Initial-Bootloader" class="headerlink" title="U-Boot: The Initial Bootloader"></a>U-Boot: The Initial Bootloader</h3><p>U-Boot (Universal Bootloader) plays a crucial role in the system startup process, especially in embedded systems and various hardware platforms. Its primary responsibilities include:</p>
+<ol>
+<li><p><strong>Hardware Initialization</strong>: U-Boot initializes critical hardware components, including:</p>
+<ul>
+<li>CPU configuration</li>
+<li>Memory controller setup</li>
+<li>Basic peripheral initialization</li>
+</ul>
+</li>
+<li><p><strong>Image Loading</strong>: It loads the Linux kernel image from various storage mediums such as:</p>
+<ul>
+<li>Flash memory</li>
+<li>SD cards</li>
+<li>Network boot (TFTP)</li>
+<li>USB storage</li>
+</ul>
+</li>
+<li><p><strong>Environment Configuration</strong>: U-Boot sets up essential boot parameters, including:</p>
+<ul>
+<li>Kernel load address</li>
+<li>Command-line arguments</li>
+<li>Device tree blob location</li>
+</ul>
+</li>
+</ol>
+<h3 id="Linux-Kernel-Startup-Process"><a href="#Linux-Kernel-Startup-Process" class="headerlink" title="Linux Kernel Startup Process"></a>Linux Kernel Startup Process</h3><p>The Linux kernel initialization is a multi-stage process that transforms the system from a dormant state to a fully operational environment:</p>
+<ol>
+<li><p><strong>Kernel Entry Point</strong></p>
+<ul>
+<li>The kernel begins execution at its entry point defined in the architecture-specific startup code</li>
+<li>Switches to supervisor mode</li>
+<li>Sets up initial page tables</li>
+<li>Configures CPU-specific features</li>
+</ul>
+</li>
+<li><p><strong>Early Initialization</strong></p>
+<ul>
+<li>Validates and sets up memory management</li>
+<li>Initializes essential data structures</li>
+<li>Configures processor-specific features</li>
+<li>Sets up interrupt handling mechanisms</li>
+</ul>
+</li>
+<li><p><strong>Architecture-Independent Initialization</strong></p>
+<ul>
+<li>Mounts the initial RAM disk (initrd)</li>
+<li>Starts the first user-space process (typically systemd)</li>
+<li>Completes device and module initialization</li>
+</ul>
+</li>
+</ol>
+<h2 id="Virtual-Filesystem-VFS-in-Linux-Kernel"><a href="#Virtual-Filesystem-VFS-in-Linux-Kernel" class="headerlink" title="Virtual Filesystem (VFS) in Linux Kernel"></a>Virtual Filesystem (VFS) in Linux Kernel</h2><h3 id="Virtual-Filesystem-Concept"><a href="#Virtual-Filesystem-Concept" class="headerlink" title="Virtual Filesystem Concept"></a>Virtual Filesystem Concept</h3><p>The Virtual Filesystem (VFS) is a crucial abstraction layer in the Linux kernel that provides a unified interface for multiple filesystem types. It acts as an intermediary between user-space applications and various filesystem implementations.</p>
+<h4 id="Key-VFS-Abstractions"><a href="#Key-VFS-Abstractions" class="headerlink" title="Key VFS Abstractions"></a>Key VFS Abstractions</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">vfs_operations</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dentry</span> * (*<span class="title">lookup</span>) (<span class="keyword">struct</span> <span class="title">inode</span> *, <span class="keyword">struct</span> <span class="title">dentry</span> *, <span class="title">unsigned</span> <span class="title">int</span>);</span></span><br><span class="line">    <span class="type">int</span> (*create) (<span class="keyword">struct</span> inode *, <span class="keyword">struct</span> dentry *, <span class="type">umode_t</span>, <span class="type">bool</span>);</span><br><span class="line">    <span class="type">int</span> (*mkdir) (<span class="keyword">struct</span> inode *, <span class="keyword">struct</span> dentry *, <span class="type">umode_t</span>);</span><br><span class="line">    <span class="type">ssize_t</span> (*read) (<span class="keyword">struct</span> file *, <span class="type">char</span> __user *, <span class="type">size_t</span>, <span class="type">loff_t</span> *);</span><br><span class="line">    <span class="type">ssize_t</span> (*write) (<span class="keyword">struct</span> file *, <span class="type">const</span> <span class="type">char</span> __user *, <span class="type">size_t</span>, <span class="type">loff_t</span> *);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">file_system_type</span> &#123;</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *name;</span><br><span class="line">    <span class="type">int</span> fs_flags;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dentry</span> *(*<span class="title">mount</span>) (<span class="keyword">struct</span> <span class="title">file_system_type</span> *, <span class="title">int</span>, </span></span><br><span class="line"><span class="class">                              <span class="title">const</span> <span class="title">char</span> *, <span class="title">void</span> *);</span></span><br><span class="line">    <span class="type">void</span> (*kill_sb) (<span class="keyword">struct</span> super_block *);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="VFS-Integration-with-Linux-Kernel"><a href="#VFS-Integration-with-Linux-Kernel" class="headerlink" title="VFS Integration with Linux Kernel"></a>VFS Integration with Linux Kernel</h3><p>The VFS provides a common interface for:</p>
+<ol>
+<li>File operations across different filesystem types</li>
+<li>Filesystem-independent file handling</li>
+<li>Unified system call implementation</li>
+</ol>
+<h2 id="Linux-Device-Driver-Fundamentals"><a href="#Linux-Device-Driver-Fundamentals" class="headerlink" title="Linux Device Driver Fundamentals"></a>Linux Device Driver Fundamentals</h2><h3 id="Device-Driver-Classification"><a href="#Device-Driver-Classification" class="headerlink" title="Device Driver Classification"></a>Device Driver Classification</h3><p>Linux supports three primary types of device drivers:</p>
+<ol>
+<li><p><strong>Character Device Drivers</strong></p>
+<ul>
+<li>Handle data streams as sequential character sequences</li>
+<li>Support operations like read(), write(), open(), close()</li>
+<li>Examples: Serial ports, keyboards, sound cards</li>
+<li>Implemented using <code>struct cdev</code></li>
+<li>Key operations managed through file operations structure</li>
+</ul>
+</li>
+<li><p><strong>Block Device Drivers</strong></p>
+<ul>
+<li>Manage block-oriented storage devices</li>
+<li>Support random access to fixed-size blocks</li>
+<li>Examples: Hard drives, SSDs, RAM disks</li>
+<li>Utilize block I&#x2F;O request queue mechanisms</li>
+<li>Implement advanced caching and optimization strategies</li>
+</ul>
+</li>
+<li><p><strong>Network Device Drivers</strong></p>
+<ul>
+<li>Manage network interface communication</li>
+<li>Handle packet transmission and reception</li>
+<li>Implement protocol-specific communication layers</li>
+<li>Utilize Linux networking stack abstractions</li>
+<li>Provide standard network interface operations</li>
+</ul>
+</li>
+</ol>
+<h2 id="Practical-Device-Driver-Implementation"><a href="#Practical-Device-Driver-Implementation" class="headerlink" title="Practical Device Driver Implementation"></a>Practical Device Driver Implementation</h2><h3 id="Char-Device-Driver-Comprehensive-Example"><a href="#Char-Device-Driver-Comprehensive-Example" class="headerlink" title="Char Device Driver: Comprehensive Example"></a>Char Device Driver: Comprehensive Example</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/kernel.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/fs.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/cdev.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/device.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/uaccess.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DEVICE_NAME <span class="string">&quot;simple_char_dev&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CLASS_NAME  <span class="string">&quot;simple_char_class&quot;</span></span></span><br><span class="line"></span><br><span class="line">MODULE_LICENSE(<span class="string">&quot;GPL&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> majorNumber;</span><br><span class="line"><span class="type">static</span> <span class="type">char</span> message[<span class="number">256</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">static</span> <span class="type">short</span> size_of_message;</span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="keyword">class</span>*  <span class="title">charClass</span>  =</span> <span class="literal">NULL</span>;</span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">device</span>* <span class="title">charDevice</span> =</span> <span class="literal">NULL</span>;</span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">cdev</span> <span class="title">charCdev</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Prototype functions</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span>     <span class="title function_">dev_open</span><span class="params">(<span class="keyword">struct</span> inode *, <span class="keyword">struct</span> file *)</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">int</span>     <span class="title function_">dev_release</span><span class="params">(<span class="keyword">struct</span> inode *, <span class="keyword">struct</span> file *)</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">dev_read</span><span class="params">(<span class="keyword">struct</span> file *, <span class="type">char</span> __user *, <span class="type">size_t</span>, <span class="type">loff_t</span> *)</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">dev_write</span><span class="params">(<span class="keyword">struct</span> file *, <span class="type">const</span> <span class="type">char</span> __user *, <span class="type">size_t</span>, <span class="type">loff_t</span> *)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// File operations structure</span></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">file_operations</span> <span class="title">fops</span> =</span> &#123;</span><br><span class="line">    .open = dev_open,</span><br><span class="line">    .read = dev_read,</span><br><span class="line">    .write = dev_write,</span><br><span class="line">    .release = dev_release,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Module initialization and exit functions (implementation omitted for brevity)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Procfs-Integration-Example"><a href="#Procfs-Integration-Example" class="headerlink" title="Procfs Integration Example"></a>Procfs Integration Example</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/kernel.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/proc_fs.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/uaccess.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PROC_NAME <span class="string">&quot;driver_status&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_BUFFER 1024</span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">proc_dir_entry</span> *<span class="title">proc_file</span>;</span></span><br><span class="line"><span class="type">static</span> <span class="type">char</span> kernel_buffer[MAX_BUFFER];</span><br><span class="line"><span class="type">static</span> <span class="type">unsigned</span> <span class="type">long</span> procfs_buffer_size = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Procfs read and write operations</span></span><br><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">procfs_read</span><span class="params">(<span class="keyword">struct</span> file *file, <span class="type">char</span> __user *buffer, </span></span><br><span class="line"><span class="params">                           <span class="type">size_t</span> count, <span class="type">loff_t</span> *pos)</span> &#123;</span><br><span class="line">    <span class="comment">// Read implementation details</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">procfs_write</span><span class="params">(<span class="keyword">struct</span> file *file, <span class="type">const</span> <span class="type">char</span> __user *buffer, </span></span><br><span class="line"><span class="params">                            <span class="type">size_t</span> count, <span class="type">loff_t</span> *pos)</span> &#123;</span><br><span class="line">    <span class="comment">// Write implementation details</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Sysfs-Integration-Example"><a href="#Sysfs-Integration-Example" class="headerlink" title="Sysfs Integration Example"></a>Sysfs Integration Example</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/kernel.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/device.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/kobject.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/sysfs.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">kobject</span> *<span class="title">driver_kobject</span>;</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> driver_value = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Sysfs show and store methods</span></span><br><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">driver_show</span><span class="params">(<span class="keyword">struct</span> kobject *kobj, </span></span><br><span class="line"><span class="params">                           <span class="keyword">struct</span> kobj_attribute *attr, <span class="type">char</span> *buf)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sprintf</span>(buf, <span class="string">&quot;%d\n&quot;</span>, driver_value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">driver_store</span><span class="params">(<span class="keyword">struct</span> kobject *kobj, </span></span><br><span class="line"><span class="params">                            <span class="keyword">struct</span> kobj_attribute *attr, </span></span><br><span class="line"><span class="params">                            <span class="type">const</span> <span class="type">char</span> *buf, <span class="type">size_t</span> count)</span> &#123;</span><br><span class="line">    <span class="built_in">sscanf</span>(buf, <span class="string">&quot;%d&quot;</span>, &amp;driver_value);</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="User-Space-Interaction-Examples"><a href="#User-Space-Interaction-Examples" class="headerlink" title="User-Space Interaction Examples"></a>User-Space Interaction Examples</h3><h4 id="Procfs-Interaction-C-Program"><a href="#Procfs-Interaction-C-Program" class="headerlink" title="Procfs Interaction (C Program)"></a>Procfs Interaction (C Program)</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PROC_FILE <span class="string">&quot;/proc/driver_status&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> fd;</span><br><span class="line">    <span class="type">char</span> buffer[<span class="number">1024</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Write to and read from procfs</span></span><br><span class="line">    fd = open(PROC_FILE, O_WRONLY);</span><br><span class="line">    write(fd, <span class="string">&quot;Hello from User Space&quot;</span>, <span class="number">21</span>);</span><br><span class="line">    close(fd);</span><br><span class="line">    </span><br><span class="line">    fd = open(PROC_FILE, O_RDONLY);</span><br><span class="line">    read(fd, buffer, <span class="keyword">sizeof</span>(buffer));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Read from procfs: %s\n&quot;</span>, buffer);</span><br><span class="line">    close(fd);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Kernel-Filesystem-Interfaces"><a href="#Kernel-Filesystem-Interfaces" class="headerlink" title="Kernel Filesystem Interfaces"></a>Kernel Filesystem Interfaces</h2><h3 id="Procfs-proc"><a href="#Procfs-proc" class="headerlink" title="Procfs (&#x2F;proc)"></a>Procfs (&#x2F;proc)</h3><ul>
+<li>Virtual filesystem providing kernel and process information</li>
+<li>Allows runtime system information access</li>
+<li>Primarily read-only kernel diagnostic interface</li>
+</ul>
+<h3 id="Sysfs-sys"><a href="#Sysfs-sys" class="headerlink" title="Sysfs (&#x2F;sys)"></a>Sysfs (&#x2F;sys)</h3><ul>
+<li>Represents device, driver, and bus relationships</li>
+<li>Provides unified device model representation</li>
+<li>Enables dynamic device configuration</li>
+<li>Supports runtime device attribute manipulation</li>
+</ul>
+<h2 id="Driver-Bus-Relationship"><a href="#Driver-Bus-Relationship" class="headerlink" title="Driver-Bus Relationship"></a>Driver-Bus Relationship</h2><p>The Linux device model establishes a sophisticated relationship between drivers, devices, and buses:</p>
+<ul>
+<li><strong>Bus</strong>: Represents a communication pathway</li>
+<li><strong>Device</strong>: Physical or logical hardware component</li>
+<li><strong>Driver</strong>: Software controlling device functionality</li>
+</ul>
+<p>Communication flow:</p>
+<ol>
+<li>Bus discovers devices</li>
+<li>Driver matches with compatible devices</li>
+<li>Kernel facilitates device-driver binding</li>
+<li>Driver registers device-specific operations</li>
+</ol>
+<h2 id="Device-Driver-APIs-and-Interfaces"><a href="#Device-Driver-APIs-and-Interfaces" class="headerlink" title="Device Driver APIs and Interfaces"></a>Device Driver APIs and Interfaces</h2><p>Key Linux kernel APIs for device driver development:</p>
+<ul>
+<li><p><strong>Registration Mechanisms</strong></p>
+<ul>
+<li><code>register_chrdev()</code></li>
+<li><code>register_netdev()</code></li>
+<li><code>blk_mq_alloc_queue()</code></li>
+</ul>
+</li>
+<li><p><strong>Synchronization Primitives</strong></p>
+<ul>
+<li>Spinlocks</li>
+<li>Mutexes</li>
+<li>Completion variables</li>
+<li>Wait queues</li>
+</ul>
+</li>
+<li><p><strong>Memory Management</strong></p>
+<ul>
+<li><code>kmalloc()</code> and <code>kfree()</code></li>
+<li>DMA buffer allocation</li>
+<li>Kernel memory mapping utilities</li>
+</ul>
+</li>
+</ul>
+<h2 id="Best-Practices-and-Recommendations"><a href="#Best-Practices-and-Recommendations" class="headerlink" title="Best Practices and Recommendations"></a>Best Practices and Recommendations</h2><ol>
+<li><p><strong>Kernel Space Development</strong></p>
+<ul>
+<li>Minimize kernel space code complexity</li>
+<li>Use appropriate synchronization mechanisms</li>
+<li>Implement robust error handling</li>
+<li>Follow kernel coding standards</li>
+</ul>
+</li>
+<li><p><strong>Memory Management</strong></p>
+<ul>
+<li>Be cautious with dynamic memory allocation</li>
+<li>Use appropriate memory barriers</li>
+<li>Handle potential memory leaks</li>
+</ul>
+</li>
+<li><p><strong>Performance Considerations</strong></p>
+<ul>
+<li>Optimize critical path operations</li>
+<li>Minimize lock contention</li>
+<li>Use efficient data structures</li>
+</ul>
+</li>
+</ol>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Linux device drivers represent a sophisticated ecosystem of hardware abstraction, offering developers powerful tools for system-level programming. The intricate relationships between VFS, device drivers, and kernel subsystems provide a flexible and extensible framework for hardware interaction.</p>
+<h2 id="Recommended-Learning-Path"><a href="#Recommended-Learning-Path" class="headerlink" title="Recommended Learning Path"></a>Recommended Learning Path</h2><ol>
+<li>Study basic C programming</li>
+<li>Learn kernel module development</li>
+<li>Understand Linux kernel internals</li>
+<li>Practice with simple device driver examples</li>
+<li>Explore advanced driver development techniques</li>
+</ol>
+<p><strong>Note</strong>: Device driver development requires deep understanding of both software principles and hardware interactions. Continuous learning and practical experience are key to mastering this domain.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/04/linux-devicedriver-intro/" data-id="cm4ccjlwl000et4mxffs32gc2" data-title="Linux Device Driver Introduction" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-uboot-s3c2440" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/12/04/uboot-s3c2440/" class="article-date">
@@ -358,7 +760,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/04/uboot-s3c2440/" data-id="cm4b1u7xi000kaomx7yrd193w" data-title="U-Boot Introduction and Porting It to S3C2440" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/04/uboot-s3c2440/" data-id="cm4ccjlwq000rt4mxehw7fr7b" data-title="U-Boot Introduction and Porting It to S3C2440" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -505,7 +907,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/04/ubuntu-production-env/" data-id="cm4b1u7xj000maomxfxnhgqsy" data-title="Ubuntu as a Production Development Environment" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/04/ubuntu-production-env/" data-id="cm4ccjlwr000st4mxeee63irq" data-title="Ubuntu as a Production Development Environment" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -654,7 +1056,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/04/ubuntu-introduction/" data-id="cm4b1u7xj000laomx2af77gzg" data-title="New to Ubuntu: The Well-Known Desktop Operation System" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/04/ubuntu-introduction/" data-id="cm4ccjlwq000qt4mx8syd9z4h" data-title="New to Ubuntu: The Well-Known Desktop Operation System" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -780,7 +1182,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/04/FreeRTOS-STM32F429/" data-id="cm4b1u7x50001aomxh9pagb5i" data-title="FreeRTOS: An Introduction and Porting Guide for STM32F429" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/04/FreeRTOS-STM32F429/" data-id="cm4ccjlw40001t4mx04lm2msg" data-title="FreeRTOS: An Introduction and Porting Guide for STM32F429" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -863,7 +1265,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/04/wireless-modem-ucosii/" data-id="cm4b1u7xk000oaomx9wjtey92" data-title="Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/04/wireless-modem-ucosii/" data-id="cm4ccjlwx000ut4mx3ghhekhs" data-title="Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1089,7 +1491,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/03/rtos-ucosii-nxp/" data-id="cm4b1u7xh000jaomx07z7eojj" data-title="µC/OS-II Architecture, Concepts, and Implementation on NXP LPC2378" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/03/rtos-ucosii-nxp/" data-id="cm4ccjlwp000pt4mx3sreh0w0" data-title="µC/OS-II Architecture, Concepts, and Implementation on NXP LPC2378" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1323,7 +1725,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/03/wireless-modem-intro/" data-id="cm4b1u7xk000naomx2lwxaapj" data-title="Comprehensive Technical Overview of Wireless Modems" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/03/wireless-modem-intro/" data-id="cm4ccjlwr000tt4mx394rd6zw" data-title="Comprehensive Technical Overview of Wireless Modems" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1371,23 +1773,23 @@
       <ul>
         
           <li>
+            <a href="/2024/12/06/compress-intro/">Comprehensive Guide to Data Compression Technologies</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/06/openssl/">OpenSSL: A Comprehensive Technical Overview</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/06/nginx-intro/">Nginx: A Deep Dive Into Web Server Excellence</a>
+          </li>
+        
+          <li>
             <a href="/2024/12/05/android-firewall/">Advanced Concepts in Android Firewall Using Iptables: Stateful vs Stateless Firewalls and Conntrack</a>
           </li>
         
           <li>
             <a href="/2024/12/05/android-video-IP/">Introduction to Android IP Protection Technologies</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/05/android-audio-dobly/">Technical Overview of Android Audio System</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/05/android-wifi-applicatin/">Understanding the Source Code of `Settings.apk`: Wi-Fi Features</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/05/android-wifi-arch/">Technical Overview of Android Wi-Fi System</a>
           </li>
         
       </ul>

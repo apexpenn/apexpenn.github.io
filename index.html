@@ -71,6 +71,144 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-cs_tec_linux_pam" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/19/cs_tec_linux_pam/" class="article-date">
+  <time class="dt-published" datetime="2024-12-19T06:33:32.103Z" itemprop="datePublished">2024-12-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/19/cs_tec_linux_pam/">Understanding Linux PAM (Pluggable Authentication Modules)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Linux PAM (Pluggable Authentication Modules) represents a powerful framework that provides dynamic authentication support for applications and services in Linux systems. This article explores the fundamentals of PAM, its architecture, configuration syntax, and practical implementation examples.</p>
+<h2 id="Core-Concepts"><a href="#Core-Concepts" class="headerlink" title="Core Concepts"></a>Core Concepts</h2><p>PAM operates as a middle layer between applications and authentication mechanisms. When an application needs to authenticate a user, it doesn’t need to know the details of how authentication works - it simply makes calls to the PAM framework, which handles the actual authentication process based on the system’s configuration.</p>
+<h3 id="Key-Benefits"><a href="#Key-Benefits" class="headerlink" title="Key Benefits"></a>Key Benefits</h3><p>The modular nature of PAM provides several advantages:</p>
+<ol>
+<li>Applications don’t need to be modified to support new authentication mechanisms</li>
+<li>System administrators can modify authentication requirements without changing application code</li>
+<li>Multiple authentication methods can be combined flexibly</li>
+<li>Authentication policies can be standardized across the system</li>
+</ol>
+<h2 id="PAM-Architecture"><a href="#PAM-Architecture" class="headerlink" title="PAM Architecture"></a>PAM Architecture</h2><h3 id="Service-Modules"><a href="#Service-Modules" class="headerlink" title="Service Modules"></a>Service Modules</h3><p>PAM divides authentication tasks into four independent management groups:</p>
+<ol>
+<li><strong>account</strong>: Verifies account accessibility, expiration, and access hours</li>
+<li><strong>auth</strong>: Handles user authentication and sets credentials</li>
+<li><strong>password</strong>: Manages password updates and validation</li>
+<li><strong>session</strong>: Manages tasks needed to set up and tear down user sessions</li>
+</ol>
+<h3 id="Module-Types"><a href="#Module-Types" class="headerlink" title="Module Types"></a>Module Types</h3><p>Each management group can use various module types:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">required      - Must succeed for authentication to continue</span><br><span class="line">requisite     - Must succeed, but fails immediately if not met</span><br><span class="line">sufficient    - Success is sufficient to satisfy the module requirements</span><br><span class="line">optional      - Module success/failure doesn&#x27;t impact authentication</span><br><span class="line">include       - Include other configuration files</span><br><span class="line">substack      - Similar to include but treats the included stack as a subunit</span><br></pre></td></tr></table></figure>
+
+<h2 id="Configuration-Syntax"><a href="#Configuration-Syntax" class="headerlink" title="Configuration Syntax"></a>Configuration Syntax</h2><p>PAM configuration files are typically stored in <code>/etc/pam.d/</code>. Each service has its own configuration file. The basic syntax is:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type    control_flag    module_path    module_arguments</span><br></pre></td></tr></table></figure>
+
+<p>Example from <code>/etc/pam.d/sshd</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#%PAM-1.0</span><br><span class="line">auth       required     pam_securetty.so</span><br><span class="line">auth       required     pam_unix.so nullok</span><br><span class="line">account    required     pam_nologin.so</span><br><span class="line">account    required     pam_unix.so</span><br><span class="line">password   required     pam_unix.so nullok obscure min=4 max=8</span><br><span class="line">session    required     pam_unix.so</span><br><span class="line">session    required     pam_limits.so</span><br></pre></td></tr></table></figure>
+
+<h2 id="Common-PAM-Modules"><a href="#Common-PAM-Modules" class="headerlink" title="Common PAM Modules"></a>Common PAM Modules</h2><h3 id="pam-unix-so"><a href="#pam-unix-so" class="headerlink" title="pam_unix.so"></a>pam_unix.so</h3><p>The standard Unix authentication module supporting standard Unix password authentication:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_unix.so try_first_pass nullok</span><br></pre></td></tr></table></figure>
+
+<p>Parameters:</p>
+<ul>
+<li><code>try_first_pass</code>: Try using previously entered password</li>
+<li><code>nullok</code>: Allow empty passwords</li>
+<li><code>remember=N</code>: Remember N previous passwords</li>
+</ul>
+<h3 id="pam-ldap-so"><a href="#pam-ldap-so" class="headerlink" title="pam_ldap.so"></a>pam_ldap.so</h3><p>Provides LDAP authentication support:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth sufficient pam_ldap.so use_first_pass</span><br></pre></td></tr></table></figure>
+
+<h3 id="pam-time-so"><a href="#pam-time-so" class="headerlink" title="pam_time.so"></a>pam_time.so</h3><p>Controls access based on time:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">account required pam_time.so</span><br></pre></td></tr></table></figure>
+
+<p>Configuration in <code>/etc/security/time.conf</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">services;ttys;users;times</span><br><span class="line">login;tty*;!root;Al0800-1800</span><br></pre></td></tr></table></figure>
+
+<h2 id="Practical-Examples"><a href="#Practical-Examples" class="headerlink" title="Practical Examples"></a>Practical Examples</h2><h3 id="Example-1-Enforcing-Strong-Passwords"><a href="#Example-1-Enforcing-Strong-Passwords" class="headerlink" title="Example 1: Enforcing Strong Passwords"></a>Example 1: Enforcing Strong Passwords</h3><p>To enforce password complexity, modify <code>/etc/pam.d/system-auth</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">password required pam_pwquality.so retry=3 minlen=12 dcredit=1 ucredit=1 ocredit=1 lcredit=1</span><br><span class="line">password required pam_unix.so use_authtok sha512 shadow</span><br></pre></td></tr></table></figure>
+
+<p>This configuration:</p>
+<ul>
+<li>Requires minimum 12 characters</li>
+<li>Requires at least one digit, uppercase, special character, and lowercase</li>
+<li>Allows 3 retry attempts</li>
+<li>Uses SHA-512 hashing</li>
+</ul>
+<h3 id="Example-2-Limiting-Login-Attempts"><a href="#Example-2-Limiting-Login-Attempts" class="headerlink" title="Example 2: Limiting Login Attempts"></a>Example 2: Limiting Login Attempts</h3><p>To implement login attempt limits, add to <code>/etc/pam.d/system-auth</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_tally2.so deny=3 unlock_time=300 onerr=fail</span><br></pre></td></tr></table></figure>
+
+<p>This configuration:</p>
+<ul>
+<li>Denies access after 3 failed attempts</li>
+<li>Unlocks the account after 300 seconds</li>
+<li>Fails closed (denies access) on errors</li>
+</ul>
+<h2 id="Debugging-PAM"><a href="#Debugging-PAM" class="headerlink" title="Debugging PAM"></a>Debugging PAM</h2><h3 id="Debug-Mode"><a href="#Debug-Mode" class="headerlink" title="Debug Mode"></a>Debug Mode</h3><p>Add the debug option to the module:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_unix.so debug</span><br></pre></td></tr></table></figure>
+
+<p>View debug output in system logs:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -f /var/log/auth.log</span><br></pre></td></tr></table></figure>
+
+<h3 id="Testing-Configurations"><a href="#Testing-Configurations" class="headerlink" title="Testing Configurations"></a>Testing Configurations</h3><p>Use the <code>pamtester</code> utility to test PAM configurations:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pamtester sshd username authenticate</span><br></pre></td></tr></table></figure>
+
+<h2 id="Security-Considerations"><a href="#Security-Considerations" class="headerlink" title="Security Considerations"></a>Security Considerations</h2><ol>
+<li><p><strong>Order Matters</strong>: PAM processes modules in the order listed. Ensure critical security modules are placed appropriately.</p>
+</li>
+<li><p><strong>Fail Secure</strong>: Use appropriate control flags to ensure authentication fails securely when modules fail.</p>
+</li>
+<li><p><strong>Module Parameters</strong>: Carefully consider module parameters - some can weaken security if misconfigured.</p>
+</li>
+<li><p><strong>File Permissions</strong>: PAM configuration files should be owned by root and not writable by others:</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 644 /etc/pam.d/*</span><br><span class="line"><span class="built_in">chown</span> root:root /etc/pam.d/*</span><br></pre></td></tr></table></figure>
+
+<h2 id="Best-Practices"><a href="#Best-Practices" class="headerlink" title="Best Practices"></a>Best Practices</h2><ol>
+<li><p><strong>Documentation</strong>: Always document PAM changes in configuration files using comments.</p>
+</li>
+<li><p><strong>Backup</strong>: Create backups before modifying PAM configurations:</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> -r /etc/pam.d /etc/pam.d.backup</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p><strong>Testing</strong>: Test changes in a non-production environment first.</p>
+</li>
+<li><p><strong>Monitoring</strong>: Regularly monitor auth logs for unusual patterns or failures.</p>
+</li>
+</ol>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Linux PAM provides a flexible and powerful framework for managing authentication in Linux systems. Understanding its architecture, configuration syntax, and proper implementation is crucial for system administrators and security professionals. Through careful configuration and following best practices, PAM can significantly enhance system security while maintaining usability.</p>
+<p>Remember that PAM configurations can lock users out of the system if implemented incorrectly. Always maintain a root session when testing new PAM configurations, and have a backup plan for recovery if authentication breaks.</p>
+<p>For further information, consult the official Linux-PAM documentation and system-specific guides for your distribution.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/19/cs_tec_linux_pam/" data-id="cm4uy45m7000f0kmxa1yuc6h7" data-title="Understanding Linux PAM (Pluggable Authentication Modules)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-compress-intro" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/12/06/compress-intro/" class="article-date">
@@ -278,7 +416,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/06/compress-intro/" data-id="cm4ccjlwk000dt4mx7pftcwly" data-title="Comprehensive Guide to Data Compression Technologies" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/06/compress-intro/" data-id="cm4uy45m6000d0kmxhlaa7dcl" data-title="Comprehensive Guide to Data Compression Technologies" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -375,7 +513,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/06/openssl/" data-id="cm4ccjlwp000ot4mxcm50dr0g" data-title="OpenSSL: A Comprehensive Technical Overview" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/06/openssl/" data-id="cm4uy45ma000o0kmx6d019282" data-title="OpenSSL: A Comprehensive Technical Overview" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -542,7 +680,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/06/nginx-intro/" data-id="cm4ccjlwo000nt4mx6ixyajp2" data-title="Nginx: A Deep Dive Into Web Server Excellence" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/06/nginx-intro/" data-id="cm4uy45mb000p0kmxdvfcd0i5" data-title="Nginx: A Deep Dive Into Web Server Excellence" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -648,7 +786,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/05/android-firewall/" data-id="cm4ccjlwd0005t4mxa14vc0tq" data-title="Advanced Concepts in Android Firewall Using Iptables: Stateful vs Stateless Firewalls and Conntrack" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/05/android-firewall/" data-id="cm4uy45m100050kmx0n6k0ypb" data-title="Advanced Concepts in Android Firewall Using Iptables: Stateful vs Stateless Firewalls and Conntrack" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -717,7 +855,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/05/android-video-IP/" data-id="cm4ccjlwj000bt4mx23gc7eal" data-title="Introduction to Android IP Protection Technologies" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/05/android-video-IP/" data-id="cm4uy45m4000a0kmxdzny32j9" data-title="Introduction to Android IP Protection Technologies" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -803,7 +941,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/05/android-audio-dobly/" data-id="cm4ccjlwa0003t4mx8sgi5ns4" data-title="Technical Overview of Android Audio System" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/05/android-audio-dobly/" data-id="cm4uy45lz00020kmx41srbhmk" data-title="Technical Overview of Android Audio System" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -888,7 +1026,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/05/android-wifi-applicatin/" data-id="cm4ccjlwi000at4mx9ew0ddup" data-title="Understanding the Source Code of `Settings.apk`: Wi-Fi Features" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/05/android-wifi-applicatin/" data-id="cm4uy45m5000c0kmxd1951jcx" data-title="Understanding the Source Code of `Settings.apk`: Wi-Fi Features" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1031,7 +1169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/05/android-wifi-arch/" data-id="cm4ccjlwk000ct4mxgc4o8mvj" data-title="Technical Overview of Android Wi-Fi System" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/05/android-wifi-arch/" data-id="cm4uy45m5000b0kmx2tmq7zyo" data-title="Technical Overview of Android Wi-Fi System" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1136,121 +1274,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/05/android-bt/" data-id="cm4ccjlwb0004t4mx5jp4g0uj" data-title="A Technical Overview of Android Bluetooth System" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-linux-v4l2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/05/linux-v4l2/" class="article-date">
-  <time class="dt-published" datetime="2024-12-05T04:48:56.384Z" itemprop="datePublished">2024-12-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/05/linux-v4l2/">A Technical Overview of V4L2</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><strong>Video4Linux2 (V4L2)</strong> is a robust framework in the Linux kernel for handling video devices, including USB cameras. It provides a standardized API for video capture, making it the go-to interface for Linux-based video application development. This article delves into the memory management mechanisms V4L2 offers and demonstrates how to capture video from a USB camera with reference code.</p>
-<hr>
-<h2 id="1-Overview-of-V4L2-Memory-Management"><a href="#1-Overview-of-V4L2-Memory-Management" class="headerlink" title="1. Overview of V4L2 Memory Management"></a><strong>1. Overview of V4L2 Memory Management</strong></h2><p>V4L2 supports multiple memory management mechanisms for video buffers, providing flexibility for developers to choose based on their application’s needs. The framework uses buffers to exchange video frames between the driver and the application.</p>
-<h3 id="Memory-Types-in-V4L2"><a href="#Memory-Types-in-V4L2" class="headerlink" title="Memory Types in V4L2"></a><strong>Memory Types in V4L2</strong></h3><ol>
-<li><p><strong>MMAP (Memory Mapping):</strong></p>
-<ul>
-<li>Buffers are allocated in kernel space and memory-mapped to user space.</li>
-<li>Suitable for most applications as it eliminates the need for copying data.</li>
-</ul>
-</li>
-<li><p><strong>User Pointer (USERPTR):</strong></p>
-<ul>
-<li>The application allocates its own buffers in user space and provides pointers to the driver.</li>
-<li>Provides greater control over memory management but requires more synchronization.</li>
-</ul>
-</li>
-<li><p><strong>DMA Buffer (DMABUF):</strong></p>
-<ul>
-<li>Allows sharing buffers between devices using Direct Memory Access (DMA).</li>
-<li>Common in zero-copy pipelines where efficiency is critical.</li>
-</ul>
-</li>
-<li><p><strong>Read&#x2F;Write:</strong></p>
-<ul>
-<li>Simplest method where data is copied between the driver and user space.</li>
-<li>Less efficient due to the overhead of copying but straightforward to implement.</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="2-Steps-to-Capture-Video-from-a-USB-Camera-Using-V4L2"><a href="#2-Steps-to-Capture-Video-from-a-USB-Camera-Using-V4L2" class="headerlink" title="2. Steps to Capture Video from a USB Camera Using V4L2"></a><strong>2. Steps to Capture Video from a USB Camera Using V4L2</strong></h2><p>Below is a step-by-step guide to capturing video using V4L2, focusing on MMAP memory. </p>
-<h3 id="Step-1-Open-the-Device"><a href="#Step-1-Open-the-Device" class="headerlink" title="Step 1: Open the Device"></a><strong>Step 1: Open the Device</strong></h3><p>Use the <code>open()</code> system call to access the video device (e.g., <code>/dev/video0</code>).</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> fd = open(<span class="string">&quot;/dev/video0&quot;</span>, O_RDWR);</span><br><span class="line"><span class="keyword">if</span> (fd == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Opening video device&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-2-Query-Device-Capabilities"><a href="#Step-2-Query-Device-Capabilities" class="headerlink" title="Step 2: Query Device Capabilities"></a><strong>Step 2: Query Device Capabilities</strong></h3><p>Use the <code>VIDIOC_QUERYCAP</code> ioctl to ensure the device supports video capture.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/videodev2.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/ioctl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">v4l2_capability</span> <span class="title">cap</span>;</span></span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_QUERYCAP, &amp;cap) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Querying capabilities&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (!(cap.capabilities &amp; V4L2_CAP_VIDEO_CAPTURE)) &#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;Device does not support video capture\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-3-Set-the-Video-Format"><a href="#Step-3-Set-the-Video-Format" class="headerlink" title="Step 3: Set the Video Format"></a><strong>Step 3: Set the Video Format</strong></h3><p>Specify the desired frame size and pixel format using the <code>VIDIOC_S_FMT</code> ioctl.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">v4l2_format</span> <span class="title">fmt</span>;</span></span><br><span class="line">fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">fmt.fmt.pix.width = <span class="number">640</span>;</span><br><span class="line">fmt.fmt.pix.height = <span class="number">480</span>;</span><br><span class="line">fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_MJPEG; <span class="comment">// Or V4L2_PIX_FMT_YUYV</span></span><br><span class="line">fmt.fmt.pix.field = V4L2_FIELD_NONE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_S_FMT, &amp;fmt) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Setting pixel format&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-4-Request-Buffers"><a href="#Step-4-Request-Buffers" class="headerlink" title="Step 4: Request Buffers"></a><strong>Step 4: Request Buffers</strong></h3><p>Allocate memory buffers in the kernel using the <code>VIDIOC_REQBUFS</code> ioctl.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">v4l2_requestbuffers</span> <span class="title">req</span>;</span></span><br><span class="line">req.count = <span class="number">4</span>; <span class="comment">// Number of buffers</span></span><br><span class="line">req.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">req.memory = V4L2_MEMORY_MMAP;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_REQBUFS, &amp;req) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Requesting buffer&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-5-Map-Buffers-to-User-Space"><a href="#Step-5-Map-Buffers-to-User-Space" class="headerlink" title="Step 5: Map Buffers to User Space"></a><strong>Step 5: Map Buffers to User Space</strong></h3><p>Map the kernel buffers to user space using <code>mmap()</code>.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">buffer</span> &#123;</span></span><br><span class="line">    <span class="type">void</span> *start;</span><br><span class="line">    <span class="type">size_t</span> length;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">buffer</span> *<span class="title">buffers</span> =</span> <span class="built_in">calloc</span>(req.count, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> buffer));</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; req.count; i++) &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">v4l2_buffer</span> <span class="title">buf</span>;</span></span><br><span class="line">    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">    buf.memory = V4L2_MEMORY_MMAP;</span><br><span class="line">    buf.index = i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_QUERYBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Querying buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    buffers[i].length = buf.length;</span><br><span class="line">    buffers[i].start = mmap(<span class="literal">NULL</span>, buf.length, PROT_READ | PROT_WRITE, MAP_SHARED, fd, buf.m.offset);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (buffers[i].start == MAP_FAILED) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Mapping buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-6-Queue-Buffers"><a href="#Step-6-Queue-Buffers" class="headerlink" title="Step 6: Queue Buffers"></a><strong>Step 6: Queue Buffers</strong></h3><p>Queue the buffers for the driver to fill with video frames.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; req.count; i++) &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">v4l2_buffer</span> <span class="title">buf</span>;</span></span><br><span class="line">    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">    buf.memory = V4L2_MEMORY_MMAP;</span><br><span class="line">    buf.index = i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_QBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Queueing buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-7-Start-Streaming"><a href="#Step-7-Start-Streaming" class="headerlink" title="Step 7: Start Streaming"></a><strong>Step 7: Start Streaming</strong></h3><p>Initiate the video capture process.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">v4l2_buf_type</span> <span class="title">type</span> =</span> V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_STREAMON, &amp;type) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Starting stream&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-8-Capture-Video-Frames"><a href="#Step-8-Capture-Video-Frames" class="headerlink" title="Step 8: Capture Video Frames"></a><strong>Step 8: Capture Video Frames</strong></h3><p>Dequeue buffers, process the video data, and requeue them for continuous streaming.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123; <span class="comment">// Capture 100 frames</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">v4l2_buffer</span> <span class="title">buf</span>;</span></span><br><span class="line">    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">    buf.memory = V4L2_MEMORY_MMAP;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_DQBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Dequeueing buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Process the video frame (e.g., save it to a file)</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Captured frame %d\n&quot;</span>, i);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_QBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Requeueing buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-9-Stop-Streaming-and-Clean-Up"><a href="#Step-9-Stop-Streaming-and-Clean-Up" class="headerlink" title="Step 9: Stop Streaming and Clean Up"></a><strong>Step 9: Stop Streaming and Clean Up</strong></h3><p>Terminate the video capture process and release resources.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_STREAMOFF, &amp;type) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Stopping stream&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; req.count; i++) &#123;</span><br><span class="line">    munmap(buffers[i].start, buffers[i].length);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">free</span>(buffers);</span><br><span class="line">close(fd);</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="3-Applications-of-V4L2"><a href="#3-Applications-of-V4L2" class="headerlink" title="3. Applications of V4L2"></a><strong>3. Applications of V4L2</strong></h2><p>V4L2 can be used in various applications, such as:</p>
-<ul>
-<li><strong>Video Streaming:</strong> Build real-time video streaming pipelines.</li>
-<li><strong>Surveillance Systems:</strong> Capture and analyze video feeds from security cameras.</li>
-<li><strong>Computer Vision:</strong> Process frames for object detection, tracking, and recognition.</li>
-<li><strong>Media Recording:</strong> Record and save video content to disk.</li>
-</ul>
-<hr>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>V4L2 is a powerful and flexible interface for video device programming in Linux. By leveraging its memory management options and ioctl-based API, developers can efficiently capture and process video from USB cameras. The provided example demonstrates the key steps, from device initialization to capturing and processing frames, empowering developers to build robust video applications.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/05/linux-v4l2/" data-id="cm4ccjlwo000mt4mxhniwf1ay" data-title="A Technical Overview of V4L2" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/05/android-bt/" data-id="cm4uy45m100040kmxgz23b3cz" data-title="A Technical Overview of Android Bluetooth System" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1266,7 +1290,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -1298,6 +1322,10 @@
       <ul>
         
           <li>
+            <a href="/2024/12/19/cs_tec_linux_pam/">Understanding Linux PAM (Pluggable Authentication Modules)</a>
+          </li>
+        
+          <li>
             <a href="/2024/12/06/compress-intro/">Comprehensive Guide to Data Compression Technologies</a>
           </li>
         
@@ -1311,10 +1339,6 @@
         
           <li>
             <a href="/2024/12/05/android-firewall/">Advanced Concepts in Android Firewall Using Iptables: Stateful vs Stateless Firewalls and Conntrack</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/05/android-video-IP/">Introduction to Android IP Protection Technologies</a>
           </li>
         
       </ul>

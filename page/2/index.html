@@ -71,6 +71,120 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-linux-v4l2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/05/linux-v4l2/" class="article-date">
+  <time class="dt-published" datetime="2024-12-05T04:48:56.384Z" itemprop="datePublished">2024-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/05/linux-v4l2/">A Technical Overview of V4L2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>Video4Linux2 (V4L2)</strong> is a robust framework in the Linux kernel for handling video devices, including USB cameras. It provides a standardized API for video capture, making it the go-to interface for Linux-based video application development. This article delves into the memory management mechanisms V4L2 offers and demonstrates how to capture video from a USB camera with reference code.</p>
+<hr>
+<h2 id="1-Overview-of-V4L2-Memory-Management"><a href="#1-Overview-of-V4L2-Memory-Management" class="headerlink" title="1. Overview of V4L2 Memory Management"></a><strong>1. Overview of V4L2 Memory Management</strong></h2><p>V4L2 supports multiple memory management mechanisms for video buffers, providing flexibility for developers to choose based on their application’s needs. The framework uses buffers to exchange video frames between the driver and the application.</p>
+<h3 id="Memory-Types-in-V4L2"><a href="#Memory-Types-in-V4L2" class="headerlink" title="Memory Types in V4L2"></a><strong>Memory Types in V4L2</strong></h3><ol>
+<li><p><strong>MMAP (Memory Mapping):</strong></p>
+<ul>
+<li>Buffers are allocated in kernel space and memory-mapped to user space.</li>
+<li>Suitable for most applications as it eliminates the need for copying data.</li>
+</ul>
+</li>
+<li><p><strong>User Pointer (USERPTR):</strong></p>
+<ul>
+<li>The application allocates its own buffers in user space and provides pointers to the driver.</li>
+<li>Provides greater control over memory management but requires more synchronization.</li>
+</ul>
+</li>
+<li><p><strong>DMA Buffer (DMABUF):</strong></p>
+<ul>
+<li>Allows sharing buffers between devices using Direct Memory Access (DMA).</li>
+<li>Common in zero-copy pipelines where efficiency is critical.</li>
+</ul>
+</li>
+<li><p><strong>Read&#x2F;Write:</strong></p>
+<ul>
+<li>Simplest method where data is copied between the driver and user space.</li>
+<li>Less efficient due to the overhead of copying but straightforward to implement.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="2-Steps-to-Capture-Video-from-a-USB-Camera-Using-V4L2"><a href="#2-Steps-to-Capture-Video-from-a-USB-Camera-Using-V4L2" class="headerlink" title="2. Steps to Capture Video from a USB Camera Using V4L2"></a><strong>2. Steps to Capture Video from a USB Camera Using V4L2</strong></h2><p>Below is a step-by-step guide to capturing video using V4L2, focusing on MMAP memory. </p>
+<h3 id="Step-1-Open-the-Device"><a href="#Step-1-Open-the-Device" class="headerlink" title="Step 1: Open the Device"></a><strong>Step 1: Open the Device</strong></h3><p>Use the <code>open()</code> system call to access the video device (e.g., <code>/dev/video0</code>).</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> fd = open(<span class="string">&quot;/dev/video0&quot;</span>, O_RDWR);</span><br><span class="line"><span class="keyword">if</span> (fd == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Opening video device&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-2-Query-Device-Capabilities"><a href="#Step-2-Query-Device-Capabilities" class="headerlink" title="Step 2: Query Device Capabilities"></a><strong>Step 2: Query Device Capabilities</strong></h3><p>Use the <code>VIDIOC_QUERYCAP</code> ioctl to ensure the device supports video capture.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/videodev2.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/ioctl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">v4l2_capability</span> <span class="title">cap</span>;</span></span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_QUERYCAP, &amp;cap) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Querying capabilities&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (!(cap.capabilities &amp; V4L2_CAP_VIDEO_CAPTURE)) &#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;Device does not support video capture\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-3-Set-the-Video-Format"><a href="#Step-3-Set-the-Video-Format" class="headerlink" title="Step 3: Set the Video Format"></a><strong>Step 3: Set the Video Format</strong></h3><p>Specify the desired frame size and pixel format using the <code>VIDIOC_S_FMT</code> ioctl.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">v4l2_format</span> <span class="title">fmt</span>;</span></span><br><span class="line">fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">fmt.fmt.pix.width = <span class="number">640</span>;</span><br><span class="line">fmt.fmt.pix.height = <span class="number">480</span>;</span><br><span class="line">fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_MJPEG; <span class="comment">// Or V4L2_PIX_FMT_YUYV</span></span><br><span class="line">fmt.fmt.pix.field = V4L2_FIELD_NONE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_S_FMT, &amp;fmt) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Setting pixel format&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-4-Request-Buffers"><a href="#Step-4-Request-Buffers" class="headerlink" title="Step 4: Request Buffers"></a><strong>Step 4: Request Buffers</strong></h3><p>Allocate memory buffers in the kernel using the <code>VIDIOC_REQBUFS</code> ioctl.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">v4l2_requestbuffers</span> <span class="title">req</span>;</span></span><br><span class="line">req.count = <span class="number">4</span>; <span class="comment">// Number of buffers</span></span><br><span class="line">req.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">req.memory = V4L2_MEMORY_MMAP;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_REQBUFS, &amp;req) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Requesting buffer&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-5-Map-Buffers-to-User-Space"><a href="#Step-5-Map-Buffers-to-User-Space" class="headerlink" title="Step 5: Map Buffers to User Space"></a><strong>Step 5: Map Buffers to User Space</strong></h3><p>Map the kernel buffers to user space using <code>mmap()</code>.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">buffer</span> &#123;</span></span><br><span class="line">    <span class="type">void</span> *start;</span><br><span class="line">    <span class="type">size_t</span> length;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">buffer</span> *<span class="title">buffers</span> =</span> <span class="built_in">calloc</span>(req.count, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> buffer));</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; req.count; i++) &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">v4l2_buffer</span> <span class="title">buf</span>;</span></span><br><span class="line">    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">    buf.memory = V4L2_MEMORY_MMAP;</span><br><span class="line">    buf.index = i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_QUERYBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Querying buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    buffers[i].length = buf.length;</span><br><span class="line">    buffers[i].start = mmap(<span class="literal">NULL</span>, buf.length, PROT_READ | PROT_WRITE, MAP_SHARED, fd, buf.m.offset);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (buffers[i].start == MAP_FAILED) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Mapping buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-6-Queue-Buffers"><a href="#Step-6-Queue-Buffers" class="headerlink" title="Step 6: Queue Buffers"></a><strong>Step 6: Queue Buffers</strong></h3><p>Queue the buffers for the driver to fill with video frames.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; req.count; i++) &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">v4l2_buffer</span> <span class="title">buf</span>;</span></span><br><span class="line">    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">    buf.memory = V4L2_MEMORY_MMAP;</span><br><span class="line">    buf.index = i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_QBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Queueing buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-7-Start-Streaming"><a href="#Step-7-Start-Streaming" class="headerlink" title="Step 7: Start Streaming"></a><strong>Step 7: Start Streaming</strong></h3><p>Initiate the video capture process.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">v4l2_buf_type</span> <span class="title">type</span> =</span> V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_STREAMON, &amp;type) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Starting stream&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-8-Capture-Video-Frames"><a href="#Step-8-Capture-Video-Frames" class="headerlink" title="Step 8: Capture Video Frames"></a><strong>Step 8: Capture Video Frames</strong></h3><p>Dequeue buffers, process the video data, and requeue them for continuous streaming.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123; <span class="comment">// Capture 100 frames</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">v4l2_buffer</span> <span class="title">buf</span>;</span></span><br><span class="line">    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">    buf.memory = V4L2_MEMORY_MMAP;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_DQBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Dequeueing buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Process the video frame (e.g., save it to a file)</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Captured frame %d\n&quot;</span>, i);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_QBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Requeueing buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-9-Stop-Streaming-and-Clean-Up"><a href="#Step-9-Stop-Streaming-and-Clean-Up" class="headerlink" title="Step 9: Stop Streaming and Clean Up"></a><strong>Step 9: Stop Streaming and Clean Up</strong></h3><p>Terminate the video capture process and release resources.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_STREAMOFF, &amp;type) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Stopping stream&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; req.count; i++) &#123;</span><br><span class="line">    munmap(buffers[i].start, buffers[i].length);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">free</span>(buffers);</span><br><span class="line">close(fd);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-Applications-of-V4L2"><a href="#3-Applications-of-V4L2" class="headerlink" title="3. Applications of V4L2"></a><strong>3. Applications of V4L2</strong></h2><p>V4L2 can be used in various applications, such as:</p>
+<ul>
+<li><strong>Video Streaming:</strong> Build real-time video streaming pipelines.</li>
+<li><strong>Surveillance Systems:</strong> Capture and analyze video feeds from security cameras.</li>
+<li><strong>Computer Vision:</strong> Process frames for object detection, tracking, and recognition.</li>
+<li><strong>Media Recording:</strong> Record and save video content to disk.</li>
+</ul>
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>V4L2 is a powerful and flexible interface for video device programming in Linux. By leveraging its memory management options and ioctl-based API, developers can efficiently capture and process video from USB cameras. The provided example demonstrates the key steps, from device initialization to capturing and processing frames, empowering developers to build robust video applications.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/05/linux-v4l2/" data-id="cm4uy45ma000n0kmx9ia0hcd8" data-title="A Technical Overview of V4L2" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-android-gps" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/12/05/android-gps/" class="article-date">
@@ -216,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/05/android-gps/" data-id="cm4ccjlwe0006t4mx0gaadxzh" data-title="A Technical Overview of Android&#39;s GPS System" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/05/android-gps/" data-id="cm4uy45m200060kmxfxnb3ul0" data-title="A Technical Overview of Android&#39;s GPS System" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -374,7 +488,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/05/android-sensor/" data-id="cm4ccjlwg0008t4mx9gxz2ehm" data-title="Android Sensor Architecture: A Comprehensive Overview" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/05/android-sensor/" data-id="cm4uy45m400090kmxegyzaf80" data-title="Android Sensor Architecture: A Comprehensive Overview" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -517,7 +631,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/05/android-AT/" data-id="cm4ccjlw80002t4mx30fq89xu" data-title="AT Commands: Modem Control and Communication Protocol" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/05/android-AT/" data-id="cm4uy45lw00010kmxgmgeelw9" data-title="AT Commands: Modem Control and Communication Protocol" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -611,7 +725,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/05/android-ril/" data-id="cm4ccjlwh0009t4mxgspmg9hy" data-title="Android Cellular Connectivity: RIL and Connection Management" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/05/android-ril/" data-id="cm4uy45m300080kmxhza4g68k" data-title="Android Cellular Connectivity: RIL and Connection Management" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -690,7 +804,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/05/android-intro/" data-id="cm4ccjlwf0007t4mxaawhbnen" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/05/android-intro/" data-id="cm4uy45m300070kmx18t6hyc3" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -842,7 +956,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/04/linux-network-intro/" data-id="cm4ccjlwn000it4mxfz5ie18o" data-title="Understanding Linux Network Architecture: OSI Model, TCP/IP Stack, and Implementation Details" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/04/linux-network-intro/" data-id="cm4uy45m9000k0kmxcrqkbv2i" data-title="Understanding Linux Network Architecture: OSI Model, TCP/IP Stack, and Implementation Details" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1012,7 +1126,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/04/linux-pci-intro/" data-id="cm4ccjlwn000jt4mxcpt7fw6x" data-title="Understanding PCI in the Linux Kernel: Architecture, Registers, Speed, and Testing" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/04/linux-pci-intro/" data-id="cm4uy45m8000j0kmx9xdganxm" data-title="Understanding PCI in the Linux Kernel: Architecture, Registers, Speed, and Testing" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1183,7 +1297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/04/linux-usb-intro/" data-id="cm4ccjlwn000kt4mx4lozgep5" data-title="Deep Dive Into the Linux USB Subsystem: Implementation and Usage" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/04/linux-usb-intro/" data-id="cm4uy45m9000l0kmxfhdm3mzw" data-title="Deep Dive Into the Linux USB Subsystem: Implementation and Usage" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1276,138 +1390,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/04/linux-userspace-debug/" data-id="cm4ccjlwo000lt4mxfbh2hfhe" data-title="Testing Linux I2C, USB, and PCI Drivers Using Userspace Tools and `Sysfs`" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-linux-kernel-debug" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/04/linux-kernel-debug/" class="article-date">
-  <time class="dt-published" datetime="2024-12-04T07:21:03.665Z" itemprop="datePublished">2024-12-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/04/linux-kernel-debug/">Debugging the Linux Kernel: A Comprehensive Guide</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Debugging the Linux kernel is a critical skill for developers working on kernel modules, drivers, or debugging complex system issues. This article explains how the kernel implements <code>printk</code>, the role of console drivers, and the relationship between <code>printk</code> and the Linux console. Additionally, we explore advanced debugging techniques, including storing kernel logs in RAM, enabling kernel hacking options, and using tools like <code>kgdb</code>, ftrace, and dynamic debugging.</p>
-<hr>
-<h2 id="Understanding-printk-in-Linux"><a href="#Understanding-printk-in-Linux" class="headerlink" title="Understanding printk in Linux"></a><strong>Understanding <code>printk</code> in Linux</strong></h2><h3 id="What-is-printk"><a href="#What-is-printk" class="headerlink" title="What is printk?"></a><strong>What is <code>printk</code>?</strong></h3><p><code>printk</code> is the primary logging function in the Linux kernel, similar to <code>printf</code> in user space. It provides a way to print messages from kernel space to the system log buffer.</p>
-<h3 id="How-printk-Works"><a href="#How-printk-Works" class="headerlink" title="How printk Works"></a><strong>How <code>printk</code> Works</strong></h3><ol>
-<li><p><strong>Ring Buffer</strong>: Kernel messages are stored in a circular ring buffer managed by the kernel log subsystem.</p>
-<ul>
-<li>The buffer is limited in size and overwrites old messages when full.</li>
-<li>The buffer is exposed to user-space tools like <code>dmesg</code>.</li>
-</ul>
-</li>
-<li><p><strong>Log Levels</strong>: <code>printk</code> supports log levels to categorize messages:</p>
-<ul>
-<li>Levels range from <code>KERN_EMERG</code> (critical) to <code>KERN_DEBUG</code> (debugging information).</li>
-<li>Example: <code>printk(KERN_INFO &quot;Info message\n&quot;);</code>.</li>
-</ul>
-</li>
-<li><p><strong>Console Handling</strong>: Messages in the ring buffer are sent to registered console drivers for output, such as the VGA console or serial console.</p>
-</li>
-</ol>
-<h3 id="Example-Implementation-of-printk"><a href="#Example-Implementation-of-printk" class="headerlink" title="Example Implementation of printk"></a><strong>Example Implementation of <code>printk</code></strong></h3><p>When you invoke <code>printk</code>:</p>
-<ul>
-<li>The message is formatted and added to the kernel’s log buffer.</li>
-<li>The kernel dispatches the message to all registered console drivers for output.</li>
-</ul>
-<hr>
-<h2 id="Implementing-a-Linux-Console-Driver"><a href="#Implementing-a-Linux-Console-Driver" class="headerlink" title="Implementing a Linux Console Driver"></a><strong>Implementing a Linux Console Driver</strong></h2><p>A Linux console driver is responsible for displaying <code>printk</code> messages to a physical or virtual device, such as a screen or serial port.</p>
-<h3 id="Structure-of-a-Console-Driver"><a href="#Structure-of-a-Console-Driver" class="headerlink" title="Structure of a Console Driver"></a><strong>Structure of a Console Driver</strong></h3><p>A typical console driver consists of:</p>
-<ul>
-<li><strong>Console Structure</strong>: Defines the driver properties.</li>
-<li><strong>Console Operations</strong>: Provides methods like <code>write</code> to handle output.</li>
-</ul>
-<h3 id="Sample-Console-Driver-Skeleton"><a href="#Sample-Console-Driver-Skeleton" class="headerlink" title="Sample Console Driver Skeleton"></a><strong>Sample Console Driver Skeleton</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/console.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">my_console_write</span><span class="params">(<span class="keyword">struct</span> console *console, <span class="type">const</span> <span class="type">char</span> *str, <span class="type">unsigned</span> <span class="type">int</span> count)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Output the string to a custom device</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">unsigned</span> <span class="type">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        <span class="comment">// Example: Output to a serial port</span></span><br><span class="line">        hardware_write(str[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">console</span> <span class="title">my_console</span> =</span> &#123;</span><br><span class="line">    .name   = <span class="string">&quot;my_console&quot;</span>,</span><br><span class="line">    .write  = my_console_write,</span><br><span class="line">    .flags  = CON_PRINTBUFFER,</span><br><span class="line">    .index  = <span class="number">-1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> __init <span class="title function_">my_console_init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    register_console(&amp;my_console);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> __exit <span class="title function_">my_console_exit</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    unregister_console(&amp;my_console);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module_init(my_console_init);</span><br><span class="line">module_exit(my_console_exit);</span><br><span class="line"></span><br><span class="line">MODULE_LICENSE(<span class="string">&quot;GPL&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Relationship-Between-printk-and-Console"><a href="#Relationship-Between-printk-and-Console" class="headerlink" title="Relationship Between printk and Console"></a><strong>Relationship Between <code>printk</code> and Console</strong></h3><ol>
-<li><code>printk</code> writes messages to the kernel’s log buffer.</li>
-<li>The kernel dispatches log messages to registered console drivers.</li>
-<li>The console driver outputs messages to the appropriate device, such as a terminal or serial port.</li>
-</ol>
-<hr>
-<h2 id="Storing-Kernel-Logs-dmesg-in-RAM"><a href="#Storing-Kernel-Logs-dmesg-in-RAM" class="headerlink" title="Storing Kernel Logs (dmesg) in RAM"></a><strong>Storing Kernel Logs (<code>dmesg</code>) in RAM</strong></h2><p>To store kernel messages in RAM:</p>
-<ol>
-<li><p><strong>Configure Kernel Options</strong>: Use the <code>CONFIG_PRINTK</code> and <code>CONFIG_LOG_BUF_SHIFT</code> options to adjust the size of the kernel log buffer.</p>
-<ul>
-<li>Example: <code>CONFIG_LOG_BUF_SHIFT=17</code> allocates a 128KB buffer.</li>
-</ul>
-</li>
-<li><p><strong>Access Logs with <code>dmesg</code></strong>:</p>
-<ul>
-<li>Logs are exposed through <code>/dev/kmsg</code> or by the <code>dmesg</code> command.</li>
-<li>To keep logs persistent, you can redirect them to a reserved memory region.</li>
-</ul>
-</li>
-<li><p><strong>Persistent Kernel Logs</strong>:</p>
-<ul>
-<li>Use the <code>pstore</code> subsystem to save logs in NVRAM or another persistent storage medium for debugging after reboots.</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="Advanced-Kernel-Debugging-Techniques"><a href="#Advanced-Kernel-Debugging-Techniques" class="headerlink" title="Advanced Kernel Debugging Techniques"></a><strong>Advanced Kernel Debugging Techniques</strong></h2><h3 id="1-Kernel-Hacking-Options"><a href="#1-Kernel-Hacking-Options" class="headerlink" title="1. Kernel Hacking Options"></a><strong>1. Kernel Hacking Options</strong></h3><p>Enable debugging features in the kernel:</p>
-<ul>
-<li><strong><code>CONFIG_DEBUG_KERNEL</code></strong>: Enables debugging features.</li>
-<li><strong><code>CONFIG_KGDB</code></strong>: Adds support for kernel debugging with GDB.</li>
-<li><strong><code>CONFIG_DEBUG_FS</code></strong>: Provides a filesystem for kernel debugging.</li>
-</ul>
-<h3 id="2-Kernel-Debugging-Tools"><a href="#2-Kernel-Debugging-Tools" class="headerlink" title="2. Kernel Debugging Tools"></a><strong>2. Kernel Debugging Tools</strong></h3><h4 id="kgdb-Kernel-GNU-Debugger"><a href="#kgdb-Kernel-GNU-Debugger" class="headerlink" title="kgdb (Kernel GNU Debugger)"></a><strong>kgdb (Kernel GNU Debugger)</strong></h4><p><code>kgdb</code> allows live debugging of the kernel using GDB. It works over serial or network connections.</p>
-<ul>
-<li><strong>Enable kgdb</strong>:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_KGDB=y</span><br><span class="line">CONFIG_KGDB_SERIAL_CONSOLE=y</span><br></pre></td></tr></table></figure></li>
-<li><strong>Usage</strong>:<ol>
-<li>Boot the kernel with <code>kgdbwait</code>.</li>
-<li>Attach GDB to the kernel.</li>
-</ol>
-</li>
-</ul>
-<h4 id="ftrace"><a href="#ftrace" class="headerlink" title="ftrace"></a><strong>ftrace</strong></h4><p><code>ftrace</code> provides tracing capabilities for function calls, interrupts, and events in the kernel.</p>
-<ul>
-<li><strong>Enable ftrace</strong>:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_FUNCTION_TRACER=y</span><br><span class="line">CONFIG_FUNCTION_GRAPH_TRACER=y</span><br></pre></td></tr></table></figure></li>
-<li><strong>Usage</strong>:<ul>
-<li>Enable tracing via <code>/sys/kernel/debug/tracing</code>.</li>
-</ul>
-</li>
-</ul>
-<h4 id="Dynamic-Debugging"><a href="#Dynamic-Debugging" class="headerlink" title="Dynamic Debugging"></a><strong>Dynamic Debugging</strong></h4><p>Allows adding debug statements dynamically without rebuilding the kernel.</p>
-<ul>
-<li><strong>Enable dynamic debugging</strong>:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_DYNAMIC_DEBUG=y</span><br></pre></td></tr></table></figure></li>
-<li><strong>Control debug logs</strong>:<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;module my_module +p&quot; &gt; /sys/kernel/debug/dynamic_debug/control</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="3-Kprobes-and-eBPF"><a href="#3-Kprobes-and-eBPF" class="headerlink" title="3. Kprobes and eBPF"></a><strong>3. Kprobes and eBPF</strong></h3><h4 id="Kprobes-Instrument-specific-kernel-instructions-for-debugging"><a href="#Kprobes-Instrument-specific-kernel-instructions-for-debugging" class="headerlink" title="Kprobes: Instrument specific kernel instructions for debugging."></a><strong>Kprobes</strong>: Instrument specific kernel instructions for debugging.</h4><h4 id="eBPF-Attach-custom-programs-to-kernel-events-for-lightweight-and-flexible-tracing"><a href="#eBPF-Attach-custom-programs-to-kernel-events-for-lightweight-and-flexible-tracing" class="headerlink" title="eBPF: Attach custom programs to kernel events for lightweight and flexible tracing."></a><strong>eBPF</strong>: Attach custom programs to kernel events for lightweight and flexible tracing.</h4><h3 id="4-Kernel-Dump-Analysis"><a href="#4-Kernel-Dump-Analysis" class="headerlink" title="4. Kernel Dump Analysis"></a><strong>4. Kernel Dump Analysis</strong></h3><p>Use <code>kdump</code> to capture kernel memory during a crash for post-mortem analysis.</p>
-<ul>
-<li><strong>Enable kdump</strong>:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_KEXEC=y</span><br><span class="line">CONFIG_CRASH_DUMP=y</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>Debugging the Linux kernel involves understanding core mechanisms like <code>printk</code> and console drivers while leveraging advanced tools like <code>kgdb</code>, <code>ftrace</code>, and <code>kprobes</code>. By mastering these techniques, developers can efficiently diagnose and resolve kernel-level issues, ensuring system stability and performance.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/04/linux-kernel-debug/" data-id="cm4ccjlwm000ht4mxckd44zc4" data-title="Debugging the Linux Kernel: A Comprehensive Guide" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/04/linux-userspace-debug/" data-id="cm4uy45m9000m0kmxgys0gxki" data-title="Testing Linux I2C, USB, and PCI Drivers Using Userspace Tools and `Sysfs`" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1423,7 +1406,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -1455,6 +1438,10 @@
       <ul>
         
           <li>
+            <a href="/2024/12/19/cs_tec_linux_pam/">Understanding Linux PAM (Pluggable Authentication Modules)</a>
+          </li>
+        
+          <li>
             <a href="/2024/12/06/compress-intro/">Comprehensive Guide to Data Compression Technologies</a>
           </li>
         
@@ -1468,10 +1455,6 @@
         
           <li>
             <a href="/2024/12/05/android-firewall/">Advanced Concepts in Android Firewall Using Iptables: Stateful vs Stateless Firewalls and Conntrack</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/05/android-video-IP/">Introduction to Android IP Protection Technologies</a>
           </li>
         
       </ul>

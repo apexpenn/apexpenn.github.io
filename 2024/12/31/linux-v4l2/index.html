@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>A Technical Overview of V4L2 | Penn&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Video4Linux2 (V4L2) is a robust framework in the Linux kernel for handling video devices, including USB cameras. It provides a standardized API for video capture, making it the go-to interface for Lin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Technical Overview of V4L2">
+<meta property="og:url" content="https://apexpeng.github.io/2024/12/31/linux-v4l2/index.html">
+<meta property="og:site_name" content="Penn&#39;s Blog">
+<meta property="og:description" content="Video4Linux2 (V4L2) is a robust framework in the Linux kernel for handling video devices, including USB cameras. It provides a standardized API for video capture, making it the go-to interface for Lin">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-31T01:03:56.491Z">
+<meta property="article:modified_time" content="2024-12-31T01:03:56.491Z">
+<meta property="article:author" content="Zhang Peng">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Penn's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Penn&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://apexpeng.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-linux-v4l2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/31/linux-v4l2/" class="article-date">
+  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      A Technical Overview of V4L2
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>Video4Linux2 (V4L2)</strong> is a robust framework in the Linux kernel for handling video devices, including USB cameras. It provides a standardized API for video capture, making it the go-to interface for Linux-based video application development. This article delves into the memory management mechanisms V4L2 offers and demonstrates how to capture video from a USB camera with reference code.</p>
+<hr>
+<h2 id="1-Overview-of-V4L2-Memory-Management"><a href="#1-Overview-of-V4L2-Memory-Management" class="headerlink" title="1. Overview of V4L2 Memory Management"></a><strong>1. Overview of V4L2 Memory Management</strong></h2><p>V4L2 supports multiple memory management mechanisms for video buffers, providing flexibility for developers to choose based on their application’s needs. The framework uses buffers to exchange video frames between the driver and the application.</p>
+<h3 id="Memory-Types-in-V4L2"><a href="#Memory-Types-in-V4L2" class="headerlink" title="Memory Types in V4L2"></a><strong>Memory Types in V4L2</strong></h3><ol>
+<li><p><strong>MMAP (Memory Mapping):</strong></p>
+<ul>
+<li>Buffers are allocated in kernel space and memory-mapped to user space.</li>
+<li>Suitable for most applications as it eliminates the need for copying data.</li>
+</ul>
+</li>
+<li><p><strong>User Pointer (USERPTR):</strong></p>
+<ul>
+<li>The application allocates its own buffers in user space and provides pointers to the driver.</li>
+<li>Provides greater control over memory management but requires more synchronization.</li>
+</ul>
+</li>
+<li><p><strong>DMA Buffer (DMABUF):</strong></p>
+<ul>
+<li>Allows sharing buffers between devices using Direct Memory Access (DMA).</li>
+<li>Common in zero-copy pipelines where efficiency is critical.</li>
+</ul>
+</li>
+<li><p><strong>Read&#x2F;Write:</strong></p>
+<ul>
+<li>Simplest method where data is copied between the driver and user space.</li>
+<li>Less efficient due to the overhead of copying but straightforward to implement.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="2-Steps-to-Capture-Video-from-a-USB-Camera-Using-V4L2"><a href="#2-Steps-to-Capture-Video-from-a-USB-Camera-Using-V4L2" class="headerlink" title="2. Steps to Capture Video from a USB Camera Using V4L2"></a><strong>2. Steps to Capture Video from a USB Camera Using V4L2</strong></h2><p>Below is a step-by-step guide to capturing video using V4L2, focusing on MMAP memory. </p>
+<h3 id="Step-1-Open-the-Device"><a href="#Step-1-Open-the-Device" class="headerlink" title="Step 1: Open the Device"></a><strong>Step 1: Open the Device</strong></h3><p>Use the <code>open()</code> system call to access the video device (e.g., <code>/dev/video0</code>).</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> fd = open(<span class="string">&quot;/dev/video0&quot;</span>, O_RDWR);</span><br><span class="line"><span class="keyword">if</span> (fd == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Opening video device&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-2-Query-Device-Capabilities"><a href="#Step-2-Query-Device-Capabilities" class="headerlink" title="Step 2: Query Device Capabilities"></a><strong>Step 2: Query Device Capabilities</strong></h3><p>Use the <code>VIDIOC_QUERYCAP</code> ioctl to ensure the device supports video capture.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/videodev2.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/ioctl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">v4l2_capability</span> <span class="title">cap</span>;</span></span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_QUERYCAP, &amp;cap) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Querying capabilities&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (!(cap.capabilities &amp; V4L2_CAP_VIDEO_CAPTURE)) &#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;Device does not support video capture\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-3-Set-the-Video-Format"><a href="#Step-3-Set-the-Video-Format" class="headerlink" title="Step 3: Set the Video Format"></a><strong>Step 3: Set the Video Format</strong></h3><p>Specify the desired frame size and pixel format using the <code>VIDIOC_S_FMT</code> ioctl.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">v4l2_format</span> <span class="title">fmt</span>;</span></span><br><span class="line">fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">fmt.fmt.pix.width = <span class="number">640</span>;</span><br><span class="line">fmt.fmt.pix.height = <span class="number">480</span>;</span><br><span class="line">fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_MJPEG; <span class="comment">// Or V4L2_PIX_FMT_YUYV</span></span><br><span class="line">fmt.fmt.pix.field = V4L2_FIELD_NONE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_S_FMT, &amp;fmt) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Setting pixel format&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-4-Request-Buffers"><a href="#Step-4-Request-Buffers" class="headerlink" title="Step 4: Request Buffers"></a><strong>Step 4: Request Buffers</strong></h3><p>Allocate memory buffers in the kernel using the <code>VIDIOC_REQBUFS</code> ioctl.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">v4l2_requestbuffers</span> <span class="title">req</span>;</span></span><br><span class="line">req.count = <span class="number">4</span>; <span class="comment">// Number of buffers</span></span><br><span class="line">req.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">req.memory = V4L2_MEMORY_MMAP;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_REQBUFS, &amp;req) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Requesting buffer&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-5-Map-Buffers-to-User-Space"><a href="#Step-5-Map-Buffers-to-User-Space" class="headerlink" title="Step 5: Map Buffers to User Space"></a><strong>Step 5: Map Buffers to User Space</strong></h3><p>Map the kernel buffers to user space using <code>mmap()</code>.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">buffer</span> &#123;</span></span><br><span class="line">    <span class="type">void</span> *start;</span><br><span class="line">    <span class="type">size_t</span> length;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">buffer</span> *<span class="title">buffers</span> =</span> <span class="built_in">calloc</span>(req.count, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> buffer));</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; req.count; i++) &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">v4l2_buffer</span> <span class="title">buf</span>;</span></span><br><span class="line">    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">    buf.memory = V4L2_MEMORY_MMAP;</span><br><span class="line">    buf.index = i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_QUERYBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Querying buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    buffers[i].length = buf.length;</span><br><span class="line">    buffers[i].start = mmap(<span class="literal">NULL</span>, buf.length, PROT_READ | PROT_WRITE, MAP_SHARED, fd, buf.m.offset);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (buffers[i].start == MAP_FAILED) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Mapping buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-6-Queue-Buffers"><a href="#Step-6-Queue-Buffers" class="headerlink" title="Step 6: Queue Buffers"></a><strong>Step 6: Queue Buffers</strong></h3><p>Queue the buffers for the driver to fill with video frames.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; req.count; i++) &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">v4l2_buffer</span> <span class="title">buf</span>;</span></span><br><span class="line">    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">    buf.memory = V4L2_MEMORY_MMAP;</span><br><span class="line">    buf.index = i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_QBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Queueing buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-7-Start-Streaming"><a href="#Step-7-Start-Streaming" class="headerlink" title="Step 7: Start Streaming"></a><strong>Step 7: Start Streaming</strong></h3><p>Initiate the video capture process.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">v4l2_buf_type</span> <span class="title">type</span> =</span> V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_STREAMON, &amp;type) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Starting stream&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-8-Capture-Video-Frames"><a href="#Step-8-Capture-Video-Frames" class="headerlink" title="Step 8: Capture Video Frames"></a><strong>Step 8: Capture Video Frames</strong></h3><p>Dequeue buffers, process the video data, and requeue them for continuous streaming.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123; <span class="comment">// Capture 100 frames</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">v4l2_buffer</span> <span class="title">buf</span>;</span></span><br><span class="line">    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">    buf.memory = V4L2_MEMORY_MMAP;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_DQBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Dequeueing buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Process the video frame (e.g., save it to a file)</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Captured frame %d\n&quot;</span>, i);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_QBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Requeueing buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Step-9-Stop-Streaming-and-Clean-Up"><a href="#Step-9-Stop-Streaming-and-Clean-Up" class="headerlink" title="Step 9: Stop Streaming and Clean Up"></a><strong>Step 9: Stop Streaming and Clean Up</strong></h3><p>Terminate the video capture process and release resources.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_STREAMOFF, &amp;type) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Stopping stream&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; req.count; i++) &#123;</span><br><span class="line">    munmap(buffers[i].start, buffers[i].length);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">free</span>(buffers);</span><br><span class="line">close(fd);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-Applications-of-V4L2"><a href="#3-Applications-of-V4L2" class="headerlink" title="3. Applications of V4L2"></a><strong>3. Applications of V4L2</strong></h2><p>V4L2 can be used in various applications, such as:</p>
+<ul>
+<li><strong>Video Streaming:</strong> Build real-time video streaming pipelines.</li>
+<li><strong>Surveillance Systems:</strong> Capture and analyze video feeds from security cameras.</li>
+<li><strong>Computer Vision:</strong> Process frames for object detection, tracking, and recognition.</li>
+<li><strong>Media Recording:</strong> Record and save video content to disk.</li>
+</ul>
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>V4L2 is a powerful and flexible interface for video device programming in Linux. By leveraging its memory management options and ioctl-based API, developers can efficiently capture and process video from USB cameras. The provided example demonstrates the key steps, from device initialization to capturing and processing frames, empowering developers to build robust video applications.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/31/linux-v4l2/" data-id="cm5c7gmuf000ndgvyeskd49zj" data-title="A Technical Overview of V4L2" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/12/31/linux-userspace-debug/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Testing Linux I2C, USB, and PCI Drivers Using Userspace Tools and `Sysfs`
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/12/31/nginx-intro/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Nginx: A Deep Dive Into Web Server Excellence</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/31/wireless-modem-intro/">Comprehensive Technical Overview of Wireless Modems</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/wireless-modem-ucosii/">Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/android-ril/">Android Cellular Connectivity: RIL and Connection Management</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/android-sensor/">Android Sensor Architecture: A Comprehensive Overview</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/android-video-IP/">Introduction to Android IP Protection Technologies</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 Zhang Peng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

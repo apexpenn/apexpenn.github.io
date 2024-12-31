@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II | Penn&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="IntroductionIntegrating a USB wireless modem into an embedded system using uC&#x2F;OS-II provides powerful communication capabilities. This technical article outlines a comprehensive approach to initi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Implementing SMS-Triggered Functions With Wireless Modem in uC&#x2F;OS-II">
+<meta property="og:url" content="https://apexpeng.github.io/2024/12/31/wireless-modem-ucosii/index.html">
+<meta property="og:site_name" content="Penn&#39;s Blog">
+<meta property="og:description" content="IntroductionIntegrating a USB wireless modem into an embedded system using uC&#x2F;OS-II provides powerful communication capabilities. This technical article outlines a comprehensive approach to initi">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-31T01:03:56.507Z">
+<meta property="article:modified_time" content="2024-12-31T01:03:56.507Z">
+<meta property="article:author" content="Zhang Peng">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Penn's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Penn&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://apexpeng.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-wireless-modem-ucosii" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/31/wireless-modem-ucosii/" class="article-date">
+  <time class="dt-published" datetime="2024-12-31T01:03:56.507Z" itemprop="datePublished">2024-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Integrating a USB wireless modem into an embedded system using uC&#x2F;OS-II provides powerful communication capabilities. This technical article outlines a comprehensive approach to initializing a USB wireless modem, establishing AT command communication, and implementing SMS-triggered software functions.</p>
+<h2 id="System-Architecture"><a href="#System-Architecture" class="headerlink" title="System Architecture"></a>System Architecture</h2><p>The proposed system consists of the following key components:</p>
+<ul>
+<li>USB Wireless Modem</li>
+<li>Microcontroller</li>
+<li>uC&#x2F;OS-II Real-Time Operating System</li>
+<li>Embedded Software Framework</li>
+</ul>
+<h2 id="USB-Wireless-Modem-Initialization"><a href="#USB-Wireless-Modem-Initialization" class="headerlink" title="USB Wireless Modem Initialization"></a>USB Wireless Modem Initialization</h2><h3 id="Hardware-Preparation"><a href="#Hardware-Preparation" class="headerlink" title="Hardware Preparation"></a>Hardware Preparation</h3><p>Before software implementation, ensure the following hardware connections:</p>
+<ul>
+<li>USB wireless modem connected to microcontroller’s USB interface</li>
+<li>Appropriate power supply</li>
+<li>Signal and ground connections verified</li>
+</ul>
+<h3 id="Initialization-Sequence"><a href="#Initialization-Sequence" class="headerlink" title="Initialization Sequence"></a>Initialization Sequence</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;usb_modem.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;includes.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// USB Modem Initialization Function</span></span><br><span class="line">INT8U <span class="title function_">InitUSBWirelessModem</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    INT8U err;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Initialize USB Communication Interface</span></span><br><span class="line">    <span class="keyword">if</span> (USB_Init() != USB_SUCCESS) &#123;</span><br><span class="line">        <span class="keyword">return</span> USB_INIT_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Configure Serial Communication Parameters</span></span><br><span class="line">    SerialConfig serial_params = &#123;</span><br><span class="line">        .baud_rate = <span class="number">115200</span>,</span><br><span class="line">        .data_bits = <span class="number">8</span>,</span><br><span class="line">        .stop_bits = <span class="number">1</span>,</span><br><span class="line">        .parity = PARITY_NONE</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Open Serial Port for AT Commands</span></span><br><span class="line">    <span class="keyword">if</span> (SerialPort_Open(&amp;serial_params) != SERIAL_SUCCESS) &#123;</span><br><span class="line">        <span class="keyword">return</span> SERIAL_OPEN_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Send Initial AT Commands</span></span><br><span class="line">    <span class="keyword">if</span> (SendATCommand(<span class="string">&quot;AT\r&quot;</span>, TIMEOUT_MS) != AT_RESPONSE_OK) &#123;</span><br><span class="line">        <span class="keyword">return</span> AT_COMMAND_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Configure SMS Mode</span></span><br><span class="line">    <span class="keyword">if</span> (ConfigureSMSMode() != SMS_CONFIG_SUCCESS) &#123;</span><br><span class="line">        <span class="keyword">return</span> SMS_CONFIG_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> USB_MODEM_INIT_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SMS Configuration Function</span></span><br><span class="line">INT8U <span class="title function_">ConfigureSMSMode</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// Set Text Mode</span></span><br><span class="line">    <span class="keyword">if</span> (SendATCommand(<span class="string">&quot;AT+CMGF=1\r&quot;</span>, TIMEOUT_MS) != AT_RESPONSE_OK) &#123;</span><br><span class="line">        <span class="keyword">return</span> SMS_TEXT_MODE_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Configure SMS Storage</span></span><br><span class="line">    <span class="keyword">if</span> (SendATCommand(<span class="string">&quot;AT+CPMS=\&quot;ME\&quot;,\&quot;ME\&quot;,\&quot;ME\&quot;\r&quot;</span>, TIMEOUT_MS) != AT_RESPONSE_OK) &#123;</span><br><span class="line">        <span class="keyword">return</span> SMS_STORAGE_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> SMS_CONFIG_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="SMS-Processing-Task"><a href="#SMS-Processing-Task" class="headerlink" title="SMS Processing Task"></a>SMS Processing Task</h2><h3 id="Task-Implementation"><a href="#Task-Implementation" class="headerlink" title="Task Implementation"></a>Task Implementation</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_SMS_LENGTH 160</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_PHONE_NUMBER_LENGTH 20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">char</span> phone_number[MAX_PHONE_NUMBER_LENGTH];</span><br><span class="line">    <span class="type">char</span> message[MAX_SMS_LENGTH];</span><br><span class="line">&#125; SMSMessage;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SMS Processing Task</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">TaskSMSProcessing</span><span class="params">(<span class="type">void</span> *pdata)</span> &#123;</span><br><span class="line">    SMSMessage incoming_sms;</span><br><span class="line">    INT8U err;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// Wait for SMS Notification</span></span><br><span class="line">        <span class="keyword">if</span> (WaitForSMSNotification(&amp;incoming_sms) == SMS_RECEIVED) &#123;</span><br><span class="line">            <span class="comment">// Process SMS Based on Content</span></span><br><span class="line">            ProcessSMSCommand(&amp;incoming_sms);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Prevent Task Starvation</span></span><br><span class="line">        OSTimeDlyHMSM(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SMS Command Processing</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">ProcessSMSCommand</span><span class="params">(SMSMessage *sms)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strcmp</span>(sms-&gt;message, <span class="string">&quot;SYSTEM_STATUS&quot;</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">        SendSystemStatusReport();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">strcmp</span>(sms-&gt;message, <span class="string">&quot;RESET_DEVICE&quot;</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">        SystemReset();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">strncmp</span>(sms-&gt;message, <span class="string">&quot;CONTROL_OUTPUT&quot;</span>, <span class="number">13</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">        ProcessOutputControl(sms-&gt;message);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Additional command handlers</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Error-Handling-and-Robustness"><a href="#Error-Handling-and-Robustness" class="headerlink" title="Error Handling and Robustness"></a>Error Handling and Robustness</h2><h3 id="Key-Considerations"><a href="#Key-Considerations" class="headerlink" title="Key Considerations"></a>Key Considerations</h3><ul>
+<li>Implement comprehensive error checking</li>
+<li>Use timeout mechanisms</li>
+<li>Validate SMS content before processing</li>
+<li>Maintain a log of SMS interactions</li>
+<li>Implement security measures to prevent unauthorized commands</li>
+</ul>
+<h2 id="Performance-Optimization"><a href="#Performance-Optimization" class="headerlink" title="Performance Optimization"></a>Performance Optimization</h2><h3 id="Recommendations"><a href="#Recommendations" class="headerlink" title="Recommendations"></a>Recommendations</h3><ul>
+<li>Use efficient memory management</li>
+<li>Minimize blocking operations</li>
+<li>Implement proper task prioritization</li>
+<li>Use circular buffers for SMS storage</li>
+<li>Optimize AT command processing</li>
+</ul>
+<h2 id="Security-Considerations"><a href="#Security-Considerations" class="headerlink" title="Security Considerations"></a>Security Considerations</h2><ol>
+<li>Implement sender authentication</li>
+<li>Use encrypted communication channels</li>
+<li>Limit and validate acceptable SMS commands</li>
+<li>Implement command access levels</li>
+</ol>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Integrating a USB wireless modem with uC&#x2F;OS-II enables sophisticated remote communication and control capabilities. By carefully implementing initialization, SMS processing, and robust error handling, developers can create powerful embedded systems with flexible remote interaction mechanisms.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li>uC&#x2F;OS-II Reference Manual</li>
+<li>USB Communication Protocols</li>
+<li>AT Command Set Specifications</li>
+</ul>
+<p><strong>Note:</strong> This implementation serves as a conceptual framework and should be adapted to specific hardware and project requirements.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/31/wireless-modem-ucosii/" data-id="cm5c7gmuj000vdgvy2pq45b07" data-title="Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/12/31/wireless-modem-intro/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Comprehensive Technical Overview of Wireless Modems
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/12/31/android-ril/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android Cellular Connectivity: RIL and Connection Management</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/31/wireless-modem-intro/">Comprehensive Technical Overview of Wireless Modems</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/wireless-modem-ucosii/">Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/android-ril/">Android Cellular Connectivity: RIL and Connection Management</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/android-sensor/">Android Sensor Architecture: A Comprehensive Overview</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/android-video-IP/">Introduction to Android IP Protection Technologies</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 Zhang Peng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

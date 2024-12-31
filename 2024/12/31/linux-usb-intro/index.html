@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Deep Dive Into the Linux USB Subsystem: Implementation and Usage | Penn&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="This article examines the Linux USB subsystem in detail, including its architecture, how USB devices are initialized, USB bus operations, OTG functionality, and implementation of USB device drivers. A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deep Dive Into the Linux USB Subsystem: Implementation and Usage">
+<meta property="og:url" content="https://apexpeng.github.io/2024/12/31/linux-usb-intro/index.html">
+<meta property="og:site_name" content="Penn&#39;s Blog">
+<meta property="og:description" content="This article examines the Linux USB subsystem in detail, including its architecture, how USB devices are initialized, USB bus operations, OTG functionality, and implementation of USB device drivers. A">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-31T01:03:56.491Z">
+<meta property="article:modified_time" content="2024-12-31T01:03:56.491Z">
+<meta property="article:author" content="Zhang Peng">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Penn's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Penn&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://apexpeng.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-linux-usb-intro" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/31/linux-usb-intro/" class="article-date">
+  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Deep Dive Into the Linux USB Subsystem: Implementation and Usage
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>This article examines the Linux USB subsystem in detail, including its architecture, how USB devices are initialized, USB bus operations, OTG functionality, and implementation of USB device drivers. Additionally, we’ll discuss how users can interact with these devices and test them.</p>
+<hr>
+<h2 id="How-USB-Works-in-Linux"><a href="#How-USB-Works-in-Linux" class="headerlink" title="How USB Works in Linux"></a><strong>How USB Works in Linux</strong></h2><p>The Linux USB subsystem operates as a layered architecture, enabling seamless communication between hardware and software. Here’s how it works:</p>
+<h3 id="Steps-Involved"><a href="#Steps-Involved" class="headerlink" title="Steps Involved"></a><strong>Steps Involved</strong></h3><ol>
+<li><p><strong>Device Detection</strong>:</p>
+<ul>
+<li>When a USB device is plugged in, the host controller detects it and triggers an interrupt.</li>
+<li>The kernel identifies the new device through a signal on the USB bus.</li>
+</ul>
+</li>
+<li><p><strong>Device Enumeration</strong>:</p>
+<ul>
+<li>The kernel queries the device descriptors (e.g., Vendor ID, Product ID, and Device Class) using control transfers.</li>
+<li>Descriptors are stored in kernel data structures.</li>
+</ul>
+</li>
+<li><p><strong>Driver Binding</strong>:</p>
+<ul>
+<li>The USB core matches the device with a driver based on its descriptors.</li>
+<li>A driver is loaded, and the device is made accessible to userspace.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="USB-Bus-Startup"><a href="#USB-Bus-Startup" class="headerlink" title="USB Bus Startup"></a><strong>USB Bus Startup</strong></h2><p>The USB bus starts when the host controller (e.g., EHCI, XHCI) is initialized. Host controller drivers (HCD) manage communication with USB devices.</p>
+<h3 id="Key-Steps-in-USB-Bus-Startup"><a href="#Key-Steps-in-USB-Bus-Startup" class="headerlink" title="Key Steps in USB Bus Startup"></a><strong>Key Steps in USB Bus Startup</strong></h3><ol>
+<li><p><strong>Initialization</strong>:</p>
+<ul>
+<li>HCD initializes the USB controller hardware.</li>
+<li>Example: EHCI driver (<code>drivers/usb/host/ehci-hcd.c</code>).</li>
+</ul>
+</li>
+<li><p><strong>Root Hub Setup</strong>:</p>
+<ul>
+<li>The host controller initializes the root hub, the logical connection point for devices.</li>
+</ul>
+</li>
+<li><p><strong>Periodic Polling</strong>:</p>
+<ul>
+<li>USB hubs periodically poll for connected devices using hub events.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Relevant-Code-Host-Controller-Initialization"><a href="#Relevant-Code-Host-Controller-Initialization" class="headerlink" title="Relevant Code: Host Controller Initialization"></a><strong>Relevant Code: Host Controller Initialization</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">ehci_hcd_init</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">usb_hcd</span> *<span class="title">hcd</span> =</span> usb_create_hcd(&amp;ehci_hc_driver, dev, <span class="string">&quot;ehci&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!hcd)</span><br><span class="line">        <span class="keyword">return</span> -ENOMEM;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> usb_add_hcd(hcd, irq, IRQF_SHARED);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="User-Interaction"><a href="#User-Interaction" class="headerlink" title="User Interaction"></a><strong>User Interaction</strong></h3><ul>
+<li>Devices are automatically registered in <code>/sys/bus/usb/devices/</code>.</li>
+<li>Users can list devices with:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsusb</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h2 id="USB-Architecture"><a href="#USB-Architecture" class="headerlink" title="USB Architecture"></a><strong>USB Architecture</strong></h2><p>The Linux USB architecture is modular, comprising several layers:</p>
+<h3 id="1-Host-Controller-Driver-HCD"><a href="#1-Host-Controller-Driver-HCD" class="headerlink" title="1. Host Controller Driver (HCD)"></a><strong>1. Host Controller Driver (HCD)</strong></h3><p>Manages hardware-specific operations. Examples: EHCI, XHCI, and OHCI drivers.</p>
+<ul>
+<li><strong>Example</strong>: EHCI Driver (<code>drivers/usb/host/ehci-hcd.c</code>).</li>
+<li>Responsibilities:<ul>
+<li>Initialize USB hardware.</li>
+<li>Schedule and execute data transfers.</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-USB-Core"><a href="#2-USB-Core" class="headerlink" title="2. USB Core"></a><strong>2. USB Core</strong></h3><p>Manages:</p>
+<ul>
+<li>Device enumeration.</li>
+<li>Power management.</li>
+<li>Driver binding.</li>
+</ul>
+<p>Located in <code>/drivers/usb/core/</code>.</p>
+<h3 id="3-USB-Class-Drivers"><a href="#3-USB-Class-Drivers" class="headerlink" title="3. USB Class Drivers"></a><strong>3. USB Class Drivers</strong></h3><p>Handle specific device types, such as keyboards, modems, and mass storage.</p>
+<hr>
+<h2 id="USB-OTG-On-The-Go"><a href="#USB-OTG-On-The-Go" class="headerlink" title="USB OTG (On-The-Go)"></a><strong>USB OTG (On-The-Go)</strong></h2><p>USB OTG allows devices to act as either a host or a peripheral. This is useful in embedded systems and mobile devices.</p>
+<h3 id="OTG-Architecture"><a href="#OTG-Architecture" class="headerlink" title="OTG Architecture"></a><strong>OTG Architecture</strong></h3><ol>
+<li><strong>Dual Role Devices</strong>: Devices that can switch roles between host and peripheral.</li>
+<li><strong>OTG Controller</strong>: Manages role switching.</li>
+</ol>
+<h3 id="Implementation-OTG-Role-Switching"><a href="#Implementation-OTG-Role-Switching" class="headerlink" title="Implementation: OTG Role Switching"></a><strong>Implementation: OTG Role Switching</strong></h3><p>Located in <code>/drivers/usb/otg/</code>.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">usb_gadget_probe_driver</span><span class="params">(<span class="keyword">struct</span> usb_gadget_driver *driver)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">usb_gadget</span> *<span class="title">gadget</span> =</span> driver-&gt;gadget;</span><br><span class="line">    <span class="keyword">return</span> gadget-&gt;ops-&gt;start(gadget, driver);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="User-Interaction-1"><a href="#User-Interaction-1" class="headerlink" title="User Interaction"></a><strong>User Interaction</strong></h3><p>Users can enable OTG features through <code>sysfs</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;host&quot;</span> &gt; /sys/class/usb_role_switch/usb_role</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="USB-Hub-Device-Driver"><a href="#USB-Hub-Device-Driver" class="headerlink" title="USB Hub Device Driver"></a><strong>USB Hub Device Driver</strong></h2><p>USB hubs allow multiple devices to connect to a single USB port. The Linux USB hub driver handles device enumeration and power management.</p>
+<h3 id="Key-Functions-in-the-Hub-Driver"><a href="#Key-Functions-in-the-Hub-Driver" class="headerlink" title="Key Functions in the Hub Driver"></a><strong>Key Functions in the Hub Driver</strong></h3><ol>
+<li><p><strong>Initialization</strong>:</p>
+<ul>
+<li>Probes hub hardware and configures it.</li>
+<li>Example: <code>usb_hub_probe()</code> in <code>drivers/usb/core/hub.c</code>.</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">usb_hub_probe</span><span class="params">(<span class="keyword">struct</span> usb_interface *intf, <span class="type">const</span> <span class="keyword">struct</span> usb_device_id *id)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">usb_hub</span> *<span class="title">hub</span> =</span> kzalloc(<span class="keyword">sizeof</span>(*hub), GFP_KERNEL);</span><br><span class="line">    <span class="keyword">return</span> hub_configure(hub, intf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Device Enumeration</strong>:</p>
+<ul>
+<li>Detects new devices and handles their descriptors.</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">hub_event</span><span class="params">(<span class="keyword">struct</span> work_struct *work)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">usb_hub</span> *<span class="title">hub</span> =</span> container_of(work, <span class="keyword">struct</span> usb_hub, hub_event);</span><br><span class="line">    hub_port_connect_change(hub);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="User-Interaction-2"><a href="#User-Interaction-2" class="headerlink" title="User Interaction"></a><strong>User Interaction</strong></h3><p>Users can query connected hubs:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsusb -t</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="USB-Device-Driver-Implementations"><a href="#USB-Device-Driver-Implementations" class="headerlink" title="USB Device Driver Implementations"></a><strong>USB Device Driver Implementations</strong></h2><h3 id="1-USB-Modem"><a href="#1-USB-Modem" class="headerlink" title="1. USB Modem"></a><strong>1. USB Modem</strong></h3><p>The <code>cdc-acm</code> driver supports USB modems and is located at <code>drivers/usb/class/cdc-acm.c</code>.</p>
+<h4 id="Key-Code-Modem-Driver-Initialization"><a href="#Key-Code-Modem-Driver-Initialization" class="headerlink" title="Key Code: Modem Driver Initialization"></a><strong>Key Code: Modem Driver Initialization</strong></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">cdc_acm_probe</span><span class="params">(<span class="keyword">struct</span> usb_interface *intf, <span class="type">const</span> <span class="keyword">struct</span> usb_device_id *id)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">cdc_acm</span> *<span class="title">acm</span> =</span> kzalloc(<span class="keyword">sizeof</span>(*acm), GFP_KERNEL);</span><br><span class="line">    usb_set_intfdata(intf, acm);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="User-Interaction-3"><a href="#User-Interaction-3" class="headerlink" title="User Interaction"></a><strong>User Interaction</strong></h4><ul>
+<li>Modems are accessible as <code>/dev/ttyUSB*</code>.</li>
+<li>Use tools like <code>minicom</code> for testing:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minicom -D /dev/ttyUSB0</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="2-USB-Keyboard"><a href="#2-USB-Keyboard" class="headerlink" title="2. USB Keyboard"></a><strong>2. USB Keyboard</strong></h3><p>The <code>usbhid</code> driver handles USB keyboards (<code>drivers/hid/usbhid/</code>).</p>
+<h4 id="Key-Code-HID-Device-Probe"><a href="#Key-Code-HID-Device-Probe" class="headerlink" title="Key Code: HID Device Probe"></a><strong>Key Code: HID Device Probe</strong></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">usbhid_probe</span><span class="params">(<span class="keyword">struct</span> usb_interface *intf, <span class="type">const</span> <span class="keyword">struct</span> usb_device_id *id)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">usb_hid</span> *<span class="title">uhid</span> =</span> kzalloc(<span class="keyword">sizeof</span>(*uhid), GFP_KERNEL);</span><br><span class="line">    usb_set_intfdata(intf, uhid);</span><br><span class="line">    <span class="keyword">return</span> hid_add_device(uhid-&gt;hid);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="User-Interaction-4"><a href="#User-Interaction-4" class="headerlink" title="User Interaction"></a><strong>User Interaction</strong></h4><ul>
+<li>Keyboards work with input subsystems (<code>/dev/input/</code>).</li>
+<li>Use <code>evtest</code> to monitor input events:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install evtest</span><br><span class="line">evtest /dev/input/eventX</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="3-USB-HCI-Host-Controller-Interface"><a href="#3-USB-HCI-Host-Controller-Interface" class="headerlink" title="3. USB HCI (Host Controller Interface)"></a><strong>3. USB HCI (Host Controller Interface)</strong></h3><p>HCI drivers handle hardware-level USB communication.</p>
+<h4 id="Key-Code-HCI-Initialization"><a href="#Key-Code-HCI-Initialization" class="headerlink" title="Key Code: HCI Initialization"></a><strong>Key Code: HCI Initialization</strong></h4><p>Example: XHCI driver (<code>drivers/usb/host/xhci.c</code>).</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">xhci_hcd_init</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">usb_hcd</span> *<span class="title">hcd</span> =</span> usb_create_hcd(&amp;xhci_hc_driver, dev, <span class="string">&quot;xhci&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> usb_add_hcd(hcd, irq, IRQF_SHARED);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="User-Space-Testing-of-USB-Devices"><a href="#User-Space-Testing-of-USB-Devices" class="headerlink" title="User-Space Testing of USB Devices"></a><strong>User-Space Testing of USB Devices</strong></h2><h3 id="Using-lsusb"><a href="#Using-lsusb" class="headerlink" title="Using lsusb"></a><strong>Using <code>lsusb</code></strong></h3><ol>
+<li>List USB devices:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsusb</span><br></pre></td></tr></table></figure></li>
+<li>View device hierarchy:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsusb -t</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Using-sysfs"><a href="#Using-sysfs" class="headerlink" title="Using sysfs"></a><strong>Using <code>sysfs</code></strong></h3><p>Inspect devices:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /sys/bus/usb/devices/1-1/idVendor</span><br><span class="line"><span class="built_in">cat</span> /sys/bus/usb/devices/1-1/idProduct</span><br></pre></td></tr></table></figure>
+
+<h3 id="USB-Debugging"><a href="#USB-Debugging" class="headerlink" title="USB Debugging"></a><strong>USB Debugging</strong></h3><p>Enable verbose logging:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;1&quot;</span> &gt; /sys/module/usbcore/parameters/debug</span><br><span class="line">dmesg | grep usb</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>The Linux USB subsystem efficiently handles diverse USB devices with a layered architecture and a robust driver framework. From USB hubs to OTG and device-specific drivers, Linux ensures seamless communication between hardware and software. Understanding its internals allows developers to debug, test, and enhance USB device support.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/31/linux-usb-intro/" data-id="cm5c7gmue000ldgvyast1ad24" data-title="Deep Dive Into the Linux USB Subsystem: Implementation and Usage" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/12/31/linux-pci-intro/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Understanding PCI in the Linux Kernel: Architecture, Registers, Speed, and Testing
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/12/31/linux-userspace-debug/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Testing Linux I2C, USB, and PCI Drivers Using Userspace Tools and `Sysfs`</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/31/wireless-modem-intro/">Comprehensive Technical Overview of Wireless Modems</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/wireless-modem-ucosii/">Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/android-ril/">Android Cellular Connectivity: RIL and Connection Management</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/android-sensor/">Android Sensor Architecture: A Comprehensive Overview</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/android-video-IP/">Introduction to Android IP Protection Technologies</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 Zhang Peng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

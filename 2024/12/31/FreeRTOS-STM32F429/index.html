@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>FreeRTOS: An Introduction and Porting Guide for STM32F429 | Penn&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Introduction to FreeRTOSFreeRTOS is a popular real-time operating system (RTOS) designed for embedded systems, providing a robust and lightweight solution for developing complex, time-critical applica">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FreeRTOS: An Introduction and Porting Guide for STM32F429">
+<meta property="og:url" content="https://apexpeng.github.io/2024/12/31/FreeRTOS-STM32F429/index.html">
+<meta property="og:site_name" content="Penn&#39;s Blog">
+<meta property="og:description" content="Introduction to FreeRTOSFreeRTOS is a popular real-time operating system (RTOS) designed for embedded systems, providing a robust and lightweight solution for developing complex, time-critical applica">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-31T01:03:56.476Z">
+<meta property="article:modified_time" content="2024-12-31T01:03:56.476Z">
+<meta property="article:author" content="Zhang Peng">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Penn's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Penn&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://apexpeng.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-FreeRTOS-STM32F429" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/31/FreeRTOS-STM32F429/" class="article-date">
+  <time class="dt-published" datetime="2024-12-31T01:03:56.476Z" itemprop="datePublished">2024-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      FreeRTOS: An Introduction and Porting Guide for STM32F429
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction-to-FreeRTOS"><a href="#Introduction-to-FreeRTOS" class="headerlink" title="Introduction to FreeRTOS"></a>Introduction to FreeRTOS</h2><p>FreeRTOS is a popular real-time operating system (RTOS) designed for embedded systems, providing a robust and lightweight solution for developing complex, time-critical applications. Developed by Real Time Engineers Ltd., FreeRTOS has become a go-to choice for microcontroller-based projects across various industries, including automotive, industrial automation, and consumer electronics.</p>
+<h3 id="What-is-an-RTOS"><a href="#What-is-an-RTOS" class="headerlink" title="What is an RTOS?"></a>What is an RTOS?</h3><p>A Real-Time Operating System (RTOS) is specifically designed to handle time-sensitive tasks with predictable and deterministic timing. Unlike general-purpose operating systems, an RTOS ensures that critical tasks are completed within strict time constraints, making it essential for applications where timing is crucial.</p>
+<h2 id="Core-Features-of-FreeRTOS"><a href="#Core-Features-of-FreeRTOS" class="headerlink" title="Core Features of FreeRTOS"></a>Core Features of FreeRTOS</h2><h3 id="1-Task-Management"><a href="#1-Task-Management" class="headerlink" title="1. Task Management"></a>1. Task Management</h3><p>FreeRTOS implements a priority-based preemptive scheduling mechanism. Key characteristics include:</p>
+<ul>
+<li>Flexible task creation and management</li>
+<li>Support for multiple task priorities</li>
+<li>Dynamic task creation and deletion</li>
+<li>Lightweight task switching mechanism</li>
+</ul>
+<h3 id="2-Synchronization-Primitives"><a href="#2-Synchronization-Primitives" class="headerlink" title="2. Synchronization Primitives"></a>2. Synchronization Primitives</h3><p>The operating system provides robust synchronization mechanisms:</p>
+<ul>
+<li>Mutexes for resource protection</li>
+<li>Semaphores for task synchronization</li>
+<li>Queues for inter-task communication</li>
+<li>Event groups for complex synchronization scenarios</li>
+</ul>
+<h3 id="3-Memory-Management"><a href="#3-Memory-Management" class="headerlink" title="3. Memory Management"></a>3. Memory Management</h3><p>FreeRTOS offers multiple memory allocation strategies:</p>
+<ul>
+<li>Static memory allocation</li>
+<li>Dynamic memory allocation</li>
+<li>Heap memory management with configurable allocation schemes</li>
+</ul>
+<h3 id="4-Low-Resource-Footprint"><a href="#4-Low-Resource-Footprint" class="headerlink" title="4. Low Resource Footprint"></a>4. Low Resource Footprint</h3><p>Designed for resource-constrained environments, FreeRTOS:</p>
+<ul>
+<li>Requires minimal RAM and ROM</li>
+<li>Offers configurable kernel features</li>
+<li>Supports a wide range of microcontrollers and architectures</li>
+</ul>
+<h2 id="Porting-FreeRTOS-to-STM32F429"><a href="#Porting-FreeRTOS-to-STM32F429" class="headerlink" title="Porting FreeRTOS to STM32F429"></a>Porting FreeRTOS to STM32F429</h2><h3 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h3><p>Before porting FreeRTOS to STM32F429, ensure you have:</p>
+<ul>
+<li>STM32F429 development board</li>
+<li>MDK-ARM (Keil uVision) or equivalent development environment</li>
+<li>FreeRTOS source code</li>
+<li>STM32F429 hardware reference manual</li>
+</ul>
+<h3 id="Step-by-Step-Porting-Process"><a href="#Step-by-Step-Porting-Process" class="headerlink" title="Step-by-Step Porting Process"></a>Step-by-Step Porting Process</h3><h4 id="1-Project-Setup"><a href="#1-Project-Setup" class="headerlink" title="1. Project Setup"></a>1. Project Setup</h4><ol>
+<li>Create a new MDK-ARM project for STM32F429</li>
+<li>Include FreeRTOS source files in your project</li>
+<li>Configure project include paths</li>
+</ol>
+<h4 id="2-Port-Specific-Configuration"><a href="#2-Port-Specific-Configuration" class="headerlink" title="2. Port-Specific Configuration"></a>2. Port-Specific Configuration</h4><p>Modify <code>FreeRTOSConfig.h</code> to customize the RTOS for STM32F429:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> configCPU_CLOCK_HZ    ( SystemCoreClock )</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configTICK_RATE_HZ    ( ( TickType_t ) 1000 )</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configTOTAL_HEAP_SIZE ( ( size_t ) ( 64 * 1024 ) )</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-Implement-Processor-Specific-Ports"><a href="#3-Implement-Processor-Specific-Ports" class="headerlink" title="3. Implement Processor-Specific Ports"></a>3. Implement Processor-Specific Ports</h4><p>Create port files specific to ARM Cortex-M4:</p>
+<ul>
+<li><code>port.c</code>: Contains context switching and interrupt handling</li>
+<li><code>portmacro.h</code>: Defines processor-specific macros</li>
+</ul>
+<h4 id="4-Interrupt-Management"><a href="#4-Interrupt-Management" class="headerlink" title="4. Interrupt Management"></a>4. Interrupt Management</h4><p>Configure system timer and PendSV interrupt for task switching:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">SysTick_Handler</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="meta">#<span class="keyword">if</span> (INCLUDE_xTaskGetSchedulerState == 1)</span></span><br><span class="line">        <span class="keyword">if</span> (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED) &#123;</span><br><span class="line">    <span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">            xPortSysTickHandler();</span><br><span class="line">    <span class="meta">#<span class="keyword">if</span> (INCLUDE_xTaskGetSchedulerState == 1)</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-Basic-Task-Creation-Example"><a href="#5-Basic-Task-Creation-Example" class="headerlink" title="5. Basic Task Creation Example"></a>5. Basic Task Creation Example</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">vTaskMain</span><span class="params">(<span class="type">void</span> *pvParameters)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="comment">// Task implementation</span></span><br><span class="line">        vTaskDelay(pdMS_TO_TICKS(<span class="number">1000</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// Hardware initialization</span></span><br><span class="line">    </span><br><span class="line">    xTaskCreate(vTaskMain, </span><br><span class="line">                <span class="string">&quot;MainTask&quot;</span>, </span><br><span class="line">                configMINIMAL_STACK_SIZE, </span><br><span class="line">                <span class="literal">NULL</span>, </span><br><span class="line">                tskIDLE_PRIORITY, </span><br><span class="line">                <span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">    vTaskStartScheduler();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Should never reach here</span></span><br><span class="line">    <span class="keyword">for</span> (;;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Common-Challenges-and-Solutions"><a href="#Common-Challenges-and-Solutions" class="headerlink" title="Common Challenges and Solutions"></a>Common Challenges and Solutions</h3><ol>
+<li><strong>Interrupt Handling</strong>: Carefully manage interrupt priorities and nesting</li>
+<li><strong>Memory Constraints</strong>: Optimize memory usage through static allocation</li>
+<li><strong>Timing Precision</strong>: Calibrate system tick and task scheduling</li>
+</ol>
+<h2 id="Best-Practices"><a href="#Best-Practices" class="headerlink" title="Best Practices"></a>Best Practices</h2><ul>
+<li>Use static allocation when possible</li>
+<li>Implement proper task priority management</li>
+<li>Utilize built-in synchronization primitives</li>
+<li>Regularly profile and optimize task performance</li>
+<li>Implement error handling and monitoring mechanisms</li>
+</ul>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>[O<br>Porting FreeRTOS to STM32F429 provides a powerful framework for developing real-time embedded applications. By understanding the core features and following a systematic porting approach, developers can leverage the full potential of both the microcontroller and the real-time operating system.</p>
+<h2 id="Reference-Implementation-Details"><a href="#Reference-Implementation-Details" class="headerlink" title="Reference Implementation Details"></a>Reference Implementation Details</h2><h3 id="Key-Code-Snippets-from-apexpeng-FreeRTOS-STM32F429"><a href="#Key-Code-Snippets-from-apexpeng-FreeRTOS-STM32F429" class="headerlink" title="Key Code Snippets from apexpeng&#x2F;FreeRTOS_STM32F429"></a>Key Code Snippets from apexpeng&#x2F;FreeRTOS_STM32F429</h3><h4 id="1-System-Initialization-main-c"><a href="#1-System-Initialization-main-c" class="headerlink" title="1. System Initialization (main.c)"></a>1. System Initialization (main.c)</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// System Clock Configuration</span></span><br><span class="line">    SystemInit();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// NVIC Priority Grouping Configuration</span></span><br><span class="line">    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// LED Initialization</span></span><br><span class="line">    LED_Init();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// USART Initialization for Debugging</span></span><br><span class="line">    USART1_Init();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Create Tasks</span></span><br><span class="line">    xTaskCreate(LED0_Task, <span class="string">&quot;LED0 Task&quot;</span>, <span class="number">50</span>, <span class="literal">NULL</span>, <span class="number">1</span>, <span class="literal">NULL</span>);</span><br><span class="line">    xTaskCreate(LED1_Task, <span class="string">&quot;LED1 Task&quot;</span>, <span class="number">50</span>, <span class="literal">NULL</span>, <span class="number">2</span>, <span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Start FreeRTOS Scheduler</span></span><br><span class="line">    vTaskStartScheduler();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Should never reach here</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-Task-Implementation-Example"><a href="#2-Task-Implementation-Example" class="headerlink" title="2. Task Implementation Example"></a>2. Task Implementation Example</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">LED0_Task</span><span class="params">(<span class="type">void</span> *pvParameters)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        LED0_Toggle();</span><br><span class="line">        vTaskDelay(<span class="number">500</span>);  <span class="comment">// Delay for 500 milliseconds</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">LED1_Task</span><span class="params">(<span class="type">void</span> *pvParameters)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        LED1_Toggle();</span><br><span class="line">        vTaskDelay(<span class="number">800</span>);  <span class="comment">// Delay for 800 milliseconds</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-FreeRTOS-Configuration-FreeRTOSConfig-h"><a href="#3-FreeRTOS-Configuration-FreeRTOSConfig-h" class="headerlink" title="3. FreeRTOS Configuration (FreeRTOSConfig.h)"></a>3. FreeRTOS Configuration (FreeRTOSConfig.h)</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> configUSE_PREEMPTION              1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configUSE_PORT_OPTIMISED_TASK_SELECTION 1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configUSE_TICKLESS_IDLE           0</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configCPU_CLOCK_HZ                ( SystemCoreClock )</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configTICK_RATE_HZ                ( ( TickType_t ) 1000 )</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configMAX_PRIORITIES              ( 5 )</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configMINIMAL_STACK_SIZE          ( ( uint16_t ) 128 )</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configTOTAL_HEAP_SIZE             ( ( size_t ) ( 16 * 1024 ) )</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-Interrupt-Handling-Example"><a href="#4-Interrupt-Handling-Example" class="headerlink" title="4. Interrupt Handling Example"></a>4. Interrupt Handling Example</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">USART1_IRQHandler</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">uint16_t</span> data = USART_ReceiveData(USART1);</span><br><span class="line">        <span class="comment">// Handle received data</span></span><br><span class="line">        USART_ClearITPendingBit(USART1, USART_IT_RXNE);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Practical-Considerations"><a href="#Practical-Considerations" class="headerlink" title="Practical Considerations"></a>Practical Considerations</h3><p>The reference implementation demonstrates several critical aspects of FreeRTOS integration:</p>
+<ul>
+<li>Proper system initialization</li>
+<li>Task creation with different priorities</li>
+<li>Simple task implementations</li>
+<li>Interrupt handling</li>
+<li>Minimal configuration for STM32F429</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.freertos.org/documentation/">FreeRTOS Official Documentation</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.st.com/resource/en/reference_manual/rm0090-stm32f405-415-stm32f407-417-stm32f427-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf">STM32F429 Reference Manual</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/apexpeng/FreeRTOS_STM32F429">GitHub Repository: apexpeng&#x2F;FreeRTOS_STM32F429</a></li>
+</ul>
+<p><strong>NOTE</strong>: The DAC function only works fine before tasks scheduler, the clock need to be set to fix this issue.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/31/FreeRTOS-STM32F429/" data-id="cm5c7gmtu0001dgvy2pjkgmop" data-title="FreeRTOS: An Introduction and Porting Guide for STM32F429" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/12/31/ubuntu-production-env/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Ubuntu as a Production Development Environment
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/12/31/android-AT/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">AT Commands: Modem Control and Communication Protocol</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/31/wireless-modem-intro/">Comprehensive Technical Overview of Wireless Modems</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/wireless-modem-ucosii/">Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/android-ril/">Android Cellular Connectivity: RIL and Connection Management</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/android-sensor/">Android Sensor Architecture: A Comprehensive Overview</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/android-video-IP/">Introduction to Android IP Protection Technologies</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 Zhang Peng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

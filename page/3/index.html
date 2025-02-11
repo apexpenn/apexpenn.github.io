@@ -71,6 +71,270 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-nginx-intro" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/31/nginx-intro/" class="article-date">
+  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/31/nginx-intro/">Nginx: A Deep Dive Into Web Server Excellence</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Nginx, created by Igor Sysoev in 2002, has emerged as a revolutionary web server and infrastructure technology that has fundamentally transformed how we build and scale web applications. Born out of a need to overcome the performance limitations of existing web servers, Nginx has become a critical component of modern web infrastructure, powering some of the world’s most trafficked websites.</p>
+<h2 id="Nginx-Market-Position-and-Popularity"><a href="#Nginx-Market-Position-and-Popularity" class="headerlink" title="Nginx Market Position and Popularity"></a>Nginx Market Position and Popularity</h2><p>As of 2024, Nginx stands as a dominant force in web server technologies:</p>
+<ul>
+<li>Approximately 32-34% of all websites use Nginx</li>
+<li>Powers over 40% of the top 1 million websites</li>
+<li>Adopted by tech giants including Netflix, Dropbox, Airbnb, and Pinterest</li>
+</ul>
+<h3 id="Why-Nginx-is-So-Popular"><a href="#Why-Nginx-is-So-Popular" class="headerlink" title="Why Nginx is So Popular"></a>Why Nginx is So Popular</h3><p>The popularity of Nginx stems from several key advantages:</p>
+<ol>
+<li><p><strong>Performance Excellence</strong></p>
+<ul>
+<li>Extremely low memory footprint</li>
+<li>High concurrency handling capabilities</li>
+<li>Minimal CPU utilization</li>
+<li>Consistently outperforms traditional web servers in benchmarks</li>
+</ul>
+</li>
+<li><p><strong>Architectural Innovations</strong></p>
+<ul>
+<li>Event-driven, asynchronous design</li>
+<li>Modular, extensible architecture</li>
+<li>Lightweight process model</li>
+<li>Scalability by design</li>
+</ul>
+</li>
+<li><p><strong>Versatility</strong></p>
+<ul>
+<li>Serves multiple roles:<ul>
+<li>Web server</li>
+<li>Reverse proxy</li>
+<li>Load balancer</li>
+<li>API gateway</li>
+<li>Caching server</li>
+<li>SSL&#x2F;TLS termination point</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="Nginx-Startup-Process"><a href="#Nginx-Startup-Process" class="headerlink" title="Nginx Startup Process"></a>Nginx Startup Process</h2><p>The startup of Nginx is a carefully orchestrated process that demonstrates its robust architecture:</p>
+<ol>
+<li><p><strong>Master Process Initialization</strong><br>When Nginx starts, it launches a master process with root privileges:</p>
+<ul>
+<li>Reads and validates configuration files</li>
+<li>Creates and manages worker processes</li>
+<li>Handles signal management</li>
+<li>Enables configuration reloading without service interruption</li>
+</ul>
+</li>
+<li><p><strong>Worker Process Creation</strong><br>The master process spawns multiple worker processes:</p>
+<ul>
+<li>Run under an unprivileged user (typically www-data)</li>
+<li>Handle actual connection processing</li>
+<li>Dynamically adjustable based on system resources</li>
+</ul>
+</li>
+<li><p><strong>Configuration Parsing</strong><br>Utilizes a modular configuration approach through <code>nginx.conf</code>:</p>
+<ul>
+<li>Define server blocks</li>
+<li>Configure virtual hosts</li>
+<li>Set up routing rules</li>
+<li>Implement SSL&#x2F;TLS termination</li>
+<li>Configure proxy and load balancing settings</li>
+</ul>
+</li>
+</ol>
+<h2 id="HTTP-Implementation-in-Nginx"><a href="#HTTP-Implementation-in-Nginx" class="headerlink" title="HTTP Implementation in Nginx"></a>HTTP Implementation in Nginx</h2><p>Nginx’s HTTP implementation is remarkably efficient, leveraging an event-driven, asynchronous architecture:</p>
+<h3 id="Core-HTTP-Processing-Model"><a href="#Core-HTTP-Processing-Model" class="headerlink" title="Core HTTP Processing Model"></a>Core HTTP Processing Model</h3><ol>
+<li><p><strong>Event-Driven Architecture</strong></p>
+<ul>
+<li>Non-blocking, asynchronous event mechanisms</li>
+<li>Leverages OS-specific event notification (epoll, kqueue)</li>
+<li>Handles thousands of concurrent connections with minimal overhead</li>
+</ul>
+</li>
+<li><p><strong>Connection Handling</strong></p>
+<ul>
+<li>Lightweight connection model</li>
+<li>Efficient keep-alive connection management</li>
+<li>Supports HTTP&#x2F;1.1 and HTTP&#x2F;2 protocols</li>
+<li>Advanced WebSocket support</li>
+</ul>
+</li>
+</ol>
+<h3 id="Performance-Benchmarks"><a href="#Performance-Benchmarks" class="headerlink" title="Performance Benchmarks"></a>Performance Benchmarks</h3><p>Nginx consistently outperforms other web servers:</p>
+<ul>
+<li>Handle up to 1 million concurrent connections</li>
+<li>Typical performance: 50,000-70,000 requests per second on modest hardware</li>
+<li>Comparison:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Apache (prefork): ~2,000 concurrent connections</span><br><span class="line">Nginx: ~100,000 concurrent connections</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Transparent-Service-Switching"><a href="#Transparent-Service-Switching" class="headerlink" title="Transparent Service Switching"></a>Transparent Service Switching</h2><p>Nginx excels at seamlessly switching services through advanced proxy and load balancing capabilities:</p>
+<h3 id="Load-Balancing-Strategies"><a href="#Load-Balancing-Strategies" class="headerlink" title="Load Balancing Strategies"></a>Load Balancing Strategies</h3><ol>
+<li><p><strong>Round Robin</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">upstream</span> backend &#123;</span><br><span class="line">    <span class="attribute">server</span> backend1.example.com;</span><br><span class="line">    <span class="attribute">server</span> backend2.example.com;</span><br><span class="line">    <span class="attribute">server</span> backend3.example.com;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Least Connections</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">upstream</span> backend &#123;</span><br><span class="line">    least_conn;</span><br><span class="line">    <span class="attribute">server</span> backend1.example.com;</span><br><span class="line">    <span class="attribute">server</span> backend2.example.com;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Health Checks and Graceful Degradation</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">upstream</span> backend &#123;</span><br><span class="line">    <span class="attribute">server</span> backend1.example.com max_fails=<span class="number">3</span> fail_timeout=<span class="number">30s</span>;</span><br><span class="line">    <span class="attribute">server</span> backend2.example.com max_fails=<span class="number">3</span> fail_timeout=<span class="number">30s</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Creating-Custom-Nginx-Modules"><a href="#Creating-Custom-Nginx-Modules" class="headerlink" title="Creating Custom Nginx Modules"></a>Creating Custom Nginx Modules</h2><p>Extending Nginx’s functionality requires understanding its module architecture:</p>
+<h3 id="Basic-Module-Structure"><a href="#Basic-Module-Structure" class="headerlink" title="Basic Module Structure"></a>Basic Module Structure</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;ngx_config.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;ngx_core.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;ngx_http.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Module context and configuration structures</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">ngx_flag_t</span> enable;</span><br><span class="line">&#125; <span class="type">ngx_http_custom_conf_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Module commands, context, and definition follow...</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Testing-and-Security"><a href="#Testing-and-Security" class="headerlink" title="Testing and Security"></a>Testing and Security</h2><h3 id="Nginx-Testing-Framework"><a href="#Nginx-Testing-Framework" class="headerlink" title="Nginx Testing Framework"></a>Nginx Testing Framework</h3><p>The official <code>nginx-tests</code> repository provides comprehensive testing:</p>
+<ul>
+<li>Perl-based test harness</li>
+<li>Covers HTTP protocol compliance</li>
+<li>Supports configuration and module testing</li>
+</ul>
+<h3 id="Fuzzing-with-AFL-American-Fuzzy-Lop"><a href="#Fuzzing-with-AFL-American-Fuzzy-Lop" class="headerlink" title="Fuzzing with AFL (American Fuzzy Lop)"></a>Fuzzing with AFL (American Fuzzy Lop)</h3><p>Crucial for identifying potential vulnerabilities:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Compile Nginx with AFL</span></span><br><span class="line">CC=afl-clang-fast ./configure</span><br><span class="line">make</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run fuzzing</span></span><br><span class="line">afl-fuzz -i input_corpus -o findings \</span><br><span class="line">    ./nginx -c fuzzed_configuration.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="Advanced-Configuration-Techniques"><a href="#Advanced-Configuration-Techniques" class="headerlink" title="Advanced Configuration Techniques"></a>Advanced Configuration Techniques</h2><ol>
+<li><p><strong>Dynamic Configuration Reloading</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Flexible Proxy Configuration</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">location</span> / &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://backend_servers;</span><br><span class="line">    <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Nginx represents a paradigm shift in web server design, offering:</p>
+<ul>
+<li>Unprecedented performance</li>
+<li>Architectural flexibility</li>
+<li>Robust security features</li>
+<li>Extensive scalability</li>
+</ul>
+<p>From small personal projects to global, high-traffic platforms, Nginx provides the technological foundation to deliver exceptional web experiences. Its continuous evolution, driven by a strong open-source community, ensures its relevance in an increasingly complex digital landscape.</p>
+<p>Whether you’re a developer, system architect, or technology enthusiast, understanding Nginx is key to building modern, efficient web infrastructure.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/31/nginx-intro/" data-id="cm5c7gmug000odgvybdhz1zlz" data-title="Nginx: A Deep Dive Into Web Server Excellence" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-openssl" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/31/openssl/" class="article-date">
+  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/31/openssl/">OpenSSL: A Comprehensive Technical Overview</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction-to-OpenSSL"><a href="#Introduction-to-OpenSSL" class="headerlink" title="Introduction to OpenSSL"></a>Introduction to OpenSSL</h2><p>OpenSSL is a robust, full-featured open-source library that provides cryptographic functionality for secure communications over computer networks. It implements the Secure Sockets Layer (SSL) and Transport Layer Security (TLS) protocols, offering a wide range of cryptographic operations essential for modern network security.</p>
+<h2 id="Core-Functionalities-of-OpenSSL"><a href="#Core-Functionalities-of-OpenSSL" class="headerlink" title="Core Functionalities of OpenSSL"></a>Core Functionalities of OpenSSL</h2><p>OpenSSL provides a comprehensive set of cryptographic tools and libraries that enable developers to:</p>
+<ul>
+<li>Generate cryptographic keys</li>
+<li>Create digital certificates</li>
+<li>Perform encryption and decryption</li>
+<li>Manage SSL&#x2F;TLS connections</li>
+<li>Implement secure communication protocols</li>
+</ul>
+<h2 id="OpenSSL-Engines-Extending-Cryptographic-Capabilities"><a href="#OpenSSL-Engines-Extending-Cryptographic-Capabilities" class="headerlink" title="OpenSSL Engines: Extending Cryptographic Capabilities"></a>OpenSSL Engines: Extending Cryptographic Capabilities</h2><h3 id="Understanding-OpenSSL-Engines"><a href="#Understanding-OpenSSL-Engines" class="headerlink" title="Understanding OpenSSL Engines"></a>Understanding OpenSSL Engines</h3><p>An OpenSSL Engine is a mechanism that allows for pluggable cryptographic implementations. Engines provide a way to integrate hardware-accelerated or specialized cryptographic modules into the OpenSSL framework, enabling enhanced performance and security features.</p>
+<h3 id="QATEngine-A-Practical-Example-of-OpenSSL-Engine"><a href="#QATEngine-A-Practical-Example-of-OpenSSL-Engine" class="headerlink" title="QATEngine: A Practical Example of OpenSSL Engine"></a>QATEngine: A Practical Example of OpenSSL Engine</h3><p>The Intel QuickAssist Technology (QAT) Engine demonstrates an advanced implementation of an OpenSSL engine. Here’s a structured approach to implementing a custom OpenSSL engine:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;openssl/engine.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Basic engine initialization structure</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">engine_init</span><span class="params">(ENGINE *e)</span> &#123;</span><br><span class="line">    <span class="comment">// Perform engine-specific initialization</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Cleanup method</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">engine_finish</span><span class="params">(ENGINE *e)</span> &#123;</span><br><span class="line">    <span class="comment">// Perform cleanup operations</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Bind function to register engine capabilities</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">bind_qat_engine</span><span class="params">(ENGINE *e, <span class="type">const</span> <span class="type">char</span> *id)</span> &#123;</span><br><span class="line">    <span class="comment">// Register engine methods</span></span><br><span class="line">    <span class="keyword">if</span> (!ENGINE_set_id(e, <span class="string">&quot;qat_engine&quot;</span>)</span><br><span class="line">        || !ENGINE_set_name(e, <span class="string">&quot;Intel QuickAssist Technology Engine&quot;</span>)</span><br><span class="line">        || !ENGINE_set_init_function(e, engine_init)</span><br><span class="line">        || !ENGINE_set_finish_function(e, engine_finish)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Register specific cryptographic methods</span></span><br><span class="line">    <span class="comment">// (e.g., RSA, AES accelerations)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Engine initialization</span></span><br><span class="line">IMPLEMENT_DYNAMIC_CHECK_FN()</span><br><span class="line">IMPLEMENT_DYNAMIC_BIND_FN(bind_qat_engine)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Key-Characteristics-of-OpenSSL-Engines"><a href="#Key-Characteristics-of-OpenSSL-Engines" class="headerlink" title="Key Characteristics of OpenSSL Engines"></a>Key Characteristics of OpenSSL Engines</h3><ul>
+<li>Provide hardware-accelerated cryptographic operations</li>
+<li>Allow seamless integration of specialized cryptographic modules</li>
+<li>Enable performance optimization for specific cryptographic tasks</li>
+<li>Support dynamic loading of cryptographic implementations</li>
+</ul>
+<h2 id="HTTPS-and-TLS-Support-in-OpenSSL"><a href="#HTTPS-and-TLS-Support-in-OpenSSL" class="headerlink" title="HTTPS and TLS Support in OpenSSL"></a>HTTPS and TLS Support in OpenSSL</h2><h3 id="Establishing-HTTPS-Connections"><a href="#Establishing-HTTPS-Connections" class="headerlink" title="Establishing HTTPS Connections"></a>Establishing HTTPS Connections</h3><p>OpenSSL provides comprehensive support for creating secure HTTPS connections through its SSL&#x2F;TLS implementation:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">SSL_CTX *ctx;</span><br><span class="line">SSL *ssl;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Initialize SSL context</span></span><br><span class="line">ctx = SSL_CTX_new(TLS_client_method());</span><br><span class="line"></span><br><span class="line"><span class="comment">// Configure context security options</span></span><br><span class="line">SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create SSL connection</span></span><br><span class="line">ssl = SSL_new(ctx);</span><br><span class="line">SSL_set_fd(ssl, socket_fd);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Establish secure connection</span></span><br><span class="line"><span class="keyword">if</span> (SSL_connect(ssl) != <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="comment">// Handle connection error</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Why-TLS-is-Critical-for-Network-Security"><a href="#Why-TLS-is-Critical-for-Network-Security" class="headerlink" title="Why TLS is Critical for Network Security"></a>Why TLS is Critical for Network Security</h3><p>Transport Layer Security (TLS) is fundamental to modern network communications due to:</p>
+<ol>
+<li><strong>Data Confidentiality</strong>: Encrypts communication to prevent unauthorized access</li>
+<li><strong>Data Integrity</strong>: Ensures messages cannot be tampered with during transmission</li>
+<li><strong>Authentication</strong>: Verifies the identity of communicating parties</li>
+<li><strong>Protection Against Eavesdropping</strong>: Prevents passive monitoring of network traffic</li>
+</ol>
+<h2 id="Asynchronous-Operations-in-OpenSSL"><a href="#Asynchronous-Operations-in-OpenSSL" class="headerlink" title="Asynchronous Operations in OpenSSL"></a>Asynchronous Operations in OpenSSL</h2><h3 id="Async-SSL-Capabilities"><a href="#Async-SSL-Capabilities" class="headerlink" title="Async SSL Capabilities"></a>Async SSL Capabilities</h3><p>OpenSSL supports asynchronous operations, allowing non-blocking cryptographic processes:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Enable async mode</span></span><br><span class="line">SSL_CTX_set_mode(ctx, SSL_MODE_ASYNC);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Perform non-blocking operations</span></span><br><span class="line"><span class="type">int</span> result = SSL_do_handshake(ssl);</span><br><span class="line"><span class="keyword">if</span> (result == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">// Check for would-block condition</span></span><br><span class="line">    <span class="type">int</span> err = SSL_get_error(ssl, result);</span><br><span class="line">    <span class="keyword">if</span> (err == SSL_ERROR_WANT_READ || err == SSL_ERROR_WANT_WRITE) &#123;</span><br><span class="line">        <span class="comment">// Handle async operation</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Async-Mode-in-Nginx-with-OpenSSL"><a href="#Async-Mode-in-Nginx-with-OpenSSL" class="headerlink" title="Async Mode in Nginx with OpenSSL"></a>Async Mode in Nginx with OpenSSL</h3><p>Nginx provides a robust implementation of asynchronous SSL operations using OpenSSL. Here’s an example of configuring Nginx for asynchronous SSL processing:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Nginx Configuration for Async SSL</span></span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="comment"># Enable OpenSSL async mode</span></span><br><span class="line">    <span class="attribute">ssl_async</span> <span class="literal">on</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Configure SSL session cache</span></span><br><span class="line">    <span class="attribute">ssl_session_cache</span> shared:SSL:<span class="number">10m</span>;</span><br><span class="line">    <span class="attribute">ssl_session_timeout</span> <span class="number">10m</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># SSL performance optimizations</span></span><br><span class="line">    <span class="attribute">ssl_buffer_size</span> <span class="number">8k</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span> <span class="number">443</span> ssl http2;</span><br><span class="line">        <span class="attribute">server_name</span> example.com;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># SSL Certificate Configuration</span></span><br><span class="line">        <span class="attribute">ssl_certificate</span> /path/to/certificate.crt;</span><br><span class="line">        <span class="attribute">ssl_certificate_key</span> /path/to/certificate.key;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Async SSL Parameters</span></span><br><span class="line">        <span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line">        <span class="attribute">ssl_protocols</span> TLSv1.<span class="number">2</span> TLSv1.<span class="number">3</span>;</span><br><span class="line">        <span class="attribute">ssl_ciphers</span> HIGH:!aNULL:!MD5;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Enable OCSP stapling with async mode</span></span><br><span class="line">        <span class="attribute">ssl_stapling</span> <span class="literal">on</span>;</span><br><span class="line">        <span class="attribute">ssl_stapling_verify</span> <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">        <span class="section">location</span> / &#123;</span><br><span class="line">            <span class="comment"># Additional async-friendly configurations</span></span><br><span class="line">            <span class="attribute">proxy_buffer_size</span> <span class="number">128k</span>;</span><br><span class="line">            <span class="attribute">proxy_buffers</span> <span class="number">4</span> <span class="number">256k</span>;</span><br><span class="line">            <span class="attribute">proxy_busy_buffers_size</span> <span class="number">256k</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Advanced-Async-Configuration-in-Nginx"><a href="#Advanced-Async-Configuration-in-Nginx" class="headerlink" title="Advanced Async Configuration in Nginx"></a>Advanced Async Configuration in Nginx</h3><p>To maximize asynchronous performance, consider the following optimizations:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Worker configuration for async processing</span></span><br><span class="line"><span class="attribute">worker_processes</span> auto;</span><br><span class="line"><span class="attribute">worker_cpu_affinity</span> auto;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Async-optimized connection handling</span></span><br><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">    <span class="attribute">worker_connections</span> <span class="number">1024</span>;</span><br><span class="line">    <span class="attribute">multi_accept</span> <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">use</span> <span class="literal">epoll</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Benefits-of-Asynchronous-Cryptographic-Operations"><a href="#Benefits-of-Asynchronous-Cryptographic-Operations" class="headerlink" title="Benefits of Asynchronous Cryptographic Operations"></a>Benefits of Asynchronous Cryptographic Operations</h3><ul>
+<li>Improved performance in multi-threaded environments</li>
+<li>Reduced blocking in network applications</li>
+<li>More efficient resource utilization</li>
+<li>Enhanced scalability for high-concurrency systems</li>
+<li>Optimal use of system resources</li>
+<li>Improved response times for SSL&#x2F;TLS connections</li>
+</ul>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>OpenSSL represents a critical tool in modern cryptographic implementations, offering extensive capabilities for secure communication. From its flexible engine architecture to comprehensive TLS support, OpenSSL provides developers with powerful mechanisms to implement robust security solutions across various computing environments.</p>
+<h2 id="Best-Practices"><a href="#Best-Practices" class="headerlink" title="Best Practices"></a>Best Practices</h2><ul>
+<li>Always use the latest OpenSSL version</li>
+<li>Carefully configure security parameters</li>
+<li>Implement proper error handling</li>
+<li>Regularly update cryptographic libraries</li>
+<li>Leverage hardware acceleration when possible</li>
+</ul>
+<h3 id="Recommended-References"><a href="#Recommended-References" class="headerlink" title="Recommended References"></a>Recommended References</h3><ul>
+<li>Official OpenSSL Documentation</li>
+<li>NIST Cryptographic Standards</li>
+<li>Intel QuickAssist Technology Documentation</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/31/openssl/" data-id="cm5c7gmug000pdgvy22n9dq6s" data-title="OpenSSL: A Comprehensive Technical Overview" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-rtos-ucosii-nxp" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/12/31/rtos-ucosii-nxp/" class="article-date">
@@ -892,6 +1156,144 @@
 
 
   
+    <article id="post-CS_TEC_Linux_PAM" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/31/CS_TEC_Linux_PAM/" class="article-date">
+  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/31/CS_TEC_Linux_PAM/">Understanding Linux PAM (Pluggable Authentication Modules)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Linux PAM (Pluggable Authentication Modules) represents a powerful framework that provides dynamic authentication support for applications and services in Linux systems. This article explores the fundamentals of PAM, its architecture, configuration syntax, and practical implementation examples.</p>
+<h2 id="Core-Concepts"><a href="#Core-Concepts" class="headerlink" title="Core Concepts"></a>Core Concepts</h2><p>PAM operates as a middle layer between applications and authentication mechanisms. When an application needs to authenticate a user, it doesn’t need to know the details of how authentication works - it simply makes calls to the PAM framework, which handles the actual authentication process based on the system’s configuration.</p>
+<h3 id="Key-Benefits"><a href="#Key-Benefits" class="headerlink" title="Key Benefits"></a>Key Benefits</h3><p>The modular nature of PAM provides several advantages:</p>
+<ol>
+<li>Applications don’t need to be modified to support new authentication mechanisms</li>
+<li>System administrators can modify authentication requirements without changing application code</li>
+<li>Multiple authentication methods can be combined flexibly</li>
+<li>Authentication policies can be standardized across the system</li>
+</ol>
+<h2 id="PAM-Architecture"><a href="#PAM-Architecture" class="headerlink" title="PAM Architecture"></a>PAM Architecture</h2><h3 id="Service-Modules"><a href="#Service-Modules" class="headerlink" title="Service Modules"></a>Service Modules</h3><p>PAM divides authentication tasks into four independent management groups:</p>
+<ol>
+<li><strong>account</strong>: Verifies account accessibility, expiration, and access hours</li>
+<li><strong>auth</strong>: Handles user authentication and sets credentials</li>
+<li><strong>password</strong>: Manages password updates and validation</li>
+<li><strong>session</strong>: Manages tasks needed to set up and tear down user sessions</li>
+</ol>
+<h3 id="Module-Types"><a href="#Module-Types" class="headerlink" title="Module Types"></a>Module Types</h3><p>Each management group can use various module types:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">required      - Must succeed for authentication to continue</span><br><span class="line">requisite     - Must succeed, but fails immediately if not met</span><br><span class="line">sufficient    - Success is sufficient to satisfy the module requirements</span><br><span class="line">optional      - Module success/failure doesn&#x27;t impact authentication</span><br><span class="line">include       - Include other configuration files</span><br><span class="line">substack      - Similar to include but treats the included stack as a subunit</span><br></pre></td></tr></table></figure>
+
+<h2 id="Configuration-Syntax"><a href="#Configuration-Syntax" class="headerlink" title="Configuration Syntax"></a>Configuration Syntax</h2><p>PAM configuration files are typically stored in <code>/etc/pam.d/</code>. Each service has its own configuration file. The basic syntax is:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type    control_flag    module_path    module_arguments</span><br></pre></td></tr></table></figure>
+
+<p>Example from <code>/etc/pam.d/sshd</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#%PAM-1.0</span><br><span class="line">auth       required     pam_securetty.so</span><br><span class="line">auth       required     pam_unix.so nullok</span><br><span class="line">account    required     pam_nologin.so</span><br><span class="line">account    required     pam_unix.so</span><br><span class="line">password   required     pam_unix.so nullok obscure min=4 max=8</span><br><span class="line">session    required     pam_unix.so</span><br><span class="line">session    required     pam_limits.so</span><br></pre></td></tr></table></figure>
+
+<h2 id="Common-PAM-Modules"><a href="#Common-PAM-Modules" class="headerlink" title="Common PAM Modules"></a>Common PAM Modules</h2><h3 id="pam-unix-so"><a href="#pam-unix-so" class="headerlink" title="pam_unix.so"></a>pam_unix.so</h3><p>The standard Unix authentication module supporting standard Unix password authentication:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_unix.so try_first_pass nullok</span><br></pre></td></tr></table></figure>
+
+<p>Parameters:</p>
+<ul>
+<li><code>try_first_pass</code>: Try using previously entered password</li>
+<li><code>nullok</code>: Allow empty passwords</li>
+<li><code>remember=N</code>: Remember N previous passwords</li>
+</ul>
+<h3 id="pam-ldap-so"><a href="#pam-ldap-so" class="headerlink" title="pam_ldap.so"></a>pam_ldap.so</h3><p>Provides LDAP authentication support:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth sufficient pam_ldap.so use_first_pass</span><br></pre></td></tr></table></figure>
+
+<h3 id="pam-time-so"><a href="#pam-time-so" class="headerlink" title="pam_time.so"></a>pam_time.so</h3><p>Controls access based on time:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">account required pam_time.so</span><br></pre></td></tr></table></figure>
+
+<p>Configuration in <code>/etc/security/time.conf</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">services;ttys;users;times</span><br><span class="line">login;tty*;!root;Al0800-1800</span><br></pre></td></tr></table></figure>
+
+<h2 id="Practical-Examples"><a href="#Practical-Examples" class="headerlink" title="Practical Examples"></a>Practical Examples</h2><h3 id="Example-1-Enforcing-Strong-Passwords"><a href="#Example-1-Enforcing-Strong-Passwords" class="headerlink" title="Example 1: Enforcing Strong Passwords"></a>Example 1: Enforcing Strong Passwords</h3><p>To enforce password complexity, modify <code>/etc/pam.d/system-auth</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">password required pam_pwquality.so retry=3 minlen=12 dcredit=1 ucredit=1 ocredit=1 lcredit=1</span><br><span class="line">password required pam_unix.so use_authtok sha512 shadow</span><br></pre></td></tr></table></figure>
+
+<p>This configuration:</p>
+<ul>
+<li>Requires minimum 12 characters</li>
+<li>Requires at least one digit, uppercase, special character, and lowercase</li>
+<li>Allows 3 retry attempts</li>
+<li>Uses SHA-512 hashing</li>
+</ul>
+<h3 id="Example-2-Limiting-Login-Attempts"><a href="#Example-2-Limiting-Login-Attempts" class="headerlink" title="Example 2: Limiting Login Attempts"></a>Example 2: Limiting Login Attempts</h3><p>To implement login attempt limits, add to <code>/etc/pam.d/system-auth</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_tally2.so deny=3 unlock_time=300 onerr=fail</span><br></pre></td></tr></table></figure>
+
+<p>This configuration:</p>
+<ul>
+<li>Denies access after 3 failed attempts</li>
+<li>Unlocks the account after 300 seconds</li>
+<li>Fails closed (denies access) on errors</li>
+</ul>
+<h2 id="Debugging-PAM"><a href="#Debugging-PAM" class="headerlink" title="Debugging PAM"></a>Debugging PAM</h2><h3 id="Debug-Mode"><a href="#Debug-Mode" class="headerlink" title="Debug Mode"></a>Debug Mode</h3><p>Add the debug option to the module:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_unix.so debug</span><br></pre></td></tr></table></figure>
+
+<p>View debug output in system logs:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -f /var/log/auth.log</span><br></pre></td></tr></table></figure>
+
+<h3 id="Testing-Configurations"><a href="#Testing-Configurations" class="headerlink" title="Testing Configurations"></a>Testing Configurations</h3><p>Use the <code>pamtester</code> utility to test PAM configurations:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pamtester sshd username authenticate</span><br></pre></td></tr></table></figure>
+
+<h2 id="Security-Considerations"><a href="#Security-Considerations" class="headerlink" title="Security Considerations"></a>Security Considerations</h2><ol>
+<li><p><strong>Order Matters</strong>: PAM processes modules in the order listed. Ensure critical security modules are placed appropriately.</p>
+</li>
+<li><p><strong>Fail Secure</strong>: Use appropriate control flags to ensure authentication fails securely when modules fail.</p>
+</li>
+<li><p><strong>Module Parameters</strong>: Carefully consider module parameters - some can weaken security if misconfigured.</p>
+</li>
+<li><p><strong>File Permissions</strong>: PAM configuration files should be owned by root and not writable by others:</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 644 /etc/pam.d/*</span><br><span class="line"><span class="built_in">chown</span> root:root /etc/pam.d/*</span><br></pre></td></tr></table></figure>
+
+<h2 id="Best-Practices"><a href="#Best-Practices" class="headerlink" title="Best Practices"></a>Best Practices</h2><ol>
+<li><p><strong>Documentation</strong>: Always document PAM changes in configuration files using comments.</p>
+</li>
+<li><p><strong>Backup</strong>: Create backups before modifying PAM configurations:</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> -r /etc/pam.d /etc/pam.d.backup</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p><strong>Testing</strong>: Test changes in a non-production environment first.</p>
+</li>
+<li><p><strong>Monitoring</strong>: Regularly monitor auth logs for unusual patterns or failures.</p>
+</li>
+</ol>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Linux PAM provides a flexible and powerful framework for managing authentication in Linux systems. Understanding its architecture, configuration syntax, and proper implementation is crucial for system administrators and security professionals. Through careful configuration and following best practices, PAM can significantly enhance system security while maintaining usability.</p>
+<p>Remember that PAM configurations can lock users out of the system if implemented incorrectly. Always maintain a root session when testing new PAM configurations, and have a backup plan for recovery if authentication breaks.</p>
+<p>For further information, consult the official Linux-PAM documentation and system-specific guides for your distribution.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/31/CS_TEC_Linux_PAM/" data-id="cm6zty0su0003agvy729jdv4e" data-title="Understanding Linux PAM (Pluggable Authentication Modules)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-FreeRTOS-STM32F429" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/12/31/FreeRTOS-STM32F429/" class="article-date">
@@ -1247,374 +1649,6 @@
 
 
   
-    <article id="post-android-bt" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/31/android-bt/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.476Z" itemprop="datePublished">2024-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/android-bt/">A Technical Overview of Android Bluetooth System</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Android provides a comprehensive Bluetooth stack that enables communication with other Bluetooth-enabled devices, supporting various profiles for different use cases, such as audio streaming, file transfer, and data synchronization. This article delves into Android’s Bluetooth architecture, user capabilities, and developer APIs for building Bluetooth-enabled applications.</p>
-<hr>
-<h4 id="Bluetooth-Architecture-in-Android"><a href="#Bluetooth-Architecture-in-Android" class="headerlink" title="Bluetooth Architecture in Android"></a><strong>Bluetooth Architecture in Android</strong></h4><p>Android’s Bluetooth stack operates on three primary layers:</p>
-<ol>
-<li><p><strong>Hardware Interface Layer (HIDL):</strong><br>The lowest level connects directly to the Bluetooth hardware. It uses the HCI (Host Controller Interface) protocol to send and receive commands to the Bluetooth chipset.</p>
-</li>
-<li><p><strong>Bluetooth HAL (Hardware Abstraction Layer):</strong><br>Acts as a bridge between the Bluetooth hardware and the higher-level Bluetooth stack implemented in software. It provides interfaces for core Bluetooth operations such as scanning and connection management.</p>
-</li>
-<li><p><strong>Bluetooth Framework:</strong><br>Managed by system services such as <code>BluetoothManager</code> and <code>BluetoothAdapter</code>, this layer exposes high-level Bluetooth functionalities to applications. It also supports various profiles like A2DP for audio streaming and GATT for BLE (Bluetooth Low Energy).</p>
-</li>
-<li><p><strong>Application Layer:</strong><br>Applications interact with the Bluetooth framework using Android SDK APIs. Developers use classes like <code>BluetoothDevice</code>, <code>BluetoothSocket</code>, and <code>BluetoothGatt</code> to implement specific use cases.</p>
-</li>
-</ol>
-<hr>
-<h4 id="Capabilities-for-Users"><a href="#Capabilities-for-Users" class="headerlink" title="Capabilities for Users"></a><strong>Capabilities for Users</strong></h4><p>Android’s Bluetooth capabilities allow users to:</p>
-<ul>
-<li>Pair and connect with Bluetooth devices like headsets, speakers, and smartwatches.</li>
-<li>Transfer files using the Object Push Profile (OPP).</li>
-<li>Stream audio through Advanced Audio Distribution Profile (A2DP).</li>
-<li>Share internet connections using Personal Area Networking (PAN).</li>
-<li>Connect to devices using Bluetooth Low Energy (BLE) for low-power data exchange.</li>
-</ul>
-<hr>
-<h4 id="Developer-APIs-and-Use-Cases"><a href="#Developer-APIs-and-Use-Cases" class="headerlink" title="Developer APIs and Use Cases"></a><strong>Developer APIs and Use Cases</strong></h4><p>The Android Bluetooth API supports both Classic Bluetooth and Bluetooth Low Energy (BLE). Here’s an overview of the key APIs and their applications:</p>
-<ol>
-<li><p><strong>Bluetooth Management:</strong></p>
-<ul>
-<li><strong><code>BluetoothAdapter</code></strong>: Manage Bluetooth settings, enable&#x2F;disable Bluetooth, and perform device discovery.</li>
-<li><strong><code>BluetoothDevice</code></strong>: Interact with remote devices, initiate connections, and fetch device information.</li>
-</ul>
-</li>
-<li><p><strong>Data Communication:</strong></p>
-<ul>
-<li><strong><code>BluetoothSocket</code></strong>: Implement Classic Bluetooth communication using RFCOMM sockets for streaming data.</li>
-<li><strong><code>BluetoothGatt</code></strong>: Facilitate BLE communication, including reading&#x2F;writing characteristics and handling notifications.</li>
-</ul>
-</li>
-<li><p><strong>Profile-Specific APIs:</strong></p>
-<ul>
-<li><strong>Audio (A2DP)</strong>: For streaming audio to external devices.</li>
-<li><strong>HID (Human Interface Device)</strong>: For keyboards, mice, and gaming controllers.</li>
-<li><strong>Health Device Profile (HDP)</strong>: For health-related devices like blood pressure monitors.</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h4 id="Key-Code-Snippet"><a href="#Key-Code-Snippet" class="headerlink" title="Key Code Snippet"></a><strong>Key Code Snippet</strong></h4><p>Here’s an example of scanning for Bluetooth devices:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BluetoothAdapter</span> <span class="variable">bluetoothAdapter</span> <span class="operator">=</span> BluetoothAdapter.getDefaultAdapter();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!bluetoothAdapter.isEnabled()) &#123;</span><br><span class="line">    <span class="type">Intent</span> <span class="variable">enableBtIntent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(BluetoothAdapter.ACTION_REQUEST_ENABLE);</span><br><span class="line">    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Set&lt;BluetoothDevice&gt; pairedDevices = bluetoothAdapter.getBondedDevices();</span><br><span class="line"><span class="keyword">for</span> (BluetoothDevice device : pairedDevices) &#123;</span><br><span class="line">    Log.d(<span class="string">&quot;BluetoothDevice&quot;</span>, <span class="string">&quot;Name: &quot;</span> + device.getName() + <span class="string">&quot;, Address: &quot;</span> + device.getAddress());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>For BLE scanning:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BluetoothLeScanner</span> <span class="variable">scanner</span> <span class="operator">=</span> bluetoothAdapter.getBluetoothLeScanner();</span><br><span class="line">scanner.startScan(<span class="keyword">new</span> <span class="title class_">ScanCallback</span>() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onScanResult</span><span class="params">(<span class="type">int</span> callbackType, ScanResult result)</span> &#123;</span><br><span class="line">        <span class="type">BluetoothDevice</span> <span class="variable">device</span> <span class="operator">=</span> result.getDevice();</span><br><span class="line">        Log.d(<span class="string">&quot;BLE Device&quot;</span>, <span class="string">&quot;Name: &quot;</span> + device.getName() + <span class="string">&quot;, Address: &quot;</span> + device.getAddress());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h4 id="Bluetooth-Protocols-and-Profiles"><a href="#Bluetooth-Protocols-and-Profiles" class="headerlink" title="Bluetooth Protocols and Profiles"></a><strong>Bluetooth Protocols and Profiles</strong></h4><p>The Android Bluetooth stack supports the following profiles:</p>
-<ul>
-<li><strong>HFP (Hands-Free Profile):</strong> For hands-free audio devices.</li>
-<li><strong>A2DP (Advanced Audio Distribution Profile):</strong> High-quality audio streaming.</li>
-<li><strong>AVRCP (Audio&#x2F;Video Remote Control Profile):</strong> For controlling playback on remote devices.</li>
-<li><strong>GATT (Generic Attribute Profile):</strong> Core for BLE communication.</li>
-<li><strong>PBAP (Phone Book Access Profile):</strong> Syncing contact information with car systems.</li>
-</ul>
-<hr>
-<h4 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a><strong>Resources</strong></h4><ul>
-<li>Official Android Bluetooth Documentation: <a target="_blank" rel="noopener" href="https://source.android.com/docs/core/connect/bluetooth">source.android.com</a></li>
-<li>Android SDK Reference for Bluetooth: <a target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/connectivity/bluetooth">developer.android.com</a></li>
-</ul>
-<p>This comprehensive stack and API support make Android a robust platform for integrating a wide variety of Bluetooth-based applications and services. Whether it’s developing apps for IoT devices, enhancing in-car entertainment systems, or creating wearable integrations, Android’s Bluetooth framework provides powerful tools for developers.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/android-bt/" data-id="cm5c7gmu00004dgvydjb83fzx" data-title="A Technical Overview of Android Bluetooth System" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-android-firewall" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/31/android-firewall/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.476Z" itemprop="datePublished">2024-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/android-firewall/">Advanced Concepts in Android Firewall Using Iptables: Stateful vs Stateless Firewalls and Conntrack</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>In addition to basic firewall functionality, Android leverages stateful and stateless firewall mechanisms through the <code>iptables</code> and <code>netfilter</code> frameworks. This section explores these concepts, the role of connection tracking (<code>conntrack</code>), and how developers can use these tools to build more sophisticated firewall rules.</p>
-<hr>
-<h4 id="1-Stateless-vs-Stateful-Firewalls"><a href="#1-Stateless-vs-Stateful-Firewalls" class="headerlink" title="1. Stateless vs Stateful Firewalls"></a><strong>1. Stateless vs Stateful Firewalls</strong></h4><ul>
-<li><p><strong>Stateless Firewalls</strong>:</p>
-<ul>
-<li>Operate by inspecting each packet independently.</li>
-<li>Rely solely on static rules to decide whether to allow or block a packet.</li>
-<li>Example: Dropping all incoming traffic on a port without analyzing connection states.</li>
-<li><strong>Advantages</strong>: Simpler to configure and resource-efficient.</li>
-<li><strong>Drawbacks</strong>: Cannot differentiate between related and unrelated packets, making them less secure against certain types of attacks.</li>
-<li>Example Rule:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp --dport 22 -j DROP</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>Stateful Firewalls</strong>:</p>
-<ul>
-<li>Inspect packets in the context of established connections using the <strong>connection tracking system</strong>.</li>
-<li>Keep track of connection states (<code>NEW</code>, <code>ESTABLISHED</code>, <code>RELATED</code>, <code>INVALID</code>).</li>
-<li>Allow more intelligent rules, such as permitting only responses to legitimate outbound requests.</li>
-<li><strong>Advantages</strong>: Provide greater security and flexibility.</li>
-<li><strong>Drawbacks</strong>: Slightly higher resource usage due to state maintenance.</li>
-<li>Example Rule:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="2-Connection-Tracking-conntrack"><a href="#2-Connection-Tracking-conntrack" class="headerlink" title="2. Connection Tracking (conntrack)"></a><strong>2. Connection Tracking (<code>conntrack</code>)</strong></h4><p><code>conntrack</code> is a key component of stateful firewalls that tracks the state of network connections passing through the firewall. It is implemented as part of the <code>netfilter</code> framework in the Linux kernel and allows <code>iptables</code> to make decisions based on the state of connections.</p>
-<p><strong>Connection States in conntrack</strong>:</p>
-<ul>
-<li><strong>NEW</strong>: The first packet in a connection that is not yet established.</li>
-<li><strong>ESTABLISHED</strong>: A connection that has been fully established.</li>
-<li><strong>RELATED</strong>: Packets that are associated with an existing connection, like FTP data sessions.</li>
-<li><strong>INVALID</strong>: Packets that cannot be identified with a connection.</li>
-</ul>
-<p><strong>Usage Example</strong>:<br>To allow only established or related connections, preventing unauthorized access:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT</span><br><span class="line">iptables -A INPUT -m conntrack --ctstate NEW -j DROP</span><br></pre></td></tr></table></figure>
-
-<p><strong>Benefits of Using conntrack</strong>:</p>
-<ul>
-<li>Enables secure and granular control over connections.</li>
-<li>Helps reduce the surface area for attacks like SYN flooding.</li>
-<li>Facilitates debugging and monitoring through <code>conntrack-tools</code>.</li>
-</ul>
-<hr>
-<h4 id="3-Integrating-conntrack-in-Android-Firewalls"><a href="#3-Integrating-conntrack-in-Android-Firewalls" class="headerlink" title="3. Integrating conntrack in Android Firewalls"></a><strong>3. Integrating conntrack in Android Firewalls</strong></h4><p>On Android, <code>conntrack</code> integrates seamlessly with <code>iptables</code> to enforce app-specific or system-wide network policies:</p>
-<ol>
-<li><strong>Restrict Connections to Specific States</strong>: For example, block all new incoming connections while allowing established connections.</li>
-<li><strong>Monitor Connections</strong>: Use the <code>conntrack</code> command-line tool to display active connections and their states:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conntrack -L</span><br></pre></td></tr></table></figure></li>
-<li><strong>Optimize Rules</strong>: Stateful inspection allows for simpler and more maintainable rule sets, reducing the chances of misconfiguration.</li>
-</ol>
-<hr>
-<h4 id="4-Best-Practices-for-Stateful-and-Stateless-Rules"><a href="#4-Best-Practices-for-Stateful-and-Stateless-Rules" class="headerlink" title="4. Best Practices for Stateful and Stateless Rules"></a><strong>4. Best Practices for Stateful and Stateless Rules</strong></h4><ul>
-<li><p><strong>For Stateless Rules</strong>:</p>
-<ul>
-<li>Use sparingly for scenarios where connection context isn’t necessary (e.g., blocking ports, IP addresses).</li>
-<li>Avoid relying solely on stateless rules for security-critical systems.</li>
-</ul>
-</li>
-<li><p><strong>For Stateful Rules</strong>:</p>
-<ul>
-<li>Combine with <code>conntrack</code> for fine-grained control over connections.</li>
-<li>Drop invalid packets to prevent exploitation:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -m conntrack --ctstate INVALID -j DROP</span><br></pre></td></tr></table></figure></li>
-<li>Permit traffic for specific apps or users while ensuring it follows established connection states.</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h3><p>The integration of stateful and stateless firewalls in Android using <code>iptables</code> and <code>conntrack</code> provides a flexible and powerful security model. By understanding the differences between these approaches and leveraging connection tracking, developers and administrators can enforce robust network policies tailored to their needs.</p>
-<p>For additional insights, consult guides like <a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture">DigitalOcean’s iptables tutorial</a> and the Linux documentation for <code>conntrack</code>.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/android-firewall/" data-id="cm5c7gmu10005dgvycinkb4cb" data-title="Advanced Concepts in Android Firewall Using Iptables: Stateful vs Stateless Firewalls and Conntrack" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-android-gps" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/31/android-gps/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.476Z" itemprop="datePublished">2024-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/android-gps/">A Technical Overview of Android&#39;s GPS System</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Global Positioning System (GPS) is a core feature of Android devices, enabling location-based services for navigation, tracking, and geospatial applications. Android’s GPS system is a complex, multi-layered framework that processes data from GPS hardware and provides interfaces for developers to access and utilize this information.</p>
-<p>This article covers the NMEA protocol, Android’s GPS handling architecture, available APIs, and what developers can achieve with these tools.</p>
-<hr>
-<h2 id="1-NMEA-Protocol-The-Foundation-of-GPS-Data"><a href="#1-NMEA-Protocol-The-Foundation-of-GPS-Data" class="headerlink" title="1. NMEA Protocol: The Foundation of GPS Data"></a><strong>1. NMEA Protocol: The Foundation of GPS Data</strong></h2><p>The National Marine Electronics Association (NMEA) protocol is the industry standard for communicating GPS data. It consists of structured sentences sent over serial interfaces, describing satellite information, location coordinates, timestamps, and other metadata.</p>
-<h3 id="Key-NMEA-Sentences"><a href="#Key-NMEA-Sentences" class="headerlink" title="Key NMEA Sentences:"></a><strong>Key NMEA Sentences:</strong></h3><ul>
-<li><strong>$GPGGA</strong>: Global Positioning System Fix Data (e.g., latitude, longitude, altitude).</li>
-<li><strong>$GPRMC</strong>: Recommended Minimum Specific GPS Data (e.g., speed, direction).</li>
-<li><strong>$GPGSV</strong>: Satellites in View (e.g., satellite count and signal strength).</li>
-<li><strong>$GPVTG</strong>: Track Made Good and Ground Speed.</li>
-</ul>
-<h3 id="Example-NMEA-Sentence"><a href="#Example-NMEA-Sentence" class="headerlink" title="Example NMEA Sentence:"></a><strong>Example NMEA Sentence:</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47</span><br></pre></td></tr></table></figure>
-
-<h3 id="How-to-Obtain-NMEA-Sentences-on-Android"><a href="#How-to-Obtain-NMEA-Sentences-on-Android" class="headerlink" title="How to Obtain NMEA Sentences on Android:"></a><strong>How to Obtain NMEA Sentences on Android:</strong></h3><p>Android’s <strong>Location Manager</strong> and related system components process NMEA data. Developers can listen to raw NMEA strings for debugging or custom GPS processing:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocationManager</span> <span class="variable">locationManager</span> <span class="operator">=</span> (LocationManager) getSystemService(Context.LOCATION_SERVICE);</span><br><span class="line">locationManager.addNmeaListener((timestamp, nmea) -&gt; &#123;</span><br><span class="line">    Log.d(<span class="string">&quot;NMEA&quot;</span>, <span class="string">&quot;Timestamp: &quot;</span> + timestamp + <span class="string">&quot; NMEA: &quot;</span> + nmea);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="2-How-Android-Handles-GPS-Data"><a href="#2-How-Android-Handles-GPS-Data" class="headerlink" title="2. How Android Handles GPS Data"></a><strong>2. How Android Handles GPS Data</strong></h2><h3 id="Key-Components-of-Android-GPS-System"><a href="#Key-Components-of-Android-GPS-System" class="headerlink" title="Key Components of Android GPS System:"></a><strong>Key Components of Android GPS System:</strong></h3><ol>
-<li><p><strong>GPS Hardware:</strong></p>
-<ul>
-<li>Embedded in the device, communicates with GPS satellites to retrieve location data.</li>
-<li>Supports additional GNSS systems like GLONASS, Galileo, and BeiDou for enhanced accuracy.</li>
-</ul>
-</li>
-<li><p><strong>GNSS HAL (Hardware Abstraction Layer):</strong></p>
-<ul>
-<li>A standardized interface (<code>gps.h</code>) to interact with GPS hardware.</li>
-<li>Converts low-level GPS hardware output, including NMEA sentences, into a format the Android framework can use.</li>
-</ul>
-</li>
-<li><p><strong>Location Service:</strong></p>
-<ul>
-<li>A system-level service in the Android framework that interacts with the GNSS HAL.</li>
-<li>Provides a unified interface for accessing location data from various sources (GPS, Wi-Fi, Cellular).</li>
-</ul>
-</li>
-<li><p><strong>Location Provider:</strong></p>
-<ul>
-<li>The <strong>Fused Location Provider</strong> (FLP) integrates data from multiple sources to provide the most accurate and power-efficient location.</li>
-<li>Combines GPS, network-based location, and inertial sensors.</li>
-</ul>
-</li>
-</ol>
-<h3 id="Processing-Workflow"><a href="#Processing-Workflow" class="headerlink" title="Processing Workflow:"></a><strong>Processing Workflow:</strong></h3><ol>
-<li>GPS hardware acquires signals and generates raw data (e.g., NMEA sentences).</li>
-<li>GNSS HAL processes this data, forwarding it to the Location Service.</li>
-<li>The Location Service refines and aggregates location data, exposing it to apps via the <strong>LocationManager</strong> API.</li>
-</ol>
-<hr>
-<h2 id="3-Developer-APIs-for-GPS"><a href="#3-Developer-APIs-for-GPS" class="headerlink" title="3. Developer APIs for GPS"></a><strong>3. Developer APIs for GPS</strong></h2><p>Android provides several APIs to access and utilize GPS functionality. The main entry point for developers is the <strong>LocationManager</strong> class, alongside support for advanced features via the <strong>Fused Location Provider API</strong>.</p>
-<h3 id="Core-GPS-APIs"><a href="#Core-GPS-APIs" class="headerlink" title="Core GPS APIs:"></a><strong>Core GPS APIs:</strong></h3><ol>
-<li><p><strong><code>LocationManager</code>:</strong></p>
-<ul>
-<li>Manages access to the device’s location services.</li>
-<li>Provides methods to request location updates, manage listeners, and query providers.</li>
-</ul>
-<p>Example:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocationManager</span> <span class="variable">locationManager</span> <span class="operator">=</span> (LocationManager) getSystemService(Context.LOCATION_SERVICE);</span><br><span class="line">locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, <span class="number">1000</span>, <span class="number">10</span>, <span class="keyword">new</span> <span class="title class_">LocationListener</span>() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onLocationChanged</span><span class="params">(Location location)</span> &#123;</span><br><span class="line">        <span class="type">double</span> <span class="variable">latitude</span> <span class="operator">=</span> location.getLatitude();</span><br><span class="line">        <span class="type">double</span> <span class="variable">longitude</span> <span class="operator">=</span> location.getLongitude();</span><br><span class="line">        Log.d(<span class="string">&quot;GPS&quot;</span>, <span class="string">&quot;Lat: &quot;</span> + latitude + <span class="string">&quot;, Lon: &quot;</span> + longitude);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>FusedLocationProviderClient</code>:</strong></p>
-<ul>
-<li>Part of Google Play Services, provides more accurate and battery-efficient location data.</li>
-<li>Combines GPS, Wi-Fi, cellular, and sensor data for better accuracy.</li>
-</ul>
-<p>Example:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">FusedLocationProviderClient</span> <span class="variable">fusedLocationClient</span> <span class="operator">=</span> LocationServices.getFusedLocationProviderClient(<span class="built_in">this</span>);</span><br><span class="line">fusedLocationClient.getLastLocation()</span><br><span class="line">        .addOnSuccessListener(location -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (location != <span class="literal">null</span>) &#123;</span><br><span class="line">                Log.d(<span class="string">&quot;FLP&quot;</span>, <span class="string">&quot;Lat: &quot;</span> + location.getLatitude() + <span class="string">&quot;, Lon: &quot;</span> + location.getLongitude());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Geofencing API:</strong></p>
-<ul>
-<li>Allows developers to define geographical boundaries and receive notifications when a user enters or exits these zones.</li>
-</ul>
-<p>Example:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">GeofencingRequest</span> <span class="variable">geofencingRequest</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GeofencingRequest</span>.Builder()</span><br><span class="line">        .addGeofence(<span class="keyword">new</span> <span class="title class_">Geofence</span>.Builder()</span><br><span class="line">            .setRequestId(<span class="string">&quot;example&quot;</span>)</span><br><span class="line">            .setCircularRegion(latitude, longitude, radius)</span><br><span class="line">            .setExpirationDuration(Geofence.NEVER_EXPIRE)</span><br><span class="line">            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)</span><br><span class="line">            .build())</span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>GNSS Status API:</strong></p>
-<ul>
-<li>Provides satellite status and metadata for debugging and advanced use cases.</li>
-<li>Example: Check satellite visibility.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">locationManager.registerGnssStatusCallback(<span class="keyword">new</span> <span class="title class_">GnssStatus</span>.Callback() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onSatelliteStatusChanged</span><span class="params">(GnssStatus status)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">satelliteCount</span> <span class="operator">=</span> status.getSatelliteCount();</span><br><span class="line">        Log.d(<span class="string">&quot;GNSS&quot;</span>, <span class="string">&quot;Satellites: &quot;</span> + satelliteCount);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h2 id="4-What-Developers-Can-Do-with-GPS-APIs"><a href="#4-What-Developers-Can-Do-with-GPS-APIs" class="headerlink" title="4. What Developers Can Do with GPS APIs"></a><strong>4. What Developers Can Do with GPS APIs</strong></h2><p>Android’s GPS APIs allow developers to create a wide range of applications, including:</p>
-<ol>
-<li><p><strong>Navigation and Mapping Applications:</strong></p>
-<ul>
-<li>Turn-by-turn navigation apps.</li>
-<li>Real-time traffic visualization.</li>
-</ul>
-</li>
-<li><p><strong>Fitness and Tracking:</strong></p>
-<ul>
-<li>Track activities like running, cycling, or hiking.</li>
-<li>Log routes and performance metrics.</li>
-</ul>
-</li>
-<li><p><strong>Geofencing Applications:</strong></p>
-<ul>
-<li>Create location-based reminders.</li>
-<li>Trigger app events when entering specific areas.</li>
-</ul>
-</li>
-<li><p><strong>Augmented Reality (AR):</strong></p>
-<ul>
-<li>Combine GPS with camera and sensor data for location-based AR experiences.</li>
-</ul>
-</li>
-<li><p><strong>Emergency Services:</strong></p>
-<ul>
-<li>Provide precise location during SOS calls.</li>
-</ul>
-</li>
-<li><p><strong>Geospatial Analysis:</strong></p>
-<ul>
-<li>Analyze movement patterns and spatial data.</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>Android’s GPS system, powered by the NMEA protocol and advanced GNSS handling, provides developers with powerful tools for location-based app development. Whether leveraging raw GPS data for custom applications or using high-level APIs for efficient and accurate location services, Android’s framework enables a wide range of use cases. By mastering these APIs, developers can create innovative solutions tailored to user needs.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/android-gps/" data-id="cm5c7gmu10006dgvygpmpfpw3" data-title="A Technical Overview of Android&#39;s GPS System" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1638,7 +1672,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
     </div>
   </div>
 
@@ -1651,23 +1685,23 @@
       <ul>
         
           <li>
+            <a href="/2025/02/10/CS_Basis_TEE/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/10/CS_Basis_HSM/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/10/CS_ASCP_01intro/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2024/12/31/wireless-modem-intro/">Comprehensive Technical Overview of Wireless Modems</a>
           </li>
         
           <li>
             <a href="/2024/12/31/wireless-modem-ucosii/">Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/31/android-ril/">Android Cellular Connectivity: RIL and Connection Management</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/31/android-sensor/">Android Sensor Architecture: A Comprehensive Overview</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/31/android-video-IP/">Introduction to Android IP Protection Technologies</a>
           </li>
         
       </ul>
@@ -1683,7 +1717,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2024 Zhang Peng<br>
+      &copy; 2025 Zhang Peng<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

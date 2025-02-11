@@ -71,6 +71,232 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-CS_Basis_TEE" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/10/CS_Basis_TEE/" class="article-date">
+  <time class="dt-published" datetime="2025-02-10T02:41:56.732Z" itemprop="datePublished">2025-02-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Trusted Execution Environments (TEEs) are CPU-encrypted isolated private enclaves inside the memory, used for protecting data in use at the hardware level.</p>
+<p>While the sensitive data is inside an enclave, unauthorized entities cannot remove it, modify it, or add more data to it. The contents of an enclave remain invisible and inaccessible to external parties, protected against outsider and insider threats.</p>
+<p>As a result, a TEE ensures the following:</p>
+<ul>
+<li>Data integrity</li>
+<li>Code integrity</li>
+<li>Data confidentiality</li>
+</ul>
+<h1 id="TEE-terminology-and-operation"><a href="#TEE-terminology-and-operation" class="headerlink" title="TEE terminology and operation"></a>TEE terminology and operation</h1><p>In a system with a TEE, we have untrusted applications running on a Rich Execution Environment (REE) and trusted applications (TAs) running on a Trusted Execution Environment (TEE).</p>
+<p>Only trusted applications running on a TEE (Secure World) have complete access to the main processor, peripherals and memory, while hardware isolation protects these from untrusted applications running on the main operating system (Non-Secure World).</p>
+<h1 id="How-to-implement-a-TEE"><a href="#How-to-implement-a-TEE" class="headerlink" title="How to implement a TEE?"></a>How to implement a TEE?</h1><p>We could isolate applications in a “sandbox”, for example using containers. This would prevent an application from seeing and accessing data from other applications.</p>
+<p>But what about the kernel? How to prevent a code running in kernel space from being exploited to access a certain peripheral or memory region used by a trusted application?</p>
+<p>Software can’t protect software!</p>
+<p>So we need support in the hardware to implement a TEE. We need a way to partition and isolate the hardware (busses, peripherals, memory regions, interrupts, etc) so that the running code does not have access to protected resources.</p>
+<p>That’s where ARM’s TrustZone, RISC-V’s MultiZone and many other solutions come in.</p>
+<p>Hardware support to implement a TEE:</p>
+<ul>
+<li>ARM’s TrustZone</li>
+<li>RISC-V’s MultiZone</li>
+<li>AMD Platform Security Processor (PSP)</li>
+<li>Intel Software Guard Extensions (SGX)</li>
+<li>Apple SEP (Secure Enclave Processor)</li>
+<li>Google Titan M</li>
+</ul>
+<h2 id="ARM’s-TrustZone"><a href="#ARM’s-TrustZone" class="headerlink" title="ARM’s TrustZone"></a>ARM’s TrustZone</h2><p>Several commercial TEE implementations have been developed over the years:</p>
+<ul>
+<li>Trustonic Kinibi</li>
+<li>Samsung TEEGRIS</li>
+<li>Qualcomm  Qualcomm Secure Execution Environment (QSEE)</li>
+<li>Google Trusty(opensource)</li>
+<li>OP-TEE (<a target="_blank" rel="noopener" href="https://globalplatform.org/wp-content/uploads/2018/05/Introduction-to-Trusted-Execution-Environment-15May2018.pdf">Open Portable Trusted Execution Environment</a>) (opensource)</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2025/02/10/CS_Basis_TEE/" data-id="cm6zty0sr0001agvyhy435png" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CS_Basis_HSM" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/10/CS_Basis_HSM/" class="article-date">
+  <time class="dt-published" datetime="2025-02-10T02:41:56.729Z" itemprop="datePublished">2025-02-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>HSM, short for Hardware Security Module, is a physical device that acts as a fortress for your data, ensuring its confidentiality, integrity, and availability. HSMs are considered as standalone and tamper-resistant hardware devices specifically engineered to fortify cryptographic processes.</p>
+<p>HSMs serve the essential functions of generating, safeguarding, and managing encryption keys, which are crucial for data encryption and decryption, and creating digital signatures and code signing certificates. HSMs can take the form of plugin cards or be integrated into various hardware components, including smart cards, appliances, and external devices.</p>
+<p>These devices undergo rigorous testing, validation, and certification processes, adhering to strict security standards like FIPS 140-2, Common Criteria EAL 4+, or equivalent benchmarks. These benchmarks assure users that the devices offer unparalleled levels of security and shield against potential threats, ensuring the utmost confidentiality and integrity of data.</p>
+<p>According to CerteraSSL’s <a target="_blank" rel="noopener" href="https://certera.com/blog/what-is-hardware-security-module-hsm-comprehensive-guide">HSM Comprehensive Guide</a>, let’s first walk through the Key components of HSM, different types of HSM, features of HSM and then look into some detail of Vehicular Hardware Security Module</p>
+<h1 id="Key-components-of-HSM"><a href="#Key-components-of-HSM" class="headerlink" title="Key components of HSM"></a>Key components of HSM</h1><h2 id="Key-Generation-and-Storage"><a href="#Key-Generation-and-Storage" class="headerlink" title="Key Generation and Storage"></a>Key Generation and Storage</h2><p>HSMs use secure random number generators (RNGs) to generate strong cryptographic keys. The generated keys are securely stored within the HSM and safeguarded against unauthorized access or extraction, ensuring keys’ integrity and randomness, which are crucial for robust cryptographic operations.</p>
+<h2 id="Key-Management"><a href="#Key-Management" class="headerlink" title="Key Management"></a>Key Management</h2><p>HSMs provide a comprehensive suite of key management functionalities, which includes key generation, import, export, versioning, and facilitating key lifecycle operations like rotation and retirement.</p>
+<h2 id="Cryptographic-Operations"><a href="#Cryptographic-Operations" class="headerlink" title="Cryptographic Operations"></a>Cryptographic Operations</h2><p>HSM excels in performing various cryptographic operations. They offer encryption and decryption capabilities and play a critical role in generating and verifying digital signatures, ensuring the authenticity and integrity of electronic documents and transactions. They also support secure hashing algorithms for data integrity verification and provide secure APIs and interfaces for the seamless integration of cryptographic functionalities into applications.</p>
+<h2 id="Secure-APIs-and-Interfaces"><a href="#Secure-APIs-and-Interfaces" class="headerlink" title="Secure APIs and Interfaces"></a>Secure APIs and Interfaces</h2><p>HSMs offer secure APIs and interfaces. APIs establish a secure communication channel between the application and the HSM, preventing unauthorized access and safeguarding cryptographic material from tampering.</p>
+<h2 id="Physical-and-Logical-Security"><a href="#Physical-and-Logical-Security" class="headerlink" title="Physical and Logical Security"></a>Physical and Logical Security</h2><p>HSMs incorporate robust physical and logical security measures. Physical security features include tamper-evident casings, sensors to detect physical attacks and secure key storage mechanisms. Logical security encompasses robust authentication mechanisms, access controls, and cryptographic operations executed within a trusted environment.</p>
+<h2 id="Compliance-and-Auditing"><a href="#Compliance-and-Auditing" class="headerlink" title="Compliance and Auditing"></a>Compliance and Auditing</h2><p>HSMs provide the necessary capabilities to comply with security regulations and industry standards. They offer auditing and logging mechanisms, enabling organizations to track and monitor cryptographic operations. Compliance features within HSMs assist in demonstrating adherence to security best practices and successfully passing regulatory audits.</p>
+<h1 id="Types-of-HSM"><a href="#Types-of-HSM" class="headerlink" title="Types of HSM"></a>Types of HSM</h1><p>HSM devices come in various types, each tailored to specific use cases and industry requirements. However, there are two main types of HSMs:</p>
+<h2 id="General-Purpose-HSMs"><a href="#General-Purpose-HSMs" class="headerlink" title="General Purpose HSMs:"></a>General Purpose HSMs:</h2><p>General purpose HSMs are versatile devices that support a wide range of encryption algorithms, such as CNG, CAPI, and more. They are designed to cater to various applications that require cryptographic services and secure key management.</p>
+<p>General purpose HSMs are commonly used in environments where Public Key Infrastructures (PKIs) are implemented and in managing crypto-wallets and other sensitive data. These HSMs offer flexibility and compatibility with different systems and encryption standards.</p>
+<h2 id="Payment-and-Transaction-HSMs"><a href="#Payment-and-Transaction-HSMs" class="headerlink" title="Payment and Transaction HSMs:"></a>Payment and Transaction HSMs:</h2><p>These HSM devices are tailored to the financial industry’s requirements and are essential in maintaining compliance with Payment Card Industry Data Security Standards (PCI DSS).</p>
+<p>Payment and transaction HSMs provide specialized cryptographic services and secure key management solutions that align with the specific needs of payment processing systems. They play a critical role in securing financial transactions and ensuring the confidentiality and integrity of payment card data.</p>
+<p>It’s important to note that while general purpose HSMs offer broader applicability, payment and transaction HSMs focus specifically on securing payment card information and complying with industry-specific standards. The choice between these two types of HSMs depends on the specific security requirements and use cases of the organization or industry involved.</p>
+<h1 id="Features-of-HSM"><a href="#Features-of-HSM" class="headerlink" title="Features of HSM"></a>Features of HSM</h1><p>HSMs offer a range of features to provide maximum security for cryptographic key management and operations. Here are some key features:</p>
+<h2 id="Tamper-Resistance"><a href="#Tamper-Resistance" class="headerlink" title="Tamper Resistance:"></a>Tamper Resistance:</h2><p>HSMs are built with tamper-evident casings and physical protections. They incorporate sensors and mechanisms that detect and respond to physical tampering attempts, such as opening the casing or tampering with internal components. These features ensure the integrity of the HSM and protect against unauthorized access to cryptographic keys.</p>
+<h2 id="Zeroization-of-Keys"><a href="#Zeroization-of-Keys" class="headerlink" title="Zeroization of Keys:"></a>Zeroization of Keys:</h2><p>HSMs can securely erase cryptographic keys, ensuring their complete removal from the system and preventing unauthorized access or recovery.</p>
+<h2 id="Access-Controls"><a href="#Access-Controls" class="headerlink" title="Access Controls:"></a>Access Controls:</h2><p>HSMs enforce strict access controls to prevent unauthorized users from accessing sensitive cryptographic material. Role-based access control (RBAC) mechanisms ensure that only authorized individuals or applications can interact with the HSM and perform cryptographic operations.</p>
+<h2 id="Robust-Authentication"><a href="#Robust-Authentication" class="headerlink" title="Robust Authentication:"></a>Robust Authentication:</h2><p>HSMs employ strong authentication mechanisms to verify the identities of users or applications attempting to access the HSM. These devices mostly employ two-factor authentication, requiring a combination of something the user knows – a password and something the user has – a smart card or something the user is – biometric data to establish trust and grant access.</p>
+<h2 id="APIs-and-Interfaces"><a href="#APIs-and-Interfaces" class="headerlink" title="APIs and Interfaces:"></a>APIs and Interfaces:</h2><p>HSMs provide secure APIs and interfaces that allow applications and systems to integrate with the HSM. Standard cryptographic protocol, are often supported, enabling seamless integration with existing systems.</p>
+<h2 id="Secure-Design"><a href="#Secure-Design" class="headerlink" title="Secure Design:"></a>Secure Design:</h2><p>HSMs are designed with security in mind. They undergo rigorous testing and evaluation to meet recognized security standards, such as FIPS 140-2. The design principles encompass both physical and logical security measures to create a trusted environment for cryptographic operations.</p>
+<h1 id="HSM-Specification"><a href="#HSM-Specification" class="headerlink" title="HSM Specification"></a>HSM Specification</h1><h2 id="Secure-Hardware-Extension-SHE"><a href="#Secure-Hardware-Extension-SHE" class="headerlink" title="Secure Hardware Extension (SHE)"></a>Secure Hardware Extension (SHE)</h2><p>The Secure Hardware Extension (SHE) is an on-chip extension to any given microcontroller. It is intended to move the control over cryptographic keys from the software domain into the hardware domain and therefore protect those keys from software attacks. However, it is not meant to replace highly secure solutions like TPM chips or smart cards, i.e. no tamper resistance is required by the specification.</p>
+<p>In 2019, AUTOSAR continues publish new technical requirements instead of SHE v1.1 as <strong>AUTOSAR_TR_SecureHardwareExtensions.pdf</strong></p>
+<p>SHE is one of the earliest examples of automotive-grade connected module hardening and quickly grew to become a standard requirement by OEMs on a global basis. It was primarily built for securing cryptographic key material against software attacks, but cannot really be used to protect communications (such as V2X). As such, it has served as a basis for later HSM standards (such as EVITA). Today, modern automotive HSMs leverage functionalities from SHE, TPM and smartcards.</p>
+<h3 id="SHE-Background"><a href="#SHE-Background" class="headerlink" title="SHE Background"></a>SHE Background</h3><p>The HIS consortium was founded in 2004 and consists of members from Audi, BMW, Daimler, Porsche, and Volkswagen to address activities and develop common standards related to automotive manufacturing. In 2006, HIS published a document describing the requirements for an HIS Security Module standard that incorporated mechanisms for error detection, authorization, and authenticity. This was further developed by ESCRYPT in partnership with OEMs Audi and BMW, and semiconductor vendors, such as Freescale (now NXP) into an open standard, publicly released in April 2009.</p>
+<p>The resulting SHE specification outlines how a secure zone can be created within any ECU via an on-chip extension within a Microcontroller Unit (MCU), providing cryptographic services at the application layer, and isolating the storage of secret keys from the remainder of the MCU’s resources. Although the standard originated within the German automotive industry at the OEM level, it has since become an open standard accepted at the global level.</p>
+<h2 id="EVITA-HSM"><a href="#EVITA-HSM" class="headerlink" title="EVITA HSM"></a>EVITA HSM</h2><p>For vehicular hardware security module, we have to konw the E-safety vehicle intrusion protected applications (<a target="_blank" rel="noopener" href="https://evita-project.org/">EVITA</a>). EVITA is a project co-funded by the European Union within the Seventh Framework Programme for research and technological development.</p>
+<p>The objective of EVITA is to design, verify, and prototype an architecture for automotive on-board networks where security-relevant components are protected against tampering and sensitive data are protected against compromise.</p>
+<h3 id="EVITA’s-Background"><a href="#EVITA’s-Background" class="headerlink" title="EVITA’s Background"></a>EVITA’s Background</h3><p>Future automotive safety applications based on vehicle-to-vehicle and vehicle-to-infrastructure communication have been identified as a means for decreasing the number of fatal traffic accidents. Examples of such applications are local danger warnings and electronic emergency brakes. While these functionalities inspire a new era of traffic safety, new security requirements need to be considered in order to prevent attacks on these systems. Examples of such threats are forced malfunctioning of safety-critical components or the interference with the traffic flow by means of fake messages.</p>
+<h3 id="EVITA’s-Objectives"><a href="#EVITA’s-Objectives" class="headerlink" title="EVITA’s Objectives"></a>EVITA’s Objectives</h3><p>Secure and trustworthy intra-vehicular communication is the basis for trustworthy communication among cars or between cars and the infrastructure. Therefore, the objective of the EVITA project is to design, verify, and prototype an architecture for automotive on-board networks where security-relevant components are protected against tampering and sensitive data are protected against compromise when transferred inside a vehicle.</p>
+<p>By focusing on the protection of the intra-vehicle communication EVITA complements other e-safety related projects that focus on the protection of the vehicle-to-X communication.</p>
+<h3 id="Design-Implementation-and-Evaluation-of-a-Vehicular-Hardware-Security-Module"><a href="#Design-Implementation-and-Evaluation-of-a-Vehicular-Hardware-Security-Module" class="headerlink" title="Design, Implementation, and Evaluation of a Vehicular Hardware Security Module"></a>Design, Implementation, and Evaluation of a Vehicular Hardware Security Module</h3><p>In 2011, the 14th International Conference on Information Security and Cryptology, M. Wolf, T. Gendrullis published a paper “<a target="_blank" rel="noopener" href="https://evita-project.org/Publications/WG11.pdf">Design, implementation, and evaluation of a vehicular hardware security module</a>“, introduce the vehicular HSM officially for the first time from EVITA point of view. Based on a requirements engineering approach that incorporates all security-relevant automotive use cases and all distinctive automotive needs and constraints, EVITA presented an vehicular hardware security module (HSM) that enables a holistic protection of in-vehicle ECUs and their communications. </p>
+<h3 id="Standardize-Vehicular-HSM"><a href="#Standardize-Vehicular-HSM" class="headerlink" title="Standardize Vehicular HSM"></a>Standardize Vehicular HSM</h3><p>IT systems were never designed with security in mind. But with the increasing application of digital software and various radio interfaces to the outside world (including the Internet), modern vehicles are becoming even more vulnerable to all kinds of malicious encroachments like hackers or malware. This is especially noteworthy, since in contrast to most other IT systems, a successful malicious<br>encroachment on a vehicle will not only endanger critical services or business models, but can also endanger human lives. Thus strong security measures should be mandatory when developing vehicular IT systems. Today most vehicle manufacturer (hopefully) incorporate security as a design requirement.</p>
+<p>However, realizing dependable IT security solutions in a vehicular environment considerably differs from realizing IT security for typical desktop or server environments, just porting “standard” security solutions to the, moreover, very heterogeneous IT environment usually will not work. In order<br>to reliably enforce the security of software security mechanisms, the application of hardware security modules (HSM) is one effective countermeasure as HSMs:</p>
+<ul>
+<li>protect software security measures by acting as trusted security anchor,</li>
+<li>securely generate, store, and process security-critical material shielded from any potentially malicious software,</li>
+<li>restrict the possibilities of hardware tampering attacks by applying effective tamper-protection measures, </li>
+<li>accelerate security measures by applying specialized cryptographic hardware,</li>
+<li>reduce security costs on high volumes by applying highly optimized special circuitry instead of costly general purpose hardware.</li>
+</ul>
+<p>Back to the paper was published, there already exist some proprietary and singlepurpose HSM realizations used, for instance, by vehicle immobilizers, digital tachographs or tolling solutions. However, these are no general-purpose, private HSMs and hence cannot be reused by other vehicular security solutions. On the other hand, general-purpose HSMs that are currently available, for instance, the IBM 4758 cryptographic co-processor, the TCG Mobile&#x2F;Trusted Platform Module, or typical cryptographic smartcards are not applicable for use within an automotive security context. They, for instance, lack of cost efficiency, performance, physical robustness, or security functionality. Solely, the secure hardware extension (SHE) as proposed by the HIS consortium takes an exceptional position as it was explicitly designed for application in a automotive security context. However, the SHE module is mainly built for securing cryptographic key material against software attacks, but cannot be used, for instance, to protect V2X communications. </p>
+<p>Security requisites (SR) and functional requisites (FR) of EVITA HSM list as follows:</p>
+<ul>
+<li>SR.1 Autonomous, strongly isolated security processing environment</li>
+<li>SR.2 Minimal immuftable trusted code to be executed prior to ECU processor</li>
+<li>SR.3 Internal non-volatile memory for storing root security artifacts</li>
+<li>SR.4 Non-detachable (tamper-protected) connection with ECU hardware</li>
+<li>SR.5 Authentic, confidential, fresh comm. channel between HSM and ECU</li>
+<li>SR.6 Autonomously controlled alert functionality (e.g., log entry, ECU halt)</li>
+<li>SR.7 Only standardized, established security algorithms (e.g., NIST1 , BSI2)</li>
+</ul>
+</br>
+
+<ul>
+<li>FR.1 Physical stress resistance to endure an automotive life-cycle of ≥20 years</li>
+<li>FR.2 Bandwidth and latency performance that meets at least ISO 11898 [24]</li>
+<li>FR.3 Compatibility with existing ECU security modules, i.e. with HIS-SHE [21]</li>
+<li>FR.4 Compatibility with existing ECU microprocessor architectures</li>
+<li>FR.5 Open, patent free specifications for cost-efficient OEM-wide application</li>
+</ul>
+<h3 id="Comparison-of-HSMs"><a href="#Comparison-of-HSMs" class="headerlink" title="Comparison of HSMs"></a>Comparison of HSMs</h3><p>This can be seen in Table 5 of “<a target="_blank" rel="noopener" href="https://evita-project.org/Publications/WG11.pdf">Design, implementation, and evaluation of a vehicular hardware security module</a>“(Page 16).</p>
+<h2 id="Trusted-Platform-Module"><a href="#Trusted-Platform-Module" class="headerlink" title="Trusted Platform Module"></a>Trusted Platform Module</h2><p>Due to the massive use of x86 chips in vehicle, Trusted Platform Module (TPM) was is and will be used in E&#x2F;E architecure to protect user data.</p>
+<p>Back up to the days that hackers can quickly weaponize the valuable data in laptops and computers, <a target="_blank" rel="noopener" href="https://trustedcomputinggroup.org/">Trusted Computing Group (TCG)</a> develops and prompts specification and standards of TPM to against these threat. TPM is a secure crypto-processor which is attached to a device to establish secure operations. Using a TPM helps to protect a user’s identity and sensitive data by storing the relevant keys vital for encryption, decryption and authentication. Doing so provides a first line of defense against potentially critical malware and firmware attacks, as it ensures all data remains encrypted even if an attack takes place.</p>
+<h1 id="Solutions-for-virtual-environments-of-TPM"><a href="#Solutions-for-virtual-environments-of-TPM" class="headerlink" title="Solutions for virtual environments of TPM"></a>Solutions for virtual environments of TPM</h1><h2 id="vTPM"><a href="#vTPM" class="headerlink" title="vTPM"></a>vTPM</h2><p>A vTPM is a software-based representation of a traditional TPM 2.0 chip. It carries out the same hardware-based security functions a TPM, for example, attestation, key and random number generation – without the physical chip being required.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2025/02/10/CS_Basis_HSM/" data-id="cm6zty0st0002agvy2mzqdriv" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CS_ASCP_01intro" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/10/CS_ASCP_01intro/" class="article-date">
+  <time class="dt-published" datetime="2025-02-10T02:41:56.724Z" itemprop="datePublished">2025-02-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="BEGINNING"><a href="#BEGINNING" class="headerlink" title="BEGINNING"></a>BEGINNING</h1><p>This artical copys the introduction from <a target="_blank" rel="noopener" href="https://www.autosar.org/">AUTOSAR</a>, but a unformal reference can be used <a href="autosar.ltd">here</a>.</p>
+<h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>AUTOSAR (AUTomotive Open System ARchitecture) is a global partnership of leading companies in the automotive and software industry to develop and establish the standardized software framework and open E&#x2F;E system architecture for intelligent mobility.</p>
+<h2 id="HISTORY"><a href="#HISTORY" class="headerlink" title="HISTORY"></a>HISTORY</h2><p>Nine companies founded the AUTOSAR partnership to consolidate the expertise of partner companies in the automotive industries and define an automotive open system architecture standard to support the needs of future automotive applications</p>
+<h2 id="AUTOSAR-STANDARDS-and-SPECIFICATIONS"><a href="#AUTOSAR-STANDARDS-and-SPECIFICATIONS" class="headerlink" title="AUTOSAR STANDARDS and SPECIFICATIONS"></a>AUTOSAR STANDARDS and SPECIFICATIONS</h2><p>The primary goal of the AUTOSAR development partnership is the standardization of basic system functions and functional interfaces.</p>
+<h3 id="CLASSIC-PLATFORM"><a href="#CLASSIC-PLATFORM" class="headerlink" title="CLASSIC PLATFORM"></a>CLASSIC PLATFORM</h3><p>The AUTOSAR Classic Platform is a software platform with a layered software architecture defined by AUTOSAR which is used for deeply embedded systems and application software with high requirements for predictability, safety, security and responsiveness. It distinguishes at the highest level of abstraction between three software layers running on a microcontroller: Application, Runtime Environment (RTE) and Basic Software (BSW), and provides a modular and scalable approach to software development.</p>
+<h3 id="ADAPTIVE-PLATFORM"><a href="#ADAPTIVE-PLATFORM" class="headerlink" title="ADAPTIVE PLATFORM"></a>ADAPTIVE PLATFORM</h3><p>The AUTOSAR Adaptive Platform implements the AUTOSAR Runtime for Adaptive Applications (ARA) and consists of functional clusters grouped into Services and the Adaptive AUTOSAR Basis. It provides two types of interfaces, Services and APIs, and is the AUTOSAR solution for high-performance ECUs to build safety-related systems. The platform is designed to meet the requirements of highly automated vehicles and supports dynamic updates and reconfigurations of software systems.</p>
+<h1 id="AUTOSAR-STANDARDS"><a href="#AUTOSAR-STANDARDS" class="headerlink" title="AUTOSAR STANDARDS"></a>AUTOSAR STANDARDS</h1><p>Now, lets take a closer look at AUTOSAR <a target="_blank" rel="noopener" href="https://www.autosar.org/standards">standards</a>.</p>
+<p>Autosar has 2 kinds of standards, classic platform and adaptive paltform, all contain well formart engineering documentations, these include:</p>
+<ul>
+<li>MOD: mode</li>
+<li>MMOD: Meta Mode</li>
+<li>RS: Requirement Specification</li>
+<li>PRS: Protocol Requirement Specification</li>
+<li>TR: Technical Report</li>
+<li>SWS: Software Specification</li>
+<li>EXP: Explaination</li>
+<li>SRS: Software Requirement Specification</li>
+<li>TPS: Template Specification</li>
+</ul>
+<h2 id="CLASSIC-PLATFORM-1"><a href="#CLASSIC-PLATFORM-1" class="headerlink" title="CLASSIC PLATFORM"></a>CLASSIC PLATFORM</h2><h3 id="About"><a href="#About" class="headerlink" title="About"></a>About</h3><p>The AUTOSAR Classic Platform architecture distinguishes on the highest abstraction level between three software layers which run on a microcontroller: application, runtime environment (RTE) and basic software (BSW).</p>
+<ul>
+<li>The application software layer is mostly hardware independent.</li>
+<li>Communication between software components and access to BSW via RTE.</li>
+<li>The RTE represents the full interface for applications.</li>
+<li>The BSW is divided in three major layers and complex drivers:<ul>
+<li>Services, ECU (Electronic Control Unit) abstraction and microcontroller abstraction.</li>
+</ul>
+</li>
+<li>Services are divided furthermore into functional groups representing the infrastructure for system, memory and communication services.</li>
+</ul>
+<h3 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h3><h4 id="VIRTUAL-FUNCTIONAL-BUS-VFB-–-THE-BACKBONE"><a href="#VIRTUAL-FUNCTIONAL-BUS-VFB-–-THE-BACKBONE" class="headerlink" title="VIRTUAL FUNCTIONAL BUS(VFB) – THE BACKBONE"></a>VIRTUAL FUNCTIONAL BUS(VFB) – THE BACKBONE</h4><p>One essential concept is the virtual functional bus (VFB). This virtual bus decouples the applications from the infrastructure. It communicates via dedicated ports, which means that the communication interfaces of the application software must be mapped to these ports. The VFB handles communication both within the individual ECU and between ECUs. From an application point of view, no detailed knowledge of lower-level technologies or dependencies is required. This supports hardware-independent development and usage of application software.</p>
+<h4 id="AUTOSAR-CLASSIC-PLATFORM-ARCHITECTURE"><a href="#AUTOSAR-CLASSIC-PLATFORM-ARCHITECTURE" class="headerlink" title="AUTOSAR CLASSIC PLATFORM ARCHITECTURE"></a>AUTOSAR CLASSIC PLATFORM ARCHITECTURE</h4><p>Refer autosar.architecture.drawio for the architecture of autosar classic platform defined by AUTOSAR.</p>
+<p>The AUTOSAR layered architecture is offering all the mechanisms needed for software and hardware independence. It distinguishes between three main software layers which run on a Microcontroller (µC): application layer, runtime environment (RTE), and basic software (BSW).</p>
+<p>The applications of the different automotive domains interface the basic software by means of the RTE.</p>
+<p>In addition to defining architecture and interfaces, AUTOSAR also defines a methodology which enables the configuration of the complete AUTOSAR stack and enhances interoperability between different tool chains. On the one hand this is important for the collaboration within development projects and on the other hand this is important to cut down development costs.</p>
+<h3 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h3><p>The main concept of the standardized ECU software architecture is the separation of hardware-independent application software and hardware-oriented basic software (BSW) by means of the software abstraction layer RTE (runtime environment). On the upper side of the RTE, this abstraction layer enables the development of OEM-specific and competitive software applications. On the lower side of the RTE, it enables the standardization and OEM-independence of basic software. Further characteristics of the AUTOSAR software architecture are the scalability of ECU software for several car lines and variants, the possibility to distribute applications (functional software modules) across ECUs, and the ability to integrate software modules from different sources.</p>
+<p>The basic software within the AUTOSAR software architecture is further divided into the following layers: services, ECU abstraction, and microcontroller abstraction. The separation of the application layer from the basic software, realized by the RTE, includes the control of the data exchange between these layers. This forms the basis for a component-oriented, hardware-independent software structure on application level, with software components (SWCs) as individual units. Because of their hardware independence, it is thus possible to develop SWCs without specific knowledge of the hardware used or planned, as well as to flexibly relocate existing SWCs to ECUs during development.</p>
+<h3 id="Methodology-and-Templates"><a href="#Methodology-and-Templates" class="headerlink" title="Methodology and Templates"></a>Methodology and Templates</h3><p>In addition to a software architecture, AUTOSAR introduced a harmonized methodology approach for the development of automotive software. This is mainly driven by the need to improve the collaboration between the different parties involved in today’s automotive projects.  </p>
+<p>AUTOSAR provides means to specify all aspects necessary to integrate a software component on an ECU and to integrate different ECUs to the whole network communication over a variety of different bus systems. The methodology defines the dependencies of activities on work products and is foreseen to support activities, descriptions and usage of tools in AUTOSAR.</p>
+<p>The descriptions (.arxml) are based on the AUTOSAR Templates which define the formal exchange format (AUTOSAR Schema) and the semantic constraints which go along with the exchange format.  The descriptions are used to hold the information that is produced or consumed in the AUTOSAR methodology. Various generators can utilize the information from the descriptions to support the configuration and generation of the RTE and the AUTOSAR basic software (including the operating system).</p>
+<h2 id="ADAPTIVE-PLATFORM-1"><a href="#ADAPTIVE-PLATFORM-1" class="headerlink" title="ADAPTIVE PLATFORM"></a>ADAPTIVE PLATFORM</h2><h3 id="About-1"><a href="#About-1" class="headerlink" title="About"></a>About</h3><p>The AUTOSAR Adaptive Platform implements the AUTOSAR Runtime for Adaptive Applications (ARA). Two types of interfaces are available, services and APIs. The platform consists of functional clusters which are grouped in services and the AUTOSAR Adaptive Basis.</p>
+<p>In comparison to the AUTOSAR Classic Platform the AUTOSAR Runtime Environment for the Adaptive Platform dynamically links services and clients during runtime.</p>
+<h3 id="Methodology"><a href="#Methodology" class="headerlink" title="Methodology"></a>Methodology</h3><p>AUTOSAR extends the existing Methodology to be able to have a common Methodology approach for both: Classic and Adaptive Platform. The support for distributed, independent, and agile development of functional applications requires a standardized approach on the development methodology. AUTOSAR adaptive methodology involves the standardization of work products and their respective tasks. Work products describe artifacts such as services, applications, machines, and their configuration. The respective tasks define how the work products exchange design information for the activities required which are needed to develop products based on the adaptive platform.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2025/02/10/CS_ASCP_01intro/" data-id="cm6zty0si0000agvyhmz463yw" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-wireless-modem-intro" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/12/31/wireless-modem-intro/" class="article-date">
@@ -937,450 +1163,6 @@
 
 
   
-    <article id="post-compress-intro" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/31/compress-intro/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/compress-intro/">Comprehensive Guide to Data Compression Technologies</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="Executive-Summary"><a href="#Executive-Summary" class="headerlink" title="Executive Summary"></a>Executive Summary</h2><p>Data compression is a critical technology that underpins modern digital information management, enabling efficient storage, transmission, and processing across diverse computing environments. This comprehensive guide provides an in-depth exploration of compression technologies, spanning historical developments, algorithmic approaches, implementation strategies, and future trends.</p>
-<h2 id="1-Historical-Evolution-of-Data-Compression"><a href="#1-Historical-Evolution-of-Data-Compression" class="headerlink" title="1. Historical Evolution of Data Compression"></a>1. Historical Evolution of Data Compression</h2><h3 id="1-1-Early-Developments"><a href="#1-1-Early-Developments" class="headerlink" title="1.1 Early Developments"></a>1.1 Early Developments</h3><p>The foundations of data compression trace back to pivotal moments in information theory:</p>
-<ul>
-<li><strong>1950s</strong>: Claude Shannon’s groundbreaking work in information theory laid the theoretical groundwork</li>
-<li><strong>1952</strong>: First run-length encoding (RLE) techniques emerged</li>
-<li><strong>1977</strong>: Huffman coding developed, revolutionizing lossless compression</li>
-<li><strong>1980s</strong>: LZW (Lempel-Ziv-Welch) algorithm transformed text and image compression</li>
-<li><strong>1990s-2000s</strong>: Advanced compression techniques for multimedia and big data</li>
-<li><strong>2010s-Present</strong>: Machine learning and hardware-accelerated compression technologies</li>
-</ul>
-<h2 id="2-Fundamental-Compression-Categories"><a href="#2-Fundamental-Compression-Categories" class="headerlink" title="2. Fundamental Compression Categories"></a>2. Fundamental Compression Categories</h2><h3 id="2-1-Lossless-Compression"><a href="#2-1-Lossless-Compression" class="headerlink" title="2.1 Lossless Compression"></a>2.1 Lossless Compression</h3><p>Technique that perfectly reconstructs original data without any information loss.</p>
-<h4 id="2-1-1-Key-Algorithms"><a href="#2-1-1-Key-Algorithms" class="headerlink" title="2.1.1 Key Algorithms"></a>2.1.1 Key Algorithms</h4><ol>
-<li><p><strong>Huffman Coding</strong></p>
-<ul>
-<li><strong>Principle</strong>: Variable-length coding based on character frequencies</li>
-<li><strong>Compression Ratio</strong>: 20-90% reduction</li>
-<li><strong>Ideal Use Cases</strong>: Text files, archives, configuration data</li>
-<li><strong>Performance</strong>:<ul>
-<li>Time Complexity: O(n log n)</li>
-<li>Space Complexity: O(n)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Run-Length Encoding (RLE)</strong></p>
-<ul>
-<li><strong>Principle</strong>: Replaces consecutive data sequences with a single data value and count</li>
-<li><strong>Compression Ratio</strong>: 50-90% for repetitive data</li>
-<li><strong>Ideal Use Cases</strong>: Simple graphics, monochrome images</li>
-<li><strong>Performance</strong>:<ul>
-<li>Time Complexity: O(n)</li>
-<li>Space Complexity: O(1)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Lempel-Ziv-Welch (LZW)</strong></p>
-<ul>
-<li><strong>Principle</strong>: Dictionary-based compression building dynamic dictionaries</li>
-<li><strong>Compression Ratio</strong>: 40-70%</li>
-<li><strong>Ideal Use Cases</strong>: GIF image format, Unix compress utility</li>
-<li><strong>Performance</strong>:<ul>
-<li>Time Complexity: O(n)</li>
-<li>Space Complexity: O(2^k), where k is dictionary size</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="2-2-Lossy-Compression"><a href="#2-2-Lossy-Compression" class="headerlink" title="2.2 Lossy Compression"></a>2.2 Lossy Compression</h3><p>Technique that reduces file size by removing less critical data, accepting some quality loss.</p>
-<h4 id="2-2-1-Key-Algorithms"><a href="#2-2-1-Key-Algorithms" class="headerlink" title="2.2.1 Key Algorithms"></a>2.2.1 Key Algorithms</h4><ol>
-<li><p><strong>JPEG Compression</strong></p>
-<ul>
-<li><strong>Principle</strong>: Discrete Cosine Transform (DCT) with quantization</li>
-<li><strong>Compression Ratio</strong>: 10:1 to 100:1</li>
-<li><strong>Ideal Use Cases</strong>: Photographic images</li>
-<li><strong>Performance</strong>:<ul>
-<li>Compression Speed: Moderate</li>
-<li>Quality Preservation: Configurable</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>MP3 Audio Compression</strong></p>
-<ul>
-<li><strong>Principle</strong>: Psychoacoustic model removing imperceptible sound frequencies</li>
-<li><strong>Compression Ratio</strong>: 90-95%</li>
-<li><strong>Ideal Use Cases</strong>: Music and audio files</li>
-<li><strong>Performance</strong>:<ul>
-<li>Compression Speed: Fast</li>
-<li>Quality Preservation: High</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="3-Advanced-Compression-Implementations"><a href="#3-Advanced-Compression-Implementations" class="headerlink" title="3. Advanced Compression Implementations"></a>3. Advanced Compression Implementations</h2><h3 id="3-1-7-Zip-Compression-Technology"><a href="#3-1-7-Zip-Compression-Technology" class="headerlink" title="3.1 7-Zip Compression Technology"></a>3.1 7-Zip Compression Technology</h3><h4 id="3-1-1-LZMA-Compression-Core-Method"><a href="#3-1-1-LZMA-Compression-Core-Method" class="headerlink" title="3.1.1 LZMA Compression Core Method"></a>3.1.1 LZMA Compression Core Method</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CLzmaEncoder</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">Encode</span><span class="params">(ISequentialInStream *inStream, </span></span></span><br><span class="line"><span class="params"><span class="function">               ISequentialOutStream *outStream, </span></span></span><br><span class="line"><span class="params"><span class="function">               <span class="type">const</span> UInt64 *inSize, </span></span></span><br><span class="line"><span class="params"><span class="function">               <span class="type">const</span> UInt64 *outSize)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Advanced compression implementation</span></span><br><span class="line">        UInt32 dictionarySize = <span class="number">1</span> &lt;&lt; <span class="number">23</span>;  <span class="comment">// 8 MB default</span></span><br><span class="line">        UInt32 lc = <span class="number">3</span>, lp = <span class="number">0</span>, pb = <span class="number">2</span>;    <span class="comment">// Context bits configuration</span></span><br><span class="line">        </span><br><span class="line">        _encoder.<span class="built_in">SetDictionarySize</span>(dictionarySize);</span><br><span class="line">        _encoder.<span class="built_in">SetLcLpPbSettings</span>(lc, lp, pb);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> _encoder.<span class="built_in">CodeReal</span>(inStream, outStream, inSize, outSize);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    CLzmaEncoderInt _encoder;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-2-QATzip-Hardware-Accelerated-Compression"><a href="#3-2-QATzip-Hardware-Accelerated-Compression" class="headerlink" title="3.2 QATzip: Hardware-Accelerated Compression"></a>3.2 QATzip: Hardware-Accelerated Compression</h3><h4 id="3-2-1-Compression-Acceleration-Kernel"><a href="#3-2-1-Compression-Acceleration-Kernel" class="headerlink" title="3.2.1 Compression Acceleration Kernel"></a>3.2.1 Compression Acceleration Kernel</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">qzCompressData</span><span class="params">(</span></span><br><span class="line"><span class="params">    QzSession_T *sess,</span></span><br><span class="line"><span class="params">    <span class="type">const</span> <span class="type">unsigned</span> <span class="type">char</span> *src,</span></span><br><span class="line"><span class="params">    <span class="type">size_t</span> src_len,</span></span><br><span class="line"><span class="params">    <span class="type">unsigned</span> <span class="type">char</span> *dest,</span></span><br><span class="line"><span class="params">    <span class="type">size_t</span> *dest_len</span></span><br><span class="line"><span class="params">)</span> &#123;</span><br><span class="line">    <span class="type">int</span> status = QZ_OK;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Hardware acceleration configuration</span></span><br><span class="line">    QzDataFormat_T data_format = QZ_DEFLATE;</span><br><span class="line">    QzCompressionLvl_T comp_lvl = QZ_COMP_LEVEL_DEFAULT;</span><br><span class="line">    </span><br><span class="line">    sess-&gt;config.data_fmt = data_format;</span><br><span class="line">    sess-&gt;config.comp_lvl = comp_lvl;</span><br><span class="line">    </span><br><span class="line">    status = qzCompress(</span><br><span class="line">        sess,           <span class="comment">// Compression session</span></span><br><span class="line">        src,            <span class="comment">// Source data</span></span><br><span class="line">        src_len,        <span class="comment">// Source length</span></span><br><span class="line">        dest,           <span class="comment">// Destination buffer</span></span><br><span class="line">        dest_len,       <span class="comment">// Destination length</span></span><br><span class="line">        <span class="number">1</span>               <span class="comment">// Last block flag</span></span><br><span class="line">    );</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-3-Intel-Quick-Assist-Technology-QAT"><a href="#3-3-Intel-Quick-Assist-Technology-QAT" class="headerlink" title="3.3 Intel Quick Assist Technology (QAT)"></a>3.3 Intel Quick Assist Technology (QAT)</h3><h4 id="3-3-1-Technology-Overview"><a href="#3-3-1-Technology-Overview" class="headerlink" title="3.3.1 Technology Overview"></a>3.3.1 Technology Overview</h4><p>Intel Quick Assist Technology (QAT) represents a breakthrough in hardware-accelerated data compression and cryptographic processing.</p>
-<p><strong>Technical Specifications:</strong></p>
-<ul>
-<li><strong>Model</strong>: Intel QAT C62x Series</li>
-<li><strong>Compression Standards</strong>: <ul>
-<li>DEFLATE</li>
-<li>LZ4</li>
-<li>Snappy</li>
-</ul>
-</li>
-<li><strong>Acceleration Capabilities</strong>:<ul>
-<li>Compression&#x2F;Decompression</li>
-<li>Cryptographic Operations</li>
-<li>SSL&#x2F;TLS Processing</li>
-</ul>
-</li>
-</ul>
-<p><strong>Performance Characteristics:</strong></p>
-<ul>
-<li>Compression Throughput: Up to 100 Gbps</li>
-<li>Latency Reduction: 50-70% compared to software-only solutions</li>
-<li>Power Efficiency: Significantly lower CPU utilization</li>
-</ul>
-<h2 id="4-Benchmarking-and-Evaluation-Methodologies"><a href="#4-Benchmarking-and-Evaluation-Methodologies" class="headerlink" title="4. Benchmarking and Evaluation Methodologies"></a>4. Benchmarking and Evaluation Methodologies</h2><h3 id="4-1-Benchmark-Principles"><a href="#4-1-Benchmark-Principles" class="headerlink" title="4.1 Benchmark Principles"></a>4.1 Benchmark Principles</h3><ol>
-<li><strong>Compression Ratio</strong>: Measure of data size reduction</li>
-<li><strong>Compression&#x2F;Decompression Speed</strong>: Processing time efficiency</li>
-<li><strong>Computational Complexity</strong>: Algorithmic resource requirements</li>
-<li><strong>Memory Usage</strong>: Storage and runtime memory consumption</li>
-<li><strong>Data Type Compatibility</strong>: Effectiveness across different data types</li>
-</ol>
-<h3 id="4-2-Benchmark-Methodology"><a href="#4-2-Benchmark-Methodology" class="headerlink" title="4.2 Benchmark Methodology"></a>4.2 Benchmark Methodology</h3><ul>
-<li>Standardized test datasets</li>
-<li>Controlled experimental environments</li>
-<li>Multiple metric evaluation</li>
-<li>Reproducibility of results</li>
-<li>Comprehensive performance profiling</li>
-</ul>
-<h2 id="5-Industry-Applications-and-Use-Cases"><a href="#5-Industry-Applications-and-Use-Cases" class="headerlink" title="5. Industry Applications and Use Cases"></a>5. Industry Applications and Use Cases</h2><h3 id="5-1-Diverse-Application-Domains"><a href="#5-1-Diverse-Application-Domains" class="headerlink" title="5.1 Diverse Application Domains"></a>5.1 Diverse Application Domains</h3><ol>
-<li><p><strong>Cloud Computing</strong></p>
-<ul>
-<li>Storage optimization</li>
-<li>Bandwidth reduction</li>
-<li>Cost-effective data management</li>
-</ul>
-</li>
-<li><p><strong>Network Transmission</strong></p>
-<ul>
-<li>Reduced data transfer times</li>
-<li>Improved network efficiency</li>
-<li>Lower bandwidth consumption</li>
-</ul>
-</li>
-<li><p><strong>Multimedia Processing</strong></p>
-<ul>
-<li>Video streaming</li>
-<li>Image and audio compression</li>
-<li>Content delivery optimization</li>
-</ul>
-</li>
-<li><p><strong>Scientific Computing</strong></p>
-<ul>
-<li>Large dataset management</li>
-<li>Research data preservation</li>
-<li>High-performance computing</li>
-</ul>
-</li>
-</ol>
-<h2 id="6-Emerging-Technologies-and-Future-Trends"><a href="#6-Emerging-Technologies-and-Future-Trends" class="headerlink" title="6. Emerging Technologies and Future Trends"></a>6. Emerging Technologies and Future Trends</h2><h3 id="6-1-Next-Generation-Compression-Innovations"><a href="#6-1-Next-Generation-Compression-Innovations" class="headerlink" title="6.1 Next-Generation Compression Innovations"></a>6.1 Next-Generation Compression Innovations</h3><ol>
-<li><p><strong>Artificial Intelligence-Driven Compression</strong></p>
-<ul>
-<li>Machine learning adaptive algorithms</li>
-<li>Context-aware compression techniques</li>
-<li>Dynamic compression strategies</li>
-</ul>
-</li>
-<li><p><strong>Quantum Computing Integration</strong></p>
-<ul>
-<li>Quantum information theory applications</li>
-<li>Advanced error correction methods</li>
-<li>Probabilistic compression algorithms</li>
-</ul>
-</li>
-<li><p><strong>Edge Computing Optimization</strong></p>
-<ul>
-<li>Localized compression techniques</li>
-<li>Low-latency compression for IoT devices</li>
-<li>Energy-efficient compression algorithms</li>
-</ul>
-</li>
-</ol>
-<h2 id="7-Conclusion"><a href="#7-Conclusion" class="headerlink" title="7. Conclusion"></a>7. Conclusion</h2><p>Data compression remains a dynamic and critical technology in managing the exponential growth of digital information. As computational landscapes evolve, compression techniques continue to advance, addressing challenges in storage, transmission, and processing efficiency.</p>
-<p>The future of compression lies in intelligent, adaptive approaches that balance performance, resource utilization, and data integrity across diverse computing environments.</p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
-<li>Shannon, C. E. (1948). A Mathematical Theory of Communication</li>
-<li>Huffman, D. A. (1952). A Method for the Construction of Minimum-Redundancy Codes</li>
-<li>Welch, T. A. (1984). A Technique for High-Performance Data Compression</li>
-<li>Intel® QuickAssist Technology (QAT) Software Developer Manual</li>
-<li>7-Zip LZMA SDK Documentation</li>
-</ol>
-<hr>
-<p><strong>Disclaimer</strong>: Performance metrics and compression ratios are approximate and may vary based on specific implementation, data characteristics, and hardware configurations.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/compress-intro/" data-id="cm5c7gmu9000ddgvydnw9edpu" data-title="Comprehensive Guide to Data Compression Technologies" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-cs_tec_linux_pam" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/31/cs_tec_linux_pam/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/cs_tec_linux_pam/">Understanding Linux PAM (Pluggable Authentication Modules)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Linux PAM (Pluggable Authentication Modules) represents a powerful framework that provides dynamic authentication support for applications and services in Linux systems. This article explores the fundamentals of PAM, its architecture, configuration syntax, and practical implementation examples.</p>
-<h2 id="Core-Concepts"><a href="#Core-Concepts" class="headerlink" title="Core Concepts"></a>Core Concepts</h2><p>PAM operates as a middle layer between applications and authentication mechanisms. When an application needs to authenticate a user, it doesn’t need to know the details of how authentication works - it simply makes calls to the PAM framework, which handles the actual authentication process based on the system’s configuration.</p>
-<h3 id="Key-Benefits"><a href="#Key-Benefits" class="headerlink" title="Key Benefits"></a>Key Benefits</h3><p>The modular nature of PAM provides several advantages:</p>
-<ol>
-<li>Applications don’t need to be modified to support new authentication mechanisms</li>
-<li>System administrators can modify authentication requirements without changing application code</li>
-<li>Multiple authentication methods can be combined flexibly</li>
-<li>Authentication policies can be standardized across the system</li>
-</ol>
-<h2 id="PAM-Architecture"><a href="#PAM-Architecture" class="headerlink" title="PAM Architecture"></a>PAM Architecture</h2><h3 id="Service-Modules"><a href="#Service-Modules" class="headerlink" title="Service Modules"></a>Service Modules</h3><p>PAM divides authentication tasks into four independent management groups:</p>
-<ol>
-<li><strong>account</strong>: Verifies account accessibility, expiration, and access hours</li>
-<li><strong>auth</strong>: Handles user authentication and sets credentials</li>
-<li><strong>password</strong>: Manages password updates and validation</li>
-<li><strong>session</strong>: Manages tasks needed to set up and tear down user sessions</li>
-</ol>
-<h3 id="Module-Types"><a href="#Module-Types" class="headerlink" title="Module Types"></a>Module Types</h3><p>Each management group can use various module types:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">required      - Must succeed for authentication to continue</span><br><span class="line">requisite     - Must succeed, but fails immediately if not met</span><br><span class="line">sufficient    - Success is sufficient to satisfy the module requirements</span><br><span class="line">optional      - Module success/failure doesn&#x27;t impact authentication</span><br><span class="line">include       - Include other configuration files</span><br><span class="line">substack      - Similar to include but treats the included stack as a subunit</span><br></pre></td></tr></table></figure>
-
-<h2 id="Configuration-Syntax"><a href="#Configuration-Syntax" class="headerlink" title="Configuration Syntax"></a>Configuration Syntax</h2><p>PAM configuration files are typically stored in <code>/etc/pam.d/</code>. Each service has its own configuration file. The basic syntax is:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type    control_flag    module_path    module_arguments</span><br></pre></td></tr></table></figure>
-
-<p>Example from <code>/etc/pam.d/sshd</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#%PAM-1.0</span><br><span class="line">auth       required     pam_securetty.so</span><br><span class="line">auth       required     pam_unix.so nullok</span><br><span class="line">account    required     pam_nologin.so</span><br><span class="line">account    required     pam_unix.so</span><br><span class="line">password   required     pam_unix.so nullok obscure min=4 max=8</span><br><span class="line">session    required     pam_unix.so</span><br><span class="line">session    required     pam_limits.so</span><br></pre></td></tr></table></figure>
-
-<h2 id="Common-PAM-Modules"><a href="#Common-PAM-Modules" class="headerlink" title="Common PAM Modules"></a>Common PAM Modules</h2><h3 id="pam-unix-so"><a href="#pam-unix-so" class="headerlink" title="pam_unix.so"></a>pam_unix.so</h3><p>The standard Unix authentication module supporting standard Unix password authentication:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_unix.so try_first_pass nullok</span><br></pre></td></tr></table></figure>
-
-<p>Parameters:</p>
-<ul>
-<li><code>try_first_pass</code>: Try using previously entered password</li>
-<li><code>nullok</code>: Allow empty passwords</li>
-<li><code>remember=N</code>: Remember N previous passwords</li>
-</ul>
-<h3 id="pam-ldap-so"><a href="#pam-ldap-so" class="headerlink" title="pam_ldap.so"></a>pam_ldap.so</h3><p>Provides LDAP authentication support:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth sufficient pam_ldap.so use_first_pass</span><br></pre></td></tr></table></figure>
-
-<h3 id="pam-time-so"><a href="#pam-time-so" class="headerlink" title="pam_time.so"></a>pam_time.so</h3><p>Controls access based on time:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">account required pam_time.so</span><br></pre></td></tr></table></figure>
-
-<p>Configuration in <code>/etc/security/time.conf</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">services;ttys;users;times</span><br><span class="line">login;tty*;!root;Al0800-1800</span><br></pre></td></tr></table></figure>
-
-<h2 id="Practical-Examples"><a href="#Practical-Examples" class="headerlink" title="Practical Examples"></a>Practical Examples</h2><h3 id="Example-1-Enforcing-Strong-Passwords"><a href="#Example-1-Enforcing-Strong-Passwords" class="headerlink" title="Example 1: Enforcing Strong Passwords"></a>Example 1: Enforcing Strong Passwords</h3><p>To enforce password complexity, modify <code>/etc/pam.d/system-auth</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">password required pam_pwquality.so retry=3 minlen=12 dcredit=1 ucredit=1 ocredit=1 lcredit=1</span><br><span class="line">password required pam_unix.so use_authtok sha512 shadow</span><br></pre></td></tr></table></figure>
-
-<p>This configuration:</p>
-<ul>
-<li>Requires minimum 12 characters</li>
-<li>Requires at least one digit, uppercase, special character, and lowercase</li>
-<li>Allows 3 retry attempts</li>
-<li>Uses SHA-512 hashing</li>
-</ul>
-<h3 id="Example-2-Limiting-Login-Attempts"><a href="#Example-2-Limiting-Login-Attempts" class="headerlink" title="Example 2: Limiting Login Attempts"></a>Example 2: Limiting Login Attempts</h3><p>To implement login attempt limits, add to <code>/etc/pam.d/system-auth</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_tally2.so deny=3 unlock_time=300 onerr=fail</span><br></pre></td></tr></table></figure>
-
-<p>This configuration:</p>
-<ul>
-<li>Denies access after 3 failed attempts</li>
-<li>Unlocks the account after 300 seconds</li>
-<li>Fails closed (denies access) on errors</li>
-</ul>
-<h2 id="Debugging-PAM"><a href="#Debugging-PAM" class="headerlink" title="Debugging PAM"></a>Debugging PAM</h2><h3 id="Debug-Mode"><a href="#Debug-Mode" class="headerlink" title="Debug Mode"></a>Debug Mode</h3><p>Add the debug option to the module:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_unix.so debug</span><br></pre></td></tr></table></figure>
-
-<p>View debug output in system logs:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -f /var/log/auth.log</span><br></pre></td></tr></table></figure>
-
-<h3 id="Testing-Configurations"><a href="#Testing-Configurations" class="headerlink" title="Testing Configurations"></a>Testing Configurations</h3><p>Use the <code>pamtester</code> utility to test PAM configurations:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pamtester sshd username authenticate</span><br></pre></td></tr></table></figure>
-
-<h2 id="Security-Considerations"><a href="#Security-Considerations" class="headerlink" title="Security Considerations"></a>Security Considerations</h2><ol>
-<li><p><strong>Order Matters</strong>: PAM processes modules in the order listed. Ensure critical security modules are placed appropriately.</p>
-</li>
-<li><p><strong>Fail Secure</strong>: Use appropriate control flags to ensure authentication fails securely when modules fail.</p>
-</li>
-<li><p><strong>Module Parameters</strong>: Carefully consider module parameters - some can weaken security if misconfigured.</p>
-</li>
-<li><p><strong>File Permissions</strong>: PAM configuration files should be owned by root and not writable by others:</p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 644 /etc/pam.d/*</span><br><span class="line"><span class="built_in">chown</span> root:root /etc/pam.d/*</span><br></pre></td></tr></table></figure>
-
-<h2 id="Best-Practices"><a href="#Best-Practices" class="headerlink" title="Best Practices"></a>Best Practices</h2><ol>
-<li><p><strong>Documentation</strong>: Always document PAM changes in configuration files using comments.</p>
-</li>
-<li><p><strong>Backup</strong>: Create backups before modifying PAM configurations:</p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> -r /etc/pam.d /etc/pam.d.backup</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li><p><strong>Testing</strong>: Test changes in a non-production environment first.</p>
-</li>
-<li><p><strong>Monitoring</strong>: Regularly monitor auth logs for unusual patterns or failures.</p>
-</li>
-</ol>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Linux PAM provides a flexible and powerful framework for managing authentication in Linux systems. Understanding its architecture, configuration syntax, and proper implementation is crucial for system administrators and security professionals. Through careful configuration and following best practices, PAM can significantly enhance system security while maintaining usability.</p>
-<p>Remember that PAM configurations can lock users out of the system if implemented incorrectly. Always maintain a root session when testing new PAM configurations, and have a backup plan for recovery if authentication breaks.</p>
-<p>For further information, consult the official Linux-PAM documentation and system-specific guides for your distribution.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/cs_tec_linux_pam/" data-id="cm5c7gmua000edgvy1a50cdrr" data-title="Understanding Linux PAM (Pluggable Authentication Modules)" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-linux-i2c-lm87" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/31/linux-i2c-lm87/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/linux-i2c-lm87/">Understanding Linux I2C, SMBus, and Platform Subsystems: A Comprehensive Guide</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Linux provides a robust framework for hardware interaction, enabling developers to write device drivers for various subsystems. This article explores the Linux I2C (Inter-Integrated Circuit), SMBus (System Management Bus), and platform subsystems, providing an overview of their architecture and implementation. We also introduce <code>sysfs</code> for hardware monitoring and show a practical example of an I2C sensor driver.</p>
-<hr>
-<h2 id="Introduction-to-Linux-I2C-and-SMBus"><a href="#Introduction-to-Linux-I2C-and-SMBus" class="headerlink" title="Introduction to Linux I2C and SMBus"></a><strong>Introduction to Linux I2C and SMBus</strong></h2><h3 id="I2C-Overview"><a href="#I2C-Overview" class="headerlink" title="I2C Overview"></a><strong>I2C Overview</strong></h3><p>The I2C protocol is a simple, efficient, and widely used bus protocol for communication between a master device (e.g., microcontroller) and multiple slave devices (e.g., sensors, EEPROMs). I2C operates using two bidirectional lines:</p>
-<ul>
-<li><strong>SDA (Serial Data Line)</strong>: For data transfer.</li>
-<li><strong>SCL (Serial Clock Line)</strong>: For clock synchronization.</li>
-</ul>
-<p>The Linux kernel provides a standardized framework to implement I2C bus and device drivers.</p>
-<h3 id="SMBus-Overview"><a href="#SMBus-Overview" class="headerlink" title="SMBus Overview"></a><strong>SMBus Overview</strong></h3><p>SMBus, built atop the I2C protocol, is specifically designed for system management tasks, such as monitoring voltages, temperatures, and fan speeds. It supports stricter timing and message formatting requirements compared to I2C, ensuring compatibility with system management devices.</p>
-<hr>
-<h2 id="Sysfs-in-the-Linux-Kernel"><a href="#Sysfs-in-the-Linux-Kernel" class="headerlink" title="Sysfs in the Linux Kernel"></a><strong>Sysfs in the Linux Kernel</strong></h2><p><code>sysfs</code> is a virtual filesystem in Linux, providing a user-space interface to kernel objects and their attributes. For hardware devices:</p>
-<ul>
-<li><code>sysfs</code> exposes attributes in <code>/sys/class</code> or <code>/sys/devices</code>.</li>
-<li>It enables user-space applications to query or modify hardware settings.</li>
-</ul>
-<p>For example, the <code>hwmon</code> subsystem uses <code>sysfs</code> to expose sensor readings like temperature, voltage, and fan speed.</p>
-<hr>
-<h2 id="Platform-Subsystem-in-Linux"><a href="#Platform-Subsystem-in-Linux" class="headerlink" title="Platform Subsystem in Linux"></a><strong>Platform Subsystem in Linux</strong></h2><p>The <strong>platform subsystem</strong> is used for devices integrated directly into the system’s motherboard or SoC. Unlike hot-pluggable buses like USB, platform devices are usually initialized during boot.</p>
-<ul>
-<li><strong>Platform Device</strong>: Represents the hardware component.</li>
-<li><strong>Platform Driver</strong>: Interfaces with the platform device, enabling kernel interaction.</li>
-</ul>
-<p>Platform devices and drivers communicate via platform data, often defined in the Device Tree or ACPI tables.</p>
-<hr>
-<h2 id="hwmon-Subsystem"><a href="#hwmon-Subsystem" class="headerlink" title="hwmon Subsystem"></a><strong>hwmon Subsystem</strong></h2><p>The <code>hwmon</code> (Hardware Monitoring) subsystem is responsible for monitoring system hardware like temperatures, voltages, and fan speeds. It uses:</p>
-<ul>
-<li><strong>I2C or SMBus drivers</strong> to read sensor data.</li>
-<li><strong>sysfs</strong> to expose readings to user-space.</li>
-</ul>
-<hr>
-<h2 id="Writing-an-I2C-Driver"><a href="#Writing-an-I2C-Driver" class="headerlink" title="Writing an I2C Driver"></a><strong>Writing an I2C Driver</strong></h2><h3 id="I2C-Bus-Driver"><a href="#I2C-Bus-Driver" class="headerlink" title="I2C Bus Driver"></a><strong>I2C Bus Driver</strong></h3><p>The bus driver manages the physical I2C controller. A basic I2C adapter registration looks like this:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/i2c.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">i2c_adapter</span> <span class="title">my_i2c_adapter</span> =</span> &#123;</span><br><span class="line">    .owner = THIS_MODULE,</span><br><span class="line">    .name = <span class="string">&quot;my_i2c_adapter&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> __init <span class="title function_">my_i2c_bus_init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> i2c_add_adapter(&amp;my_i2c_adapter);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> __exit <span class="title function_">my_i2c_bus_exit</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    i2c_del_adapter(&amp;my_i2c_adapter);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module_init(my_i2c_bus_init);</span><br><span class="line">module_exit(my_i2c_bus_exit);</span><br><span class="line"></span><br><span class="line">MODULE_AUTHOR(<span class="string">&quot;Author&quot;</span>);</span><br><span class="line">MODULE_LICENSE(<span class="string">&quot;GPL&quot;</span>);</span><br><span class="line">MODULE_DESCRIPTION(<span class="string">&quot;Basic I2C Bus Driver&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="I2C-Device-Driver"><a href="#I2C-Device-Driver" class="headerlink" title="I2C Device Driver"></a><strong>I2C Device Driver</strong></h3><p>The device driver communicates with the specific I2C slave device. A typical implementation includes probing the device and defining read&#x2F;write functions.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/i2c.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">my_i2c_probe</span><span class="params">(<span class="keyword">struct</span> i2c_client *client, <span class="type">const</span> <span class="keyword">struct</span> i2c_device_id *id)</span></span><br><span class="line">&#123;</span><br><span class="line">    pr_info(<span class="string">&quot;Probing device: %s\n&quot;</span>, client-&gt;name);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">my_i2c_remove</span><span class="params">(<span class="keyword">struct</span> i2c_client *client)</span></span><br><span class="line">&#123;</span><br><span class="line">    pr_info(<span class="string">&quot;Removing device: %s\n&quot;</span>, client-&gt;name);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">i2c_device_id</span> <span class="title">my_i2c_id</span>[] =</span> &#123;</span><br><span class="line">    &#123;<span class="string">&quot;my_device&quot;</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">i2c_driver</span> <span class="title">my_i2c_driver</span> =</span> &#123;</span><br><span class="line">    .driver = &#123;</span><br><span class="line">        .name = <span class="string">&quot;my_i2c_driver&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    .probe = my_i2c_probe,</span><br><span class="line">    .remove = my_i2c_remove,</span><br><span class="line">    .id_table = my_i2c_id,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">module_i2c_driver(my_i2c_driver);</span><br><span class="line"></span><br><span class="line">MODULE_AUTHOR(<span class="string">&quot;Author&quot;</span>);</span><br><span class="line">MODULE_LICENSE(<span class="string">&quot;GPL&quot;</span>);</span><br><span class="line">MODULE_DESCRIPTION(<span class="string">&quot;Basic I2C Device Driver&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="Example-I2C-Sensor-Driver-LM87"><a href="#Example-I2C-Sensor-Driver-LM87" class="headerlink" title="Example: I2C Sensor Driver (LM87)"></a><strong>Example: I2C Sensor Driver (LM87)</strong></h2><p>The <a target="_blank" rel="noopener" href="https://android.googlesource.com/kernel/common/+/refs/heads/android-mainline/drivers/hwmon/lm87.c">LM87</a> driver is an excellent example of integrating an I2C sensor with the <code>hwmon</code> subsystem.</p>
-<h3 id="Key-Functions-in-lm87-c"><a href="#Key-Functions-in-lm87-c" class="headerlink" title="Key Functions in lm87.c"></a><strong>Key Functions in <code>lm87.c</code></strong></h3><h4 id="1-Probe-Function"><a href="#1-Probe-Function" class="headerlink" title="1. Probe Function"></a>1. <strong>Probe Function</strong></h4><p>Registers the device with the <code>hwmon</code> subsystem:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">lm87_probe</span><span class="params">(<span class="keyword">struct</span> i2c_client *client)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Initialization and hardware setup</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    hwmon_device_register_with_info(client-&gt;dev, <span class="string">&quot;lm87&quot;</span>, data, &amp;lm87_chip_info, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-Sysfs-Interface"><a href="#2-Sysfs-Interface" class="headerlink" title="2. Sysfs Interface"></a>2. <strong>Sysfs Interface</strong></h4><p>Exposes sensor data through <code>sysfs</code>:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">ssize_t</span> <span class="title function_">show_temp_input</span><span class="params">(<span class="keyword">struct</span> device *dev, <span class="keyword">struct</span> device_attribute *attr, <span class="type">char</span> *buf)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Read temperature from sensor</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sprintf</span>(buf, <span class="string">&quot;%d\n&quot;</span>, temp_value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-Device-Initialization"><a href="#3-Device-Initialization" class="headerlink" title="3. Device Initialization"></a>3. <strong>Device Initialization</strong></h4><p>Defines the I2C client and ID table:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">i2c_device_id</span> <span class="title">lm87_id</span>[] =</span> &#123;</span><br><span class="line">    &#123; <span class="string">&quot;lm87&quot;</span>, <span class="number">0</span> &#125;,</span><br><span class="line">    &#123; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">i2c_driver</span> <span class="title">lm87_driver</span> =</span> &#123;</span><br><span class="line">    .driver = &#123;</span><br><span class="line">        .name   = <span class="string">&quot;lm87&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    .probe      = lm87_probe,</span><br><span class="line">    .id_table   = lm87_id,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">module_i2c_driver(lm87_driver);</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>The Linux I2C, SMBus, and platform subsystems provide a robust framework for hardware monitoring and device driver development. The <code>lm87.c</code> driver demonstrates effective use of these subsystems, enabling developers to integrate I2C sensors seamlessly. Understanding these components equips developers to write efficient and maintainable drivers for a variety of devices.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/linux-i2c-lm87/" data-id="cm5c7gmub000fdgvy3q451tob" data-title="Understanding Linux I2C, SMBus, and Platform Subsystems: A Comprehensive Guide" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1404,7 +1186,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
     </div>
   </div>
 
@@ -1417,23 +1199,23 @@
       <ul>
         
           <li>
+            <a href="/2025/02/10/CS_Basis_TEE/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/10/CS_Basis_HSM/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/10/CS_ASCP_01intro/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2024/12/31/wireless-modem-intro/">Comprehensive Technical Overview of Wireless Modems</a>
           </li>
         
           <li>
             <a href="/2024/12/31/wireless-modem-ucosii/">Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/31/android-ril/">Android Cellular Connectivity: RIL and Connection Management</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/31/android-sensor/">Android Sensor Architecture: A Comprehensive Overview</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/31/android-video-IP/">Introduction to Android IP Protection Technologies</a>
           </li>
         
       </ul>
@@ -1449,7 +1231,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2024 Zhang Peng<br>
+      &copy; 2025 Zhang Peng<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

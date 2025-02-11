@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Penn&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="IntroductionHSM, short for Hardware Security Module, is a physical device that acts as a fortress for your data, ensuring its confidentiality, integrity, and availability. HSMs are considered as stand">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Penn&#39;s Blog">
+<meta property="og:url" content="https://apexpeng.github.io/2025/02/10/CS_Basis_HSM/index.html">
+<meta property="og:site_name" content="Penn&#39;s Blog">
+<meta property="og:description" content="IntroductionHSM, short for Hardware Security Module, is a physical device that acts as a fortress for your data, ensuring its confidentiality, integrity, and availability. HSMs are considered as stand">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-02-10T02:41:56.729Z">
+<meta property="article:modified_time" content="2024-04-03T08:26:16.237Z">
+<meta property="article:author" content="Zhang Peng">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Penn's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Penn&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://apexpeng.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-CS_Basis_HSM" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/10/CS_Basis_HSM/" class="article-date">
+  <time class="dt-published" datetime="2025-02-10T02:41:56.729Z" itemprop="datePublished">2025-02-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>HSM, short for Hardware Security Module, is a physical device that acts as a fortress for your data, ensuring its confidentiality, integrity, and availability. HSMs are considered as standalone and tamper-resistant hardware devices specifically engineered to fortify cryptographic processes.</p>
+<p>HSMs serve the essential functions of generating, safeguarding, and managing encryption keys, which are crucial for data encryption and decryption, and creating digital signatures and code signing certificates. HSMs can take the form of plugin cards or be integrated into various hardware components, including smart cards, appliances, and external devices.</p>
+<p>These devices undergo rigorous testing, validation, and certification processes, adhering to strict security standards like FIPS 140-2, Common Criteria EAL 4+, or equivalent benchmarks. These benchmarks assure users that the devices offer unparalleled levels of security and shield against potential threats, ensuring the utmost confidentiality and integrity of data.</p>
+<p>According to CerteraSSL’s <a target="_blank" rel="noopener" href="https://certera.com/blog/what-is-hardware-security-module-hsm-comprehensive-guide">HSM Comprehensive Guide</a>, let’s first walk through the Key components of HSM, different types of HSM, features of HSM and then look into some detail of Vehicular Hardware Security Module</p>
+<h1 id="Key-components-of-HSM"><a href="#Key-components-of-HSM" class="headerlink" title="Key components of HSM"></a>Key components of HSM</h1><h2 id="Key-Generation-and-Storage"><a href="#Key-Generation-and-Storage" class="headerlink" title="Key Generation and Storage"></a>Key Generation and Storage</h2><p>HSMs use secure random number generators (RNGs) to generate strong cryptographic keys. The generated keys are securely stored within the HSM and safeguarded against unauthorized access or extraction, ensuring keys’ integrity and randomness, which are crucial for robust cryptographic operations.</p>
+<h2 id="Key-Management"><a href="#Key-Management" class="headerlink" title="Key Management"></a>Key Management</h2><p>HSMs provide a comprehensive suite of key management functionalities, which includes key generation, import, export, versioning, and facilitating key lifecycle operations like rotation and retirement.</p>
+<h2 id="Cryptographic-Operations"><a href="#Cryptographic-Operations" class="headerlink" title="Cryptographic Operations"></a>Cryptographic Operations</h2><p>HSM excels in performing various cryptographic operations. They offer encryption and decryption capabilities and play a critical role in generating and verifying digital signatures, ensuring the authenticity and integrity of electronic documents and transactions. They also support secure hashing algorithms for data integrity verification and provide secure APIs and interfaces for the seamless integration of cryptographic functionalities into applications.</p>
+<h2 id="Secure-APIs-and-Interfaces"><a href="#Secure-APIs-and-Interfaces" class="headerlink" title="Secure APIs and Interfaces"></a>Secure APIs and Interfaces</h2><p>HSMs offer secure APIs and interfaces. APIs establish a secure communication channel between the application and the HSM, preventing unauthorized access and safeguarding cryptographic material from tampering.</p>
+<h2 id="Physical-and-Logical-Security"><a href="#Physical-and-Logical-Security" class="headerlink" title="Physical and Logical Security"></a>Physical and Logical Security</h2><p>HSMs incorporate robust physical and logical security measures. Physical security features include tamper-evident casings, sensors to detect physical attacks and secure key storage mechanisms. Logical security encompasses robust authentication mechanisms, access controls, and cryptographic operations executed within a trusted environment.</p>
+<h2 id="Compliance-and-Auditing"><a href="#Compliance-and-Auditing" class="headerlink" title="Compliance and Auditing"></a>Compliance and Auditing</h2><p>HSMs provide the necessary capabilities to comply with security regulations and industry standards. They offer auditing and logging mechanisms, enabling organizations to track and monitor cryptographic operations. Compliance features within HSMs assist in demonstrating adherence to security best practices and successfully passing regulatory audits.</p>
+<h1 id="Types-of-HSM"><a href="#Types-of-HSM" class="headerlink" title="Types of HSM"></a>Types of HSM</h1><p>HSM devices come in various types, each tailored to specific use cases and industry requirements. However, there are two main types of HSMs:</p>
+<h2 id="General-Purpose-HSMs"><a href="#General-Purpose-HSMs" class="headerlink" title="General Purpose HSMs:"></a>General Purpose HSMs:</h2><p>General purpose HSMs are versatile devices that support a wide range of encryption algorithms, such as CNG, CAPI, and more. They are designed to cater to various applications that require cryptographic services and secure key management.</p>
+<p>General purpose HSMs are commonly used in environments where Public Key Infrastructures (PKIs) are implemented and in managing crypto-wallets and other sensitive data. These HSMs offer flexibility and compatibility with different systems and encryption standards.</p>
+<h2 id="Payment-and-Transaction-HSMs"><a href="#Payment-and-Transaction-HSMs" class="headerlink" title="Payment and Transaction HSMs:"></a>Payment and Transaction HSMs:</h2><p>These HSM devices are tailored to the financial industry’s requirements and are essential in maintaining compliance with Payment Card Industry Data Security Standards (PCI DSS).</p>
+<p>Payment and transaction HSMs provide specialized cryptographic services and secure key management solutions that align with the specific needs of payment processing systems. They play a critical role in securing financial transactions and ensuring the confidentiality and integrity of payment card data.</p>
+<p>It’s important to note that while general purpose HSMs offer broader applicability, payment and transaction HSMs focus specifically on securing payment card information and complying with industry-specific standards. The choice between these two types of HSMs depends on the specific security requirements and use cases of the organization or industry involved.</p>
+<h1 id="Features-of-HSM"><a href="#Features-of-HSM" class="headerlink" title="Features of HSM"></a>Features of HSM</h1><p>HSMs offer a range of features to provide maximum security for cryptographic key management and operations. Here are some key features:</p>
+<h2 id="Tamper-Resistance"><a href="#Tamper-Resistance" class="headerlink" title="Tamper Resistance:"></a>Tamper Resistance:</h2><p>HSMs are built with tamper-evident casings and physical protections. They incorporate sensors and mechanisms that detect and respond to physical tampering attempts, such as opening the casing or tampering with internal components. These features ensure the integrity of the HSM and protect against unauthorized access to cryptographic keys.</p>
+<h2 id="Zeroization-of-Keys"><a href="#Zeroization-of-Keys" class="headerlink" title="Zeroization of Keys:"></a>Zeroization of Keys:</h2><p>HSMs can securely erase cryptographic keys, ensuring their complete removal from the system and preventing unauthorized access or recovery.</p>
+<h2 id="Access-Controls"><a href="#Access-Controls" class="headerlink" title="Access Controls:"></a>Access Controls:</h2><p>HSMs enforce strict access controls to prevent unauthorized users from accessing sensitive cryptographic material. Role-based access control (RBAC) mechanisms ensure that only authorized individuals or applications can interact with the HSM and perform cryptographic operations.</p>
+<h2 id="Robust-Authentication"><a href="#Robust-Authentication" class="headerlink" title="Robust Authentication:"></a>Robust Authentication:</h2><p>HSMs employ strong authentication mechanisms to verify the identities of users or applications attempting to access the HSM. These devices mostly employ two-factor authentication, requiring a combination of something the user knows – a password and something the user has – a smart card or something the user is – biometric data to establish trust and grant access.</p>
+<h2 id="APIs-and-Interfaces"><a href="#APIs-and-Interfaces" class="headerlink" title="APIs and Interfaces:"></a>APIs and Interfaces:</h2><p>HSMs provide secure APIs and interfaces that allow applications and systems to integrate with the HSM. Standard cryptographic protocol, are often supported, enabling seamless integration with existing systems.</p>
+<h2 id="Secure-Design"><a href="#Secure-Design" class="headerlink" title="Secure Design:"></a>Secure Design:</h2><p>HSMs are designed with security in mind. They undergo rigorous testing and evaluation to meet recognized security standards, such as FIPS 140-2. The design principles encompass both physical and logical security measures to create a trusted environment for cryptographic operations.</p>
+<h1 id="HSM-Specification"><a href="#HSM-Specification" class="headerlink" title="HSM Specification"></a>HSM Specification</h1><h2 id="Secure-Hardware-Extension-SHE"><a href="#Secure-Hardware-Extension-SHE" class="headerlink" title="Secure Hardware Extension (SHE)"></a>Secure Hardware Extension (SHE)</h2><p>The Secure Hardware Extension (SHE) is an on-chip extension to any given microcontroller. It is intended to move the control over cryptographic keys from the software domain into the hardware domain and therefore protect those keys from software attacks. However, it is not meant to replace highly secure solutions like TPM chips or smart cards, i.e. no tamper resistance is required by the specification.</p>
+<p>In 2019, AUTOSAR continues publish new technical requirements instead of SHE v1.1 as <strong>AUTOSAR_TR_SecureHardwareExtensions.pdf</strong></p>
+<p>SHE is one of the earliest examples of automotive-grade connected module hardening and quickly grew to become a standard requirement by OEMs on a global basis. It was primarily built for securing cryptographic key material against software attacks, but cannot really be used to protect communications (such as V2X). As such, it has served as a basis for later HSM standards (such as EVITA). Today, modern automotive HSMs leverage functionalities from SHE, TPM and smartcards.</p>
+<h3 id="SHE-Background"><a href="#SHE-Background" class="headerlink" title="SHE Background"></a>SHE Background</h3><p>The HIS consortium was founded in 2004 and consists of members from Audi, BMW, Daimler, Porsche, and Volkswagen to address activities and develop common standards related to automotive manufacturing. In 2006, HIS published a document describing the requirements for an HIS Security Module standard that incorporated mechanisms for error detection, authorization, and authenticity. This was further developed by ESCRYPT in partnership with OEMs Audi and BMW, and semiconductor vendors, such as Freescale (now NXP) into an open standard, publicly released in April 2009.</p>
+<p>The resulting SHE specification outlines how a secure zone can be created within any ECU via an on-chip extension within a Microcontroller Unit (MCU), providing cryptographic services at the application layer, and isolating the storage of secret keys from the remainder of the MCU’s resources. Although the standard originated within the German automotive industry at the OEM level, it has since become an open standard accepted at the global level.</p>
+<h2 id="EVITA-HSM"><a href="#EVITA-HSM" class="headerlink" title="EVITA HSM"></a>EVITA HSM</h2><p>For vehicular hardware security module, we have to konw the E-safety vehicle intrusion protected applications (<a target="_blank" rel="noopener" href="https://evita-project.org/">EVITA</a>). EVITA is a project co-funded by the European Union within the Seventh Framework Programme for research and technological development.</p>
+<p>The objective of EVITA is to design, verify, and prototype an architecture for automotive on-board networks where security-relevant components are protected against tampering and sensitive data are protected against compromise.</p>
+<h3 id="EVITA’s-Background"><a href="#EVITA’s-Background" class="headerlink" title="EVITA’s Background"></a>EVITA’s Background</h3><p>Future automotive safety applications based on vehicle-to-vehicle and vehicle-to-infrastructure communication have been identified as a means for decreasing the number of fatal traffic accidents. Examples of such applications are local danger warnings and electronic emergency brakes. While these functionalities inspire a new era of traffic safety, new security requirements need to be considered in order to prevent attacks on these systems. Examples of such threats are forced malfunctioning of safety-critical components or the interference with the traffic flow by means of fake messages.</p>
+<h3 id="EVITA’s-Objectives"><a href="#EVITA’s-Objectives" class="headerlink" title="EVITA’s Objectives"></a>EVITA’s Objectives</h3><p>Secure and trustworthy intra-vehicular communication is the basis for trustworthy communication among cars or between cars and the infrastructure. Therefore, the objective of the EVITA project is to design, verify, and prototype an architecture for automotive on-board networks where security-relevant components are protected against tampering and sensitive data are protected against compromise when transferred inside a vehicle.</p>
+<p>By focusing on the protection of the intra-vehicle communication EVITA complements other e-safety related projects that focus on the protection of the vehicle-to-X communication.</p>
+<h3 id="Design-Implementation-and-Evaluation-of-a-Vehicular-Hardware-Security-Module"><a href="#Design-Implementation-and-Evaluation-of-a-Vehicular-Hardware-Security-Module" class="headerlink" title="Design, Implementation, and Evaluation of a Vehicular Hardware Security Module"></a>Design, Implementation, and Evaluation of a Vehicular Hardware Security Module</h3><p>In 2011, the 14th International Conference on Information Security and Cryptology, M. Wolf, T. Gendrullis published a paper “<a target="_blank" rel="noopener" href="https://evita-project.org/Publications/WG11.pdf">Design, implementation, and evaluation of a vehicular hardware security module</a>“, introduce the vehicular HSM officially for the first time from EVITA point of view. Based on a requirements engineering approach that incorporates all security-relevant automotive use cases and all distinctive automotive needs and constraints, EVITA presented an vehicular hardware security module (HSM) that enables a holistic protection of in-vehicle ECUs and their communications. </p>
+<h3 id="Standardize-Vehicular-HSM"><a href="#Standardize-Vehicular-HSM" class="headerlink" title="Standardize Vehicular HSM"></a>Standardize Vehicular HSM</h3><p>IT systems were never designed with security in mind. But with the increasing application of digital software and various radio interfaces to the outside world (including the Internet), modern vehicles are becoming even more vulnerable to all kinds of malicious encroachments like hackers or malware. This is especially noteworthy, since in contrast to most other IT systems, a successful malicious<br>encroachment on a vehicle will not only endanger critical services or business models, but can also endanger human lives. Thus strong security measures should be mandatory when developing vehicular IT systems. Today most vehicle manufacturer (hopefully) incorporate security as a design requirement.</p>
+<p>However, realizing dependable IT security solutions in a vehicular environment considerably differs from realizing IT security for typical desktop or server environments, just porting “standard” security solutions to the, moreover, very heterogeneous IT environment usually will not work. In order<br>to reliably enforce the security of software security mechanisms, the application of hardware security modules (HSM) is one effective countermeasure as HSMs:</p>
+<ul>
+<li>protect software security measures by acting as trusted security anchor,</li>
+<li>securely generate, store, and process security-critical material shielded from any potentially malicious software,</li>
+<li>restrict the possibilities of hardware tampering attacks by applying effective tamper-protection measures, </li>
+<li>accelerate security measures by applying specialized cryptographic hardware,</li>
+<li>reduce security costs on high volumes by applying highly optimized special circuitry instead of costly general purpose hardware.</li>
+</ul>
+<p>Back to the paper was published, there already exist some proprietary and singlepurpose HSM realizations used, for instance, by vehicle immobilizers, digital tachographs or tolling solutions. However, these are no general-purpose, private HSMs and hence cannot be reused by other vehicular security solutions. On the other hand, general-purpose HSMs that are currently available, for instance, the IBM 4758 cryptographic co-processor, the TCG Mobile&#x2F;Trusted Platform Module, or typical cryptographic smartcards are not applicable for use within an automotive security context. They, for instance, lack of cost efficiency, performance, physical robustness, or security functionality. Solely, the secure hardware extension (SHE) as proposed by the HIS consortium takes an exceptional position as it was explicitly designed for application in a automotive security context. However, the SHE module is mainly built for securing cryptographic key material against software attacks, but cannot be used, for instance, to protect V2X communications. </p>
+<p>Security requisites (SR) and functional requisites (FR) of EVITA HSM list as follows:</p>
+<ul>
+<li>SR.1 Autonomous, strongly isolated security processing environment</li>
+<li>SR.2 Minimal immuftable trusted code to be executed prior to ECU processor</li>
+<li>SR.3 Internal non-volatile memory for storing root security artifacts</li>
+<li>SR.4 Non-detachable (tamper-protected) connection with ECU hardware</li>
+<li>SR.5 Authentic, confidential, fresh comm. channel between HSM and ECU</li>
+<li>SR.6 Autonomously controlled alert functionality (e.g., log entry, ECU halt)</li>
+<li>SR.7 Only standardized, established security algorithms (e.g., NIST1 , BSI2)</li>
+</ul>
+</br>
+
+<ul>
+<li>FR.1 Physical stress resistance to endure an automotive life-cycle of ≥20 years</li>
+<li>FR.2 Bandwidth and latency performance that meets at least ISO 11898 [24]</li>
+<li>FR.3 Compatibility with existing ECU security modules, i.e. with HIS-SHE [21]</li>
+<li>FR.4 Compatibility with existing ECU microprocessor architectures</li>
+<li>FR.5 Open, patent free specifications for cost-efficient OEM-wide application</li>
+</ul>
+<h3 id="Comparison-of-HSMs"><a href="#Comparison-of-HSMs" class="headerlink" title="Comparison of HSMs"></a>Comparison of HSMs</h3><p>This can be seen in Table 5 of “<a target="_blank" rel="noopener" href="https://evita-project.org/Publications/WG11.pdf">Design, implementation, and evaluation of a vehicular hardware security module</a>“(Page 16).</p>
+<h2 id="Trusted-Platform-Module"><a href="#Trusted-Platform-Module" class="headerlink" title="Trusted Platform Module"></a>Trusted Platform Module</h2><p>Due to the massive use of x86 chips in vehicle, Trusted Platform Module (TPM) was is and will be used in E&#x2F;E architecure to protect user data.</p>
+<p>Back up to the days that hackers can quickly weaponize the valuable data in laptops and computers, <a target="_blank" rel="noopener" href="https://trustedcomputinggroup.org/">Trusted Computing Group (TCG)</a> develops and prompts specification and standards of TPM to against these threat. TPM is a secure crypto-processor which is attached to a device to establish secure operations. Using a TPM helps to protect a user’s identity and sensitive data by storing the relevant keys vital for encryption, decryption and authentication. Doing so provides a first line of defense against potentially critical malware and firmware attacks, as it ensures all data remains encrypted even if an attack takes place.</p>
+<h1 id="Solutions-for-virtual-environments-of-TPM"><a href="#Solutions-for-virtual-environments-of-TPM" class="headerlink" title="Solutions for virtual environments of TPM"></a>Solutions for virtual environments of TPM</h1><h2 id="vTPM"><a href="#vTPM" class="headerlink" title="vTPM"></a>vTPM</h2><p>A vTPM is a software-based representation of a traditional TPM 2.0 chip. It carries out the same hardware-based security functions a TPM, for example, attestation, key and random number generation – without the physical chip being required.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2025/02/10/CS_Basis_HSM/" data-id="cm6zty0st0002agvy2mzqdriv" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/02/10/CS_Basis_TEE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/02/10/CS_ASCP_01intro/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/02/10/CS_Basis_TEE/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/10/CS_Basis_HSM/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/10/CS_ASCP_01intro/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/wireless-modem-intro/">Comprehensive Technical Overview of Wireless Modems</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/31/wireless-modem-ucosii/">Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 Zhang Peng<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

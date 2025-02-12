@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Penn&#39;s Blog">
 <meta property="og:description" content="Our life is shaped by our mind; we become what we think.">
 <meta property="og:locale" content="en_US">
-<meta property="article:author" content="Zhang Peng">
+<meta property="article:author" content="apexpenn">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Penn's Blog" type="application/atom+xml">
@@ -278,7 +278,76 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/compress-intro/" data-id="cm5c7gmu9000ddgvydnw9edpu" data-title="Comprehensive Guide to Data Compression Technologies" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/31/compress-intro/" data-id="cm71ouvng000gwcvy3vxx6uym" data-title="Comprehensive Guide to Data Compression Technologies" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-android-video-IP" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/31/android-video-IP/" class="article-date">
+  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/31/android-video-IP/">Introduction to Android IP Protection Technologies</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Android’s IP (Intellectual Property) protection mechanisms ensure the secure playback and distribution of digital content, particularly for media like movies, music, and applications. These technologies focus on encryption, digital rights management (DRM), and secure hardware environments to prevent piracy and unauthorized access.</p>
+<hr>
+<h4 id="Playback-Security-with-Widevine-DRM"><a href="#Playback-Security-with-Widevine-DRM" class="headerlink" title="Playback Security with Widevine DRM"></a><strong>Playback Security with Widevine DRM</strong></h4><p>Widevine, a leading DRM solution by Google, protects digital media distributed over the internet. It supports secure content playback at varying quality levels (SD, HD, UHD) depending on device compliance with security standards. Widevine operates in three levels:</p>
+<ol>
+<li><strong>Level 1 (L1)</strong>: Requires content decryption and processing in a Trusted Execution Environment (TEE).</li>
+<li><strong>Level 2 (L2)</strong>: Only cryptographic operations occur within TEE; media processing happens externally.</li>
+<li><strong>Level 3 (L3)</strong>: Used on devices without TEE; protection relies on software encryption.</li>
+</ol>
+<p>Widevine integrates with adaptive bitrate streaming (like DASH and HLS) and uses Common Encryption (CENC) for consistent security across devices. Applications such as Netflix, Disney+, and Amazon Prime Video leverage Widevine for secure streaming. Android apps can implement Widevine DRM using the <code>MediaDrm</code> API or with ExoPlayer, a high-level playback library.</p>
+<hr>
+<h4 id="Trusted-Execution-Environment-TEE"><a href="#Trusted-Execution-Environment-TEE" class="headerlink" title="Trusted Execution Environment (TEE)"></a><strong>Trusted Execution Environment (TEE)</strong></h4><p>Android devices often include ARM TrustZone or equivalent technologies that enable a hardware-isolated TEE. This separation protects cryptographic operations and sensitive data from being accessed or modified by malicious software.</p>
+<hr>
+<h4 id="Additional-IP-Protection-Mechanisms"><a href="#Additional-IP-Protection-Mechanisms" class="headerlink" title="Additional IP Protection Mechanisms"></a><strong>Additional IP Protection Mechanisms</strong></h4><ol>
+<li><strong>Secure Hardware</strong>: Android devices use Hardware Abstraction Layers (HALs) and secure boot processes to authenticate firmware and applications during startup.</li>
+<li><strong>Content Decryption Module (CDM)</strong>: Handles decryption and licensing, interfacing with services like Widevine.</li>
+<li><strong>Dynamic Watermarking</strong>: Used in some DRM implementations to deter screen capture or unauthorized recording.</li>
+</ol>
+<hr>
+<h4 id="DRM-APIs-for-Developers"><a href="#DRM-APIs-for-Developers" class="headerlink" title="DRM APIs for Developers"></a><strong>DRM APIs for Developers</strong></h4><p>Android provides multiple APIs to work with DRM-protected content:</p>
+<ul>
+<li><strong><code>MediaDrm</code> API</strong>: Interfaces with low-level DRM implementations.</li>
+<li><strong>ExoPlayer</strong>: A customizable player that simplifies Widevine and other DRM integration.</li>
+<li><strong>ClearKey DRM</strong>: Open-source DRM for testing and non-commercial purposes.</li>
+</ul>
+<hr>
+<h4 id="Applications-of-IP-Protection-in-Android"><a href="#Applications-of-IP-Protection-in-Android" class="headerlink" title="Applications of IP Protection in Android"></a><strong>Applications of IP Protection in Android</strong></h4><ul>
+<li><strong>Streaming Services</strong>: Secure playback of movies, shows, and music.</li>
+<li><strong>App Store Licensing</strong>: Ensures apps are only used on authorized devices.</li>
+<li><strong>Enterprise Solutions</strong>: Protects sensitive data in corporate environments.</li>
+</ul>
+<p>Android’s approach to IP protection, anchored by Widevine DRM and hardware-backed security, provides a robust foundation for secure digital content distribution.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/31/android-video-IP/" data-id="cm71ouvng000hwcvy9bazd7za" data-title="Introduction to Android IP Protection Technologies" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -365,7 +434,255 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/linux-i2c-lm87/" data-id="cm5c7gmub000fdgvy3q451tob" data-title="Understanding Linux I2C, SMBus, and Platform Subsystems: A Comprehensive Guide" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/31/linux-i2c-lm87/" data-id="cm71ouvnh000iwcvy6dm75ttk" data-title="Understanding Linux I2C, SMBus, and Platform Subsystems: A Comprehensive Guide" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-linux-input-subsystem" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/31/linux-input-subsystem/" class="article-date">
+  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/31/linux-input-subsystem/">Exploring the Linux Input System: Events, Key Management, Touchscreens, and Sensor Integration</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>The Linux input subsystem is a robust framework for handling input devices such as keyboards, mice, touchscreens, and sensors. This article delves into the architecture and functionality of the Linux input system, covering events, key management, touchscreen handling, and sensor integration. We’ll also explore how Linux interfaces with hardware buses like I²C, SPI, and ADC&#x2F;DAC, complemented by reference code examples.</p>
+<hr>
+<h2 id="1-Understanding-the-Linux-Input-Event-System"><a href="#1-Understanding-the-Linux-Input-Event-System" class="headerlink" title="1. Understanding the Linux Input Event System"></a><strong>1. Understanding the Linux Input Event System</strong></h2><h3 id="What-Is-an-Event-in-Linux"><a href="#What-Is-an-Event-in-Linux" class="headerlink" title="What Is an Event in Linux?"></a>What Is an Event in Linux?</h3><p>An <strong>event</strong> in the Linux input system represents an input action. For example:</p>
+<ul>
+<li>A key press on a keyboard generates a <code>KEY_PRESS</code> event.</li>
+<li>A touchscreen tap produces <code>ABS</code> (absolute position) events.</li>
+<li>Sensor data updates trigger events for user-space applications.</li>
+</ul>
+<h3 id="How-Events-Are-Generated-and-Delivered"><a href="#How-Events-Are-Generated-and-Delivered" class="headerlink" title="How Events Are Generated and Delivered"></a>How Events Are Generated and Delivered</h3><p>The Linux kernel manages events using the <strong>event device interface</strong> (<code>/dev/input/eventX</code>). Events are represented as structures of type <code>input_event</code> in <code>linux/input.h</code>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">input_event</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">time</span>;</span>  <span class="comment">// Timestamp</span></span><br><span class="line">    __u16 type;           <span class="comment">// Event type (e.g., EV_KEY, EV_ABS)</span></span><br><span class="line">    __u16 code;           <span class="comment">// Event code (specific key or axis)</span></span><br><span class="line">    __s32 value;          <span class="comment">// Event value (pressed/released or position)</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p><strong>Event Generation</strong>  </p>
+<ul>
+<li>A driver populates an <code>input_event</code> structure and calls <code>input_event()</code> or <code>input_sync()</code> to propagate the event.</li>
+<li>Example: A key press might call:</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">input_event(dev, EV_KEY, KEY_A, <span class="number">1</span>); <span class="comment">// Press &#x27;A&#x27;</span></span><br><span class="line">input_sync(dev);                   <span class="comment">// Sync the event</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Event Delivery</strong>  </p>
+<ul>
+<li>Events are written to <code>/dev/input/eventX</code> and can be read by user-space applications.</li>
+<li>Use the <strong>evdev</strong> interface in user-space to read events.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="2-Linux-Key-Management-System"><a href="#2-Linux-Key-Management-System" class="headerlink" title="2. Linux Key Management System"></a><strong>2. Linux Key Management System</strong></h2><p>Linux manages keyboard input through the <strong>key management system</strong>, handling actions like key presses and releases. Keycodes are mapped to specific actions using <strong>keymaps</strong>.</p>
+<h3 id="Implementing-Key-Events"><a href="#Implementing-Key-Events" class="headerlink" title="Implementing Key Events"></a>Implementing Key Events</h3><p>Example: A keyboard driver generating a key event:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/input.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">example_key_event</span><span class="params">(<span class="keyword">struct</span> input_dev *dev)</span> &#123;</span><br><span class="line">    input_event(dev, EV_KEY, KEY_A, <span class="number">1</span>); <span class="comment">// Key A pressed</span></span><br><span class="line">    input_sync(dev);                   <span class="comment">// Synchronize event</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reading-Key-Events-in-User-Space"><a href="#Reading-Key-Events-in-User-Space" class="headerlink" title="Reading Key Events in User Space"></a>Reading Key Events in User Space</h3><p>In user space, use the <strong>evdev API</strong> to read key events:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/input.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">input_event</span> <span class="title">ev</span>;</span></span><br><span class="line">    <span class="type">int</span> fd = open(<span class="string">&quot;/dev/input/event0&quot;</span>, O_RDONLY);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (fd &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Failed to open event device&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (read(fd, &amp;ev, <span class="keyword">sizeof</span>(ev)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Event type: %d, code: %d, value: %d\n&quot;</span>, ev.type, ev.code, ev.value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    close(fd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-Touchscreen-Management-in-Linux"><a href="#3-Touchscreen-Management-in-Linux" class="headerlink" title="3. Touchscreen Management in Linux"></a><strong>3. Touchscreen Management in Linux</strong></h2><p>Touchscreens use the <strong>absolute position (EV_ABS)</strong> event type to report x&#x2F;y coordinates, pressure, and multitouch gestures.</p>
+<h3 id="Handling-Touch-Events-in-a-Driver"><a href="#Handling-Touch-Events-in-a-Driver" class="headerlink" title="Handling Touch Events in a Driver"></a>Handling Touch Events in a Driver</h3><p>Touchscreen drivers report events using <code>EV_ABS</code>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/input.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">report_touch</span><span class="params">(<span class="keyword">struct</span> input_dev *dev, <span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> pressure)</span> &#123;</span><br><span class="line">    input_event(dev, EV_ABS, ABS_X, x);</span><br><span class="line">    input_event(dev, EV_ABS, ABS_Y, y);</span><br><span class="line">    input_event(dev, EV_ABS, ABS_PRESSURE, pressure);</span><br><span class="line">    input_sync(dev);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reading-Touch-Events"><a href="#Reading-Touch-Events" class="headerlink" title="Reading Touch Events"></a>Reading Touch Events</h3><p>Use <code>evdev</code> to capture touch events:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">input_event</span> <span class="title">ev</span>;</span></span><br><span class="line"><span class="keyword">while</span> (read(fd, &amp;ev, <span class="keyword">sizeof</span>(ev)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ev.type == EV_ABS) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;ABS event: code=%d, value=%d\n&quot;</span>, ev.code, ev.value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="4-Sensor-Integration-in-Linux"><a href="#4-Sensor-Integration-in-Linux" class="headerlink" title="4. Sensor Integration in Linux"></a><strong>4. Sensor Integration in Linux</strong></h2><p>Sensors (e.g., temperature, accelerometers) often connect via I²C, SPI, or ADC&#x2F;DAC. Linux supports sensors through the <strong>Industrial I&#x2F;O (IIO)</strong> subsystem or custom drivers.</p>
+<h3 id="I²C-Example-Reading-Sensor-Data"><a href="#I²C-Example-Reading-Sensor-Data" class="headerlink" title="I²C Example: Reading Sensor Data"></a>I²C Example: Reading Sensor Data</h3><p>An I²C-based driver might communicate with a temperature sensor:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/i2c.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">read_sensor</span><span class="params">(<span class="keyword">struct</span> i2c_client *client)</span> &#123;</span><br><span class="line">    u8 buf[<span class="number">2</span>];</span><br><span class="line">    <span class="type">int</span> ret = i2c_master_recv(client, buf, <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">if</span> (ret &lt; <span class="number">0</span>) <span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> temp = (buf[<span class="number">0</span>] &lt;&lt; <span class="number">8</span>) | buf[<span class="number">1</span>]; <span class="comment">// Combine bytes</span></span><br><span class="line">    <span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="SPI-Example-Writing-to-a-Sensor"><a href="#SPI-Example-Writing-to-a-Sensor" class="headerlink" title="SPI Example: Writing to a Sensor"></a>SPI Example: Writing to a Sensor</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/spi/spi.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">write_sensor</span><span class="params">(<span class="keyword">struct</span> spi_device *spi, u8 reg, u8 value)</span> &#123;</span><br><span class="line">    u8 tx_buf[<span class="number">2</span>] = &#123; reg, value &#125;;</span><br><span class="line">    <span class="keyword">return</span> spi_write(spi, tx_buf, <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ADC-DAC-for-Analog-Sensors"><a href="#ADC-DAC-for-Analog-Sensors" class="headerlink" title="ADC&#x2F;DAC for Analog Sensors"></a>ADC&#x2F;DAC for Analog Sensors</h3><p>For sensors with analog output, the kernel’s IIO subsystem handles ADC sampling. Configure the ADC driver to provide sensor values in <code>/sys/bus/iio</code>.</p>
+<hr>
+<h2 id="5-Using-Events-to-Manage-Sensors"><a href="#5-Using-Events-to-Manage-Sensors" class="headerlink" title="5. Using Events to Manage Sensors"></a><strong>5. Using Events to Manage Sensors</strong></h2><p>Sensors can trigger events when thresholds are exceeded, using the <code>input_event</code> API or dedicated mechanisms like GPIO interrupts.</p>
+<h3 id="Example-Event-Based-Temperature-Alert"><a href="#Example-Event-Based-Temperature-Alert" class="headerlink" title="Example: Event-Based Temperature Alert"></a>Example: Event-Based Temperature Alert</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">handle_temp_event</span><span class="params">(<span class="keyword">struct</span> input_dev *dev, <span class="type">int</span> temp)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (temp &gt; THRESHOLD) &#123;</span><br><span class="line">        input_event(dev, EV_MSC, MSC_SERIAL, temp); <span class="comment">// Report temperature</span></span><br><span class="line">        input_sync(dev);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>User space can read and act on these events as described above.</p>
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>The Linux input system is highly versatile, enabling developers to handle various input sources, from traditional keyboards to advanced sensors. By leveraging the event-driven architecture, key management, and integration with buses like I²C and SPI, developers can create powerful, responsive applications. Whether you’re managing a touchscreen or an industrial sensor network, understanding these core concepts ensures seamless input handling in Linux systems. </p>
+<p>For further exploration, consult the Linux kernel documentation and experiment with the provided code examples!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/31/linux-input-subsystem/" data-id="cm71ouvnh000jwcvy3ekjew59" data-title="Exploring the Linux Input System: Events, Key Management, Touchscreens, and Sensor Integration" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-linux-network-intro" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/31/linux-network-intro/" class="article-date">
+  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/31/linux-network-intro/">Understanding Linux Network Architecture: OSI Model, TCP/IP Stack, and Implementation Details</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Linux’s networking subsystem is a robust and flexible implementation that supports various networking technologies, including Ethernet, Wi-Fi, Bluetooth, and cellular networks. This article explains how Linux aligns with networking models like the OSI and TCP&#x2F;IP, the role of netlink, and how low-level network device drivers integrate with the system. Additionally, we’ll explore how these technologies work together to provide seamless connectivity.</p>
+<hr>
+<h2 id="Linux-Networking-and-the-OSI-Model"><a href="#Linux-Networking-and-the-OSI-Model" class="headerlink" title="Linux Networking and the OSI Model"></a><strong>Linux Networking and the OSI Model</strong></h2><p>The OSI (Open Systems Interconnection) model divides network functionality into seven layers:</p>
+<ol>
+<li><strong>Physical Layer</strong>: Hardware connections like Ethernet cables and Wi-Fi radios.</li>
+<li><strong>Data Link Layer</strong>: Protocols like Ethernet and 802.11 (Wi-Fi) manage access to the physical medium.</li>
+<li><strong>Network Layer</strong>: Handles routing and forwarding (e.g., IP).</li>
+<li><strong>Transport Layer</strong>: Provides reliable communication (TCP) or faster, connectionless services (UDP).</li>
+<li><strong>Session Layer</strong>: Establishes and maintains connections.</li>
+<li><strong>Presentation Layer</strong>: Translates data formats.</li>
+<li><strong>Application Layer</strong>: Interacts with user applications (e.g., HTTP, FTP).</li>
+</ol>
+<p>While the OSI model is theoretical, Linux implements networking based on the practical <strong>TCP&#x2F;IP stack</strong>, which merges some layers for simplicity.</p>
+<hr>
+<h2 id="Linux-Networking-and-the-TCP-IP-Stack"><a href="#Linux-Networking-and-the-TCP-IP-Stack" class="headerlink" title="Linux Networking and the TCP&#x2F;IP Stack"></a><strong>Linux Networking and the TCP&#x2F;IP Stack</strong></h2><p>The TCP&#x2F;IP stack used in Linux has four layers:</p>
+<ol>
+<li><strong>Link Layer</strong>: Corresponds to the OSI Physical and Data Link layers.</li>
+<li><strong>Network Layer</strong>: Manages IP and routing.</li>
+<li><strong>Transport Layer</strong>: Implements protocols like TCP, UDP, and SCTP.</li>
+<li><strong>Application Layer</strong>: Handles protocols like HTTP, DNS, and SMTP.</li>
+</ol>
+<h3 id="Linux-Source-Code-Examples"><a href="#Linux-Source-Code-Examples" class="headerlink" title="Linux Source Code Examples"></a><strong>Linux Source Code Examples</strong></h3><h4 id="Link-Layer-Network-Device-Driver"><a href="#Link-Layer-Network-Device-Driver" class="headerlink" title="Link Layer (Network Device Driver)"></a>Link Layer (Network Device Driver)</h4><p>Located in <code>/drivers/net/</code>. For example:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Ethernet example (e1000_main.c)</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">e1000_probe</span><span class="params">(<span class="keyword">struct</span> pci_dev *pdev, <span class="type">const</span> <span class="keyword">struct</span> pci_device_id *ent)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">net_device</span> *<span class="title">netdev</span> =</span> alloc_etherdev(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> e1000_adapter));</span><br><span class="line">    pci_enable_device(pdev);</span><br><span class="line">    <span class="comment">// Other hardware initialization</span></span><br><span class="line">    <span class="keyword">return</span> register_netdev(netdev);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Network-Layer-IP-Routing"><a href="#Network-Layer-IP-Routing" class="headerlink" title="Network Layer (IP Routing)"></a>Network Layer (IP Routing)</h4><p>The routing implementation resides in <code>/net/ipv4/route.c</code>. </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Example: ip_forward()</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">ip_forward</span><span class="params">(<span class="keyword">struct</span> sk_buff *skb)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">iphdr</span> *<span class="title">iph</span> =</span> ip_hdr(skb);</span><br><span class="line">    <span class="comment">// Check packet validity, route, and forward</span></span><br><span class="line">    <span class="keyword">return</span> dst_output(dev_net(skb-&gt;dev), skb-&gt;sk, skb);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Transport-Layer-TCP-Implementation"><a href="#Transport-Layer-TCP-Implementation" class="headerlink" title="Transport Layer (TCP Implementation)"></a>Transport Layer (TCP Implementation)</h4><p>TCP is implemented in <code>/net/ipv4/tcp.c</code>.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Example: tcp_transmit_skb()</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">tcp_transmit_skb</span><span class="params">(<span class="keyword">struct</span> sock *sk, <span class="keyword">struct</span> sk_buff *skb, <span class="type">int</span> rst)</span> &#123;</span><br><span class="line">    <span class="comment">// Prepare and send TCP packet</span></span><br><span class="line">    tcp_queue_skb(sk, skb);</span><br><span class="line">    ip_queue_xmit(skb, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Application-Layer"><a href="#Application-Layer" class="headerlink" title="Application Layer"></a>Application Layer</h4><p>Applications interact with the kernel through system calls like <code>socket()</code>. Example:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sockfd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">connect(sockfd, &amp;server_addr, <span class="keyword">sizeof</span>(server_addr));</span><br><span class="line">send(sockfd, data, len, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Netlink-Kernel-User-Communication"><a href="#Netlink-Kernel-User-Communication" class="headerlink" title="Netlink: Kernel-User Communication"></a><strong>Netlink: Kernel-User Communication</strong></h2><p>Netlink is a socket-based mechanism used to communicate between user space and kernel space for network configuration and management.</p>
+<h3 id="Key-Features"><a href="#Key-Features" class="headerlink" title="Key Features"></a><strong>Key Features</strong></h3><ul>
+<li>Configures routing, interfaces, and filters.</li>
+<li>Notifies user space of events like link changes.</li>
+</ul>
+<h3 id="Netlink-Implementation"><a href="#Netlink-Implementation" class="headerlink" title="Netlink Implementation"></a><strong>Netlink Implementation</strong></h3><p>Netlink handlers are implemented in <code>/net/netlink/</code>.</p>
+<h4 id="Example-Route-Addition-via-Netlink"><a href="#Example-Route-Addition-via-Netlink" class="headerlink" title="Example: Route Addition via Netlink"></a>Example: Route Addition via Netlink</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">nlmsghdr</span> *<span class="title">nlh</span> =</span> nlmsg_put(skb, pid, seq, RTM_NEWROUTE, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> rtmsg), <span class="number">0</span>);</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rtmsg</span> *<span class="title">rtm</span> =</span> nlmsg_data(nlh);</span><br><span class="line"><span class="comment">// Fill rtm fields</span></span><br><span class="line">netlink_unicast(sock, skb, pid, MSG_DONTWAIT);</span><br></pre></td></tr></table></figure>
+
+<h3 id="User-Space-Example"><a href="#User-Space-Example" class="headerlink" title="User Space Example"></a><strong>User Space Example</strong></h3><p>Tools like <code>ip</code> (from <code>iproute2</code>) use netlink:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> eth0 up</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Low-Level-Linux-Network-Device-Drivers"><a href="#Low-Level-Linux-Network-Device-Drivers" class="headerlink" title="Low-Level Linux Network Device Drivers"></a><strong>Low-Level Linux Network Device Drivers</strong></h2><p>Network device drivers interface between hardware and the kernel, abstracting hardware details for the kernel networking stack.</p>
+<h3 id="Key-Operations"><a href="#Key-Operations" class="headerlink" title="Key Operations"></a><strong>Key Operations</strong></h3><ol>
+<li><p><strong>Initialization</strong>:</p>
+<ul>
+<li>Probed via bus-specific interfaces (PCI, USB, etc.).</li>
+<li>Registers itself with the networking subsystem using <code>register_netdev()</code>.</li>
+</ul>
+</li>
+<li><p><strong>Packet Transmission</strong>:</p>
+<ul>
+<li>Implements <code>ndo_start_xmit()</code> to handle outgoing packets.</li>
+</ul>
+</li>
+<li><p><strong>Packet Reception</strong>:</p>
+<ul>
+<li>Triggers a hardware interrupt when packets arrive.</li>
+<li>Uses <code>netif_rx()</code> or <code>napi_schedule()</code> to pass packets to the stack.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Driver-Example-Ethernet"><a href="#Driver-Example-Ethernet" class="headerlink" title="Driver Example: Ethernet"></a><strong>Driver Example: Ethernet</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">netdev_tx_t</span> <span class="title function_">my_driver_start_xmit</span><span class="params">(<span class="keyword">struct</span> sk_buff *skb, <span class="keyword">struct</span> net_device *dev)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">my_driver_priv</span> *<span class="title">priv</span> =</span> netdev_priv(dev);</span><br><span class="line">    dma_map_single(&amp;priv-&gt;pdev-&gt;dev, skb-&gt;data, skb-&gt;len, DMA_TO_DEVICE);</span><br><span class="line">    netdev_tx_completed_queue(priv-&gt;tx_queue, <span class="number">1</span>, skb-&gt;len);</span><br><span class="line">    <span class="keyword">return</span> NETDEV_TX_OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Wireless-Networking-Wi-Fi-Bluetooth-and-Cellular"><a href="#Wireless-Networking-Wi-Fi-Bluetooth-and-Cellular" class="headerlink" title="Wireless Networking: Wi-Fi, Bluetooth, and Cellular"></a><strong>Wireless Networking: Wi-Fi, Bluetooth, and Cellular</strong></h2><h3 id="1-Wi-Fi"><a href="#1-Wi-Fi" class="headerlink" title="1. Wi-Fi"></a><strong>1. Wi-Fi</strong></h3><p>Wi-Fi is implemented via the mac80211 subsystem in <code>/net/mac80211/</code>. It provides a common interface for Wi-Fi drivers.</p>
+<h4 id="Key-Components"><a href="#Key-Components" class="headerlink" title="Key Components"></a>Key Components</h4><ul>
+<li><strong>Station Mode</strong>: Connects to access points.</li>
+<li><strong>Access Point Mode</strong>: Acts as an AP for other devices.</li>
+</ul>
+<h4 id="Driver-Example-Wi-Fi-Device"><a href="#Driver-Example-Wi-Fi-Device" class="headerlink" title="Driver Example: Wi-Fi Device"></a>Driver Example: Wi-Fi Device</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">my_wifi_probe</span><span class="params">(<span class="keyword">struct</span> pci_dev *pdev, <span class="type">const</span> <span class="keyword">struct</span> pci_device_id *id)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ieee80211_hw</span> *<span class="title">hw</span> =</span> ieee80211_alloc_hw(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> my_priv), &amp;my_ops);</span><br><span class="line">    pci_enable_device(pdev);</span><br><span class="line">    <span class="keyword">return</span> ieee80211_register_hw(hw);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Bluetooth"><a href="#2-Bluetooth" class="headerlink" title="2. Bluetooth"></a><strong>2. Bluetooth</strong></h3><p>Linux Bluetooth stack includes:</p>
+<ul>
+<li><strong>HCI Layer</strong>: Interfaces with hardware.</li>
+<li><strong>L2CAP Layer</strong>: Multiplexing protocol for higher layers.</li>
+<li><strong>Profiles</strong>: Implement user-level services like A2DP.</li>
+</ul>
+<h4 id="Bluetooth-Initialization"><a href="#Bluetooth-Initialization" class="headerlink" title="Bluetooth Initialization"></a>Bluetooth Initialization</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hci_dev = hci_register_dev(hdev);</span><br><span class="line">hci_register_proto(&amp;my_proto);</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Cellular-Modems"><a href="#3-Cellular-Modems" class="headerlink" title="3. Cellular (Modems)"></a><strong>3. Cellular (Modems)</strong></h3><p>Cellular network drivers communicate over USB or PCI. Implemented under <code>/drivers/net/usb/</code>.</p>
+<hr>
+<h2 id="Binding-Networking-Technologies-Together"><a href="#Binding-Networking-Technologies-Together" class="headerlink" title="Binding Networking Technologies Together"></a><strong>Binding Networking Technologies Together</strong></h2><p>Linux uses a unified approach for integrating diverse networking technologies:</p>
+<ol>
+<li><strong>Unified Sockets API</strong>: Applications use <code>socket()</code> regardless of the underlying transport (Ethernet, Wi-Fi, Bluetooth).</li>
+<li><strong>Common Configuration Tools</strong>: Tools like <code>ifconfig</code>, <code>ip</code>, and <code>iw</code> configure all types of network interfaces.</li>
+<li><strong>Dynamic Device Management</strong>:<ul>
+<li>Interfaces are dynamically created for each technology.</li>
+<li>Example: <code>wlan0</code> for Wi-Fi, <code>eth0</code> for Ethernet.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="How-Users-Can-Work-with-These-Technologies"><a href="#How-Users-Can-Work-with-These-Technologies" class="headerlink" title="How Users Can Work with These Technologies"></a><strong>How Users Can Work with These Technologies</strong></h2><h3 id="1-Ethernet"><a href="#1-Ethernet" class="headerlink" title="1. Ethernet"></a><strong>1. Ethernet</strong></h3><ul>
+<li>Bring up an interface:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig eth0 up</span><br></pre></td></tr></table></figure></li>
+<li>Debug with <code>ethtool</code>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ethtool eth0</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-Wi-Fi"><a href="#2-Wi-Fi" class="headerlink" title="2. Wi-Fi"></a><strong>2. Wi-Fi</strong></h3><ul>
+<li>Scan for networks:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwlist wlan0 scan</span><br></pre></td></tr></table></figure></li>
+<li>Connect to a network:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwconfig wlan0 essid <span class="string">&quot;MyNetwork&quot;</span> key s:password</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-Bluetooth"><a href="#3-Bluetooth" class="headerlink" title="3. Bluetooth"></a><strong>3. Bluetooth</strong></h3><ul>
+<li>Pair with a device:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bluetoothctl</span><br></pre></td></tr></table></figure></li>
+<li>Send a file:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obexctl send &lt;file&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="4-Cellular"><a href="#4-Cellular" class="headerlink" title="4. Cellular"></a><strong>4. Cellular</strong></h3><ul>
+<li>Configure modem:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mmcli -m 0 --simple-connect=<span class="string">&quot;apn=myapn&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>The Linux networking stack is a sophisticated system that integrates diverse technologies under a unified architecture. By understanding the OSI model, TCP&#x2F;IP stack, netlink, and network device drivers, developers can better harness Linux’s networking capabilities. Wireless technologies like Wi-Fi, Bluetooth, and cellular seamlessly coexist alongside Ethernet, making Linux a versatile platform for modern networking needs.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/31/linux-network-intro/" data-id="cm71ouvni000kwcvy5t35drbf" data-title="Understanding Linux Network Architecture: OSI Model, TCP/IP Stack, and Implementation Details" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -584,386 +901,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/linux-devicedriver-intro/" data-id="cm5c7gmub000gdgvyagxc54kw" data-title="Linux Device Driver Introduction" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-linux-input-subsystem" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/31/linux-input-subsystem/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/linux-input-subsystem/">Exploring the Linux Input System: Events, Key Management, Touchscreens, and Sensor Integration</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>The Linux input subsystem is a robust framework for handling input devices such as keyboards, mice, touchscreens, and sensors. This article delves into the architecture and functionality of the Linux input system, covering events, key management, touchscreen handling, and sensor integration. We’ll also explore how Linux interfaces with hardware buses like I²C, SPI, and ADC&#x2F;DAC, complemented by reference code examples.</p>
-<hr>
-<h2 id="1-Understanding-the-Linux-Input-Event-System"><a href="#1-Understanding-the-Linux-Input-Event-System" class="headerlink" title="1. Understanding the Linux Input Event System"></a><strong>1. Understanding the Linux Input Event System</strong></h2><h3 id="What-Is-an-Event-in-Linux"><a href="#What-Is-an-Event-in-Linux" class="headerlink" title="What Is an Event in Linux?"></a>What Is an Event in Linux?</h3><p>An <strong>event</strong> in the Linux input system represents an input action. For example:</p>
-<ul>
-<li>A key press on a keyboard generates a <code>KEY_PRESS</code> event.</li>
-<li>A touchscreen tap produces <code>ABS</code> (absolute position) events.</li>
-<li>Sensor data updates trigger events for user-space applications.</li>
-</ul>
-<h3 id="How-Events-Are-Generated-and-Delivered"><a href="#How-Events-Are-Generated-and-Delivered" class="headerlink" title="How Events Are Generated and Delivered"></a>How Events Are Generated and Delivered</h3><p>The Linux kernel manages events using the <strong>event device interface</strong> (<code>/dev/input/eventX</code>). Events are represented as structures of type <code>input_event</code> in <code>linux/input.h</code>:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">input_event</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">time</span>;</span>  <span class="comment">// Timestamp</span></span><br><span class="line">    __u16 type;           <span class="comment">// Event type (e.g., EV_KEY, EV_ABS)</span></span><br><span class="line">    __u16 code;           <span class="comment">// Event code (specific key or axis)</span></span><br><span class="line">    __s32 value;          <span class="comment">// Event value (pressed/released or position)</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li><p><strong>Event Generation</strong>  </p>
-<ul>
-<li>A driver populates an <code>input_event</code> structure and calls <code>input_event()</code> or <code>input_sync()</code> to propagate the event.</li>
-<li>Example: A key press might call:</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">input_event(dev, EV_KEY, KEY_A, <span class="number">1</span>); <span class="comment">// Press &#x27;A&#x27;</span></span><br><span class="line">input_sync(dev);                   <span class="comment">// Sync the event</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Event Delivery</strong>  </p>
-<ul>
-<li>Events are written to <code>/dev/input/eventX</code> and can be read by user-space applications.</li>
-<li>Use the <strong>evdev</strong> interface in user-space to read events.</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="2-Linux-Key-Management-System"><a href="#2-Linux-Key-Management-System" class="headerlink" title="2. Linux Key Management System"></a><strong>2. Linux Key Management System</strong></h2><p>Linux manages keyboard input through the <strong>key management system</strong>, handling actions like key presses and releases. Keycodes are mapped to specific actions using <strong>keymaps</strong>.</p>
-<h3 id="Implementing-Key-Events"><a href="#Implementing-Key-Events" class="headerlink" title="Implementing Key Events"></a>Implementing Key Events</h3><p>Example: A keyboard driver generating a key event:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/input.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">example_key_event</span><span class="params">(<span class="keyword">struct</span> input_dev *dev)</span> &#123;</span><br><span class="line">    input_event(dev, EV_KEY, KEY_A, <span class="number">1</span>); <span class="comment">// Key A pressed</span></span><br><span class="line">    input_sync(dev);                   <span class="comment">// Synchronize event</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Reading-Key-Events-in-User-Space"><a href="#Reading-Key-Events-in-User-Space" class="headerlink" title="Reading Key Events in User Space"></a>Reading Key Events in User Space</h3><p>In user space, use the <strong>evdev API</strong> to read key events:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/input.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">input_event</span> <span class="title">ev</span>;</span></span><br><span class="line">    <span class="type">int</span> fd = open(<span class="string">&quot;/dev/input/event0&quot;</span>, O_RDONLY);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (fd &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Failed to open event device&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (read(fd, &amp;ev, <span class="keyword">sizeof</span>(ev)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Event type: %d, code: %d, value: %d\n&quot;</span>, ev.type, ev.code, ev.value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    close(fd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="3-Touchscreen-Management-in-Linux"><a href="#3-Touchscreen-Management-in-Linux" class="headerlink" title="3. Touchscreen Management in Linux"></a><strong>3. Touchscreen Management in Linux</strong></h2><p>Touchscreens use the <strong>absolute position (EV_ABS)</strong> event type to report x&#x2F;y coordinates, pressure, and multitouch gestures.</p>
-<h3 id="Handling-Touch-Events-in-a-Driver"><a href="#Handling-Touch-Events-in-a-Driver" class="headerlink" title="Handling Touch Events in a Driver"></a>Handling Touch Events in a Driver</h3><p>Touchscreen drivers report events using <code>EV_ABS</code>:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/input.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">report_touch</span><span class="params">(<span class="keyword">struct</span> input_dev *dev, <span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> pressure)</span> &#123;</span><br><span class="line">    input_event(dev, EV_ABS, ABS_X, x);</span><br><span class="line">    input_event(dev, EV_ABS, ABS_Y, y);</span><br><span class="line">    input_event(dev, EV_ABS, ABS_PRESSURE, pressure);</span><br><span class="line">    input_sync(dev);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Reading-Touch-Events"><a href="#Reading-Touch-Events" class="headerlink" title="Reading Touch Events"></a>Reading Touch Events</h3><p>Use <code>evdev</code> to capture touch events:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">input_event</span> <span class="title">ev</span>;</span></span><br><span class="line"><span class="keyword">while</span> (read(fd, &amp;ev, <span class="keyword">sizeof</span>(ev)) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ev.type == EV_ABS) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;ABS event: code=%d, value=%d\n&quot;</span>, ev.code, ev.value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="4-Sensor-Integration-in-Linux"><a href="#4-Sensor-Integration-in-Linux" class="headerlink" title="4. Sensor Integration in Linux"></a><strong>4. Sensor Integration in Linux</strong></h2><p>Sensors (e.g., temperature, accelerometers) often connect via I²C, SPI, or ADC&#x2F;DAC. Linux supports sensors through the <strong>Industrial I&#x2F;O (IIO)</strong> subsystem or custom drivers.</p>
-<h3 id="I²C-Example-Reading-Sensor-Data"><a href="#I²C-Example-Reading-Sensor-Data" class="headerlink" title="I²C Example: Reading Sensor Data"></a>I²C Example: Reading Sensor Data</h3><p>An I²C-based driver might communicate with a temperature sensor:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/i2c.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">read_sensor</span><span class="params">(<span class="keyword">struct</span> i2c_client *client)</span> &#123;</span><br><span class="line">    u8 buf[<span class="number">2</span>];</span><br><span class="line">    <span class="type">int</span> ret = i2c_master_recv(client, buf, <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">if</span> (ret &lt; <span class="number">0</span>) <span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> temp = (buf[<span class="number">0</span>] &lt;&lt; <span class="number">8</span>) | buf[<span class="number">1</span>]; <span class="comment">// Combine bytes</span></span><br><span class="line">    <span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="SPI-Example-Writing-to-a-Sensor"><a href="#SPI-Example-Writing-to-a-Sensor" class="headerlink" title="SPI Example: Writing to a Sensor"></a>SPI Example: Writing to a Sensor</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/spi/spi.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">write_sensor</span><span class="params">(<span class="keyword">struct</span> spi_device *spi, u8 reg, u8 value)</span> &#123;</span><br><span class="line">    u8 tx_buf[<span class="number">2</span>] = &#123; reg, value &#125;;</span><br><span class="line">    <span class="keyword">return</span> spi_write(spi, tx_buf, <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="ADC-DAC-for-Analog-Sensors"><a href="#ADC-DAC-for-Analog-Sensors" class="headerlink" title="ADC&#x2F;DAC for Analog Sensors"></a>ADC&#x2F;DAC for Analog Sensors</h3><p>For sensors with analog output, the kernel’s IIO subsystem handles ADC sampling. Configure the ADC driver to provide sensor values in <code>/sys/bus/iio</code>.</p>
-<hr>
-<h2 id="5-Using-Events-to-Manage-Sensors"><a href="#5-Using-Events-to-Manage-Sensors" class="headerlink" title="5. Using Events to Manage Sensors"></a><strong>5. Using Events to Manage Sensors</strong></h2><p>Sensors can trigger events when thresholds are exceeded, using the <code>input_event</code> API or dedicated mechanisms like GPIO interrupts.</p>
-<h3 id="Example-Event-Based-Temperature-Alert"><a href="#Example-Event-Based-Temperature-Alert" class="headerlink" title="Example: Event-Based Temperature Alert"></a>Example: Event-Based Temperature Alert</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">handle_temp_event</span><span class="params">(<span class="keyword">struct</span> input_dev *dev, <span class="type">int</span> temp)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (temp &gt; THRESHOLD) &#123;</span><br><span class="line">        input_event(dev, EV_MSC, MSC_SERIAL, temp); <span class="comment">// Report temperature</span></span><br><span class="line">        input_sync(dev);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>User space can read and act on these events as described above.</p>
-<hr>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>The Linux input system is highly versatile, enabling developers to handle various input sources, from traditional keyboards to advanced sensors. By leveraging the event-driven architecture, key management, and integration with buses like I²C and SPI, developers can create powerful, responsive applications. Whether you’re managing a touchscreen or an industrial sensor network, understanding these core concepts ensures seamless input handling in Linux systems. </p>
-<p>For further exploration, consult the Linux kernel documentation and experiment with the provided code examples!</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/linux-input-subsystem/" data-id="cm5c7gmuc000hdgvy6odogmt0" data-title="Exploring the Linux Input System: Events, Key Management, Touchscreens, and Sensor Integration" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-linux-kernel-debug" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/31/linux-kernel-debug/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/linux-kernel-debug/">Debugging the Linux Kernel: A Comprehensive Guide</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Debugging the Linux kernel is a critical skill for developers working on kernel modules, drivers, or debugging complex system issues. This article explains how the kernel implements <code>printk</code>, the role of console drivers, and the relationship between <code>printk</code> and the Linux console. Additionally, we explore advanced debugging techniques, including storing kernel logs in RAM, enabling kernel hacking options, and using tools like <code>kgdb</code>, ftrace, and dynamic debugging.</p>
-<hr>
-<h2 id="Understanding-printk-in-Linux"><a href="#Understanding-printk-in-Linux" class="headerlink" title="Understanding printk in Linux"></a><strong>Understanding <code>printk</code> in Linux</strong></h2><h3 id="What-is-printk"><a href="#What-is-printk" class="headerlink" title="What is printk?"></a><strong>What is <code>printk</code>?</strong></h3><p><code>printk</code> is the primary logging function in the Linux kernel, similar to <code>printf</code> in user space. It provides a way to print messages from kernel space to the system log buffer.</p>
-<h3 id="How-printk-Works"><a href="#How-printk-Works" class="headerlink" title="How printk Works"></a><strong>How <code>printk</code> Works</strong></h3><ol>
-<li><p><strong>Ring Buffer</strong>: Kernel messages are stored in a circular ring buffer managed by the kernel log subsystem.</p>
-<ul>
-<li>The buffer is limited in size and overwrites old messages when full.</li>
-<li>The buffer is exposed to user-space tools like <code>dmesg</code>.</li>
-</ul>
-</li>
-<li><p><strong>Log Levels</strong>: <code>printk</code> supports log levels to categorize messages:</p>
-<ul>
-<li>Levels range from <code>KERN_EMERG</code> (critical) to <code>KERN_DEBUG</code> (debugging information).</li>
-<li>Example: <code>printk(KERN_INFO &quot;Info message\n&quot;);</code>.</li>
-</ul>
-</li>
-<li><p><strong>Console Handling</strong>: Messages in the ring buffer are sent to registered console drivers for output, such as the VGA console or serial console.</p>
-</li>
-</ol>
-<h3 id="Example-Implementation-of-printk"><a href="#Example-Implementation-of-printk" class="headerlink" title="Example Implementation of printk"></a><strong>Example Implementation of <code>printk</code></strong></h3><p>When you invoke <code>printk</code>:</p>
-<ul>
-<li>The message is formatted and added to the kernel’s log buffer.</li>
-<li>The kernel dispatches the message to all registered console drivers for output.</li>
-</ul>
-<hr>
-<h2 id="Implementing-a-Linux-Console-Driver"><a href="#Implementing-a-Linux-Console-Driver" class="headerlink" title="Implementing a Linux Console Driver"></a><strong>Implementing a Linux Console Driver</strong></h2><p>A Linux console driver is responsible for displaying <code>printk</code> messages to a physical or virtual device, such as a screen or serial port.</p>
-<h3 id="Structure-of-a-Console-Driver"><a href="#Structure-of-a-Console-Driver" class="headerlink" title="Structure of a Console Driver"></a><strong>Structure of a Console Driver</strong></h3><p>A typical console driver consists of:</p>
-<ul>
-<li><strong>Console Structure</strong>: Defines the driver properties.</li>
-<li><strong>Console Operations</strong>: Provides methods like <code>write</code> to handle output.</li>
-</ul>
-<h3 id="Sample-Console-Driver-Skeleton"><a href="#Sample-Console-Driver-Skeleton" class="headerlink" title="Sample Console Driver Skeleton"></a><strong>Sample Console Driver Skeleton</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/console.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">my_console_write</span><span class="params">(<span class="keyword">struct</span> console *console, <span class="type">const</span> <span class="type">char</span> *str, <span class="type">unsigned</span> <span class="type">int</span> count)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Output the string to a custom device</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">unsigned</span> <span class="type">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        <span class="comment">// Example: Output to a serial port</span></span><br><span class="line">        hardware_write(str[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">console</span> <span class="title">my_console</span> =</span> &#123;</span><br><span class="line">    .name   = <span class="string">&quot;my_console&quot;</span>,</span><br><span class="line">    .write  = my_console_write,</span><br><span class="line">    .flags  = CON_PRINTBUFFER,</span><br><span class="line">    .index  = <span class="number">-1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> __init <span class="title function_">my_console_init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    register_console(&amp;my_console);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> __exit <span class="title function_">my_console_exit</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    unregister_console(&amp;my_console);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module_init(my_console_init);</span><br><span class="line">module_exit(my_console_exit);</span><br><span class="line"></span><br><span class="line">MODULE_LICENSE(<span class="string">&quot;GPL&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Relationship-Between-printk-and-Console"><a href="#Relationship-Between-printk-and-Console" class="headerlink" title="Relationship Between printk and Console"></a><strong>Relationship Between <code>printk</code> and Console</strong></h3><ol>
-<li><code>printk</code> writes messages to the kernel’s log buffer.</li>
-<li>The kernel dispatches log messages to registered console drivers.</li>
-<li>The console driver outputs messages to the appropriate device, such as a terminal or serial port.</li>
-</ol>
-<hr>
-<h2 id="Storing-Kernel-Logs-dmesg-in-RAM"><a href="#Storing-Kernel-Logs-dmesg-in-RAM" class="headerlink" title="Storing Kernel Logs (dmesg) in RAM"></a><strong>Storing Kernel Logs (<code>dmesg</code>) in RAM</strong></h2><p>To store kernel messages in RAM:</p>
-<ol>
-<li><p><strong>Configure Kernel Options</strong>: Use the <code>CONFIG_PRINTK</code> and <code>CONFIG_LOG_BUF_SHIFT</code> options to adjust the size of the kernel log buffer.</p>
-<ul>
-<li>Example: <code>CONFIG_LOG_BUF_SHIFT=17</code> allocates a 128KB buffer.</li>
-</ul>
-</li>
-<li><p><strong>Access Logs with <code>dmesg</code></strong>:</p>
-<ul>
-<li>Logs are exposed through <code>/dev/kmsg</code> or by the <code>dmesg</code> command.</li>
-<li>To keep logs persistent, you can redirect them to a reserved memory region.</li>
-</ul>
-</li>
-<li><p><strong>Persistent Kernel Logs</strong>:</p>
-<ul>
-<li>Use the <code>pstore</code> subsystem to save logs in NVRAM or another persistent storage medium for debugging after reboots.</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="Advanced-Kernel-Debugging-Techniques"><a href="#Advanced-Kernel-Debugging-Techniques" class="headerlink" title="Advanced Kernel Debugging Techniques"></a><strong>Advanced Kernel Debugging Techniques</strong></h2><h3 id="1-Kernel-Hacking-Options"><a href="#1-Kernel-Hacking-Options" class="headerlink" title="1. Kernel Hacking Options"></a><strong>1. Kernel Hacking Options</strong></h3><p>Enable debugging features in the kernel:</p>
-<ul>
-<li><strong><code>CONFIG_DEBUG_KERNEL</code></strong>: Enables debugging features.</li>
-<li><strong><code>CONFIG_KGDB</code></strong>: Adds support for kernel debugging with GDB.</li>
-<li><strong><code>CONFIG_DEBUG_FS</code></strong>: Provides a filesystem for kernel debugging.</li>
-</ul>
-<h3 id="2-Kernel-Debugging-Tools"><a href="#2-Kernel-Debugging-Tools" class="headerlink" title="2. Kernel Debugging Tools"></a><strong>2. Kernel Debugging Tools</strong></h3><h4 id="kgdb-Kernel-GNU-Debugger"><a href="#kgdb-Kernel-GNU-Debugger" class="headerlink" title="kgdb (Kernel GNU Debugger)"></a><strong>kgdb (Kernel GNU Debugger)</strong></h4><p><code>kgdb</code> allows live debugging of the kernel using GDB. It works over serial or network connections.</p>
-<ul>
-<li><strong>Enable kgdb</strong>:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_KGDB=y</span><br><span class="line">CONFIG_KGDB_SERIAL_CONSOLE=y</span><br></pre></td></tr></table></figure></li>
-<li><strong>Usage</strong>:<ol>
-<li>Boot the kernel with <code>kgdbwait</code>.</li>
-<li>Attach GDB to the kernel.</li>
-</ol>
-</li>
-</ul>
-<h4 id="ftrace"><a href="#ftrace" class="headerlink" title="ftrace"></a><strong>ftrace</strong></h4><p><code>ftrace</code> provides tracing capabilities for function calls, interrupts, and events in the kernel.</p>
-<ul>
-<li><strong>Enable ftrace</strong>:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_FUNCTION_TRACER=y</span><br><span class="line">CONFIG_FUNCTION_GRAPH_TRACER=y</span><br></pre></td></tr></table></figure></li>
-<li><strong>Usage</strong>:<ul>
-<li>Enable tracing via <code>/sys/kernel/debug/tracing</code>.</li>
-</ul>
-</li>
-</ul>
-<h4 id="Dynamic-Debugging"><a href="#Dynamic-Debugging" class="headerlink" title="Dynamic Debugging"></a><strong>Dynamic Debugging</strong></h4><p>Allows adding debug statements dynamically without rebuilding the kernel.</p>
-<ul>
-<li><strong>Enable dynamic debugging</strong>:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_DYNAMIC_DEBUG=y</span><br></pre></td></tr></table></figure></li>
-<li><strong>Control debug logs</strong>:<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;module my_module +p&quot; &gt; /sys/kernel/debug/dynamic_debug/control</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="3-Kprobes-and-eBPF"><a href="#3-Kprobes-and-eBPF" class="headerlink" title="3. Kprobes and eBPF"></a><strong>3. Kprobes and eBPF</strong></h3><h4 id="Kprobes-Instrument-specific-kernel-instructions-for-debugging"><a href="#Kprobes-Instrument-specific-kernel-instructions-for-debugging" class="headerlink" title="Kprobes: Instrument specific kernel instructions for debugging."></a><strong>Kprobes</strong>: Instrument specific kernel instructions for debugging.</h4><h4 id="eBPF-Attach-custom-programs-to-kernel-events-for-lightweight-and-flexible-tracing"><a href="#eBPF-Attach-custom-programs-to-kernel-events-for-lightweight-and-flexible-tracing" class="headerlink" title="eBPF: Attach custom programs to kernel events for lightweight and flexible tracing."></a><strong>eBPF</strong>: Attach custom programs to kernel events for lightweight and flexible tracing.</h4><h3 id="4-Kernel-Dump-Analysis"><a href="#4-Kernel-Dump-Analysis" class="headerlink" title="4. Kernel Dump Analysis"></a><strong>4. Kernel Dump Analysis</strong></h3><p>Use <code>kdump</code> to capture kernel memory during a crash for post-mortem analysis.</p>
-<ul>
-<li><strong>Enable kdump</strong>:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_KEXEC=y</span><br><span class="line">CONFIG_CRASH_DUMP=y</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>Debugging the Linux kernel involves understanding core mechanisms like <code>printk</code> and console drivers while leveraging advanced tools like <code>kgdb</code>, <code>ftrace</code>, and <code>kprobes</code>. By mastering these techniques, developers can efficiently diagnose and resolve kernel-level issues, ensuring system stability and performance.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/linux-kernel-debug/" data-id="cm5c7gmuc000idgvycdy4867z" data-title="Debugging the Linux Kernel: A Comprehensive Guide" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-linux-network-intro" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/31/linux-network-intro/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/linux-network-intro/">Understanding Linux Network Architecture: OSI Model, TCP/IP Stack, and Implementation Details</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Linux’s networking subsystem is a robust and flexible implementation that supports various networking technologies, including Ethernet, Wi-Fi, Bluetooth, and cellular networks. This article explains how Linux aligns with networking models like the OSI and TCP&#x2F;IP, the role of netlink, and how low-level network device drivers integrate with the system. Additionally, we’ll explore how these technologies work together to provide seamless connectivity.</p>
-<hr>
-<h2 id="Linux-Networking-and-the-OSI-Model"><a href="#Linux-Networking-and-the-OSI-Model" class="headerlink" title="Linux Networking and the OSI Model"></a><strong>Linux Networking and the OSI Model</strong></h2><p>The OSI (Open Systems Interconnection) model divides network functionality into seven layers:</p>
-<ol>
-<li><strong>Physical Layer</strong>: Hardware connections like Ethernet cables and Wi-Fi radios.</li>
-<li><strong>Data Link Layer</strong>: Protocols like Ethernet and 802.11 (Wi-Fi) manage access to the physical medium.</li>
-<li><strong>Network Layer</strong>: Handles routing and forwarding (e.g., IP).</li>
-<li><strong>Transport Layer</strong>: Provides reliable communication (TCP) or faster, connectionless services (UDP).</li>
-<li><strong>Session Layer</strong>: Establishes and maintains connections.</li>
-<li><strong>Presentation Layer</strong>: Translates data formats.</li>
-<li><strong>Application Layer</strong>: Interacts with user applications (e.g., HTTP, FTP).</li>
-</ol>
-<p>While the OSI model is theoretical, Linux implements networking based on the practical <strong>TCP&#x2F;IP stack</strong>, which merges some layers for simplicity.</p>
-<hr>
-<h2 id="Linux-Networking-and-the-TCP-IP-Stack"><a href="#Linux-Networking-and-the-TCP-IP-Stack" class="headerlink" title="Linux Networking and the TCP&#x2F;IP Stack"></a><strong>Linux Networking and the TCP&#x2F;IP Stack</strong></h2><p>The TCP&#x2F;IP stack used in Linux has four layers:</p>
-<ol>
-<li><strong>Link Layer</strong>: Corresponds to the OSI Physical and Data Link layers.</li>
-<li><strong>Network Layer</strong>: Manages IP and routing.</li>
-<li><strong>Transport Layer</strong>: Implements protocols like TCP, UDP, and SCTP.</li>
-<li><strong>Application Layer</strong>: Handles protocols like HTTP, DNS, and SMTP.</li>
-</ol>
-<h3 id="Linux-Source-Code-Examples"><a href="#Linux-Source-Code-Examples" class="headerlink" title="Linux Source Code Examples"></a><strong>Linux Source Code Examples</strong></h3><h4 id="Link-Layer-Network-Device-Driver"><a href="#Link-Layer-Network-Device-Driver" class="headerlink" title="Link Layer (Network Device Driver)"></a>Link Layer (Network Device Driver)</h4><p>Located in <code>/drivers/net/</code>. For example:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Ethernet example (e1000_main.c)</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">e1000_probe</span><span class="params">(<span class="keyword">struct</span> pci_dev *pdev, <span class="type">const</span> <span class="keyword">struct</span> pci_device_id *ent)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">net_device</span> *<span class="title">netdev</span> =</span> alloc_etherdev(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> e1000_adapter));</span><br><span class="line">    pci_enable_device(pdev);</span><br><span class="line">    <span class="comment">// Other hardware initialization</span></span><br><span class="line">    <span class="keyword">return</span> register_netdev(netdev);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Network-Layer-IP-Routing"><a href="#Network-Layer-IP-Routing" class="headerlink" title="Network Layer (IP Routing)"></a>Network Layer (IP Routing)</h4><p>The routing implementation resides in <code>/net/ipv4/route.c</code>. </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Example: ip_forward()</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">ip_forward</span><span class="params">(<span class="keyword">struct</span> sk_buff *skb)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">iphdr</span> *<span class="title">iph</span> =</span> ip_hdr(skb);</span><br><span class="line">    <span class="comment">// Check packet validity, route, and forward</span></span><br><span class="line">    <span class="keyword">return</span> dst_output(dev_net(skb-&gt;dev), skb-&gt;sk, skb);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Transport-Layer-TCP-Implementation"><a href="#Transport-Layer-TCP-Implementation" class="headerlink" title="Transport Layer (TCP Implementation)"></a>Transport Layer (TCP Implementation)</h4><p>TCP is implemented in <code>/net/ipv4/tcp.c</code>.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Example: tcp_transmit_skb()</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">tcp_transmit_skb</span><span class="params">(<span class="keyword">struct</span> sock *sk, <span class="keyword">struct</span> sk_buff *skb, <span class="type">int</span> rst)</span> &#123;</span><br><span class="line">    <span class="comment">// Prepare and send TCP packet</span></span><br><span class="line">    tcp_queue_skb(sk, skb);</span><br><span class="line">    ip_queue_xmit(skb, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Application-Layer"><a href="#Application-Layer" class="headerlink" title="Application Layer"></a>Application Layer</h4><p>Applications interact with the kernel through system calls like <code>socket()</code>. Example:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sockfd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">connect(sockfd, &amp;server_addr, <span class="keyword">sizeof</span>(server_addr));</span><br><span class="line">send(sockfd, data, len, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="Netlink-Kernel-User-Communication"><a href="#Netlink-Kernel-User-Communication" class="headerlink" title="Netlink: Kernel-User Communication"></a><strong>Netlink: Kernel-User Communication</strong></h2><p>Netlink is a socket-based mechanism used to communicate between user space and kernel space for network configuration and management.</p>
-<h3 id="Key-Features"><a href="#Key-Features" class="headerlink" title="Key Features"></a><strong>Key Features</strong></h3><ul>
-<li>Configures routing, interfaces, and filters.</li>
-<li>Notifies user space of events like link changes.</li>
-</ul>
-<h3 id="Netlink-Implementation"><a href="#Netlink-Implementation" class="headerlink" title="Netlink Implementation"></a><strong>Netlink Implementation</strong></h3><p>Netlink handlers are implemented in <code>/net/netlink/</code>.</p>
-<h4 id="Example-Route-Addition-via-Netlink"><a href="#Example-Route-Addition-via-Netlink" class="headerlink" title="Example: Route Addition via Netlink"></a>Example: Route Addition via Netlink</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">nlmsghdr</span> *<span class="title">nlh</span> =</span> nlmsg_put(skb, pid, seq, RTM_NEWROUTE, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> rtmsg), <span class="number">0</span>);</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rtmsg</span> *<span class="title">rtm</span> =</span> nlmsg_data(nlh);</span><br><span class="line"><span class="comment">// Fill rtm fields</span></span><br><span class="line">netlink_unicast(sock, skb, pid, MSG_DONTWAIT);</span><br></pre></td></tr></table></figure>
-
-<h3 id="User-Space-Example"><a href="#User-Space-Example" class="headerlink" title="User Space Example"></a><strong>User Space Example</strong></h3><p>Tools like <code>ip</code> (from <code>iproute2</code>) use netlink:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> eth0 up</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="Low-Level-Linux-Network-Device-Drivers"><a href="#Low-Level-Linux-Network-Device-Drivers" class="headerlink" title="Low-Level Linux Network Device Drivers"></a><strong>Low-Level Linux Network Device Drivers</strong></h2><p>Network device drivers interface between hardware and the kernel, abstracting hardware details for the kernel networking stack.</p>
-<h3 id="Key-Operations"><a href="#Key-Operations" class="headerlink" title="Key Operations"></a><strong>Key Operations</strong></h3><ol>
-<li><p><strong>Initialization</strong>:</p>
-<ul>
-<li>Probed via bus-specific interfaces (PCI, USB, etc.).</li>
-<li>Registers itself with the networking subsystem using <code>register_netdev()</code>.</li>
-</ul>
-</li>
-<li><p><strong>Packet Transmission</strong>:</p>
-<ul>
-<li>Implements <code>ndo_start_xmit()</code> to handle outgoing packets.</li>
-</ul>
-</li>
-<li><p><strong>Packet Reception</strong>:</p>
-<ul>
-<li>Triggers a hardware interrupt when packets arrive.</li>
-<li>Uses <code>netif_rx()</code> or <code>napi_schedule()</code> to pass packets to the stack.</li>
-</ul>
-</li>
-</ol>
-<h3 id="Driver-Example-Ethernet"><a href="#Driver-Example-Ethernet" class="headerlink" title="Driver Example: Ethernet"></a><strong>Driver Example: Ethernet</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">netdev_tx_t</span> <span class="title function_">my_driver_start_xmit</span><span class="params">(<span class="keyword">struct</span> sk_buff *skb, <span class="keyword">struct</span> net_device *dev)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">my_driver_priv</span> *<span class="title">priv</span> =</span> netdev_priv(dev);</span><br><span class="line">    dma_map_single(&amp;priv-&gt;pdev-&gt;dev, skb-&gt;data, skb-&gt;len, DMA_TO_DEVICE);</span><br><span class="line">    netdev_tx_completed_queue(priv-&gt;tx_queue, <span class="number">1</span>, skb-&gt;len);</span><br><span class="line">    <span class="keyword">return</span> NETDEV_TX_OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="Wireless-Networking-Wi-Fi-Bluetooth-and-Cellular"><a href="#Wireless-Networking-Wi-Fi-Bluetooth-and-Cellular" class="headerlink" title="Wireless Networking: Wi-Fi, Bluetooth, and Cellular"></a><strong>Wireless Networking: Wi-Fi, Bluetooth, and Cellular</strong></h2><h3 id="1-Wi-Fi"><a href="#1-Wi-Fi" class="headerlink" title="1. Wi-Fi"></a><strong>1. Wi-Fi</strong></h3><p>Wi-Fi is implemented via the mac80211 subsystem in <code>/net/mac80211/</code>. It provides a common interface for Wi-Fi drivers.</p>
-<h4 id="Key-Components"><a href="#Key-Components" class="headerlink" title="Key Components"></a>Key Components</h4><ul>
-<li><strong>Station Mode</strong>: Connects to access points.</li>
-<li><strong>Access Point Mode</strong>: Acts as an AP for other devices.</li>
-</ul>
-<h4 id="Driver-Example-Wi-Fi-Device"><a href="#Driver-Example-Wi-Fi-Device" class="headerlink" title="Driver Example: Wi-Fi Device"></a>Driver Example: Wi-Fi Device</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">my_wifi_probe</span><span class="params">(<span class="keyword">struct</span> pci_dev *pdev, <span class="type">const</span> <span class="keyword">struct</span> pci_device_id *id)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ieee80211_hw</span> *<span class="title">hw</span> =</span> ieee80211_alloc_hw(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> my_priv), &amp;my_ops);</span><br><span class="line">    pci_enable_device(pdev);</span><br><span class="line">    <span class="keyword">return</span> ieee80211_register_hw(hw);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-Bluetooth"><a href="#2-Bluetooth" class="headerlink" title="2. Bluetooth"></a><strong>2. Bluetooth</strong></h3><p>Linux Bluetooth stack includes:</p>
-<ul>
-<li><strong>HCI Layer</strong>: Interfaces with hardware.</li>
-<li><strong>L2CAP Layer</strong>: Multiplexing protocol for higher layers.</li>
-<li><strong>Profiles</strong>: Implement user-level services like A2DP.</li>
-</ul>
-<h4 id="Bluetooth-Initialization"><a href="#Bluetooth-Initialization" class="headerlink" title="Bluetooth Initialization"></a>Bluetooth Initialization</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hci_dev = hci_register_dev(hdev);</span><br><span class="line">hci_register_proto(&amp;my_proto);</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-Cellular-Modems"><a href="#3-Cellular-Modems" class="headerlink" title="3. Cellular (Modems)"></a><strong>3. Cellular (Modems)</strong></h3><p>Cellular network drivers communicate over USB or PCI. Implemented under <code>/drivers/net/usb/</code>.</p>
-<hr>
-<h2 id="Binding-Networking-Technologies-Together"><a href="#Binding-Networking-Technologies-Together" class="headerlink" title="Binding Networking Technologies Together"></a><strong>Binding Networking Technologies Together</strong></h2><p>Linux uses a unified approach for integrating diverse networking technologies:</p>
-<ol>
-<li><strong>Unified Sockets API</strong>: Applications use <code>socket()</code> regardless of the underlying transport (Ethernet, Wi-Fi, Bluetooth).</li>
-<li><strong>Common Configuration Tools</strong>: Tools like <code>ifconfig</code>, <code>ip</code>, and <code>iw</code> configure all types of network interfaces.</li>
-<li><strong>Dynamic Device Management</strong>:<ul>
-<li>Interfaces are dynamically created for each technology.</li>
-<li>Example: <code>wlan0</code> for Wi-Fi, <code>eth0</code> for Ethernet.</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="How-Users-Can-Work-with-These-Technologies"><a href="#How-Users-Can-Work-with-These-Technologies" class="headerlink" title="How Users Can Work with These Technologies"></a><strong>How Users Can Work with These Technologies</strong></h2><h3 id="1-Ethernet"><a href="#1-Ethernet" class="headerlink" title="1. Ethernet"></a><strong>1. Ethernet</strong></h3><ul>
-<li>Bring up an interface:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig eth0 up</span><br></pre></td></tr></table></figure></li>
-<li>Debug with <code>ethtool</code>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ethtool eth0</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="2-Wi-Fi"><a href="#2-Wi-Fi" class="headerlink" title="2. Wi-Fi"></a><strong>2. Wi-Fi</strong></h3><ul>
-<li>Scan for networks:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwlist wlan0 scan</span><br></pre></td></tr></table></figure></li>
-<li>Connect to a network:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwconfig wlan0 essid <span class="string">&quot;MyNetwork&quot;</span> key s:password</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="3-Bluetooth"><a href="#3-Bluetooth" class="headerlink" title="3. Bluetooth"></a><strong>3. Bluetooth</strong></h3><ul>
-<li>Pair with a device:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bluetoothctl</span><br></pre></td></tr></table></figure></li>
-<li>Send a file:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obexctl send &lt;file&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="4-Cellular"><a href="#4-Cellular" class="headerlink" title="4. Cellular"></a><strong>4. Cellular</strong></h3><ul>
-<li>Configure modem:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mmcli -m 0 --simple-connect=<span class="string">&quot;apn=myapn&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>The Linux networking stack is a sophisticated system that integrates diverse technologies under a unified architecture. By understanding the OSI model, TCP&#x2F;IP stack, netlink, and network device drivers, developers can better harness Linux’s networking capabilities. Wireless technologies like Wi-Fi, Bluetooth, and cellular seamlessly coexist alongside Ethernet, making Linux a versatile platform for modern networking needs.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/linux-network-intro/" data-id="cm5c7gmud000jdgvygpd23v5t" data-title="Understanding Linux Network Architecture: OSI Model, TCP/IP Stack, and Implementation Details" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/31/linux-devicedriver-intro/" data-id="cm71ouvni000lwcvyd422dlc8" data-title="Linux Device Driver Introduction" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1133,7 +1071,100 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/linux-pci-intro/" data-id="cm5c7gmue000kdgvyf30madxe" data-title="Understanding PCI in the Linux Kernel: Architecture, Registers, Speed, and Testing" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/31/linux-pci-intro/" data-id="cm71ouvnj000mwcvyfez27cu0" data-title="Understanding PCI in the Linux Kernel: Architecture, Registers, Speed, and Testing" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-linux-userspace-debug" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/31/linux-userspace-debug/" class="article-date">
+  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/31/linux-userspace-debug/">Testing Linux I2C, USB, and PCI Drivers Using Userspace Tools and `Sysfs`</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Linux provides robust mechanisms for interacting with devices via <code>sysfs</code>. This allows developers to query and manipulate kernel objects from user space. Tools like <code>lsusb</code>, <code>lsi2c</code>, and <code>lspci</code> offer easy ways to test USB, I2C, and PCI devices. This article explains how to use these tools, highlights their underlying mechanisms, and provides practical steps to test Linux drivers.</p>
+<hr>
+<h2 id="Understanding-sysfs"><a href="#Understanding-sysfs" class="headerlink" title="Understanding sysfs"></a><strong>Understanding <code>sysfs</code></strong></h2><p><code>sysfs</code> is a virtual filesystem used to expose kernel and device attributes to user space. It allows users to access hardware details directly.</p>
+<p>Key directories include:</p>
+<ul>
+<li><strong><code>/sys/class/</code></strong>: Lists device classes like <code>usb</code>, <code>i2c-dev</code>, and <code>pci</code>.</li>
+<li><strong><code>/sys/devices/</code></strong>: Provides a hierarchical view of devices.</li>
+<li><strong><code>/sys/bus/</code></strong>: Groups devices and drivers by their bus types (e.g., <code>usb</code>, <code>i2c</code>, <code>pci</code>).</li>
+</ul>
+<h3 id="Common-Commands"><a href="#Common-Commands" class="headerlink" title="Common Commands"></a><strong>Common Commands</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> /sys/bus/usb/devices/    <span class="comment"># List USB devices</span></span><br><span class="line"><span class="built_in">ls</span> /sys/bus/i2c/devices/    <span class="comment"># List I2C devices</span></span><br><span class="line"><span class="built_in">ls</span> /sys/bus/pci/devices/    <span class="comment"># List PCI devices</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Testing-USB-Drivers-with-lsusb"><a href="#Testing-USB-Drivers-with-lsusb" class="headerlink" title="Testing USB Drivers with lsusb"></a><strong>Testing USB Drivers with <code>lsusb</code></strong></h2><p><code>lsusb</code> is a user-space tool for listing USB devices. It retrieves device descriptors, vendor IDs, and product IDs using <code>sysfs</code> and <code>/proc</code>.</p>
+<h3 id="How-lsusb-Works"><a href="#How-lsusb-Works" class="headerlink" title="How lsusb Works"></a><strong>How <code>lsusb</code> Works</strong></h3><p>The source code of <code>lsusb</code> interacts with USB devices via <code>libusb</code>. Here’s a simplified excerpt from the <a target="_blank" rel="noopener" href="https://github.com/gregkh/usbutils/blob/master/lsusb.c">source code</a>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;libusb.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    libusb_context *ctx;</span><br><span class="line">    libusb_device **<span class="built_in">list</span>;</span><br><span class="line">    <span class="type">ssize_t</span> count;</span><br><span class="line"></span><br><span class="line">    libusb_init(&amp;ctx);</span><br><span class="line">    count = libusb_get_device_list(ctx, &amp;<span class="built_in">list</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">ssize_t</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">libusb_device_descriptor</span> <span class="title">desc</span>;</span></span><br><span class="line">        libusb_get_device_descriptor(<span class="built_in">list</span>[i], &amp;desc);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Vendor: %04x, Product: %04x\n&quot;</span>, desc.idVendor, desc.idProduct);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    libusb_free_device_list(<span class="built_in">list</span>, <span class="number">1</span>);</span><br><span class="line">    libusb_exit(ctx);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Installing-and-Running-lsusb"><a href="#Installing-and-Running-lsusb" class="headerlink" title="Installing and Running lsusb"></a><strong>Installing and Running <code>lsusb</code></strong></h3><ol>
+<li>Install <code>lsusb</code>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install usbutils</span><br></pre></td></tr></table></figure></li>
+<li>Run <code>lsusb</code> to list connected USB devices:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsusb</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="Testing-I2C-Drivers-with-lsi2c"><a href="#Testing-I2C-Drivers-with-lsi2c" class="headerlink" title="Testing I2C Drivers with lsi2c"></a><strong>Testing I2C Drivers with <code>lsi2c</code></strong></h2><p><code>lsi2c</code> is a user-space tool for detecting and interacting with I2C devices. It communicates with devices using the <code>/dev/i2c-*</code> interface provided by the <code>i2c-dev</code> kernel module.</p>
+<h3 id="How-lsi2c-Works"><a href="#How-lsi2c-Works" class="headerlink" title="How lsi2c Works"></a><strong>How <code>lsi2c</code> Works</strong></h3><p>The tool reads and writes I2C registers using the <code>ioctl</code> system call. Below is a simplified excerpt from the <a target="_blank" rel="noopener" href="https://github.com/costad2/i2cdev">source code</a>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/i2c-dev.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/ioctl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> file = open(<span class="string">&quot;/dev/i2c-1&quot;</span>, O_RDWR);</span><br><span class="line">    <span class="type">int</span> addr = <span class="number">0x48</span>;</span><br><span class="line"></span><br><span class="line">    ioctl(file, I2C_SLAVE, addr);</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    read(file, buf, <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Data: 0x%x\n&quot;</span>, buf[<span class="number">0</span>]);</span><br><span class="line">    close(file);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Installing-and-Running-lsi2c"><a href="#Installing-and-Running-lsi2c" class="headerlink" title="Installing and Running lsi2c"></a><strong>Installing and Running <code>lsi2c</code></strong></h3><ol>
+<li>Clone the repository:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/costad2/i2cdev.git</span><br><span class="line"><span class="built_in">cd</span> i2cdev</span><br></pre></td></tr></table></figure></li>
+<li>Build and run:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">./lsi2c</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="Testing-PCI-Drivers-with-lspci"><a href="#Testing-PCI-Drivers-with-lspci" class="headerlink" title="Testing PCI Drivers with lspci"></a><strong>Testing PCI Drivers with <code>lspci</code></strong></h2><p><code>lspci</code> is a user-space tool for listing PCI devices and querying their details. It uses the <code>/sys/bus/pci/devices/</code> directory and the <code>/proc/bus/pci</code> filesystem.</p>
+<h3 id="How-lspci-Works"><a href="#How-lspci-Works" class="headerlink" title="How lspci Works"></a><strong>How <code>lspci</code> Works</strong></h3><p>The <a target="_blank" rel="noopener" href="https://github.com/pciutils/pciutils/blob/master/lspci.c">source code</a> interacts with PCI configuration space and device information files. Here’s a simplified example:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pci/pci.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">pci_access</span> *<span class="title">pacc</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">pci_dev</span> *<span class="title">dev</span>;</span></span><br><span class="line">    <span class="type">char</span> namebuf[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line">    pacc = pci_alloc();</span><br><span class="line">    pci_init(pacc);</span><br><span class="line">    pci_scan_bus(pacc);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (dev = pacc-&gt;devices; dev; dev = dev-&gt;next) &#123;</span><br><span class="line">        pci_fill_info(dev, PCI_FILL_IDENT);</span><br><span class="line">        pci_lookup_name(pacc, namebuf, <span class="keyword">sizeof</span>(namebuf), PCI_LOOKUP_DEVICE, dev-&gt;vendor_id, dev-&gt;device_id);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%04x:%02x:%02x.%d %s\n&quot;</span>, dev-&gt;domain, dev-&gt;bus, dev-&gt;dev, dev-&gt;func, namebuf);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pci_cleanup(pacc);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Installing-and-Running-lspci"><a href="#Installing-and-Running-lspci" class="headerlink" title="Installing and Running lspci"></a><strong>Installing and Running <code>lspci</code></strong></h3><ol>
+<li>Install <code>lspci</code>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install pciutils</span><br></pre></td></tr></table></figure></li>
+<li>Run <code>lspci</code> to list PCI devices:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci</span><br></pre></td></tr></table></figure></li>
+<li>Use <code>lspci -vvv</code> to display detailed information about each device.</li>
+</ol>
+<hr>
+<h2 id="Practical-Examples"><a href="#Practical-Examples" class="headerlink" title="Practical Examples"></a><strong>Practical Examples</strong></h2><h3 id="USB-Device-Testing"><a href="#USB-Device-Testing" class="headerlink" title="USB Device Testing"></a><strong>USB Device Testing</strong></h3><ol>
+<li>Connect a USB device.</li>
+<li>Use <code>lsusb</code> to verify detection:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsusb</span><br></pre></td></tr></table></figure></li>
+<li>Check driver binding:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> /sys/bus/usb/drivers/</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="I2C-Device-Testing"><a href="#I2C-Device-Testing" class="headerlink" title="I2C Device Testing"></a><strong>I2C Device Testing</strong></h3><ol>
+<li>Load the <code>i2c-dev</code> kernel module:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> modprobe i2c-dev</span><br></pre></td></tr></table></figure></li>
+<li>Use <code>lsi2c</code> to interact with an I2C device:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./lsi2c</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="PCI-Device-Testing"><a href="#PCI-Device-Testing" class="headerlink" title="PCI Device Testing"></a><strong>PCI Device Testing</strong></h3><ol>
+<li>Run <code>lspci</code> to list devices:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci</span><br></pre></td></tr></table></figure></li>
+<li>Check driver binding for a specific device:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci -vvv -s &lt;bus:slot.func&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p><code>sysfs</code> provides a rich interface for querying and manipulating kernel devices, while tools like <code>lsusb</code>, <code>lsi2c</code>, and <code>lspci</code> simplify testing and debugging of USB, I2C, and PCI devices. Understanding how these tools interact with the kernel and hardware equips developers to validate driver functionality and troubleshoot issues effectively.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/31/linux-userspace-debug/" data-id="cm71ouvnj000nwcvyazwc3acy" data-title="Testing Linux I2C, USB, and PCI Drivers Using Userspace Tools and `Sysfs`" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1304,7 +1335,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/linux-usb-intro/" data-id="cm5c7gmue000ldgvyast1ad24" data-title="Deep Dive Into the Linux USB Subsystem: Implementation and Usage" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/31/linux-usb-intro/" data-id="cm71ouvnk000owcvy7tymgryn" data-title="Deep Dive Into the Linux USB Subsystem: Implementation and Usage" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1316,9 +1347,9 @@
 
 
   
-    <article id="post-linux-userspace-debug" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-linux-kernel-debug" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2024/12/31/linux-userspace-debug/" class="article-date">
+    <a href="/2024/12/31/linux-kernel-debug/" class="article-date">
   <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
 </a>
     
@@ -1330,7 +1361,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/linux-userspace-debug/">Testing Linux I2C, USB, and PCI Drivers Using Userspace Tools and `Sysfs`</a>
+      <a class="p-name article-title" href="/2024/12/31/linux-kernel-debug/">Debugging the Linux Kernel: A Comprehensive Guide</a>
     </h1>
   
 
@@ -1338,180 +1369,104 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>Linux provides robust mechanisms for interacting with devices via <code>sysfs</code>. This allows developers to query and manipulate kernel objects from user space. Tools like <code>lsusb</code>, <code>lsi2c</code>, and <code>lspci</code> offer easy ways to test USB, I2C, and PCI devices. This article explains how to use these tools, highlights their underlying mechanisms, and provides practical steps to test Linux drivers.</p>
+        <p>Debugging the Linux kernel is a critical skill for developers working on kernel modules, drivers, or debugging complex system issues. This article explains how the kernel implements <code>printk</code>, the role of console drivers, and the relationship between <code>printk</code> and the Linux console. Additionally, we explore advanced debugging techniques, including storing kernel logs in RAM, enabling kernel hacking options, and using tools like <code>kgdb</code>, ftrace, and dynamic debugging.</p>
 <hr>
-<h2 id="Understanding-sysfs"><a href="#Understanding-sysfs" class="headerlink" title="Understanding sysfs"></a><strong>Understanding <code>sysfs</code></strong></h2><p><code>sysfs</code> is a virtual filesystem used to expose kernel and device attributes to user space. It allows users to access hardware details directly.</p>
-<p>Key directories include:</p>
+<h2 id="Understanding-printk-in-Linux"><a href="#Understanding-printk-in-Linux" class="headerlink" title="Understanding printk in Linux"></a><strong>Understanding <code>printk</code> in Linux</strong></h2><h3 id="What-is-printk"><a href="#What-is-printk" class="headerlink" title="What is printk?"></a><strong>What is <code>printk</code>?</strong></h3><p><code>printk</code> is the primary logging function in the Linux kernel, similar to <code>printf</code> in user space. It provides a way to print messages from kernel space to the system log buffer.</p>
+<h3 id="How-printk-Works"><a href="#How-printk-Works" class="headerlink" title="How printk Works"></a><strong>How <code>printk</code> Works</strong></h3><ol>
+<li><p><strong>Ring Buffer</strong>: Kernel messages are stored in a circular ring buffer managed by the kernel log subsystem.</p>
 <ul>
-<li><strong><code>/sys/class/</code></strong>: Lists device classes like <code>usb</code>, <code>i2c-dev</code>, and <code>pci</code>.</li>
-<li><strong><code>/sys/devices/</code></strong>: Provides a hierarchical view of devices.</li>
-<li><strong><code>/sys/bus/</code></strong>: Groups devices and drivers by their bus types (e.g., <code>usb</code>, <code>i2c</code>, <code>pci</code>).</li>
+<li>The buffer is limited in size and overwrites old messages when full.</li>
+<li>The buffer is exposed to user-space tools like <code>dmesg</code>.</li>
 </ul>
-<h3 id="Common-Commands"><a href="#Common-Commands" class="headerlink" title="Common Commands"></a><strong>Common Commands</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> /sys/bus/usb/devices/    <span class="comment"># List USB devices</span></span><br><span class="line"><span class="built_in">ls</span> /sys/bus/i2c/devices/    <span class="comment"># List I2C devices</span></span><br><span class="line"><span class="built_in">ls</span> /sys/bus/pci/devices/    <span class="comment"># List PCI devices</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Log Levels</strong>: <code>printk</code> supports log levels to categorize messages:</p>
+<ul>
+<li>Levels range from <code>KERN_EMERG</code> (critical) to <code>KERN_DEBUG</code> (debugging information).</li>
+<li>Example: <code>printk(KERN_INFO &quot;Info message\n&quot;);</code>.</li>
+</ul>
+</li>
+<li><p><strong>Console Handling</strong>: Messages in the ring buffer are sent to registered console drivers for output, such as the VGA console or serial console.</p>
+</li>
+</ol>
+<h3 id="Example-Implementation-of-printk"><a href="#Example-Implementation-of-printk" class="headerlink" title="Example Implementation of printk"></a><strong>Example Implementation of <code>printk</code></strong></h3><p>When you invoke <code>printk</code>:</p>
+<ul>
+<li>The message is formatted and added to the kernel’s log buffer.</li>
+<li>The kernel dispatches the message to all registered console drivers for output.</li>
+</ul>
+<hr>
+<h2 id="Implementing-a-Linux-Console-Driver"><a href="#Implementing-a-Linux-Console-Driver" class="headerlink" title="Implementing a Linux Console Driver"></a><strong>Implementing a Linux Console Driver</strong></h2><p>A Linux console driver is responsible for displaying <code>printk</code> messages to a physical or virtual device, such as a screen or serial port.</p>
+<h3 id="Structure-of-a-Console-Driver"><a href="#Structure-of-a-Console-Driver" class="headerlink" title="Structure of a Console Driver"></a><strong>Structure of a Console Driver</strong></h3><p>A typical console driver consists of:</p>
+<ul>
+<li><strong>Console Structure</strong>: Defines the driver properties.</li>
+<li><strong>Console Operations</strong>: Provides methods like <code>write</code> to handle output.</li>
+</ul>
+<h3 id="Sample-Console-Driver-Skeleton"><a href="#Sample-Console-Driver-Skeleton" class="headerlink" title="Sample Console Driver Skeleton"></a><strong>Sample Console Driver Skeleton</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/console.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">my_console_write</span><span class="params">(<span class="keyword">struct</span> console *console, <span class="type">const</span> <span class="type">char</span> *str, <span class="type">unsigned</span> <span class="type">int</span> count)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Output the string to a custom device</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">unsigned</span> <span class="type">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        <span class="comment">// Example: Output to a serial port</span></span><br><span class="line">        hardware_write(str[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">console</span> <span class="title">my_console</span> =</span> &#123;</span><br><span class="line">    .name   = <span class="string">&quot;my_console&quot;</span>,</span><br><span class="line">    .write  = my_console_write,</span><br><span class="line">    .flags  = CON_PRINTBUFFER,</span><br><span class="line">    .index  = <span class="number">-1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> __init <span class="title function_">my_console_init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    register_console(&amp;my_console);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> __exit <span class="title function_">my_console_exit</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    unregister_console(&amp;my_console);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module_init(my_console_init);</span><br><span class="line">module_exit(my_console_exit);</span><br><span class="line"></span><br><span class="line">MODULE_LICENSE(<span class="string">&quot;GPL&quot;</span>);</span><br></pre></td></tr></table></figure>
 
-<hr>
-<h2 id="Testing-USB-Drivers-with-lsusb"><a href="#Testing-USB-Drivers-with-lsusb" class="headerlink" title="Testing USB Drivers with lsusb"></a><strong>Testing USB Drivers with <code>lsusb</code></strong></h2><p><code>lsusb</code> is a user-space tool for listing USB devices. It retrieves device descriptors, vendor IDs, and product IDs using <code>sysfs</code> and <code>/proc</code>.</p>
-<h3 id="How-lsusb-Works"><a href="#How-lsusb-Works" class="headerlink" title="How lsusb Works"></a><strong>How <code>lsusb</code> Works</strong></h3><p>The source code of <code>lsusb</code> interacts with USB devices via <code>libusb</code>. Here’s a simplified excerpt from the <a target="_blank" rel="noopener" href="https://github.com/gregkh/usbutils/blob/master/lsusb.c">source code</a>:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;libusb.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    libusb_context *ctx;</span><br><span class="line">    libusb_device **<span class="built_in">list</span>;</span><br><span class="line">    <span class="type">ssize_t</span> count;</span><br><span class="line"></span><br><span class="line">    libusb_init(&amp;ctx);</span><br><span class="line">    count = libusb_get_device_list(ctx, &amp;<span class="built_in">list</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">ssize_t</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">libusb_device_descriptor</span> <span class="title">desc</span>;</span></span><br><span class="line">        libusb_get_device_descriptor(<span class="built_in">list</span>[i], &amp;desc);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Vendor: %04x, Product: %04x\n&quot;</span>, desc.idVendor, desc.idProduct);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    libusb_free_device_list(<span class="built_in">list</span>, <span class="number">1</span>);</span><br><span class="line">    libusb_exit(ctx);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Installing-and-Running-lsusb"><a href="#Installing-and-Running-lsusb" class="headerlink" title="Installing and Running lsusb"></a><strong>Installing and Running <code>lsusb</code></strong></h3><ol>
-<li>Install <code>lsusb</code>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install usbutils</span><br></pre></td></tr></table></figure></li>
-<li>Run <code>lsusb</code> to list connected USB devices:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsusb</span><br></pre></td></tr></table></figure></li>
+<h3 id="Relationship-Between-printk-and-Console"><a href="#Relationship-Between-printk-and-Console" class="headerlink" title="Relationship Between printk and Console"></a><strong>Relationship Between <code>printk</code> and Console</strong></h3><ol>
+<li><code>printk</code> writes messages to the kernel’s log buffer.</li>
+<li>The kernel dispatches log messages to registered console drivers.</li>
+<li>The console driver outputs messages to the appropriate device, such as a terminal or serial port.</li>
 </ol>
 <hr>
-<h2 id="Testing-I2C-Drivers-with-lsi2c"><a href="#Testing-I2C-Drivers-with-lsi2c" class="headerlink" title="Testing I2C Drivers with lsi2c"></a><strong>Testing I2C Drivers with <code>lsi2c</code></strong></h2><p><code>lsi2c</code> is a user-space tool for detecting and interacting with I2C devices. It communicates with devices using the <code>/dev/i2c-*</code> interface provided by the <code>i2c-dev</code> kernel module.</p>
-<h3 id="How-lsi2c-Works"><a href="#How-lsi2c-Works" class="headerlink" title="How lsi2c Works"></a><strong>How <code>lsi2c</code> Works</strong></h3><p>The tool reads and writes I2C registers using the <code>ioctl</code> system call. Below is a simplified excerpt from the <a target="_blank" rel="noopener" href="https://github.com/costad2/i2cdev">source code</a>:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/i2c-dev.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/ioctl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> file = open(<span class="string">&quot;/dev/i2c-1&quot;</span>, O_RDWR);</span><br><span class="line">    <span class="type">int</span> addr = <span class="number">0x48</span>;</span><br><span class="line"></span><br><span class="line">    ioctl(file, I2C_SLAVE, addr);</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    read(file, buf, <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Data: 0x%x\n&quot;</span>, buf[<span class="number">0</span>]);</span><br><span class="line">    close(file);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Installing-and-Running-lsi2c"><a href="#Installing-and-Running-lsi2c" class="headerlink" title="Installing and Running lsi2c"></a><strong>Installing and Running <code>lsi2c</code></strong></h3><ol>
-<li>Clone the repository:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/costad2/i2cdev.git</span><br><span class="line"><span class="built_in">cd</span> i2cdev</span><br></pre></td></tr></table></figure></li>
-<li>Build and run:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">./lsi2c</span><br></pre></td></tr></table></figure></li>
+<h2 id="Storing-Kernel-Logs-dmesg-in-RAM"><a href="#Storing-Kernel-Logs-dmesg-in-RAM" class="headerlink" title="Storing Kernel Logs (dmesg) in RAM"></a><strong>Storing Kernel Logs (<code>dmesg</code>) in RAM</strong></h2><p>To store kernel messages in RAM:</p>
+<ol>
+<li><p><strong>Configure Kernel Options</strong>: Use the <code>CONFIG_PRINTK</code> and <code>CONFIG_LOG_BUF_SHIFT</code> options to adjust the size of the kernel log buffer.</p>
+<ul>
+<li>Example: <code>CONFIG_LOG_BUF_SHIFT=17</code> allocates a 128KB buffer.</li>
+</ul>
+</li>
+<li><p><strong>Access Logs with <code>dmesg</code></strong>:</p>
+<ul>
+<li>Logs are exposed through <code>/dev/kmsg</code> or by the <code>dmesg</code> command.</li>
+<li>To keep logs persistent, you can redirect them to a reserved memory region.</li>
+</ul>
+</li>
+<li><p><strong>Persistent Kernel Logs</strong>:</p>
+<ul>
+<li>Use the <code>pstore</code> subsystem to save logs in NVRAM or another persistent storage medium for debugging after reboots.</li>
+</ul>
+</li>
 </ol>
 <hr>
-<h2 id="Testing-PCI-Drivers-with-lspci"><a href="#Testing-PCI-Drivers-with-lspci" class="headerlink" title="Testing PCI Drivers with lspci"></a><strong>Testing PCI Drivers with <code>lspci</code></strong></h2><p><code>lspci</code> is a user-space tool for listing PCI devices and querying their details. It uses the <code>/sys/bus/pci/devices/</code> directory and the <code>/proc/bus/pci</code> filesystem.</p>
-<h3 id="How-lspci-Works"><a href="#How-lspci-Works" class="headerlink" title="How lspci Works"></a><strong>How <code>lspci</code> Works</strong></h3><p>The <a target="_blank" rel="noopener" href="https://github.com/pciutils/pciutils/blob/master/lspci.c">source code</a> interacts with PCI configuration space and device information files. Here’s a simplified example:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pci/pci.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">pci_access</span> *<span class="title">pacc</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">pci_dev</span> *<span class="title">dev</span>;</span></span><br><span class="line">    <span class="type">char</span> namebuf[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line">    pacc = pci_alloc();</span><br><span class="line">    pci_init(pacc);</span><br><span class="line">    pci_scan_bus(pacc);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (dev = pacc-&gt;devices; dev; dev = dev-&gt;next) &#123;</span><br><span class="line">        pci_fill_info(dev, PCI_FILL_IDENT);</span><br><span class="line">        pci_lookup_name(pacc, namebuf, <span class="keyword">sizeof</span>(namebuf), PCI_LOOKUP_DEVICE, dev-&gt;vendor_id, dev-&gt;device_id);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%04x:%02x:%02x.%d %s\n&quot;</span>, dev-&gt;domain, dev-&gt;bus, dev-&gt;dev, dev-&gt;func, namebuf);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pci_cleanup(pacc);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Installing-and-Running-lspci"><a href="#Installing-and-Running-lspci" class="headerlink" title="Installing and Running lspci"></a><strong>Installing and Running <code>lspci</code></strong></h3><ol>
-<li>Install <code>lspci</code>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install pciutils</span><br></pre></td></tr></table></figure></li>
-<li>Run <code>lspci</code> to list PCI devices:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci</span><br></pre></td></tr></table></figure></li>
-<li>Use <code>lspci -vvv</code> to display detailed information about each device.</li>
+<h2 id="Advanced-Kernel-Debugging-Techniques"><a href="#Advanced-Kernel-Debugging-Techniques" class="headerlink" title="Advanced Kernel Debugging Techniques"></a><strong>Advanced Kernel Debugging Techniques</strong></h2><h3 id="1-Kernel-Hacking-Options"><a href="#1-Kernel-Hacking-Options" class="headerlink" title="1. Kernel Hacking Options"></a><strong>1. Kernel Hacking Options</strong></h3><p>Enable debugging features in the kernel:</p>
+<ul>
+<li><strong><code>CONFIG_DEBUG_KERNEL</code></strong>: Enables debugging features.</li>
+<li><strong><code>CONFIG_KGDB</code></strong>: Adds support for kernel debugging with GDB.</li>
+<li><strong><code>CONFIG_DEBUG_FS</code></strong>: Provides a filesystem for kernel debugging.</li>
+</ul>
+<h3 id="2-Kernel-Debugging-Tools"><a href="#2-Kernel-Debugging-Tools" class="headerlink" title="2. Kernel Debugging Tools"></a><strong>2. Kernel Debugging Tools</strong></h3><h4 id="kgdb-Kernel-GNU-Debugger"><a href="#kgdb-Kernel-GNU-Debugger" class="headerlink" title="kgdb (Kernel GNU Debugger)"></a><strong>kgdb (Kernel GNU Debugger)</strong></h4><p><code>kgdb</code> allows live debugging of the kernel using GDB. It works over serial or network connections.</p>
+<ul>
+<li><strong>Enable kgdb</strong>:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_KGDB=y</span><br><span class="line">CONFIG_KGDB_SERIAL_CONSOLE=y</span><br></pre></td></tr></table></figure></li>
+<li><strong>Usage</strong>:<ol>
+<li>Boot the kernel with <code>kgdbwait</code>.</li>
+<li>Attach GDB to the kernel.</li>
 </ol>
+</li>
+</ul>
+<h4 id="ftrace"><a href="#ftrace" class="headerlink" title="ftrace"></a><strong>ftrace</strong></h4><p><code>ftrace</code> provides tracing capabilities for function calls, interrupts, and events in the kernel.</p>
+<ul>
+<li><strong>Enable ftrace</strong>:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_FUNCTION_TRACER=y</span><br><span class="line">CONFIG_FUNCTION_GRAPH_TRACER=y</span><br></pre></td></tr></table></figure></li>
+<li><strong>Usage</strong>:<ul>
+<li>Enable tracing via <code>/sys/kernel/debug/tracing</code>.</li>
+</ul>
+</li>
+</ul>
+<h4 id="Dynamic-Debugging"><a href="#Dynamic-Debugging" class="headerlink" title="Dynamic Debugging"></a><strong>Dynamic Debugging</strong></h4><p>Allows adding debug statements dynamically without rebuilding the kernel.</p>
+<ul>
+<li><strong>Enable dynamic debugging</strong>:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_DYNAMIC_DEBUG=y</span><br></pre></td></tr></table></figure></li>
+<li><strong>Control debug logs</strong>:<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;module my_module +p&quot; &gt; /sys/kernel/debug/dynamic_debug/control</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-Kprobes-and-eBPF"><a href="#3-Kprobes-and-eBPF" class="headerlink" title="3. Kprobes and eBPF"></a><strong>3. Kprobes and eBPF</strong></h3><h4 id="Kprobes-Instrument-specific-kernel-instructions-for-debugging"><a href="#Kprobes-Instrument-specific-kernel-instructions-for-debugging" class="headerlink" title="Kprobes: Instrument specific kernel instructions for debugging."></a><strong>Kprobes</strong>: Instrument specific kernel instructions for debugging.</h4><h4 id="eBPF-Attach-custom-programs-to-kernel-events-for-lightweight-and-flexible-tracing"><a href="#eBPF-Attach-custom-programs-to-kernel-events-for-lightweight-and-flexible-tracing" class="headerlink" title="eBPF: Attach custom programs to kernel events for lightweight and flexible tracing."></a><strong>eBPF</strong>: Attach custom programs to kernel events for lightweight and flexible tracing.</h4><h3 id="4-Kernel-Dump-Analysis"><a href="#4-Kernel-Dump-Analysis" class="headerlink" title="4. Kernel Dump Analysis"></a><strong>4. Kernel Dump Analysis</strong></h3><p>Use <code>kdump</code> to capture kernel memory during a crash for post-mortem analysis.</p>
+<ul>
+<li><strong>Enable kdump</strong>:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_KEXEC=y</span><br><span class="line">CONFIG_CRASH_DUMP=y</span><br></pre></td></tr></table></figure></li>
+</ul>
 <hr>
-<h2 id="Practical-Examples"><a href="#Practical-Examples" class="headerlink" title="Practical Examples"></a><strong>Practical Examples</strong></h2><h3 id="USB-Device-Testing"><a href="#USB-Device-Testing" class="headerlink" title="USB Device Testing"></a><strong>USB Device Testing</strong></h3><ol>
-<li>Connect a USB device.</li>
-<li>Use <code>lsusb</code> to verify detection:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsusb</span><br></pre></td></tr></table></figure></li>
-<li>Check driver binding:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> /sys/bus/usb/drivers/</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="I2C-Device-Testing"><a href="#I2C-Device-Testing" class="headerlink" title="I2C Device Testing"></a><strong>I2C Device Testing</strong></h3><ol>
-<li>Load the <code>i2c-dev</code> kernel module:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> modprobe i2c-dev</span><br></pre></td></tr></table></figure></li>
-<li>Use <code>lsi2c</code> to interact with an I2C device:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./lsi2c</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="PCI-Device-Testing"><a href="#PCI-Device-Testing" class="headerlink" title="PCI Device Testing"></a><strong>PCI Device Testing</strong></h3><ol>
-<li>Run <code>lspci</code> to list devices:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci</span><br></pre></td></tr></table></figure></li>
-<li>Check driver binding for a specific device:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci -vvv -s &lt;bus:slot.func&gt;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p><code>sysfs</code> provides a rich interface for querying and manipulating kernel devices, while tools like <code>lsusb</code>, <code>lsi2c</code>, and <code>lspci</code> simplify testing and debugging of USB, I2C, and PCI devices. Understanding how these tools interact with the kernel and hardware equips developers to validate driver functionality and troubleshoot issues effectively.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>Debugging the Linux kernel involves understanding core mechanisms like <code>printk</code> and console drivers while leveraging advanced tools like <code>kgdb</code>, <code>ftrace</code>, and <code>kprobes</code>. By mastering these techniques, developers can efficiently diagnose and resolve kernel-level issues, ensuring system stability and performance.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/linux-userspace-debug/" data-id="cm5c7gmuf000mdgvyggg5ch4r" data-title="Testing Linux I2C, USB, and PCI Drivers Using Userspace Tools and `Sysfs`" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-linux-v4l2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/31/linux-v4l2/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/linux-v4l2/">A Technical Overview of V4L2</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><strong>Video4Linux2 (V4L2)</strong> is a robust framework in the Linux kernel for handling video devices, including USB cameras. It provides a standardized API for video capture, making it the go-to interface for Linux-based video application development. This article delves into the memory management mechanisms V4L2 offers and demonstrates how to capture video from a USB camera with reference code.</p>
-<hr>
-<h2 id="1-Overview-of-V4L2-Memory-Management"><a href="#1-Overview-of-V4L2-Memory-Management" class="headerlink" title="1. Overview of V4L2 Memory Management"></a><strong>1. Overview of V4L2 Memory Management</strong></h2><p>V4L2 supports multiple memory management mechanisms for video buffers, providing flexibility for developers to choose based on their application’s needs. The framework uses buffers to exchange video frames between the driver and the application.</p>
-<h3 id="Memory-Types-in-V4L2"><a href="#Memory-Types-in-V4L2" class="headerlink" title="Memory Types in V4L2"></a><strong>Memory Types in V4L2</strong></h3><ol>
-<li><p><strong>MMAP (Memory Mapping):</strong></p>
-<ul>
-<li>Buffers are allocated in kernel space and memory-mapped to user space.</li>
-<li>Suitable for most applications as it eliminates the need for copying data.</li>
-</ul>
-</li>
-<li><p><strong>User Pointer (USERPTR):</strong></p>
-<ul>
-<li>The application allocates its own buffers in user space and provides pointers to the driver.</li>
-<li>Provides greater control over memory management but requires more synchronization.</li>
-</ul>
-</li>
-<li><p><strong>DMA Buffer (DMABUF):</strong></p>
-<ul>
-<li>Allows sharing buffers between devices using Direct Memory Access (DMA).</li>
-<li>Common in zero-copy pipelines where efficiency is critical.</li>
-</ul>
-</li>
-<li><p><strong>Read&#x2F;Write:</strong></p>
-<ul>
-<li>Simplest method where data is copied between the driver and user space.</li>
-<li>Less efficient due to the overhead of copying but straightforward to implement.</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="2-Steps-to-Capture-Video-from-a-USB-Camera-Using-V4L2"><a href="#2-Steps-to-Capture-Video-from-a-USB-Camera-Using-V4L2" class="headerlink" title="2. Steps to Capture Video from a USB Camera Using V4L2"></a><strong>2. Steps to Capture Video from a USB Camera Using V4L2</strong></h2><p>Below is a step-by-step guide to capturing video using V4L2, focusing on MMAP memory. </p>
-<h3 id="Step-1-Open-the-Device"><a href="#Step-1-Open-the-Device" class="headerlink" title="Step 1: Open the Device"></a><strong>Step 1: Open the Device</strong></h3><p>Use the <code>open()</code> system call to access the video device (e.g., <code>/dev/video0</code>).</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> fd = open(<span class="string">&quot;/dev/video0&quot;</span>, O_RDWR);</span><br><span class="line"><span class="keyword">if</span> (fd == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Opening video device&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-2-Query-Device-Capabilities"><a href="#Step-2-Query-Device-Capabilities" class="headerlink" title="Step 2: Query Device Capabilities"></a><strong>Step 2: Query Device Capabilities</strong></h3><p>Use the <code>VIDIOC_QUERYCAP</code> ioctl to ensure the device supports video capture.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/videodev2.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/ioctl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">v4l2_capability</span> <span class="title">cap</span>;</span></span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_QUERYCAP, &amp;cap) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Querying capabilities&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (!(cap.capabilities &amp; V4L2_CAP_VIDEO_CAPTURE)) &#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;Device does not support video capture\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-3-Set-the-Video-Format"><a href="#Step-3-Set-the-Video-Format" class="headerlink" title="Step 3: Set the Video Format"></a><strong>Step 3: Set the Video Format</strong></h3><p>Specify the desired frame size and pixel format using the <code>VIDIOC_S_FMT</code> ioctl.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">v4l2_format</span> <span class="title">fmt</span>;</span></span><br><span class="line">fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">fmt.fmt.pix.width = <span class="number">640</span>;</span><br><span class="line">fmt.fmt.pix.height = <span class="number">480</span>;</span><br><span class="line">fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_MJPEG; <span class="comment">// Or V4L2_PIX_FMT_YUYV</span></span><br><span class="line">fmt.fmt.pix.field = V4L2_FIELD_NONE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_S_FMT, &amp;fmt) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Setting pixel format&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-4-Request-Buffers"><a href="#Step-4-Request-Buffers" class="headerlink" title="Step 4: Request Buffers"></a><strong>Step 4: Request Buffers</strong></h3><p>Allocate memory buffers in the kernel using the <code>VIDIOC_REQBUFS</code> ioctl.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">v4l2_requestbuffers</span> <span class="title">req</span>;</span></span><br><span class="line">req.count = <span class="number">4</span>; <span class="comment">// Number of buffers</span></span><br><span class="line">req.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">req.memory = V4L2_MEMORY_MMAP;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_REQBUFS, &amp;req) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Requesting buffer&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-5-Map-Buffers-to-User-Space"><a href="#Step-5-Map-Buffers-to-User-Space" class="headerlink" title="Step 5: Map Buffers to User Space"></a><strong>Step 5: Map Buffers to User Space</strong></h3><p>Map the kernel buffers to user space using <code>mmap()</code>.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">buffer</span> &#123;</span></span><br><span class="line">    <span class="type">void</span> *start;</span><br><span class="line">    <span class="type">size_t</span> length;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">buffer</span> *<span class="title">buffers</span> =</span> <span class="built_in">calloc</span>(req.count, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> buffer));</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; req.count; i++) &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">v4l2_buffer</span> <span class="title">buf</span>;</span></span><br><span class="line">    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">    buf.memory = V4L2_MEMORY_MMAP;</span><br><span class="line">    buf.index = i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_QUERYBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Querying buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    buffers[i].length = buf.length;</span><br><span class="line">    buffers[i].start = mmap(<span class="literal">NULL</span>, buf.length, PROT_READ | PROT_WRITE, MAP_SHARED, fd, buf.m.offset);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (buffers[i].start == MAP_FAILED) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Mapping buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-6-Queue-Buffers"><a href="#Step-6-Queue-Buffers" class="headerlink" title="Step 6: Queue Buffers"></a><strong>Step 6: Queue Buffers</strong></h3><p>Queue the buffers for the driver to fill with video frames.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; req.count; i++) &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">v4l2_buffer</span> <span class="title">buf</span>;</span></span><br><span class="line">    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">    buf.memory = V4L2_MEMORY_MMAP;</span><br><span class="line">    buf.index = i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_QBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Queueing buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-7-Start-Streaming"><a href="#Step-7-Start-Streaming" class="headerlink" title="Step 7: Start Streaming"></a><strong>Step 7: Start Streaming</strong></h3><p>Initiate the video capture process.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">v4l2_buf_type</span> <span class="title">type</span> =</span> V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_STREAMON, &amp;type) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Starting stream&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-8-Capture-Video-Frames"><a href="#Step-8-Capture-Video-Frames" class="headerlink" title="Step 8: Capture Video Frames"></a><strong>Step 8: Capture Video Frames</strong></h3><p>Dequeue buffers, process the video data, and requeue them for continuous streaming.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123; <span class="comment">// Capture 100 frames</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">v4l2_buffer</span> <span class="title">buf</span>;</span></span><br><span class="line">    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</span><br><span class="line">    buf.memory = V4L2_MEMORY_MMAP;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_DQBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Dequeueing buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Process the video frame (e.g., save it to a file)</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Captured frame %d\n&quot;</span>, i);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioctl(fd, VIDIOC_QBUF, &amp;buf) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Requeueing buffer&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Step-9-Stop-Streaming-and-Clean-Up"><a href="#Step-9-Stop-Streaming-and-Clean-Up" class="headerlink" title="Step 9: Stop Streaming and Clean Up"></a><strong>Step 9: Stop Streaming and Clean Up</strong></h3><p>Terminate the video capture process and release resources.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (ioctl(fd, VIDIOC_STREAMOFF, &amp;type) == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Stopping stream&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; req.count; i++) &#123;</span><br><span class="line">    munmap(buffers[i].start, buffers[i].length);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">free</span>(buffers);</span><br><span class="line">close(fd);</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="3-Applications-of-V4L2"><a href="#3-Applications-of-V4L2" class="headerlink" title="3. Applications of V4L2"></a><strong>3. Applications of V4L2</strong></h2><p>V4L2 can be used in various applications, such as:</p>
-<ul>
-<li><strong>Video Streaming:</strong> Build real-time video streaming pipelines.</li>
-<li><strong>Surveillance Systems:</strong> Capture and analyze video feeds from security cameras.</li>
-<li><strong>Computer Vision:</strong> Process frames for object detection, tracking, and recognition.</li>
-<li><strong>Media Recording:</strong> Record and save video content to disk.</li>
-</ul>
-<hr>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>V4L2 is a powerful and flexible interface for video device programming in Linux. By leveraging its memory management options and ioctl-based API, developers can efficiently capture and process video from USB cameras. The provided example demonstrates the key steps, from device initialization to capturing and processing frames, empowering developers to build robust video applications.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/linux-v4l2/" data-id="cm5c7gmuf000ndgvyeskd49zj" data-title="A Technical Overview of V4L2" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/31/linux-kernel-debug/" data-id="cm71ouvnk000pwcvy32qyhx68" data-title="Debugging the Linux Kernel: A Comprehensive Guide" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1571,11 +1526,11 @@
           </li>
         
           <li>
-            <a href="/2024/12/31/wireless-modem-intro/">Comprehensive Technical Overview of Wireless Modems</a>
+            <a href="/2024/12/31/wireless-modem-ucosii/">Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II</a>
           </li>
         
           <li>
-            <a href="/2024/12/31/wireless-modem-ucosii/">Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II</a>
+            <a href="/2024/12/31/wireless-modem-intro/">Comprehensive Technical Overview of Wireless Modems</a>
           </li>
         
       </ul>
@@ -1591,7 +1546,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2025 Zhang Peng<br>
+      &copy; 2025 apexpenn<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

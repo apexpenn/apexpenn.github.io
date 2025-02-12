@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Penn&#39;s Blog">
 <meta property="og:description" content="Our life is shaped by our mind; we become what we think.">
 <meta property="og:locale" content="en_US">
-<meta property="article:author" content="Zhang Peng">
+<meta property="article:author" content="apexpenn">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Penn's Blog" type="application/atom+xml">
@@ -119,7 +119,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2025/02/10/CS_Basis_TEE/" data-id="cm6zty0sr0001agvyhy435png" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2025/02/10/CS_Basis_TEE/" data-id="cm71ouvn60002wcvygzh53aey" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -214,7 +214,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2025/02/10/CS_Basis_HSM/" data-id="cm6zty0st0002agvy2mzqdriv" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2025/02/10/CS_Basis_HSM/" data-id="cm71ouvn70003wcvy854332r1" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -285,7 +285,90 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2025/02/10/CS_ASCP_01intro/" data-id="cm6zty0si0000agvyhmz463yw" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2025/02/10/CS_ASCP_01intro/" data-id="cm71ouvn20001wcvyev3r4cvj" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-wireless-modem-ucosii" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/31/wireless-modem-ucosii/" class="article-date">
+  <time class="dt-published" datetime="2024-12-31T01:03:56.507Z" itemprop="datePublished">2024-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/31/wireless-modem-ucosii/">Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Integrating a USB wireless modem into an embedded system using uC&#x2F;OS-II provides powerful communication capabilities. This technical article outlines a comprehensive approach to initializing a USB wireless modem, establishing AT command communication, and implementing SMS-triggered software functions.</p>
+<h2 id="System-Architecture"><a href="#System-Architecture" class="headerlink" title="System Architecture"></a>System Architecture</h2><p>The proposed system consists of the following key components:</p>
+<ul>
+<li>USB Wireless Modem</li>
+<li>Microcontroller</li>
+<li>uC&#x2F;OS-II Real-Time Operating System</li>
+<li>Embedded Software Framework</li>
+</ul>
+<h2 id="USB-Wireless-Modem-Initialization"><a href="#USB-Wireless-Modem-Initialization" class="headerlink" title="USB Wireless Modem Initialization"></a>USB Wireless Modem Initialization</h2><h3 id="Hardware-Preparation"><a href="#Hardware-Preparation" class="headerlink" title="Hardware Preparation"></a>Hardware Preparation</h3><p>Before software implementation, ensure the following hardware connections:</p>
+<ul>
+<li>USB wireless modem connected to microcontroller’s USB interface</li>
+<li>Appropriate power supply</li>
+<li>Signal and ground connections verified</li>
+</ul>
+<h3 id="Initialization-Sequence"><a href="#Initialization-Sequence" class="headerlink" title="Initialization Sequence"></a>Initialization Sequence</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;usb_modem.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;includes.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// USB Modem Initialization Function</span></span><br><span class="line">INT8U <span class="title function_">InitUSBWirelessModem</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    INT8U err;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Initialize USB Communication Interface</span></span><br><span class="line">    <span class="keyword">if</span> (USB_Init() != USB_SUCCESS) &#123;</span><br><span class="line">        <span class="keyword">return</span> USB_INIT_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Configure Serial Communication Parameters</span></span><br><span class="line">    SerialConfig serial_params = &#123;</span><br><span class="line">        .baud_rate = <span class="number">115200</span>,</span><br><span class="line">        .data_bits = <span class="number">8</span>,</span><br><span class="line">        .stop_bits = <span class="number">1</span>,</span><br><span class="line">        .parity = PARITY_NONE</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Open Serial Port for AT Commands</span></span><br><span class="line">    <span class="keyword">if</span> (SerialPort_Open(&amp;serial_params) != SERIAL_SUCCESS) &#123;</span><br><span class="line">        <span class="keyword">return</span> SERIAL_OPEN_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Send Initial AT Commands</span></span><br><span class="line">    <span class="keyword">if</span> (SendATCommand(<span class="string">&quot;AT\r&quot;</span>, TIMEOUT_MS) != AT_RESPONSE_OK) &#123;</span><br><span class="line">        <span class="keyword">return</span> AT_COMMAND_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Configure SMS Mode</span></span><br><span class="line">    <span class="keyword">if</span> (ConfigureSMSMode() != SMS_CONFIG_SUCCESS) &#123;</span><br><span class="line">        <span class="keyword">return</span> SMS_CONFIG_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> USB_MODEM_INIT_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SMS Configuration Function</span></span><br><span class="line">INT8U <span class="title function_">ConfigureSMSMode</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// Set Text Mode</span></span><br><span class="line">    <span class="keyword">if</span> (SendATCommand(<span class="string">&quot;AT+CMGF=1\r&quot;</span>, TIMEOUT_MS) != AT_RESPONSE_OK) &#123;</span><br><span class="line">        <span class="keyword">return</span> SMS_TEXT_MODE_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Configure SMS Storage</span></span><br><span class="line">    <span class="keyword">if</span> (SendATCommand(<span class="string">&quot;AT+CPMS=\&quot;ME\&quot;,\&quot;ME\&quot;,\&quot;ME\&quot;\r&quot;</span>, TIMEOUT_MS) != AT_RESPONSE_OK) &#123;</span><br><span class="line">        <span class="keyword">return</span> SMS_STORAGE_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> SMS_CONFIG_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="SMS-Processing-Task"><a href="#SMS-Processing-Task" class="headerlink" title="SMS Processing Task"></a>SMS Processing Task</h2><h3 id="Task-Implementation"><a href="#Task-Implementation" class="headerlink" title="Task Implementation"></a>Task Implementation</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_SMS_LENGTH 160</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_PHONE_NUMBER_LENGTH 20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">char</span> phone_number[MAX_PHONE_NUMBER_LENGTH];</span><br><span class="line">    <span class="type">char</span> message[MAX_SMS_LENGTH];</span><br><span class="line">&#125; SMSMessage;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SMS Processing Task</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">TaskSMSProcessing</span><span class="params">(<span class="type">void</span> *pdata)</span> &#123;</span><br><span class="line">    SMSMessage incoming_sms;</span><br><span class="line">    INT8U err;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// Wait for SMS Notification</span></span><br><span class="line">        <span class="keyword">if</span> (WaitForSMSNotification(&amp;incoming_sms) == SMS_RECEIVED) &#123;</span><br><span class="line">            <span class="comment">// Process SMS Based on Content</span></span><br><span class="line">            ProcessSMSCommand(&amp;incoming_sms);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Prevent Task Starvation</span></span><br><span class="line">        OSTimeDlyHMSM(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SMS Command Processing</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">ProcessSMSCommand</span><span class="params">(SMSMessage *sms)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strcmp</span>(sms-&gt;message, <span class="string">&quot;SYSTEM_STATUS&quot;</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">        SendSystemStatusReport();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">strcmp</span>(sms-&gt;message, <span class="string">&quot;RESET_DEVICE&quot;</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">        SystemReset();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">strncmp</span>(sms-&gt;message, <span class="string">&quot;CONTROL_OUTPUT&quot;</span>, <span class="number">13</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">        ProcessOutputControl(sms-&gt;message);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Additional command handlers</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Error-Handling-and-Robustness"><a href="#Error-Handling-and-Robustness" class="headerlink" title="Error Handling and Robustness"></a>Error Handling and Robustness</h2><h3 id="Key-Considerations"><a href="#Key-Considerations" class="headerlink" title="Key Considerations"></a>Key Considerations</h3><ul>
+<li>Implement comprehensive error checking</li>
+<li>Use timeout mechanisms</li>
+<li>Validate SMS content before processing</li>
+<li>Maintain a log of SMS interactions</li>
+<li>Implement security measures to prevent unauthorized commands</li>
+</ul>
+<h2 id="Performance-Optimization"><a href="#Performance-Optimization" class="headerlink" title="Performance Optimization"></a>Performance Optimization</h2><h3 id="Recommendations"><a href="#Recommendations" class="headerlink" title="Recommendations"></a>Recommendations</h3><ul>
+<li>Use efficient memory management</li>
+<li>Minimize blocking operations</li>
+<li>Implement proper task prioritization</li>
+<li>Use circular buffers for SMS storage</li>
+<li>Optimize AT command processing</li>
+</ul>
+<h2 id="Security-Considerations"><a href="#Security-Considerations" class="headerlink" title="Security Considerations"></a>Security Considerations</h2><ol>
+<li>Implement sender authentication</li>
+<li>Use encrypted communication channels</li>
+<li>Limit and validate acceptable SMS commands</li>
+<li>Implement command access levels</li>
+</ol>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Integrating a USB wireless modem with uC&#x2F;OS-II enables sophisticated remote communication and control capabilities. By carefully implementing initialization, SMS processing, and robust error handling, developers can create powerful embedded systems with flexible remote interaction mechanisms.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li>uC&#x2F;OS-II Reference Manual</li>
+<li>USB Communication Protocols</li>
+<li>AT Command Set Specifications</li>
+</ul>
+<p><strong>Note:</strong> This implementation serves as a conceptual framework and should be adapted to specific hardware and project requirements.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://apexpeng.github.io/2024/12/31/wireless-modem-ucosii/" data-id="cm71ouvnn000vwcvybvlfe191" data-title="Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -519,7 +602,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/wireless-modem-intro/" data-id="cm5c7gmuj000udgvy4r1dg2bv" data-title="Comprehensive Technical Overview of Wireless Modems" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/31/wireless-modem-intro/" data-id="cm71ouvno000ywcvy20bxcn3b" data-title="Comprehensive Technical Overview of Wireless Modems" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -531,10 +614,10 @@
 
 
   
-    <article id="post-wireless-modem-ucosii" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-CS_TEC_Linux_PAM" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2024/12/31/wireless-modem-ucosii/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.507Z" itemprop="datePublished">2024-12-31</time>
+    <a href="/2024/12/31/CS_TEC_Linux_PAM/" class="article-date">
+  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
 </a>
     
   </div>
@@ -545,7 +628,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/wireless-modem-ucosii/">Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II</a>
+      <a class="p-name article-title" href="/2024/12/31/CS_TEC_Linux_PAM/">Understanding Linux PAM (Pluggable Authentication Modules)</a>
     </h1>
   
 
@@ -553,56 +636,111 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Integrating a USB wireless modem into an embedded system using uC&#x2F;OS-II provides powerful communication capabilities. This technical article outlines a comprehensive approach to initializing a USB wireless modem, establishing AT command communication, and implementing SMS-triggered software functions.</p>
-<h2 id="System-Architecture"><a href="#System-Architecture" class="headerlink" title="System Architecture"></a>System Architecture</h2><p>The proposed system consists of the following key components:</p>
-<ul>
-<li>USB Wireless Modem</li>
-<li>Microcontroller</li>
-<li>uC&#x2F;OS-II Real-Time Operating System</li>
-<li>Embedded Software Framework</li>
-</ul>
-<h2 id="USB-Wireless-Modem-Initialization"><a href="#USB-Wireless-Modem-Initialization" class="headerlink" title="USB Wireless Modem Initialization"></a>USB Wireless Modem Initialization</h2><h3 id="Hardware-Preparation"><a href="#Hardware-Preparation" class="headerlink" title="Hardware Preparation"></a>Hardware Preparation</h3><p>Before software implementation, ensure the following hardware connections:</p>
-<ul>
-<li>USB wireless modem connected to microcontroller’s USB interface</li>
-<li>Appropriate power supply</li>
-<li>Signal and ground connections verified</li>
-</ul>
-<h3 id="Initialization-Sequence"><a href="#Initialization-Sequence" class="headerlink" title="Initialization Sequence"></a>Initialization Sequence</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;usb_modem.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;includes.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// USB Modem Initialization Function</span></span><br><span class="line">INT8U <span class="title function_">InitUSBWirelessModem</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    INT8U err;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Initialize USB Communication Interface</span></span><br><span class="line">    <span class="keyword">if</span> (USB_Init() != USB_SUCCESS) &#123;</span><br><span class="line">        <span class="keyword">return</span> USB_INIT_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Configure Serial Communication Parameters</span></span><br><span class="line">    SerialConfig serial_params = &#123;</span><br><span class="line">        .baud_rate = <span class="number">115200</span>,</span><br><span class="line">        .data_bits = <span class="number">8</span>,</span><br><span class="line">        .stop_bits = <span class="number">1</span>,</span><br><span class="line">        .parity = PARITY_NONE</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Open Serial Port for AT Commands</span></span><br><span class="line">    <span class="keyword">if</span> (SerialPort_Open(&amp;serial_params) != SERIAL_SUCCESS) &#123;</span><br><span class="line">        <span class="keyword">return</span> SERIAL_OPEN_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Send Initial AT Commands</span></span><br><span class="line">    <span class="keyword">if</span> (SendATCommand(<span class="string">&quot;AT\r&quot;</span>, TIMEOUT_MS) != AT_RESPONSE_OK) &#123;</span><br><span class="line">        <span class="keyword">return</span> AT_COMMAND_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Configure SMS Mode</span></span><br><span class="line">    <span class="keyword">if</span> (ConfigureSMSMode() != SMS_CONFIG_SUCCESS) &#123;</span><br><span class="line">        <span class="keyword">return</span> SMS_CONFIG_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> USB_MODEM_INIT_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SMS Configuration Function</span></span><br><span class="line">INT8U <span class="title function_">ConfigureSMSMode</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// Set Text Mode</span></span><br><span class="line">    <span class="keyword">if</span> (SendATCommand(<span class="string">&quot;AT+CMGF=1\r&quot;</span>, TIMEOUT_MS) != AT_RESPONSE_OK) &#123;</span><br><span class="line">        <span class="keyword">return</span> SMS_TEXT_MODE_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Configure SMS Storage</span></span><br><span class="line">    <span class="keyword">if</span> (SendATCommand(<span class="string">&quot;AT+CPMS=\&quot;ME\&quot;,\&quot;ME\&quot;,\&quot;ME\&quot;\r&quot;</span>, TIMEOUT_MS) != AT_RESPONSE_OK) &#123;</span><br><span class="line">        <span class="keyword">return</span> SMS_STORAGE_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> SMS_CONFIG_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="SMS-Processing-Task"><a href="#SMS-Processing-Task" class="headerlink" title="SMS Processing Task"></a>SMS Processing Task</h2><h3 id="Task-Implementation"><a href="#Task-Implementation" class="headerlink" title="Task Implementation"></a>Task Implementation</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_SMS_LENGTH 160</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_PHONE_NUMBER_LENGTH 20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">char</span> phone_number[MAX_PHONE_NUMBER_LENGTH];</span><br><span class="line">    <span class="type">char</span> message[MAX_SMS_LENGTH];</span><br><span class="line">&#125; SMSMessage;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SMS Processing Task</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">TaskSMSProcessing</span><span class="params">(<span class="type">void</span> *pdata)</span> &#123;</span><br><span class="line">    SMSMessage incoming_sms;</span><br><span class="line">    INT8U err;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// Wait for SMS Notification</span></span><br><span class="line">        <span class="keyword">if</span> (WaitForSMSNotification(&amp;incoming_sms) == SMS_RECEIVED) &#123;</span><br><span class="line">            <span class="comment">// Process SMS Based on Content</span></span><br><span class="line">            ProcessSMSCommand(&amp;incoming_sms);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Prevent Task Starvation</span></span><br><span class="line">        OSTimeDlyHMSM(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SMS Command Processing</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">ProcessSMSCommand</span><span class="params">(SMSMessage *sms)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strcmp</span>(sms-&gt;message, <span class="string">&quot;SYSTEM_STATUS&quot;</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">        SendSystemStatusReport();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">strcmp</span>(sms-&gt;message, <span class="string">&quot;RESET_DEVICE&quot;</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">        SystemReset();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">strncmp</span>(sms-&gt;message, <span class="string">&quot;CONTROL_OUTPUT&quot;</span>, <span class="number">13</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">        ProcessOutputControl(sms-&gt;message);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Additional command handlers</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Error-Handling-and-Robustness"><a href="#Error-Handling-and-Robustness" class="headerlink" title="Error Handling and Robustness"></a>Error Handling and Robustness</h2><h3 id="Key-Considerations"><a href="#Key-Considerations" class="headerlink" title="Key Considerations"></a>Key Considerations</h3><ul>
-<li>Implement comprehensive error checking</li>
-<li>Use timeout mechanisms</li>
-<li>Validate SMS content before processing</li>
-<li>Maintain a log of SMS interactions</li>
-<li>Implement security measures to prevent unauthorized commands</li>
-</ul>
-<h2 id="Performance-Optimization"><a href="#Performance-Optimization" class="headerlink" title="Performance Optimization"></a>Performance Optimization</h2><h3 id="Recommendations"><a href="#Recommendations" class="headerlink" title="Recommendations"></a>Recommendations</h3><ul>
-<li>Use efficient memory management</li>
-<li>Minimize blocking operations</li>
-<li>Implement proper task prioritization</li>
-<li>Use circular buffers for SMS storage</li>
-<li>Optimize AT command processing</li>
-</ul>
-<h2 id="Security-Considerations"><a href="#Security-Considerations" class="headerlink" title="Security Considerations"></a>Security Considerations</h2><ol>
-<li>Implement sender authentication</li>
-<li>Use encrypted communication channels</li>
-<li>Limit and validate acceptable SMS commands</li>
-<li>Implement command access levels</li>
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Linux PAM (Pluggable Authentication Modules) represents a powerful framework that provides dynamic authentication support for applications and services in Linux systems. This article explores the fundamentals of PAM, its architecture, configuration syntax, and practical implementation examples.</p>
+<h2 id="Core-Concepts"><a href="#Core-Concepts" class="headerlink" title="Core Concepts"></a>Core Concepts</h2><p>PAM operates as a middle layer between applications and authentication mechanisms. When an application needs to authenticate a user, it doesn’t need to know the details of how authentication works - it simply makes calls to the PAM framework, which handles the actual authentication process based on the system’s configuration.</p>
+<h3 id="Key-Benefits"><a href="#Key-Benefits" class="headerlink" title="Key Benefits"></a>Key Benefits</h3><p>The modular nature of PAM provides several advantages:</p>
+<ol>
+<li>Applications don’t need to be modified to support new authentication mechanisms</li>
+<li>System administrators can modify authentication requirements without changing application code</li>
+<li>Multiple authentication methods can be combined flexibly</li>
+<li>Authentication policies can be standardized across the system</li>
 </ol>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Integrating a USB wireless modem with uC&#x2F;OS-II enables sophisticated remote communication and control capabilities. By carefully implementing initialization, SMS processing, and robust error handling, developers can create powerful embedded systems with flexible remote interaction mechanisms.</p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li>uC&#x2F;OS-II Reference Manual</li>
-<li>USB Communication Protocols</li>
-<li>AT Command Set Specifications</li>
+<h2 id="PAM-Architecture"><a href="#PAM-Architecture" class="headerlink" title="PAM Architecture"></a>PAM Architecture</h2><h3 id="Service-Modules"><a href="#Service-Modules" class="headerlink" title="Service Modules"></a>Service Modules</h3><p>PAM divides authentication tasks into four independent management groups:</p>
+<ol>
+<li><strong>account</strong>: Verifies account accessibility, expiration, and access hours</li>
+<li><strong>auth</strong>: Handles user authentication and sets credentials</li>
+<li><strong>password</strong>: Manages password updates and validation</li>
+<li><strong>session</strong>: Manages tasks needed to set up and tear down user sessions</li>
+</ol>
+<h3 id="Module-Types"><a href="#Module-Types" class="headerlink" title="Module Types"></a>Module Types</h3><p>Each management group can use various module types:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">required      - Must succeed for authentication to continue</span><br><span class="line">requisite     - Must succeed, but fails immediately if not met</span><br><span class="line">sufficient    - Success is sufficient to satisfy the module requirements</span><br><span class="line">optional      - Module success/failure doesn&#x27;t impact authentication</span><br><span class="line">include       - Include other configuration files</span><br><span class="line">substack      - Similar to include but treats the included stack as a subunit</span><br></pre></td></tr></table></figure>
+
+<h2 id="Configuration-Syntax"><a href="#Configuration-Syntax" class="headerlink" title="Configuration Syntax"></a>Configuration Syntax</h2><p>PAM configuration files are typically stored in <code>/etc/pam.d/</code>. Each service has its own configuration file. The basic syntax is:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type    control_flag    module_path    module_arguments</span><br></pre></td></tr></table></figure>
+
+<p>Example from <code>/etc/pam.d/sshd</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#%PAM-1.0</span><br><span class="line">auth       required     pam_securetty.so</span><br><span class="line">auth       required     pam_unix.so nullok</span><br><span class="line">account    required     pam_nologin.so</span><br><span class="line">account    required     pam_unix.so</span><br><span class="line">password   required     pam_unix.so nullok obscure min=4 max=8</span><br><span class="line">session    required     pam_unix.so</span><br><span class="line">session    required     pam_limits.so</span><br></pre></td></tr></table></figure>
+
+<h2 id="Common-PAM-Modules"><a href="#Common-PAM-Modules" class="headerlink" title="Common PAM Modules"></a>Common PAM Modules</h2><h3 id="pam-unix-so"><a href="#pam-unix-so" class="headerlink" title="pam_unix.so"></a>pam_unix.so</h3><p>The standard Unix authentication module supporting standard Unix password authentication:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_unix.so try_first_pass nullok</span><br></pre></td></tr></table></figure>
+
+<p>Parameters:</p>
+<ul>
+<li><code>try_first_pass</code>: Try using previously entered password</li>
+<li><code>nullok</code>: Allow empty passwords</li>
+<li><code>remember=N</code>: Remember N previous passwords</li>
 </ul>
-<p><strong>Note:</strong> This implementation serves as a conceptual framework and should be adapted to specific hardware and project requirements.</p>
+<h3 id="pam-ldap-so"><a href="#pam-ldap-so" class="headerlink" title="pam_ldap.so"></a>pam_ldap.so</h3><p>Provides LDAP authentication support:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth sufficient pam_ldap.so use_first_pass</span><br></pre></td></tr></table></figure>
+
+<h3 id="pam-time-so"><a href="#pam-time-so" class="headerlink" title="pam_time.so"></a>pam_time.so</h3><p>Controls access based on time:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">account required pam_time.so</span><br></pre></td></tr></table></figure>
+
+<p>Configuration in <code>/etc/security/time.conf</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">services;ttys;users;times</span><br><span class="line">login;tty*;!root;Al0800-1800</span><br></pre></td></tr></table></figure>
+
+<h2 id="Practical-Examples"><a href="#Practical-Examples" class="headerlink" title="Practical Examples"></a>Practical Examples</h2><h3 id="Example-1-Enforcing-Strong-Passwords"><a href="#Example-1-Enforcing-Strong-Passwords" class="headerlink" title="Example 1: Enforcing Strong Passwords"></a>Example 1: Enforcing Strong Passwords</h3><p>To enforce password complexity, modify <code>/etc/pam.d/system-auth</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">password required pam_pwquality.so retry=3 minlen=12 dcredit=1 ucredit=1 ocredit=1 lcredit=1</span><br><span class="line">password required pam_unix.so use_authtok sha512 shadow</span><br></pre></td></tr></table></figure>
+
+<p>This configuration:</p>
+<ul>
+<li>Requires minimum 12 characters</li>
+<li>Requires at least one digit, uppercase, special character, and lowercase</li>
+<li>Allows 3 retry attempts</li>
+<li>Uses SHA-512 hashing</li>
+</ul>
+<h3 id="Example-2-Limiting-Login-Attempts"><a href="#Example-2-Limiting-Login-Attempts" class="headerlink" title="Example 2: Limiting Login Attempts"></a>Example 2: Limiting Login Attempts</h3><p>To implement login attempt limits, add to <code>/etc/pam.d/system-auth</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_tally2.so deny=3 unlock_time=300 onerr=fail</span><br></pre></td></tr></table></figure>
+
+<p>This configuration:</p>
+<ul>
+<li>Denies access after 3 failed attempts</li>
+<li>Unlocks the account after 300 seconds</li>
+<li>Fails closed (denies access) on errors</li>
+</ul>
+<h2 id="Debugging-PAM"><a href="#Debugging-PAM" class="headerlink" title="Debugging PAM"></a>Debugging PAM</h2><h3 id="Debug-Mode"><a href="#Debug-Mode" class="headerlink" title="Debug Mode"></a>Debug Mode</h3><p>Add the debug option to the module:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_unix.so debug</span><br></pre></td></tr></table></figure>
+
+<p>View debug output in system logs:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -f /var/log/auth.log</span><br></pre></td></tr></table></figure>
+
+<h3 id="Testing-Configurations"><a href="#Testing-Configurations" class="headerlink" title="Testing Configurations"></a>Testing Configurations</h3><p>Use the <code>pamtester</code> utility to test PAM configurations:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pamtester sshd username authenticate</span><br></pre></td></tr></table></figure>
+
+<h2 id="Security-Considerations"><a href="#Security-Considerations" class="headerlink" title="Security Considerations"></a>Security Considerations</h2><ol>
+<li><p><strong>Order Matters</strong>: PAM processes modules in the order listed. Ensure critical security modules are placed appropriately.</p>
+</li>
+<li><p><strong>Fail Secure</strong>: Use appropriate control flags to ensure authentication fails securely when modules fail.</p>
+</li>
+<li><p><strong>Module Parameters</strong>: Carefully consider module parameters - some can weaken security if misconfigured.</p>
+</li>
+<li><p><strong>File Permissions</strong>: PAM configuration files should be owned by root and not writable by others:</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 644 /etc/pam.d/*</span><br><span class="line"><span class="built_in">chown</span> root:root /etc/pam.d/*</span><br></pre></td></tr></table></figure>
+
+<h2 id="Best-Practices"><a href="#Best-Practices" class="headerlink" title="Best Practices"></a>Best Practices</h2><ol>
+<li><p><strong>Documentation</strong>: Always document PAM changes in configuration files using comments.</p>
+</li>
+<li><p><strong>Backup</strong>: Create backups before modifying PAM configurations:</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> -r /etc/pam.d /etc/pam.d.backup</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p><strong>Testing</strong>: Test changes in a non-production environment first.</p>
+</li>
+<li><p><strong>Monitoring</strong>: Regularly monitor auth logs for unusual patterns or failures.</p>
+</li>
+</ol>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Linux PAM provides a flexible and powerful framework for managing authentication in Linux systems. Understanding its architecture, configuration syntax, and proper implementation is crucial for system administrators and security professionals. Through careful configuration and following best practices, PAM can significantly enhance system security while maintaining usability.</p>
+<p>Remember that PAM configurations can lock users out of the system if implemented incorrectly. Always maintain a root session when testing new PAM configurations, and have a backup plan for recovery if authentication breaks.</p>
+<p>For further information, consult the official Linux-PAM documentation and system-specific guides for your distribution.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/wireless-modem-ucosii/" data-id="cm5c7gmuj000vdgvy2pq45b07" data-title="Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/31/CS_TEC_Linux_PAM/" data-id="cm71ouvn80004wcvyaaq0bjk5" data-title="Understanding Linux PAM (Pluggable Authentication Modules)" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -696,7 +834,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/android-ril/" data-id="cm5c7gmu30008dgvyak8c9xb9" data-title="Android Cellular Connectivity: RIL and Connection Management" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/31/android-ril/" data-id="cm71ouvnd000bwcvyeeoh379w" data-title="Android Cellular Connectivity: RIL and Connection Management" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -854,76 +992,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/android-sensor/" data-id="cm5c7gmu40009dgvy8rrqajho" data-title="Android Sensor Architecture: A Comprehensive Overview" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-android-video-IP" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/31/android-video-IP/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.491Z" itemprop="datePublished">2024-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/android-video-IP/">Introduction to Android IP Protection Technologies</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Android’s IP (Intellectual Property) protection mechanisms ensure the secure playback and distribution of digital content, particularly for media like movies, music, and applications. These technologies focus on encryption, digital rights management (DRM), and secure hardware environments to prevent piracy and unauthorized access.</p>
-<hr>
-<h4 id="Playback-Security-with-Widevine-DRM"><a href="#Playback-Security-with-Widevine-DRM" class="headerlink" title="Playback Security with Widevine DRM"></a><strong>Playback Security with Widevine DRM</strong></h4><p>Widevine, a leading DRM solution by Google, protects digital media distributed over the internet. It supports secure content playback at varying quality levels (SD, HD, UHD) depending on device compliance with security standards. Widevine operates in three levels:</p>
-<ol>
-<li><strong>Level 1 (L1)</strong>: Requires content decryption and processing in a Trusted Execution Environment (TEE).</li>
-<li><strong>Level 2 (L2)</strong>: Only cryptographic operations occur within TEE; media processing happens externally.</li>
-<li><strong>Level 3 (L3)</strong>: Used on devices without TEE; protection relies on software encryption.</li>
-</ol>
-<p>Widevine integrates with adaptive bitrate streaming (like DASH and HLS) and uses Common Encryption (CENC) for consistent security across devices. Applications such as Netflix, Disney+, and Amazon Prime Video leverage Widevine for secure streaming. Android apps can implement Widevine DRM using the <code>MediaDrm</code> API or with ExoPlayer, a high-level playback library.</p>
-<hr>
-<h4 id="Trusted-Execution-Environment-TEE"><a href="#Trusted-Execution-Environment-TEE" class="headerlink" title="Trusted Execution Environment (TEE)"></a><strong>Trusted Execution Environment (TEE)</strong></h4><p>Android devices often include ARM TrustZone or equivalent technologies that enable a hardware-isolated TEE. This separation protects cryptographic operations and sensitive data from being accessed or modified by malicious software.</p>
-<hr>
-<h4 id="Additional-IP-Protection-Mechanisms"><a href="#Additional-IP-Protection-Mechanisms" class="headerlink" title="Additional IP Protection Mechanisms"></a><strong>Additional IP Protection Mechanisms</strong></h4><ol>
-<li><strong>Secure Hardware</strong>: Android devices use Hardware Abstraction Layers (HALs) and secure boot processes to authenticate firmware and applications during startup.</li>
-<li><strong>Content Decryption Module (CDM)</strong>: Handles decryption and licensing, interfacing with services like Widevine.</li>
-<li><strong>Dynamic Watermarking</strong>: Used in some DRM implementations to deter screen capture or unauthorized recording.</li>
-</ol>
-<hr>
-<h4 id="DRM-APIs-for-Developers"><a href="#DRM-APIs-for-Developers" class="headerlink" title="DRM APIs for Developers"></a><strong>DRM APIs for Developers</strong></h4><p>Android provides multiple APIs to work with DRM-protected content:</p>
-<ul>
-<li><strong><code>MediaDrm</code> API</strong>: Interfaces with low-level DRM implementations.</li>
-<li><strong>ExoPlayer</strong>: A customizable player that simplifies Widevine and other DRM integration.</li>
-<li><strong>ClearKey DRM</strong>: Open-source DRM for testing and non-commercial purposes.</li>
-</ul>
-<hr>
-<h4 id="Applications-of-IP-Protection-in-Android"><a href="#Applications-of-IP-Protection-in-Android" class="headerlink" title="Applications of IP Protection in Android"></a><strong>Applications of IP Protection in Android</strong></h4><ul>
-<li><strong>Streaming Services</strong>: Secure playback of movies, shows, and music.</li>
-<li><strong>App Store Licensing</strong>: Ensures apps are only used on authorized devices.</li>
-<li><strong>Enterprise Solutions</strong>: Protects sensitive data in corporate environments.</li>
-</ul>
-<p>Android’s approach to IP protection, anchored by Widevine DRM and hardware-backed security, provides a robust foundation for secure digital content distribution.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/android-video-IP/" data-id="cm5c7gmu6000adgvy5gwgezdf" data-title="Introduction to Android IP Protection Technologies" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/31/android-sensor/" data-id="cm71ouvnd000cwcvyhj4m9ka9" data-title="Android Sensor Architecture: A Comprehensive Overview" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1008,7 +1077,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/android-wifi-applicatin/" data-id="cm5c7gmu7000bdgvy6f0r7tmm" data-title="Understanding the Source Code of `Settings.apk`: Wi-Fi Features" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/31/android-wifi-applicatin/" data-id="cm71ouvne000dwcvyewwk0daq" data-title="Understanding the Source Code of `Settings.apk`: Wi-Fi Features" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1151,7 +1220,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/android-wifi-arch/" data-id="cm5c7gmu9000cdgvy7gb16plt" data-title="Technical Overview of Android Wi-Fi System" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://apexpeng.github.io/2024/12/31/android-wifi-arch/" data-id="cm71ouvnf000fwcvy2nal7wtj" data-title="Technical Overview of Android Wi-Fi System" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1211,11 +1280,11 @@
           </li>
         
           <li>
-            <a href="/2024/12/31/wireless-modem-intro/">Comprehensive Technical Overview of Wireless Modems</a>
+            <a href="/2024/12/31/wireless-modem-ucosii/">Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II</a>
           </li>
         
           <li>
-            <a href="/2024/12/31/wireless-modem-ucosii/">Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II</a>
+            <a href="/2024/12/31/wireless-modem-intro/">Comprehensive Technical Overview of Wireless Modems</a>
           </li>
         
       </ul>
@@ -1231,7 +1300,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2025 Zhang Peng<br>
+      &copy; 2025 apexpenn<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

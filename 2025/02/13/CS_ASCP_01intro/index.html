@@ -1,0 +1,200 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Penn&#39;s Blog</title>
+  <meta name="author" content="apexpenn">
+  
+  <meta name="description" content="Our life is shaped by our mind; we become what we think.">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Penn&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Penn&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/archives">ARCHIVE</a></li>
+    
+      <li><a href="/about">ABOUT</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-CS_ASCP_01intro" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2025-02-13T00:58:38.948Z"><a href="/2025/02/13/CS_ASCP_01intro/">2025-02-13</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name"></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h1 id="BEGINNING"><a href="#BEGINNING" class="headerlink" title="BEGINNING"></a>BEGINNING</h1><p>This artical copys the introduction from <a target="_blank" rel="noopener" href="https://www.autosar.org/">AUTOSAR</a>, but a unformal reference can be used <a href="autosar.ltd">here</a>.</p>
+<h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>AUTOSAR (AUTomotive Open System ARchitecture) is a global partnership of leading companies in the automotive and software industry to develop and establish the standardized software framework and open E&#x2F;E system architecture for intelligent mobility.</p>
+<h2 id="HISTORY"><a href="#HISTORY" class="headerlink" title="HISTORY"></a>HISTORY</h2><p>Nine companies founded the AUTOSAR partnership to consolidate the expertise of partner companies in the automotive industries and define an automotive open system architecture standard to support the needs of future automotive applications</p>
+<h2 id="AUTOSAR-STANDARDS-and-SPECIFICATIONS"><a href="#AUTOSAR-STANDARDS-and-SPECIFICATIONS" class="headerlink" title="AUTOSAR STANDARDS and SPECIFICATIONS"></a>AUTOSAR STANDARDS and SPECIFICATIONS</h2><p>The primary goal of the AUTOSAR development partnership is the standardization of basic system functions and functional interfaces.</p>
+<h3 id="CLASSIC-PLATFORM"><a href="#CLASSIC-PLATFORM" class="headerlink" title="CLASSIC PLATFORM"></a>CLASSIC PLATFORM</h3><p>The AUTOSAR Classic Platform is a software platform with a layered software architecture defined by AUTOSAR which is used for deeply embedded systems and application software with high requirements for predictability, safety, security and responsiveness. It distinguishes at the highest level of abstraction between three software layers running on a microcontroller: Application, Runtime Environment (RTE) and Basic Software (BSW), and provides a modular and scalable approach to software development.</p>
+<h3 id="ADAPTIVE-PLATFORM"><a href="#ADAPTIVE-PLATFORM" class="headerlink" title="ADAPTIVE PLATFORM"></a>ADAPTIVE PLATFORM</h3><p>The AUTOSAR Adaptive Platform implements the AUTOSAR Runtime for Adaptive Applications (ARA) and consists of functional clusters grouped into Services and the Adaptive AUTOSAR Basis. It provides two types of interfaces, Services and APIs, and is the AUTOSAR solution for high-performance ECUs to build safety-related systems. The platform is designed to meet the requirements of highly automated vehicles and supports dynamic updates and reconfigurations of software systems.</p>
+<h1 id="AUTOSAR-STANDARDS"><a href="#AUTOSAR-STANDARDS" class="headerlink" title="AUTOSAR STANDARDS"></a>AUTOSAR STANDARDS</h1><p>Now, lets take a closer look at AUTOSAR <a target="_blank" rel="noopener" href="https://www.autosar.org/standards">standards</a>.</p>
+<p>Autosar has 2 kinds of standards, classic platform and adaptive paltform, all contain well formart engineering documentations, these include:</p>
+<ul>
+<li>MOD: mode</li>
+<li>MMOD: Meta Mode</li>
+<li>RS: Requirement Specification</li>
+<li>PRS: Protocol Requirement Specification</li>
+<li>TR: Technical Report</li>
+<li>SWS: Software Specification</li>
+<li>EXP: Explaination</li>
+<li>SRS: Software Requirement Specification</li>
+<li>TPS: Template Specification</li>
+</ul>
+<h2 id="CLASSIC-PLATFORM-1"><a href="#CLASSIC-PLATFORM-1" class="headerlink" title="CLASSIC PLATFORM"></a>CLASSIC PLATFORM</h2><h3 id="About"><a href="#About" class="headerlink" title="About"></a>About</h3><p>The AUTOSAR Classic Platform architecture distinguishes on the highest abstraction level between three software layers which run on a microcontroller: application, runtime environment (RTE) and basic software (BSW).</p>
+<ul>
+<li>The application software layer is mostly hardware independent.</li>
+<li>Communication between software components and access to BSW via RTE.</li>
+<li>The RTE represents the full interface for applications.</li>
+<li>The BSW is divided in three major layers and complex drivers:<ul>
+<li>Services, ECU (Electronic Control Unit) abstraction and microcontroller abstraction.</li>
+</ul>
+</li>
+<li>Services are divided furthermore into functional groups representing the infrastructure for system, memory and communication services.</li>
+</ul>
+<h3 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h3><h4 id="VIRTUAL-FUNCTIONAL-BUS-VFB-–-THE-BACKBONE"><a href="#VIRTUAL-FUNCTIONAL-BUS-VFB-–-THE-BACKBONE" class="headerlink" title="VIRTUAL FUNCTIONAL BUS(VFB) – THE BACKBONE"></a>VIRTUAL FUNCTIONAL BUS(VFB) – THE BACKBONE</h4><p>One essential concept is the virtual functional bus (VFB). This virtual bus decouples the applications from the infrastructure. It communicates via dedicated ports, which means that the communication interfaces of the application software must be mapped to these ports. The VFB handles communication both within the individual ECU and between ECUs. From an application point of view, no detailed knowledge of lower-level technologies or dependencies is required. This supports hardware-independent development and usage of application software.</p>
+<h4 id="AUTOSAR-CLASSIC-PLATFORM-ARCHITECTURE"><a href="#AUTOSAR-CLASSIC-PLATFORM-ARCHITECTURE" class="headerlink" title="AUTOSAR CLASSIC PLATFORM ARCHITECTURE"></a>AUTOSAR CLASSIC PLATFORM ARCHITECTURE</h4><p>Refer autosar.architecture.drawio for the architecture of autosar classic platform defined by AUTOSAR.</p>
+<p>The AUTOSAR layered architecture is offering all the mechanisms needed for software and hardware independence. It distinguishes between three main software layers which run on a Microcontroller (µC): application layer, runtime environment (RTE), and basic software (BSW).</p>
+<p>The applications of the different automotive domains interface the basic software by means of the RTE.</p>
+<p>In addition to defining architecture and interfaces, AUTOSAR also defines a methodology which enables the configuration of the complete AUTOSAR stack and enhances interoperability between different tool chains. On the one hand this is important for the collaboration within development projects and on the other hand this is important to cut down development costs.</p>
+<h3 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h3><p>The main concept of the standardized ECU software architecture is the separation of hardware-independent application software and hardware-oriented basic software (BSW) by means of the software abstraction layer RTE (runtime environment). On the upper side of the RTE, this abstraction layer enables the development of OEM-specific and competitive software applications. On the lower side of the RTE, it enables the standardization and OEM-independence of basic software. Further characteristics of the AUTOSAR software architecture are the scalability of ECU software for several car lines and variants, the possibility to distribute applications (functional software modules) across ECUs, and the ability to integrate software modules from different sources.</p>
+<p>The basic software within the AUTOSAR software architecture is further divided into the following layers: services, ECU abstraction, and microcontroller abstraction. The separation of the application layer from the basic software, realized by the RTE, includes the control of the data exchange between these layers. This forms the basis for a component-oriented, hardware-independent software structure on application level, with software components (SWCs) as individual units. Because of their hardware independence, it is thus possible to develop SWCs without specific knowledge of the hardware used or planned, as well as to flexibly relocate existing SWCs to ECUs during development.</p>
+<h3 id="Methodology-and-Templates"><a href="#Methodology-and-Templates" class="headerlink" title="Methodology and Templates"></a>Methodology and Templates</h3><p>In addition to a software architecture, AUTOSAR introduced a harmonized methodology approach for the development of automotive software. This is mainly driven by the need to improve the collaboration between the different parties involved in today’s automotive projects.  </p>
+<p>AUTOSAR provides means to specify all aspects necessary to integrate a software component on an ECU and to integrate different ECUs to the whole network communication over a variety of different bus systems. The methodology defines the dependencies of activities on work products and is foreseen to support activities, descriptions and usage of tools in AUTOSAR.</p>
+<p>The descriptions (.arxml) are based on the AUTOSAR Templates which define the formal exchange format (AUTOSAR Schema) and the semantic constraints which go along with the exchange format.  The descriptions are used to hold the information that is produced or consumed in the AUTOSAR methodology. Various generators can utilize the information from the descriptions to support the configuration and generation of the RTE and the AUTOSAR basic software (including the operating system).</p>
+<h2 id="ADAPTIVE-PLATFORM-1"><a href="#ADAPTIVE-PLATFORM-1" class="headerlink" title="ADAPTIVE PLATFORM"></a>ADAPTIVE PLATFORM</h2><h3 id="About-1"><a href="#About-1" class="headerlink" title="About"></a>About</h3><p>The AUTOSAR Adaptive Platform implements the AUTOSAR Runtime for Adaptive Applications (ARA). Two types of interfaces are available, services and APIs. The platform consists of functional clusters which are grouped in services and the AUTOSAR Adaptive Basis.</p>
+<p>In comparison to the AUTOSAR Classic Platform the AUTOSAR Runtime Environment for the Adaptive Platform dynamically links services and clients during runtime.</p>
+<h3 id="Methodology"><a href="#Methodology" class="headerlink" title="Methodology"></a>Methodology</h3><p>AUTOSAR extends the existing Methodology to be able to have a common Methodology approach for both: Classic and Adaptive Platform. The support for distributed, independent, and agile development of functional applications requires a standardized approach on the development methodology. AUTOSAR adaptive methodology involves the standardization of work products and their respective tasks. Work products describe artifacts such as services, applications, machines, and their configuration. The respective tasks define how the work products exchange design information for the activities required which are needed to develop products based on the adaptive platform.</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="https://apexpeng.github.io/2025/02/13/CS_ASCP_01intro/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="apexpeng.github.io">
+  </form>
+</div>
+
+
+  
+
+  
+
+  
+  <div class="widget widget-archives">
+    <h3 class="title">Archives</h3>
+    <div class="entry">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2025 apexpenn
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script>
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

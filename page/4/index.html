@@ -1,624 +1,473 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   
+  <title>Page 4 | Penn&#39;s Blog</title>
+  <meta name="author" content="apexpenn">
   
-  <title>Penn&#39;s Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Our life is shaped by our mind; we become what we think.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Penn&#39;s Blog">
-<meta property="og:url" content="https://apexpeng.github.io/page/4/index.html">
-<meta property="og:site_name" content="Penn&#39;s Blog">
-<meta property="og:description" content="Our life is shaped by our mind; we become what we think.">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="apexpenn">
-<meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="Penn's Blog" type="application/atom+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
   
+  <meta property="og:site_name" content="Penn&#39;s Blog"/>
+
   
-    <link rel="shortcut icon" href="/favicon.png">
+    <meta property="og:image" content=""/>
   
+
+  <link rel="shortcut icon" href="/favicon.png">
   
   
 <link rel="stylesheet" href="/css/style.css">
 
+  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
   
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
-  
-  
 <meta name="generator" content="Hexo 7.3.0"></head>
 
+
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Penn&#39;s Blog</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://apexpeng.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-android-bt" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/31/android-bt/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.476Z" itemprop="datePublished">2024-12-31</time>
-</a>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Penn&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
     
-  </div>
-  <div class="article-inner">
+      <li><a href="/archives">ARCHIVE</a></li>
     
+      <li><a href="/about">ABOUT</a></li>
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/android-bt/">A Technical Overview of Android Bluetooth System</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Android provides a comprehensive Bluetooth stack that enables communication with other Bluetooth-enabled devices, supporting various profiles for different use cases, such as audio streaming, file transfer, and data synchronization. This article delves into Android’s Bluetooth architecture, user capabilities, and developer APIs for building Bluetooth-enabled applications.</p>
-<hr>
-<h4 id="Bluetooth-Architecture-in-Android"><a href="#Bluetooth-Architecture-in-Android" class="headerlink" title="Bluetooth Architecture in Android"></a><strong>Bluetooth Architecture in Android</strong></h4><p>Android’s Bluetooth stack operates on three primary layers:</p>
-<ol>
-<li><p><strong>Hardware Interface Layer (HIDL):</strong><br>The lowest level connects directly to the Bluetooth hardware. It uses the HCI (Host Controller Interface) protocol to send and receive commands to the Bluetooth chipset.</p>
-</li>
-<li><p><strong>Bluetooth HAL (Hardware Abstraction Layer):</strong><br>Acts as a bridge between the Bluetooth hardware and the higher-level Bluetooth stack implemented in software. It provides interfaces for core Bluetooth operations such as scanning and connection management.</p>
-</li>
-<li><p><strong>Bluetooth Framework:</strong><br>Managed by system services such as <code>BluetoothManager</code> and <code>BluetoothAdapter</code>, this layer exposes high-level Bluetooth functionalities to applications. It also supports various profiles like A2DP for audio streaming and GATT for BLE (Bluetooth Low Energy).</p>
-</li>
-<li><p><strong>Application Layer:</strong><br>Applications interact with the Bluetooth framework using Android SDK APIs. Developers use classes like <code>BluetoothDevice</code>, <code>BluetoothSocket</code>, and <code>BluetoothGatt</code> to implement specific use cases.</p>
-</li>
-</ol>
-<hr>
-<h4 id="Capabilities-for-Users"><a href="#Capabilities-for-Users" class="headerlink" title="Capabilities for Users"></a><strong>Capabilities for Users</strong></h4><p>Android’s Bluetooth capabilities allow users to:</p>
-<ul>
-<li>Pair and connect with Bluetooth devices like headsets, speakers, and smartwatches.</li>
-<li>Transfer files using the Object Push Profile (OPP).</li>
-<li>Stream audio through Advanced Audio Distribution Profile (A2DP).</li>
-<li>Share internet connections using Personal Area Networking (PAN).</li>
-<li>Connect to devices using Bluetooth Low Energy (BLE) for low-power data exchange.</li>
-</ul>
-<hr>
-<h4 id="Developer-APIs-and-Use-Cases"><a href="#Developer-APIs-and-Use-Cases" class="headerlink" title="Developer APIs and Use Cases"></a><strong>Developer APIs and Use Cases</strong></h4><p>The Android Bluetooth API supports both Classic Bluetooth and Bluetooth Low Energy (BLE). Here’s an overview of the key APIs and their applications:</p>
-<ol>
-<li><p><strong>Bluetooth Management:</strong></p>
-<ul>
-<li><strong><code>BluetoothAdapter</code></strong>: Manage Bluetooth settings, enable&#x2F;disable Bluetooth, and perform device discovery.</li>
-<li><strong><code>BluetoothDevice</code></strong>: Interact with remote devices, initiate connections, and fetch device information.</li>
-</ul>
-</li>
-<li><p><strong>Data Communication:</strong></p>
-<ul>
-<li><strong><code>BluetoothSocket</code></strong>: Implement Classic Bluetooth communication using RFCOMM sockets for streaming data.</li>
-<li><strong><code>BluetoothGatt</code></strong>: Facilitate BLE communication, including reading&#x2F;writing characteristics and handling notifications.</li>
-</ul>
-</li>
-<li><p><strong>Profile-Specific APIs:</strong></p>
-<ul>
-<li><strong>Audio (A2DP)</strong>: For streaming audio to external devices.</li>
-<li><strong>HID (Human Interface Device)</strong>: For keyboards, mice, and gaming controllers.</li>
-<li><strong>Health Device Profile (HDP)</strong>: For health-related devices like blood pressure monitors.</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h4 id="Key-Code-Snippet"><a href="#Key-Code-Snippet" class="headerlink" title="Key Code Snippet"></a><strong>Key Code Snippet</strong></h4><p>Here’s an example of scanning for Bluetooth devices:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BluetoothAdapter</span> <span class="variable">bluetoothAdapter</span> <span class="operator">=</span> BluetoothAdapter.getDefaultAdapter();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!bluetoothAdapter.isEnabled()) &#123;</span><br><span class="line">    <span class="type">Intent</span> <span class="variable">enableBtIntent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(BluetoothAdapter.ACTION_REQUEST_ENABLE);</span><br><span class="line">    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Set&lt;BluetoothDevice&gt; pairedDevices = bluetoothAdapter.getBondedDevices();</span><br><span class="line"><span class="keyword">for</span> (BluetoothDevice device : pairedDevices) &#123;</span><br><span class="line">    Log.d(<span class="string">&quot;BluetoothDevice&quot;</span>, <span class="string">&quot;Name: &quot;</span> + device.getName() + <span class="string">&quot;, Address: &quot;</span> + device.getAddress());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>For BLE scanning:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BluetoothLeScanner</span> <span class="variable">scanner</span> <span class="operator">=</span> bluetoothAdapter.getBluetoothLeScanner();</span><br><span class="line">scanner.startScan(<span class="keyword">new</span> <span class="title class_">ScanCallback</span>() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onScanResult</span><span class="params">(<span class="type">int</span> callbackType, ScanResult result)</span> &#123;</span><br><span class="line">        <span class="type">BluetoothDevice</span> <span class="variable">device</span> <span class="operator">=</span> result.getDevice();</span><br><span class="line">        Log.d(<span class="string">&quot;BLE Device&quot;</span>, <span class="string">&quot;Name: &quot;</span> + device.getName() + <span class="string">&quot;, Address: &quot;</span> + device.getAddress());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h4 id="Bluetooth-Protocols-and-Profiles"><a href="#Bluetooth-Protocols-and-Profiles" class="headerlink" title="Bluetooth Protocols and Profiles"></a><strong>Bluetooth Protocols and Profiles</strong></h4><p>The Android Bluetooth stack supports the following profiles:</p>
-<ul>
-<li><strong>HFP (Hands-Free Profile):</strong> For hands-free audio devices.</li>
-<li><strong>A2DP (Advanced Audio Distribution Profile):</strong> High-quality audio streaming.</li>
-<li><strong>AVRCP (Audio&#x2F;Video Remote Control Profile):</strong> For controlling playback on remote devices.</li>
-<li><strong>GATT (Generic Attribute Profile):</strong> Core for BLE communication.</li>
-<li><strong>PBAP (Phone Book Access Profile):</strong> Syncing contact information with car systems.</li>
-</ul>
-<hr>
-<h4 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a><strong>Resources</strong></h4><ul>
-<li>Official Android Bluetooth Documentation: <a target="_blank" rel="noopener" href="https://source.android.com/docs/core/connect/bluetooth">source.android.com</a></li>
-<li>Android SDK Reference for Bluetooth: <a target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/connectivity/bluetooth">developer.android.com</a></li>
-</ul>
-<p>This comprehensive stack and API support make Android a robust platform for integrating a wide variety of Bluetooth-based applications and services. Whether it’s developing apps for IoT devices, enhancing in-car entertainment systems, or creating wearable integrations, Android’s Bluetooth framework provides powerful tools for developers.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/android-bt/" data-id="cm71ouvna0008wcvy7asjh0qm" data-title="A Technical Overview of Android Bluetooth System" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-android-firewall" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/31/android-firewall/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.476Z" itemprop="datePublished">2024-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/android-firewall/">Advanced Concepts in Android Firewall Using Iptables: Stateful vs Stateless Firewalls and Conntrack</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>In addition to basic firewall functionality, Android leverages stateful and stateless firewall mechanisms through the <code>iptables</code> and <code>netfilter</code> frameworks. This section explores these concepts, the role of connection tracking (<code>conntrack</code>), and how developers can use these tools to build more sophisticated firewall rules.</p>
-<hr>
-<h4 id="1-Stateless-vs-Stateful-Firewalls"><a href="#1-Stateless-vs-Stateful-Firewalls" class="headerlink" title="1. Stateless vs Stateful Firewalls"></a><strong>1. Stateless vs Stateful Firewalls</strong></h4><ul>
-<li><p><strong>Stateless Firewalls</strong>:</p>
-<ul>
-<li>Operate by inspecting each packet independently.</li>
-<li>Rely solely on static rules to decide whether to allow or block a packet.</li>
-<li>Example: Dropping all incoming traffic on a port without analyzing connection states.</li>
-<li><strong>Advantages</strong>: Simpler to configure and resource-efficient.</li>
-<li><strong>Drawbacks</strong>: Cannot differentiate between related and unrelated packets, making them less secure against certain types of attacks.</li>
-<li>Example Rule:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp --dport 22 -j DROP</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>Stateful Firewalls</strong>:</p>
-<ul>
-<li>Inspect packets in the context of established connections using the <strong>connection tracking system</strong>.</li>
-<li>Keep track of connection states (<code>NEW</code>, <code>ESTABLISHED</code>, <code>RELATED</code>, <code>INVALID</code>).</li>
-<li>Allow more intelligent rules, such as permitting only responses to legitimate outbound requests.</li>
-<li><strong>Advantages</strong>: Provide greater security and flexibility.</li>
-<li><strong>Drawbacks</strong>: Slightly higher resource usage due to state maintenance.</li>
-<li>Example Rule:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="2-Connection-Tracking-conntrack"><a href="#2-Connection-Tracking-conntrack" class="headerlink" title="2. Connection Tracking (conntrack)"></a><strong>2. Connection Tracking (<code>conntrack</code>)</strong></h4><p><code>conntrack</code> is a key component of stateful firewalls that tracks the state of network connections passing through the firewall. It is implemented as part of the <code>netfilter</code> framework in the Linux kernel and allows <code>iptables</code> to make decisions based on the state of connections.</p>
-<p><strong>Connection States in conntrack</strong>:</p>
-<ul>
-<li><strong>NEW</strong>: The first packet in a connection that is not yet established.</li>
-<li><strong>ESTABLISHED</strong>: A connection that has been fully established.</li>
-<li><strong>RELATED</strong>: Packets that are associated with an existing connection, like FTP data sessions.</li>
-<li><strong>INVALID</strong>: Packets that cannot be identified with a connection.</li>
-</ul>
-<p><strong>Usage Example</strong>:<br>To allow only established or related connections, preventing unauthorized access:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT</span><br><span class="line">iptables -A INPUT -m conntrack --ctstate NEW -j DROP</span><br></pre></td></tr></table></figure>
-
-<p><strong>Benefits of Using conntrack</strong>:</p>
-<ul>
-<li>Enables secure and granular control over connections.</li>
-<li>Helps reduce the surface area for attacks like SYN flooding.</li>
-<li>Facilitates debugging and monitoring through <code>conntrack-tools</code>.</li>
-</ul>
-<hr>
-<h4 id="3-Integrating-conntrack-in-Android-Firewalls"><a href="#3-Integrating-conntrack-in-Android-Firewalls" class="headerlink" title="3. Integrating conntrack in Android Firewalls"></a><strong>3. Integrating conntrack in Android Firewalls</strong></h4><p>On Android, <code>conntrack</code> integrates seamlessly with <code>iptables</code> to enforce app-specific or system-wide network policies:</p>
-<ol>
-<li><strong>Restrict Connections to Specific States</strong>: For example, block all new incoming connections while allowing established connections.</li>
-<li><strong>Monitor Connections</strong>: Use the <code>conntrack</code> command-line tool to display active connections and their states:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conntrack -L</span><br></pre></td></tr></table></figure></li>
-<li><strong>Optimize Rules</strong>: Stateful inspection allows for simpler and more maintainable rule sets, reducing the chances of misconfiguration.</li>
-</ol>
-<hr>
-<h4 id="4-Best-Practices-for-Stateful-and-Stateless-Rules"><a href="#4-Best-Practices-for-Stateful-and-Stateless-Rules" class="headerlink" title="4. Best Practices for Stateful and Stateless Rules"></a><strong>4. Best Practices for Stateful and Stateless Rules</strong></h4><ul>
-<li><p><strong>For Stateless Rules</strong>:</p>
-<ul>
-<li>Use sparingly for scenarios where connection context isn’t necessary (e.g., blocking ports, IP addresses).</li>
-<li>Avoid relying solely on stateless rules for security-critical systems.</li>
-</ul>
-</li>
-<li><p><strong>For Stateful Rules</strong>:</p>
-<ul>
-<li>Combine with <code>conntrack</code> for fine-grained control over connections.</li>
-<li>Drop invalid packets to prevent exploitation:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -m conntrack --ctstate INVALID -j DROP</span><br></pre></td></tr></table></figure></li>
-<li>Permit traffic for specific apps or users while ensuring it follows established connection states.</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h3><p>The integration of stateful and stateless firewalls in Android using <code>iptables</code> and <code>conntrack</code> provides a flexible and powerful security model. By understanding the differences between these approaches and leveraging connection tracking, developers and administrators can enforce robust network policies tailored to their needs.</p>
-<p>For additional insights, consult guides like <a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture">DigitalOcean’s iptables tutorial</a> and the Linux documentation for <code>conntrack</code>.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/android-firewall/" data-id="cm71ouvnb0009wcvydogr555o" data-title="Advanced Concepts in Android Firewall Using Iptables: Stateful vs Stateless Firewalls and Conntrack" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-android-gps" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/31/android-gps/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.476Z" itemprop="datePublished">2024-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/31/android-gps/">A Technical Overview of Android&#39;s GPS System</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Global Positioning System (GPS) is a core feature of Android devices, enabling location-based services for navigation, tracking, and geospatial applications. Android’s GPS system is a complex, multi-layered framework that processes data from GPS hardware and provides interfaces for developers to access and utilize this information.</p>
-<p>This article covers the NMEA protocol, Android’s GPS handling architecture, available APIs, and what developers can achieve with these tools.</p>
-<hr>
-<h2 id="1-NMEA-Protocol-The-Foundation-of-GPS-Data"><a href="#1-NMEA-Protocol-The-Foundation-of-GPS-Data" class="headerlink" title="1. NMEA Protocol: The Foundation of GPS Data"></a><strong>1. NMEA Protocol: The Foundation of GPS Data</strong></h2><p>The National Marine Electronics Association (NMEA) protocol is the industry standard for communicating GPS data. It consists of structured sentences sent over serial interfaces, describing satellite information, location coordinates, timestamps, and other metadata.</p>
-<h3 id="Key-NMEA-Sentences"><a href="#Key-NMEA-Sentences" class="headerlink" title="Key NMEA Sentences:"></a><strong>Key NMEA Sentences:</strong></h3><ul>
-<li><strong>$GPGGA</strong>: Global Positioning System Fix Data (e.g., latitude, longitude, altitude).</li>
-<li><strong>$GPRMC</strong>: Recommended Minimum Specific GPS Data (e.g., speed, direction).</li>
-<li><strong>$GPGSV</strong>: Satellites in View (e.g., satellite count and signal strength).</li>
-<li><strong>$GPVTG</strong>: Track Made Good and Ground Speed.</li>
-</ul>
-<h3 id="Example-NMEA-Sentence"><a href="#Example-NMEA-Sentence" class="headerlink" title="Example NMEA Sentence:"></a><strong>Example NMEA Sentence:</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47</span><br></pre></td></tr></table></figure>
-
-<h3 id="How-to-Obtain-NMEA-Sentences-on-Android"><a href="#How-to-Obtain-NMEA-Sentences-on-Android" class="headerlink" title="How to Obtain NMEA Sentences on Android:"></a><strong>How to Obtain NMEA Sentences on Android:</strong></h3><p>Android’s <strong>Location Manager</strong> and related system components process NMEA data. Developers can listen to raw NMEA strings for debugging or custom GPS processing:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocationManager</span> <span class="variable">locationManager</span> <span class="operator">=</span> (LocationManager) getSystemService(Context.LOCATION_SERVICE);</span><br><span class="line">locationManager.addNmeaListener((timestamp, nmea) -&gt; &#123;</span><br><span class="line">    Log.d(<span class="string">&quot;NMEA&quot;</span>, <span class="string">&quot;Timestamp: &quot;</span> + timestamp + <span class="string">&quot; NMEA: &quot;</span> + nmea);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="2-How-Android-Handles-GPS-Data"><a href="#2-How-Android-Handles-GPS-Data" class="headerlink" title="2. How Android Handles GPS Data"></a><strong>2. How Android Handles GPS Data</strong></h2><h3 id="Key-Components-of-Android-GPS-System"><a href="#Key-Components-of-Android-GPS-System" class="headerlink" title="Key Components of Android GPS System:"></a><strong>Key Components of Android GPS System:</strong></h3><ol>
-<li><p><strong>GPS Hardware:</strong></p>
-<ul>
-<li>Embedded in the device, communicates with GPS satellites to retrieve location data.</li>
-<li>Supports additional GNSS systems like GLONASS, Galileo, and BeiDou for enhanced accuracy.</li>
-</ul>
-</li>
-<li><p><strong>GNSS HAL (Hardware Abstraction Layer):</strong></p>
-<ul>
-<li>A standardized interface (<code>gps.h</code>) to interact with GPS hardware.</li>
-<li>Converts low-level GPS hardware output, including NMEA sentences, into a format the Android framework can use.</li>
-</ul>
-</li>
-<li><p><strong>Location Service:</strong></p>
-<ul>
-<li>A system-level service in the Android framework that interacts with the GNSS HAL.</li>
-<li>Provides a unified interface for accessing location data from various sources (GPS, Wi-Fi, Cellular).</li>
-</ul>
-</li>
-<li><p><strong>Location Provider:</strong></p>
-<ul>
-<li>The <strong>Fused Location Provider</strong> (FLP) integrates data from multiple sources to provide the most accurate and power-efficient location.</li>
-<li>Combines GPS, network-based location, and inertial sensors.</li>
-</ul>
-</li>
-</ol>
-<h3 id="Processing-Workflow"><a href="#Processing-Workflow" class="headerlink" title="Processing Workflow:"></a><strong>Processing Workflow:</strong></h3><ol>
-<li>GPS hardware acquires signals and generates raw data (e.g., NMEA sentences).</li>
-<li>GNSS HAL processes this data, forwarding it to the Location Service.</li>
-<li>The Location Service refines and aggregates location data, exposing it to apps via the <strong>LocationManager</strong> API.</li>
-</ol>
-<hr>
-<h2 id="3-Developer-APIs-for-GPS"><a href="#3-Developer-APIs-for-GPS" class="headerlink" title="3. Developer APIs for GPS"></a><strong>3. Developer APIs for GPS</strong></h2><p>Android provides several APIs to access and utilize GPS functionality. The main entry point for developers is the <strong>LocationManager</strong> class, alongside support for advanced features via the <strong>Fused Location Provider API</strong>.</p>
-<h3 id="Core-GPS-APIs"><a href="#Core-GPS-APIs" class="headerlink" title="Core GPS APIs:"></a><strong>Core GPS APIs:</strong></h3><ol>
-<li><p><strong><code>LocationManager</code>:</strong></p>
-<ul>
-<li>Manages access to the device’s location services.</li>
-<li>Provides methods to request location updates, manage listeners, and query providers.</li>
-</ul>
-<p>Example:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocationManager</span> <span class="variable">locationManager</span> <span class="operator">=</span> (LocationManager) getSystemService(Context.LOCATION_SERVICE);</span><br><span class="line">locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, <span class="number">1000</span>, <span class="number">10</span>, <span class="keyword">new</span> <span class="title class_">LocationListener</span>() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onLocationChanged</span><span class="params">(Location location)</span> &#123;</span><br><span class="line">        <span class="type">double</span> <span class="variable">latitude</span> <span class="operator">=</span> location.getLatitude();</span><br><span class="line">        <span class="type">double</span> <span class="variable">longitude</span> <span class="operator">=</span> location.getLongitude();</span><br><span class="line">        Log.d(<span class="string">&quot;GPS&quot;</span>, <span class="string">&quot;Lat: &quot;</span> + latitude + <span class="string">&quot;, Lon: &quot;</span> + longitude);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>FusedLocationProviderClient</code>:</strong></p>
-<ul>
-<li>Part of Google Play Services, provides more accurate and battery-efficient location data.</li>
-<li>Combines GPS, Wi-Fi, cellular, and sensor data for better accuracy.</li>
-</ul>
-<p>Example:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">FusedLocationProviderClient</span> <span class="variable">fusedLocationClient</span> <span class="operator">=</span> LocationServices.getFusedLocationProviderClient(<span class="built_in">this</span>);</span><br><span class="line">fusedLocationClient.getLastLocation()</span><br><span class="line">        .addOnSuccessListener(location -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (location != <span class="literal">null</span>) &#123;</span><br><span class="line">                Log.d(<span class="string">&quot;FLP&quot;</span>, <span class="string">&quot;Lat: &quot;</span> + location.getLatitude() + <span class="string">&quot;, Lon: &quot;</span> + location.getLongitude());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Geofencing API:</strong></p>
-<ul>
-<li>Allows developers to define geographical boundaries and receive notifications when a user enters or exits these zones.</li>
-</ul>
-<p>Example:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">GeofencingRequest</span> <span class="variable">geofencingRequest</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GeofencingRequest</span>.Builder()</span><br><span class="line">        .addGeofence(<span class="keyword">new</span> <span class="title class_">Geofence</span>.Builder()</span><br><span class="line">            .setRequestId(<span class="string">&quot;example&quot;</span>)</span><br><span class="line">            .setCircularRegion(latitude, longitude, radius)</span><br><span class="line">            .setExpirationDuration(Geofence.NEVER_EXPIRE)</span><br><span class="line">            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)</span><br><span class="line">            .build())</span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>GNSS Status API:</strong></p>
-<ul>
-<li>Provides satellite status and metadata for debugging and advanced use cases.</li>
-<li>Example: Check satellite visibility.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">locationManager.registerGnssStatusCallback(<span class="keyword">new</span> <span class="title class_">GnssStatus</span>.Callback() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onSatelliteStatusChanged</span><span class="params">(GnssStatus status)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">satelliteCount</span> <span class="operator">=</span> status.getSatelliteCount();</span><br><span class="line">        Log.d(<span class="string">&quot;GNSS&quot;</span>, <span class="string">&quot;Satellites: &quot;</span> + satelliteCount);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h2 id="4-What-Developers-Can-Do-with-GPS-APIs"><a href="#4-What-Developers-Can-Do-with-GPS-APIs" class="headerlink" title="4. What Developers Can Do with GPS APIs"></a><strong>4. What Developers Can Do with GPS APIs</strong></h2><p>Android’s GPS APIs allow developers to create a wide range of applications, including:</p>
-<ol>
-<li><p><strong>Navigation and Mapping Applications:</strong></p>
-<ul>
-<li>Turn-by-turn navigation apps.</li>
-<li>Real-time traffic visualization.</li>
-</ul>
-</li>
-<li><p><strong>Fitness and Tracking:</strong></p>
-<ul>
-<li>Track activities like running, cycling, or hiking.</li>
-<li>Log routes and performance metrics.</li>
-</ul>
-</li>
-<li><p><strong>Geofencing Applications:</strong></p>
-<ul>
-<li>Create location-based reminders.</li>
-<li>Trigger app events when entering specific areas.</li>
-</ul>
-</li>
-<li><p><strong>Augmented Reality (AR):</strong></p>
-<ul>
-<li>Combine GPS with camera and sensor data for location-based AR experiences.</li>
-</ul>
-</li>
-<li><p><strong>Emergency Services:</strong></p>
-<ul>
-<li>Provide precise location during SOS calls.</li>
-</ul>
-</li>
-<li><p><strong>Geospatial Analysis:</strong></p>
-<ul>
-<li>Analyze movement patterns and spatial data.</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>Android’s GPS system, powered by the NMEA protocol and advanced GNSS handling, provides developers with powerful tools for location-based app development. Whether leveraging raw GPS data for custom applications or using high-level APIs for efficient and accurate location services, Android’s framework enables a wide range of use cases. By mastering these APIs, developers can create innovative solutions tailored to user needs.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/android-gps/" data-id="cm71ouvnc000awcvy1q025s3o" data-title="A Technical Overview of Android&#39;s GPS System" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-android-intro" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/31/android-intro/" class="article-date">
-  <time class="dt-published" datetime="2024-12-31T01:03:56.476Z" itemprop="datePublished">2024-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="A-Comprehensive-Introduction-to-Android-and-Its-Architecture"><a href="#A-Comprehensive-Introduction-to-Android-and-Its-Architecture" class="headerlink" title="A Comprehensive Introduction to Android and Its Architecture"></a>A Comprehensive Introduction to Android and Its Architecture</h1><p>Android, developed by Google, is an open-source operating system primarily designed for mobile devices such as smartphones and tablets. Since its inception in 2008, it has become the world’s most widely used mobile operating system, powering billions of devices globally. Android’s success lies in its flexibility, robust ecosystem, and strong developer support.</p>
-<p>This article will explore Android’s architecture and foundational concepts, with references to official documentation to provide a technical understanding of this versatile platform.</p>
-<hr>
-<h2 id="What-is-Android"><a href="#What-is-Android" class="headerlink" title="What is Android?"></a><strong>What is Android?</strong></h2><p>Android is an open-source platform built on the Linux kernel, designed to enable device manufacturers, developers, and users to create and interact with rich, customizable experiences. It provides the core components needed to create robust applications, including an application framework, libraries, and runtime.</p>
-<p>Android is not just limited to phones and tablets but extends to wearables, TVs, cars, and IoT devices, reflecting its scalability and modularity.</p>
-<hr>
-<h2 id="Android-Architecture"><a href="#Android-Architecture" class="headerlink" title="Android Architecture"></a><strong>Android Architecture</strong></h2><p>The architecture of Android is structured into layers, each serving distinct roles. Understanding these layers is key to grasping how Android operates and supports application development. The architecture comprises the following components:</p>
-<h3 id="1-Linux-Kernel"><a href="#1-Linux-Kernel" class="headerlink" title="1. Linux Kernel"></a><strong>1. Linux Kernel</strong></h3><p>At the base of the Android architecture is the Linux kernel. It provides core system services such as:</p>
-<ul>
-<li><strong>Memory and Process Management:</strong> Manages the allocation and execution of processes and threads.</li>
-<li><strong>Security:</strong> Implements a robust security model, including SELinux for enforcing policies.</li>
-<li><strong>Hardware Abstraction:</strong> Offers drivers for device hardware like display, camera, and sensors.</li>
-<li><strong>Power Management:</strong> Optimizes battery usage by managing resources efficiently.</li>
-</ul>
-<h3 id="2-Hardware-Abstraction-Layer-HAL"><a href="#2-Hardware-Abstraction-Layer-HAL" class="headerlink" title="2. Hardware Abstraction Layer (HAL)"></a><strong>2. Hardware Abstraction Layer (HAL)</strong></h3><p>The HAL serves as a bridge between the hardware and software layers. It provides standardized interfaces to allow Android to communicate with device-specific hardware, enabling developers to build hardware-agnostic applications.</p>
-<h3 id="3-Android-Runtime-ART"><a href="#3-Android-Runtime-ART" class="headerlink" title="3. Android Runtime (ART)"></a><strong>3. Android Runtime (ART)</strong></h3><p>The Android Runtime executes and manages applications. Key features of ART include:</p>
-<ul>
-<li><strong>Ahead-of-Time (AOT) Compilation:</strong> Translates code into native machine instructions for better performance.</li>
-<li><strong>Garbage Collection:</strong> Manages memory efficiently to prevent leaks and optimize resource use.</li>
-<li><strong>JNI (Java Native Interface):</strong> Facilitates the use of native C&#x2F;C++ code within Java-based applications.</li>
-</ul>
-<h3 id="4-Native-Libraries"><a href="#4-Native-Libraries" class="headerlink" title="4. Native Libraries"></a><strong>4. Native Libraries</strong></h3><p>Native libraries are written in C&#x2F;C++ and include essential components such as:</p>
-<ul>
-<li><strong>SQLite:</strong> Lightweight database management.</li>
-<li><strong>WebKit:</strong> Browser engine for rendering web content.</li>
-<li><strong>OpenGL ES:</strong> Graphics rendering API for 2D and 3D applications.</li>
-<li><strong>Media Libraries:</strong> Support for audio, video, and image processing.</li>
-</ul>
-<h3 id="5-Application-Framework"><a href="#5-Application-Framework" class="headerlink" title="5. Application Framework"></a><strong>5. Application Framework</strong></h3><p>The application framework provides APIs that developers use to build Android apps. Key components include:</p>
-<ul>
-<li><strong>Activity Manager:</strong> Manages the lifecycle of applications.</li>
-<li><strong>Resource Manager:</strong> Handles resources like UI layouts and strings.</li>
-<li><strong>Notification Manager:</strong> Enables alerts and notifications.</li>
-<li><strong>Content Providers:</strong> Facilitates data sharing between apps.</li>
-</ul>
-<h3 id="6-Applications"><a href="#6-Applications" class="headerlink" title="6. Applications"></a><strong>6. Applications</strong></h3><p>At the topmost layer are the user-installed and pre-installed applications. These include common apps like the phone dialer, messaging, and email, as well as third-party applications from the Google Play Store or other sources.</p>
-<hr>
-<h2 id="Basics-of-Android"><a href="#Basics-of-Android" class="headerlink" title="Basics of Android"></a><strong>Basics of Android</strong></h2><p>Understanding the basics of Android involves delving into its core principles and features, as outlined in the <a target="_blank" rel="noopener" href="https://source.android.com/docs/core">official Android documentation</a>.</p>
-<h3 id="1-Modularity-and-Customizability"><a href="#1-Modularity-and-Customizability" class="headerlink" title="1. Modularity and Customizability"></a><strong>1. Modularity and Customizability</strong></h3><p>Android is built with a modular architecture that allows device manufacturers to adapt the OS to their hardware while maintaining compatibility with the broader ecosystem. Modularity ensures that updates can target specific components without requiring a complete system upgrade.</p>
-<h3 id="2-Compatibility"><a href="#2-Compatibility" class="headerlink" title="2. Compatibility"></a><strong>2. Compatibility</strong></h3><p>The Compatibility Definition Document (CDD) and Compatibility Test Suite (CTS) ensure that devices adhere to a common standard. This guarantees that applications function consistently across different devices.</p>
-<h3 id="3-Security"><a href="#3-Security" class="headerlink" title="3. Security"></a><strong>3. Security</strong></h3><p>Android incorporates robust security measures at every level, from the kernel to the application sandbox. Key features include:</p>
-<ul>
-<li><strong>Application Sandboxing:</strong> Isolates applications to prevent unauthorized data access.</li>
-<li><strong>Permission System:</strong> Regulates access to sensitive device features like the camera and location.</li>
-<li><strong>Secure Boot:</strong> Ensures that only verified code runs on the device.</li>
-</ul>
-<h3 id="4-Open-Source"><a href="#4-Open-Source" class="headerlink" title="4. Open Source"></a><strong>4. Open Source</strong></h3><p>Android’s open-source nature enables a collaborative development environment. Developers can access the source code, modify it, and even contribute to the platform.</p>
-<h3 id="5-Update-Mechanisms"><a href="#5-Update-Mechanisms" class="headerlink" title="5. Update Mechanisms"></a><strong>5. Update Mechanisms</strong></h3><p>Android uses Project Treble to separate the OS framework from vendor-specific implementations, streamlining updates. This modular approach reduces fragmentation and accelerates the delivery of security patches and feature updates.</p>
-<hr>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>Android’s architecture and foundational principles reflect its versatility and scalability. Its layered architecture, comprising the Linux kernel, HAL, ART, and application framework, ensures robust performance, security, and ease of development. By leveraging its open-source nature and modular design, Android continues to adapt to the evolving needs of the digital ecosystem, cementing its place as a cornerstone of modern mobile technology.</p>
-<p>For an in-depth understanding, developers and enthusiasts are encouraged to explore the official Android documentation at <a target="_blank" rel="noopener" href="https://source.android.com/">source.android.com</a>.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://apexpeng.github.io/2024/12/31/android-intro/" data-id="cm71ouvne000ewcvy1hybdm71" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2025/02/10/CS_Basis_TEE/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2025/02/10/CS_Basis_HSM/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2025/02/10/CS_ASCP_01intro/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/31/wireless-modem-ucosii/">Implementing SMS-Triggered Functions With Wireless Modem in uC/OS-II</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/31/wireless-modem-intro/">Comprehensive Technical Overview of Wireless Modems</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2025 apexpenn<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
+  </ul>
+  <div class="clearfix"></div>
 </nav>
-    
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+  <article id="post-CS_Basis_TEE" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2025-02-13T00:58:39.019Z"><a href="/2025/02/13/CS_Basis_TEE/">2025-02-13</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2025/02/13/CS_Basis_TEE/"></a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Trusted Execution Environments (TEEs) are CPU-encrypted isolated private enclaves inside the memory, used for protecting data in use at the hardware level.</p>
+<p>While the sensitive data is inside an enclave, unauthorized entities cannot remove it, modify it, or add more data to it. The contents of an enclave remain invisible and inaccessible to external parties, protected against outsider and insider threats.</p>
+<p>As a result, a TEE ensures the following:</p>
+<ul>
+<li>Data integrity</li>
+<li>Code integrity</li>
+<li>Data confidentiality</li>
+</ul>
+<h1 id="TEE-terminology-and-operation"><a href="#TEE-terminology-and-operation" class="headerlink" title="TEE terminology and operation"></a>TEE terminology and operation</h1><p>In a system with a TEE, we have untrusted applications running on a Rich Execution Environment (REE) and trusted applications (TAs) running on a Trusted Execution Environment (TEE).</p>
+<p>Only trusted applications running on a TEE (Secure World) have complete access to the main processor, peripherals and memory, while hardware isolation protects these from untrusted applications running on the main operating system (Non-Secure World).</p>
+<h1 id="How-to-implement-a-TEE"><a href="#How-to-implement-a-TEE" class="headerlink" title="How to implement a TEE?"></a>How to implement a TEE?</h1><p>We could isolate applications in a “sandbox”, for example using containers. This would prevent an application from seeing and accessing data from other applications.</p>
+<p>But what about the kernel? How to prevent a code running in kernel space from being exploited to access a certain peripheral or memory region used by a trusted application?</p>
+<p>Software can’t protect software!</p>
+<p>So we need support in the hardware to implement a TEE. We need a way to partition and isolate the hardware (busses, peripherals, memory regions, interrupts, etc) so that the running code does not have access to protected resources.</p>
+<p>That’s where ARM’s TrustZone, RISC-V’s MultiZone and many other solutions come in.</p>
+<p>Hardware support to implement a TEE:</p>
+<ul>
+<li>ARM’s TrustZone</li>
+<li>RISC-V’s MultiZone</li>
+<li>AMD Platform Security Processor (PSP)</li>
+<li>Intel Software Guard Extensions (SGX)</li>
+<li>Apple SEP (Secure Enclave Processor)</li>
+<li>Google Titan M</li>
+</ul>
+<h2 id="ARM’s-TrustZone"><a href="#ARM’s-TrustZone" class="headerlink" title="ARM’s TrustZone"></a>ARM’s TrustZone</h2><p>Several commercial TEE implementations have been developed over the years:</p>
+<ul>
+<li>Trustonic Kinibi</li>
+<li>Samsung TEEGRIS</li>
+<li>Qualcomm  Qualcomm Secure Execution Environment (QSEE)</li>
+<li>Google Trusty(opensource)</li>
+<li>OP-TEE (<a target="_blank" rel="noopener" href="https://globalplatform.org/wp-content/uploads/2018/05/Introduction-to-Trusted-Execution-Environment-15May2018.pdf">Open Portable Trusted Execution Environment</a>) (opensource)</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
 
 
-<script src="/js/jquery-3.6.4.min.js"></script>
 
+
+  <article id="post-CS_Basis_HSM" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2025-02-13T00:58:38.976Z"><a href="/2025/02/13/CS_Basis_HSM/">2025-02-13</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2025/02/13/CS_Basis_HSM/"></a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>HSM, short for Hardware Security Module, is a physical device that acts as a fortress for your data, ensuring its confidentiality, integrity, and availability. HSMs are considered as standalone and tamper-resistant hardware devices specifically engineered to fortify cryptographic processes.</p>
+<p>HSMs serve the essential functions of generating, safeguarding, and managing encryption keys, which are crucial for data encryption and decryption, and creating digital signatures and code signing certificates. HSMs can take the form of plugin cards or be integrated into various hardware components, including smart cards, appliances, and external devices.</p>
+<p>These devices undergo rigorous testing, validation, and certification processes, adhering to strict security standards like FIPS 140-2, Common Criteria EAL 4+, or equivalent benchmarks. These benchmarks assure users that the devices offer unparalleled levels of security and shield against potential threats, ensuring the utmost confidentiality and integrity of data.</p>
+<p>According to CerteraSSL’s <a target="_blank" rel="noopener" href="https://certera.com/blog/what-is-hardware-security-module-hsm-comprehensive-guide">HSM Comprehensive Guide</a>, let’s first walk through the Key components of HSM, different types of HSM, features of HSM and then look into some detail of Vehicular Hardware Security Module</p>
+<h1 id="Key-components-of-HSM"><a href="#Key-components-of-HSM" class="headerlink" title="Key components of HSM"></a>Key components of HSM</h1><h2 id="Key-Generation-and-Storage"><a href="#Key-Generation-and-Storage" class="headerlink" title="Key Generation and Storage"></a>Key Generation and Storage</h2><p>HSMs use secure random number generators (RNGs) to generate strong cryptographic keys. The generated keys are securely stored within the HSM and safeguarded against unauthorized access or extraction, ensuring keys’ integrity and randomness, which are crucial for robust cryptographic operations.</p>
+<h2 id="Key-Management"><a href="#Key-Management" class="headerlink" title="Key Management"></a>Key Management</h2><p>HSMs provide a comprehensive suite of key management functionalities, which includes key generation, import, export, versioning, and facilitating key lifecycle operations like rotation and retirement.</p>
+<h2 id="Cryptographic-Operations"><a href="#Cryptographic-Operations" class="headerlink" title="Cryptographic Operations"></a>Cryptographic Operations</h2><p>HSM excels in performing various cryptographic operations. They offer encryption and decryption capabilities and play a critical role in generating and verifying digital signatures, ensuring the authenticity and integrity of electronic documents and transactions. They also support secure hashing algorithms for data integrity verification and provide secure APIs and interfaces for the seamless integration of cryptographic functionalities into applications.</p>
+<h2 id="Secure-APIs-and-Interfaces"><a href="#Secure-APIs-and-Interfaces" class="headerlink" title="Secure APIs and Interfaces"></a>Secure APIs and Interfaces</h2><p>HSMs offer secure APIs and interfaces. APIs establish a secure communication channel between the application and the HSM, preventing unauthorized access and safeguarding cryptographic material from tampering.</p>
+<h2 id="Physical-and-Logical-Security"><a href="#Physical-and-Logical-Security" class="headerlink" title="Physical and Logical Security"></a>Physical and Logical Security</h2><p>HSMs incorporate robust physical and logical security measures. Physical security features include tamper-evident casings, sensors to detect physical attacks and secure key storage mechanisms. Logical security encompasses robust authentication mechanisms, access controls, and cryptographic operations executed within a trusted environment.</p>
+<h2 id="Compliance-and-Auditing"><a href="#Compliance-and-Auditing" class="headerlink" title="Compliance and Auditing"></a>Compliance and Auditing</h2><p>HSMs provide the necessary capabilities to comply with security regulations and industry standards. They offer auditing and logging mechanisms, enabling organizations to track and monitor cryptographic operations. Compliance features within HSMs assist in demonstrating adherence to security best practices and successfully passing regulatory audits.</p>
+<h1 id="Types-of-HSM"><a href="#Types-of-HSM" class="headerlink" title="Types of HSM"></a>Types of HSM</h1><p>HSM devices come in various types, each tailored to specific use cases and industry requirements. However, there are two main types of HSMs:</p>
+<h2 id="General-Purpose-HSMs"><a href="#General-Purpose-HSMs" class="headerlink" title="General Purpose HSMs:"></a>General Purpose HSMs:</h2><p>General purpose HSMs are versatile devices that support a wide range of encryption algorithms, such as CNG, CAPI, and more. They are designed to cater to various applications that require cryptographic services and secure key management.</p>
+<p>General purpose HSMs are commonly used in environments where Public Key Infrastructures (PKIs) are implemented and in managing crypto-wallets and other sensitive data. These HSMs offer flexibility and compatibility with different systems and encryption standards.</p>
+<h2 id="Payment-and-Transaction-HSMs"><a href="#Payment-and-Transaction-HSMs" class="headerlink" title="Payment and Transaction HSMs:"></a>Payment and Transaction HSMs:</h2><p>These HSM devices are tailored to the financial industry’s requirements and are essential in maintaining compliance with Payment Card Industry Data Security Standards (PCI DSS).</p>
+<p>Payment and transaction HSMs provide specialized cryptographic services and secure key management solutions that align with the specific needs of payment processing systems. They play a critical role in securing financial transactions and ensuring the confidentiality and integrity of payment card data.</p>
+<p>It’s important to note that while general purpose HSMs offer broader applicability, payment and transaction HSMs focus specifically on securing payment card information and complying with industry-specific standards. The choice between these two types of HSMs depends on the specific security requirements and use cases of the organization or industry involved.</p>
+<h1 id="Features-of-HSM"><a href="#Features-of-HSM" class="headerlink" title="Features of HSM"></a>Features of HSM</h1><p>HSMs offer a range of features to provide maximum security for cryptographic key management and operations. Here are some key features:</p>
+<h2 id="Tamper-Resistance"><a href="#Tamper-Resistance" class="headerlink" title="Tamper Resistance:"></a>Tamper Resistance:</h2><p>HSMs are built with tamper-evident casings and physical protections. They incorporate sensors and mechanisms that detect and respond to physical tampering attempts, such as opening the casing or tampering with internal components. These features ensure the integrity of the HSM and protect against unauthorized access to cryptographic keys.</p>
+<h2 id="Zeroization-of-Keys"><a href="#Zeroization-of-Keys" class="headerlink" title="Zeroization of Keys:"></a>Zeroization of Keys:</h2><p>HSMs can securely erase cryptographic keys, ensuring their complete removal from the system and preventing unauthorized access or recovery.</p>
+<h2 id="Access-Controls"><a href="#Access-Controls" class="headerlink" title="Access Controls:"></a>Access Controls:</h2><p>HSMs enforce strict access controls to prevent unauthorized users from accessing sensitive cryptographic material. Role-based access control (RBAC) mechanisms ensure that only authorized individuals or applications can interact with the HSM and perform cryptographic operations.</p>
+<h2 id="Robust-Authentication"><a href="#Robust-Authentication" class="headerlink" title="Robust Authentication:"></a>Robust Authentication:</h2><p>HSMs employ strong authentication mechanisms to verify the identities of users or applications attempting to access the HSM. These devices mostly employ two-factor authentication, requiring a combination of something the user knows – a password and something the user has – a smart card or something the user is – biometric data to establish trust and grant access.</p>
+<h2 id="APIs-and-Interfaces"><a href="#APIs-and-Interfaces" class="headerlink" title="APIs and Interfaces:"></a>APIs and Interfaces:</h2><p>HSMs provide secure APIs and interfaces that allow applications and systems to integrate with the HSM. Standard cryptographic protocol, are often supported, enabling seamless integration with existing systems.</p>
+<h2 id="Secure-Design"><a href="#Secure-Design" class="headerlink" title="Secure Design:"></a>Secure Design:</h2><p>HSMs are designed with security in mind. They undergo rigorous testing and evaluation to meet recognized security standards, such as FIPS 140-2. The design principles encompass both physical and logical security measures to create a trusted environment for cryptographic operations.</p>
+<h1 id="HSM-Specification"><a href="#HSM-Specification" class="headerlink" title="HSM Specification"></a>HSM Specification</h1><h2 id="Secure-Hardware-Extension-SHE"><a href="#Secure-Hardware-Extension-SHE" class="headerlink" title="Secure Hardware Extension (SHE)"></a>Secure Hardware Extension (SHE)</h2><p>The Secure Hardware Extension (SHE) is an on-chip extension to any given microcontroller. It is intended to move the control over cryptographic keys from the software domain into the hardware domain and therefore protect those keys from software attacks. However, it is not meant to replace highly secure solutions like TPM chips or smart cards, i.e. no tamper resistance is required by the specification.</p>
+<p>In 2019, AUTOSAR continues publish new technical requirements instead of SHE v1.1 as <strong>AUTOSAR_TR_SecureHardwareExtensions.pdf</strong></p>
+<p>SHE is one of the earliest examples of automotive-grade connected module hardening and quickly grew to become a standard requirement by OEMs on a global basis. It was primarily built for securing cryptographic key material against software attacks, but cannot really be used to protect communications (such as V2X). As such, it has served as a basis for later HSM standards (such as EVITA). Today, modern automotive HSMs leverage functionalities from SHE, TPM and smartcards.</p>
+<h3 id="SHE-Background"><a href="#SHE-Background" class="headerlink" title="SHE Background"></a>SHE Background</h3><p>The HIS consortium was founded in 2004 and consists of members from Audi, BMW, Daimler, Porsche, and Volkswagen to address activities and develop common standards related to automotive manufacturing. In 2006, HIS published a document describing the requirements for an HIS Security Module standard that incorporated mechanisms for error detection, authorization, and authenticity. This was further developed by ESCRYPT in partnership with OEMs Audi and BMW, and semiconductor vendors, such as Freescale (now NXP) into an open standard, publicly released in April 2009.</p>
+<p>The resulting SHE specification outlines how a secure zone can be created within any ECU via an on-chip extension within a Microcontroller Unit (MCU), providing cryptographic services at the application layer, and isolating the storage of secret keys from the remainder of the MCU’s resources. Although the standard originated within the German automotive industry at the OEM level, it has since become an open standard accepted at the global level.</p>
+<h2 id="EVITA-HSM"><a href="#EVITA-HSM" class="headerlink" title="EVITA HSM"></a>EVITA HSM</h2><p>For vehicular hardware security module, we have to konw the E-safety vehicle intrusion protected applications (<a target="_blank" rel="noopener" href="https://evita-project.org/">EVITA</a>). EVITA is a project co-funded by the European Union within the Seventh Framework Programme for research and technological development.</p>
+<p>The objective of EVITA is to design, verify, and prototype an architecture for automotive on-board networks where security-relevant components are protected against tampering and sensitive data are protected against compromise.</p>
+<h3 id="EVITA’s-Background"><a href="#EVITA’s-Background" class="headerlink" title="EVITA’s Background"></a>EVITA’s Background</h3><p>Future automotive safety applications based on vehicle-to-vehicle and vehicle-to-infrastructure communication have been identified as a means for decreasing the number of fatal traffic accidents. Examples of such applications are local danger warnings and electronic emergency brakes. While these functionalities inspire a new era of traffic safety, new security requirements need to be considered in order to prevent attacks on these systems. Examples of such threats are forced malfunctioning of safety-critical components or the interference with the traffic flow by means of fake messages.</p>
+<h3 id="EVITA’s-Objectives"><a href="#EVITA’s-Objectives" class="headerlink" title="EVITA’s Objectives"></a>EVITA’s Objectives</h3><p>Secure and trustworthy intra-vehicular communication is the basis for trustworthy communication among cars or between cars and the infrastructure. Therefore, the objective of the EVITA project is to design, verify, and prototype an architecture for automotive on-board networks where security-relevant components are protected against tampering and sensitive data are protected against compromise when transferred inside a vehicle.</p>
+<p>By focusing on the protection of the intra-vehicle communication EVITA complements other e-safety related projects that focus on the protection of the vehicle-to-X communication.</p>
+<h3 id="Design-Implementation-and-Evaluation-of-a-Vehicular-Hardware-Security-Module"><a href="#Design-Implementation-and-Evaluation-of-a-Vehicular-Hardware-Security-Module" class="headerlink" title="Design, Implementation, and Evaluation of a Vehicular Hardware Security Module"></a>Design, Implementation, and Evaluation of a Vehicular Hardware Security Module</h3><p>In 2011, the 14th International Conference on Information Security and Cryptology, M. Wolf, T. Gendrullis published a paper “<a target="_blank" rel="noopener" href="https://evita-project.org/Publications/WG11.pdf">Design, implementation, and evaluation of a vehicular hardware security module</a>“, introduce the vehicular HSM officially for the first time from EVITA point of view. Based on a requirements engineering approach that incorporates all security-relevant automotive use cases and all distinctive automotive needs and constraints, EVITA presented an vehicular hardware security module (HSM) that enables a holistic protection of in-vehicle ECUs and their communications. </p>
+<h3 id="Standardize-Vehicular-HSM"><a href="#Standardize-Vehicular-HSM" class="headerlink" title="Standardize Vehicular HSM"></a>Standardize Vehicular HSM</h3><p>IT systems were never designed with security in mind. But with the increasing application of digital software and various radio interfaces to the outside world (including the Internet), modern vehicles are becoming even more vulnerable to all kinds of malicious encroachments like hackers or malware. This is especially noteworthy, since in contrast to most other IT systems, a successful malicious<br>encroachment on a vehicle will not only endanger critical services or business models, but can also endanger human lives. Thus strong security measures should be mandatory when developing vehicular IT systems. Today most vehicle manufacturer (hopefully) incorporate security as a design requirement.</p>
+<p>However, realizing dependable IT security solutions in a vehicular environment considerably differs from realizing IT security for typical desktop or server environments, just porting “standard” security solutions to the, moreover, very heterogeneous IT environment usually will not work. In order<br>to reliably enforce the security of software security mechanisms, the application of hardware security modules (HSM) is one effective countermeasure as HSMs:</p>
+<ul>
+<li>protect software security measures by acting as trusted security anchor,</li>
+<li>securely generate, store, and process security-critical material shielded from any potentially malicious software,</li>
+<li>restrict the possibilities of hardware tampering attacks by applying effective tamper-protection measures, </li>
+<li>accelerate security measures by applying specialized cryptographic hardware,</li>
+<li>reduce security costs on high volumes by applying highly optimized special circuitry instead of costly general purpose hardware.</li>
+</ul>
+<p>Back to the paper was published, there already exist some proprietary and singlepurpose HSM realizations used, for instance, by vehicle immobilizers, digital tachographs or tolling solutions. However, these are no general-purpose, private HSMs and hence cannot be reused by other vehicular security solutions. On the other hand, general-purpose HSMs that are currently available, for instance, the IBM 4758 cryptographic co-processor, the TCG Mobile&#x2F;Trusted Platform Module, or typical cryptographic smartcards are not applicable for use within an automotive security context. They, for instance, lack of cost efficiency, performance, physical robustness, or security functionality. Solely, the secure hardware extension (SHE) as proposed by the HIS consortium takes an exceptional position as it was explicitly designed for application in a automotive security context. However, the SHE module is mainly built for securing cryptographic key material against software attacks, but cannot be used, for instance, to protect V2X communications. </p>
+<p>Security requisites (SR) and functional requisites (FR) of EVITA HSM list as follows:</p>
+<ul>
+<li>SR.1 Autonomous, strongly isolated security processing environment</li>
+<li>SR.2 Minimal immuftable trusted code to be executed prior to ECU processor</li>
+<li>SR.3 Internal non-volatile memory for storing root security artifacts</li>
+<li>SR.4 Non-detachable (tamper-protected) connection with ECU hardware</li>
+<li>SR.5 Authentic, confidential, fresh comm. channel between HSM and ECU</li>
+<li>SR.6 Autonomously controlled alert functionality (e.g., log entry, ECU halt)</li>
+<li>SR.7 Only standardized, established security algorithms (e.g., NIST1 , BSI2)</li>
+</ul>
+</br>
+
+<ul>
+<li>FR.1 Physical stress resistance to endure an automotive life-cycle of ≥20 years</li>
+<li>FR.2 Bandwidth and latency performance that meets at least ISO 11898 [24]</li>
+<li>FR.3 Compatibility with existing ECU security modules, i.e. with HIS-SHE [21]</li>
+<li>FR.4 Compatibility with existing ECU microprocessor architectures</li>
+<li>FR.5 Open, patent free specifications for cost-efficient OEM-wide application</li>
+</ul>
+<h3 id="Comparison-of-HSMs"><a href="#Comparison-of-HSMs" class="headerlink" title="Comparison of HSMs"></a>Comparison of HSMs</h3><p>This can be seen in Table 5 of “<a target="_blank" rel="noopener" href="https://evita-project.org/Publications/WG11.pdf">Design, implementation, and evaluation of a vehicular hardware security module</a>“(Page 16).</p>
+<h2 id="Trusted-Platform-Module"><a href="#Trusted-Platform-Module" class="headerlink" title="Trusted Platform Module"></a>Trusted Platform Module</h2><p>Due to the massive use of x86 chips in vehicle, Trusted Platform Module (TPM) was is and will be used in E&#x2F;E architecure to protect user data.</p>
+<p>Back up to the days that hackers can quickly weaponize the valuable data in laptops and computers, <a target="_blank" rel="noopener" href="https://trustedcomputinggroup.org/">Trusted Computing Group (TCG)</a> develops and prompts specification and standards of TPM to against these threat. TPM is a secure crypto-processor which is attached to a device to establish secure operations. Using a TPM helps to protect a user’s identity and sensitive data by storing the relevant keys vital for encryption, decryption and authentication. Doing so provides a first line of defense against potentially critical malware and firmware attacks, as it ensures all data remains encrypted even if an attack takes place.</p>
+<h1 id="Solutions-for-virtual-environments-of-TPM"><a href="#Solutions-for-virtual-environments-of-TPM" class="headerlink" title="Solutions for virtual environments of TPM"></a>Solutions for virtual environments of TPM</h1><h2 id="vTPM"><a href="#vTPM" class="headerlink" title="vTPM"></a>vTPM</h2><p>A vTPM is a software-based representation of a traditional TPM 2.0 chip. It carries out the same hardware-based security functions a TPM, for example, attestation, key and random number generation – without the physical chip being required.</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-CS_ASCP_01intro" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2025-02-13T00:58:38.948Z"><a href="/2025/02/13/CS_ASCP_01intro/">2025-02-13</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2025/02/13/CS_ASCP_01intro/"></a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h1 id="BEGINNING"><a href="#BEGINNING" class="headerlink" title="BEGINNING"></a>BEGINNING</h1><p>This artical copys the introduction from <a target="_blank" rel="noopener" href="https://www.autosar.org/">AUTOSAR</a>, but a unformal reference can be used <a href="autosar.ltd">here</a>.</p>
+<h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>AUTOSAR (AUTomotive Open System ARchitecture) is a global partnership of leading companies in the automotive and software industry to develop and establish the standardized software framework and open E&#x2F;E system architecture for intelligent mobility.</p>
+<h2 id="HISTORY"><a href="#HISTORY" class="headerlink" title="HISTORY"></a>HISTORY</h2><p>Nine companies founded the AUTOSAR partnership to consolidate the expertise of partner companies in the automotive industries and define an automotive open system architecture standard to support the needs of future automotive applications</p>
+<h2 id="AUTOSAR-STANDARDS-and-SPECIFICATIONS"><a href="#AUTOSAR-STANDARDS-and-SPECIFICATIONS" class="headerlink" title="AUTOSAR STANDARDS and SPECIFICATIONS"></a>AUTOSAR STANDARDS and SPECIFICATIONS</h2><p>The primary goal of the AUTOSAR development partnership is the standardization of basic system functions and functional interfaces.</p>
+<h3 id="CLASSIC-PLATFORM"><a href="#CLASSIC-PLATFORM" class="headerlink" title="CLASSIC PLATFORM"></a>CLASSIC PLATFORM</h3><p>The AUTOSAR Classic Platform is a software platform with a layered software architecture defined by AUTOSAR which is used for deeply embedded systems and application software with high requirements for predictability, safety, security and responsiveness. It distinguishes at the highest level of abstraction between three software layers running on a microcontroller: Application, Runtime Environment (RTE) and Basic Software (BSW), and provides a modular and scalable approach to software development.</p>
+<h3 id="ADAPTIVE-PLATFORM"><a href="#ADAPTIVE-PLATFORM" class="headerlink" title="ADAPTIVE PLATFORM"></a>ADAPTIVE PLATFORM</h3><p>The AUTOSAR Adaptive Platform implements the AUTOSAR Runtime for Adaptive Applications (ARA) and consists of functional clusters grouped into Services and the Adaptive AUTOSAR Basis. It provides two types of interfaces, Services and APIs, and is the AUTOSAR solution for high-performance ECUs to build safety-related systems. The platform is designed to meet the requirements of highly automated vehicles and supports dynamic updates and reconfigurations of software systems.</p>
+<h1 id="AUTOSAR-STANDARDS"><a href="#AUTOSAR-STANDARDS" class="headerlink" title="AUTOSAR STANDARDS"></a>AUTOSAR STANDARDS</h1><p>Now, lets take a closer look at AUTOSAR <a target="_blank" rel="noopener" href="https://www.autosar.org/standards">standards</a>.</p>
+<p>Autosar has 2 kinds of standards, classic platform and adaptive paltform, all contain well formart engineering documentations, these include:</p>
+<ul>
+<li>MOD: mode</li>
+<li>MMOD: Meta Mode</li>
+<li>RS: Requirement Specification</li>
+<li>PRS: Protocol Requirement Specification</li>
+<li>TR: Technical Report</li>
+<li>SWS: Software Specification</li>
+<li>EXP: Explaination</li>
+<li>SRS: Software Requirement Specification</li>
+<li>TPS: Template Specification</li>
+</ul>
+<h2 id="CLASSIC-PLATFORM-1"><a href="#CLASSIC-PLATFORM-1" class="headerlink" title="CLASSIC PLATFORM"></a>CLASSIC PLATFORM</h2><h3 id="About"><a href="#About" class="headerlink" title="About"></a>About</h3><p>The AUTOSAR Classic Platform architecture distinguishes on the highest abstraction level between three software layers which run on a microcontroller: application, runtime environment (RTE) and basic software (BSW).</p>
+<ul>
+<li>The application software layer is mostly hardware independent.</li>
+<li>Communication between software components and access to BSW via RTE.</li>
+<li>The RTE represents the full interface for applications.</li>
+<li>The BSW is divided in three major layers and complex drivers:<ul>
+<li>Services, ECU (Electronic Control Unit) abstraction and microcontroller abstraction.</li>
+</ul>
+</li>
+<li>Services are divided furthermore into functional groups representing the infrastructure for system, memory and communication services.</li>
+</ul>
+<h3 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h3><h4 id="VIRTUAL-FUNCTIONAL-BUS-VFB-–-THE-BACKBONE"><a href="#VIRTUAL-FUNCTIONAL-BUS-VFB-–-THE-BACKBONE" class="headerlink" title="VIRTUAL FUNCTIONAL BUS(VFB) – THE BACKBONE"></a>VIRTUAL FUNCTIONAL BUS(VFB) – THE BACKBONE</h4><p>One essential concept is the virtual functional bus (VFB). This virtual bus decouples the applications from the infrastructure. It communicates via dedicated ports, which means that the communication interfaces of the application software must be mapped to these ports. The VFB handles communication both within the individual ECU and between ECUs. From an application point of view, no detailed knowledge of lower-level technologies or dependencies is required. This supports hardware-independent development and usage of application software.</p>
+<h4 id="AUTOSAR-CLASSIC-PLATFORM-ARCHITECTURE"><a href="#AUTOSAR-CLASSIC-PLATFORM-ARCHITECTURE" class="headerlink" title="AUTOSAR CLASSIC PLATFORM ARCHITECTURE"></a>AUTOSAR CLASSIC PLATFORM ARCHITECTURE</h4><p>Refer autosar.architecture.drawio for the architecture of autosar classic platform defined by AUTOSAR.</p>
+<p>The AUTOSAR layered architecture is offering all the mechanisms needed for software and hardware independence. It distinguishes between three main software layers which run on a Microcontroller (µC): application layer, runtime environment (RTE), and basic software (BSW).</p>
+<p>The applications of the different automotive domains interface the basic software by means of the RTE.</p>
+<p>In addition to defining architecture and interfaces, AUTOSAR also defines a methodology which enables the configuration of the complete AUTOSAR stack and enhances interoperability between different tool chains. On the one hand this is important for the collaboration within development projects and on the other hand this is important to cut down development costs.</p>
+<h3 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h3><p>The main concept of the standardized ECU software architecture is the separation of hardware-independent application software and hardware-oriented basic software (BSW) by means of the software abstraction layer RTE (runtime environment). On the upper side of the RTE, this abstraction layer enables the development of OEM-specific and competitive software applications. On the lower side of the RTE, it enables the standardization and OEM-independence of basic software. Further characteristics of the AUTOSAR software architecture are the scalability of ECU software for several car lines and variants, the possibility to distribute applications (functional software modules) across ECUs, and the ability to integrate software modules from different sources.</p>
+<p>The basic software within the AUTOSAR software architecture is further divided into the following layers: services, ECU abstraction, and microcontroller abstraction. The separation of the application layer from the basic software, realized by the RTE, includes the control of the data exchange between these layers. This forms the basis for a component-oriented, hardware-independent software structure on application level, with software components (SWCs) as individual units. Because of their hardware independence, it is thus possible to develop SWCs without specific knowledge of the hardware used or planned, as well as to flexibly relocate existing SWCs to ECUs during development.</p>
+<h3 id="Methodology-and-Templates"><a href="#Methodology-and-Templates" class="headerlink" title="Methodology and Templates"></a>Methodology and Templates</h3><p>In addition to a software architecture, AUTOSAR introduced a harmonized methodology approach for the development of automotive software. This is mainly driven by the need to improve the collaboration between the different parties involved in today’s automotive projects.  </p>
+<p>AUTOSAR provides means to specify all aspects necessary to integrate a software component on an ECU and to integrate different ECUs to the whole network communication over a variety of different bus systems. The methodology defines the dependencies of activities on work products and is foreseen to support activities, descriptions and usage of tools in AUTOSAR.</p>
+<p>The descriptions (.arxml) are based on the AUTOSAR Templates which define the formal exchange format (AUTOSAR Schema) and the semantic constraints which go along with the exchange format.  The descriptions are used to hold the information that is produced or consumed in the AUTOSAR methodology. Various generators can utilize the information from the descriptions to support the configuration and generation of the RTE and the AUTOSAR basic software (including the operating system).</p>
+<h2 id="ADAPTIVE-PLATFORM-1"><a href="#ADAPTIVE-PLATFORM-1" class="headerlink" title="ADAPTIVE PLATFORM"></a>ADAPTIVE PLATFORM</h2><h3 id="About-1"><a href="#About-1" class="headerlink" title="About"></a>About</h3><p>The AUTOSAR Adaptive Platform implements the AUTOSAR Runtime for Adaptive Applications (ARA). Two types of interfaces are available, services and APIs. The platform consists of functional clusters which are grouped in services and the AUTOSAR Adaptive Basis.</p>
+<p>In comparison to the AUTOSAR Classic Platform the AUTOSAR Runtime Environment for the Adaptive Platform dynamically links services and clients during runtime.</p>
+<h3 id="Methodology"><a href="#Methodology" class="headerlink" title="Methodology"></a>Methodology</h3><p>AUTOSAR extends the existing Methodology to be able to have a common Methodology approach for both: Classic and Adaptive Platform. The support for distributed, independent, and agile development of functional applications requires a standardized approach on the development methodology. AUTOSAR adaptive methodology involves the standardization of work products and their respective tasks. Work products describe artifacts such as services, applications, machines, and their configuration. The respective tasks define how the work products exchange design information for the activities required which are needed to develop products based on the adaptive platform.</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-FreeRTOS-STM32F429" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2024-12-31T01:03:56.476Z"><a href="/2024/12/31/FreeRTOS-STM32F429/">2024-12-31</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2024/12/31/FreeRTOS-STM32F429/">FreeRTOS: An Introduction and Porting Guide for STM32F429</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="Introduction-to-FreeRTOS"><a href="#Introduction-to-FreeRTOS" class="headerlink" title="Introduction to FreeRTOS"></a>Introduction to FreeRTOS</h2><p>FreeRTOS is a popular real-time operating system (RTOS) designed for embedded systems, providing a robust and lightweight solution for developing complex, time-critical applications. Developed by Real Time Engineers Ltd., FreeRTOS has become a go-to choice for microcontroller-based projects across various industries, including automotive, industrial automation, and consumer electronics.</p>
+<h3 id="What-is-an-RTOS"><a href="#What-is-an-RTOS" class="headerlink" title="What is an RTOS?"></a>What is an RTOS?</h3><p>A Real-Time Operating System (RTOS) is specifically designed to handle time-sensitive tasks with predictable and deterministic timing. Unlike general-purpose operating systems, an RTOS ensures that critical tasks are completed within strict time constraints, making it essential for applications where timing is crucial.</p>
+<h2 id="Core-Features-of-FreeRTOS"><a href="#Core-Features-of-FreeRTOS" class="headerlink" title="Core Features of FreeRTOS"></a>Core Features of FreeRTOS</h2><h3 id="1-Task-Management"><a href="#1-Task-Management" class="headerlink" title="1. Task Management"></a>1. Task Management</h3><p>FreeRTOS implements a priority-based preemptive scheduling mechanism. Key characteristics include:</p>
+<ul>
+<li>Flexible task creation and management</li>
+<li>Support for multiple task priorities</li>
+<li>Dynamic task creation and deletion</li>
+<li>Lightweight task switching mechanism</li>
+</ul>
+<h3 id="2-Synchronization-Primitives"><a href="#2-Synchronization-Primitives" class="headerlink" title="2. Synchronization Primitives"></a>2. Synchronization Primitives</h3><p>The operating system provides robust synchronization mechanisms:</p>
+<ul>
+<li>Mutexes for resource protection</li>
+<li>Semaphores for task synchronization</li>
+<li>Queues for inter-task communication</li>
+<li>Event groups for complex synchronization scenarios</li>
+</ul>
+<h3 id="3-Memory-Management"><a href="#3-Memory-Management" class="headerlink" title="3. Memory Management"></a>3. Memory Management</h3><p>FreeRTOS offers multiple memory allocation strategies:</p>
+<ul>
+<li>Static memory allocation</li>
+<li>Dynamic memory allocation</li>
+<li>Heap memory management with configurable allocation schemes</li>
+</ul>
+<h3 id="4-Low-Resource-Footprint"><a href="#4-Low-Resource-Footprint" class="headerlink" title="4. Low Resource Footprint"></a>4. Low Resource Footprint</h3><p>Designed for resource-constrained environments, FreeRTOS:</p>
+<ul>
+<li>Requires minimal RAM and ROM</li>
+<li>Offers configurable kernel features</li>
+<li>Supports a wide range of microcontrollers and architectures</li>
+</ul>
+<h2 id="Porting-FreeRTOS-to-STM32F429"><a href="#Porting-FreeRTOS-to-STM32F429" class="headerlink" title="Porting FreeRTOS to STM32F429"></a>Porting FreeRTOS to STM32F429</h2><h3 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h3><p>Before porting FreeRTOS to STM32F429, ensure you have:</p>
+<ul>
+<li>STM32F429 development board</li>
+<li>MDK-ARM (Keil uVision) or equivalent development environment</li>
+<li>FreeRTOS source code</li>
+<li>STM32F429 hardware reference manual</li>
+</ul>
+<h3 id="Step-by-Step-Porting-Process"><a href="#Step-by-Step-Porting-Process" class="headerlink" title="Step-by-Step Porting Process"></a>Step-by-Step Porting Process</h3><h4 id="1-Project-Setup"><a href="#1-Project-Setup" class="headerlink" title="1. Project Setup"></a>1. Project Setup</h4><ol>
+<li>Create a new MDK-ARM project for STM32F429</li>
+<li>Include FreeRTOS source files in your project</li>
+<li>Configure project include paths</li>
+</ol>
+<h4 id="2-Port-Specific-Configuration"><a href="#2-Port-Specific-Configuration" class="headerlink" title="2. Port-Specific Configuration"></a>2. Port-Specific Configuration</h4><p>Modify <code>FreeRTOSConfig.h</code> to customize the RTOS for STM32F429:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> configCPU_CLOCK_HZ    ( SystemCoreClock )</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configTICK_RATE_HZ    ( ( TickType_t ) 1000 )</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configTOTAL_HEAP_SIZE ( ( size_t ) ( 64 * 1024 ) )</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-Implement-Processor-Specific-Ports"><a href="#3-Implement-Processor-Specific-Ports" class="headerlink" title="3. Implement Processor-Specific Ports"></a>3. Implement Processor-Specific Ports</h4><p>Create port files specific to ARM Cortex-M4:</p>
+<ul>
+<li><code>port.c</code>: Contains context switching and interrupt handling</li>
+<li><code>portmacro.h</code>: Defines processor-specific macros</li>
+</ul>
+<h4 id="4-Interrupt-Management"><a href="#4-Interrupt-Management" class="headerlink" title="4. Interrupt Management"></a>4. Interrupt Management</h4><p>Configure system timer and PendSV interrupt for task switching:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">SysTick_Handler</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="meta">#<span class="keyword">if</span> (INCLUDE_xTaskGetSchedulerState == 1)</span></span><br><span class="line">        <span class="keyword">if</span> (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED) &#123;</span><br><span class="line">    <span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">            xPortSysTickHandler();</span><br><span class="line">    <span class="meta">#<span class="keyword">if</span> (INCLUDE_xTaskGetSchedulerState == 1)</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-Basic-Task-Creation-Example"><a href="#5-Basic-Task-Creation-Example" class="headerlink" title="5. Basic Task Creation Example"></a>5. Basic Task Creation Example</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">vTaskMain</span><span class="params">(<span class="type">void</span> *pvParameters)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="comment">// Task implementation</span></span><br><span class="line">        vTaskDelay(pdMS_TO_TICKS(<span class="number">1000</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// Hardware initialization</span></span><br><span class="line">    </span><br><span class="line">    xTaskCreate(vTaskMain, </span><br><span class="line">                <span class="string">&quot;MainTask&quot;</span>, </span><br><span class="line">                configMINIMAL_STACK_SIZE, </span><br><span class="line">                <span class="literal">NULL</span>, </span><br><span class="line">                tskIDLE_PRIORITY, </span><br><span class="line">                <span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">    vTaskStartScheduler();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Should never reach here</span></span><br><span class="line">    <span class="keyword">for</span> (;;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Common-Challenges-and-Solutions"><a href="#Common-Challenges-and-Solutions" class="headerlink" title="Common Challenges and Solutions"></a>Common Challenges and Solutions</h3><ol>
+<li><strong>Interrupt Handling</strong>: Carefully manage interrupt priorities and nesting</li>
+<li><strong>Memory Constraints</strong>: Optimize memory usage through static allocation</li>
+<li><strong>Timing Precision</strong>: Calibrate system tick and task scheduling</li>
+</ol>
+<h2 id="Best-Practices"><a href="#Best-Practices" class="headerlink" title="Best Practices"></a>Best Practices</h2><ul>
+<li>Use static allocation when possible</li>
+<li>Implement proper task priority management</li>
+<li>Utilize built-in synchronization primitives</li>
+<li>Regularly profile and optimize task performance</li>
+<li>Implement error handling and monitoring mechanisms</li>
+</ul>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>[O<br>Porting FreeRTOS to STM32F429 provides a powerful framework for developing real-time embedded applications. By understanding the core features and following a systematic porting approach, developers can leverage the full potential of both the microcontroller and the real-time operating system.</p>
+<h2 id="Reference-Implementation-Details"><a href="#Reference-Implementation-Details" class="headerlink" title="Reference Implementation Details"></a>Reference Implementation Details</h2><h3 id="Key-Code-Snippets-from-apexpeng-FreeRTOS-STM32F429"><a href="#Key-Code-Snippets-from-apexpeng-FreeRTOS-STM32F429" class="headerlink" title="Key Code Snippets from apexpeng&#x2F;FreeRTOS_STM32F429"></a>Key Code Snippets from apexpeng&#x2F;FreeRTOS_STM32F429</h3><h4 id="1-System-Initialization-main-c"><a href="#1-System-Initialization-main-c" class="headerlink" title="1. System Initialization (main.c)"></a>1. System Initialization (main.c)</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// System Clock Configuration</span></span><br><span class="line">    SystemInit();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// NVIC Priority Grouping Configuration</span></span><br><span class="line">    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// LED Initialization</span></span><br><span class="line">    LED_Init();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// USART Initialization for Debugging</span></span><br><span class="line">    USART1_Init();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Create Tasks</span></span><br><span class="line">    xTaskCreate(LED0_Task, <span class="string">&quot;LED0 Task&quot;</span>, <span class="number">50</span>, <span class="literal">NULL</span>, <span class="number">1</span>, <span class="literal">NULL</span>);</span><br><span class="line">    xTaskCreate(LED1_Task, <span class="string">&quot;LED1 Task&quot;</span>, <span class="number">50</span>, <span class="literal">NULL</span>, <span class="number">2</span>, <span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Start FreeRTOS Scheduler</span></span><br><span class="line">    vTaskStartScheduler();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Should never reach here</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-Task-Implementation-Example"><a href="#2-Task-Implementation-Example" class="headerlink" title="2. Task Implementation Example"></a>2. Task Implementation Example</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">LED0_Task</span><span class="params">(<span class="type">void</span> *pvParameters)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        LED0_Toggle();</span><br><span class="line">        vTaskDelay(<span class="number">500</span>);  <span class="comment">// Delay for 500 milliseconds</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">LED1_Task</span><span class="params">(<span class="type">void</span> *pvParameters)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        LED1_Toggle();</span><br><span class="line">        vTaskDelay(<span class="number">800</span>);  <span class="comment">// Delay for 800 milliseconds</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-FreeRTOS-Configuration-FreeRTOSConfig-h"><a href="#3-FreeRTOS-Configuration-FreeRTOSConfig-h" class="headerlink" title="3. FreeRTOS Configuration (FreeRTOSConfig.h)"></a>3. FreeRTOS Configuration (FreeRTOSConfig.h)</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> configUSE_PREEMPTION              1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configUSE_PORT_OPTIMISED_TASK_SELECTION 1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configUSE_TICKLESS_IDLE           0</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configCPU_CLOCK_HZ                ( SystemCoreClock )</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configTICK_RATE_HZ                ( ( TickType_t ) 1000 )</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configMAX_PRIORITIES              ( 5 )</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configMINIMAL_STACK_SIZE          ( ( uint16_t ) 128 )</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> configTOTAL_HEAP_SIZE             ( ( size_t ) ( 16 * 1024 ) )</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-Interrupt-Handling-Example"><a href="#4-Interrupt-Handling-Example" class="headerlink" title="4. Interrupt Handling Example"></a>4. Interrupt Handling Example</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">USART1_IRQHandler</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">uint16_t</span> data = USART_ReceiveData(USART1);</span><br><span class="line">        <span class="comment">// Handle received data</span></span><br><span class="line">        USART_ClearITPendingBit(USART1, USART_IT_RXNE);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Practical-Considerations"><a href="#Practical-Considerations" class="headerlink" title="Practical Considerations"></a>Practical Considerations</h3><p>The reference implementation demonstrates several critical aspects of FreeRTOS integration:</p>
+<ul>
+<li>Proper system initialization</li>
+<li>Task creation with different priorities</li>
+<li>Simple task implementations</li>
+<li>Interrupt handling</li>
+<li>Minimal configuration for STM32F429</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.freertos.org/documentation/">FreeRTOS Official Documentation</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.st.com/resource/en/reference_manual/rm0090-stm32f405-415-stm32f407-417-stm32f427-437-and-stm32f429-439-advanced-arm-based-32-bit-mcus-stmicroelectronics.pdf">STM32F429 Reference Manual</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/apexpeng/FreeRTOS_STM32F429">GitHub Repository: apexpeng&#x2F;FreeRTOS_STM32F429</a></li>
+</ul>
+<p><strong>NOTE</strong>: The DAC function only works fine before tasks scheduler, the clock need to be set to fix this issue.</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+<nav id="pagination">
+  
+    <a href="/page/3/" class="alignleft prev">Prev</a>
+  
+  
+  <div class="clearfix"></div>
+</nav></div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="apexpeng.github.io">
+  </form>
+</div>
 
 
   
-<script src="/fancybox/jquery.fancybox.min.js"></script>
 
+  
 
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
+  
+  <div class="widget widget-archives">
+    <h3 class="title">Archives</h3>
+    <div class="entry">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">1</span></li></ul>
+    </div>
   </div>
+
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2025 apexpenn
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script>
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
 </body>
 </html>

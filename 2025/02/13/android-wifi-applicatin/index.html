@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Understanding the Source Code of `Settings.apk`: Wi-Fi Features | Penn&#39;s Blog</title>
+  <meta name="author" content="apexpenn">
+  
+  <meta name="description" content="Our life is shaped by our mind; we become what we think.">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Understanding the Source Code of `Settings.apk`: Wi-Fi Features"/>
+  <meta property="og:site_name" content="Penn&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Penn&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/archives">ARCHIVE</a></li>
+    
+      <li><a href="/about">ABOUT</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-android-wifi-applicatin" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2025-02-13T00:58:39.327Z"><a href="/2025/02/13/android-wifi-applicatin/">2025-02-13</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">Understanding the Source Code of `Settings.apk`: Wi-Fi Features</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>The Android <code>Settings.apk</code> includes detailed implementations for handling Wi-Fi features such as encryption, scanning, and managing Access Points (APs). Below is an analysis of its components and processes based on the source code and architecture.</p>
+<hr>
+<h4 id="Wi-Fi-Encryption-Methods"><a href="#Wi-Fi-Encryption-Methods" class="headerlink" title="Wi-Fi Encryption Methods"></a><strong>Wi-Fi Encryption Methods</strong></h4><p>The <code>Settings.apk</code> manages Wi-Fi encryption through configurations defined in the <code>WifiConfiguration</code> class. Security types supported include:</p>
+<ul>
+<li><strong>Open Networks (No encryption)</strong>: Defined as <code>SECURITY_TYPE_OPEN</code>.</li>
+<li><strong>WEP</strong>: Older and less secure.</li>
+<li><strong>PSK&#x2F;SAE (WPA2&#x2F;WPA3)</strong>: Uses shared keys or the Simultaneous Authentication of Equals protocol for security.</li>
+<li><strong>Enterprise (EAP)</strong>: For networks using authentication servers.</li>
+</ul>
+<p>The <code>getWifiConfig</code> method extracts security details from the <code>ScanResult</code> or <code>WifiEntry</code> and applies appropriate encryption parameters, such as <code>SAE</code> for WPA3 or <code>OWE</code> for opportunistic encryption.</p>
+<hr>
+<h4 id="Wi-Fi-Scanning-Logic"><a href="#Wi-Fi-Scanning-Logic" class="headerlink" title="Wi-Fi Scanning Logic"></a><strong>Wi-Fi Scanning Logic</strong></h4><p>Wi-Fi scanning is handled via the <code>WifiManager</code>‘s <code>getScanResults</code> method. The key points include:</p>
+<ol>
+<li><strong>Initiating Scans</strong>: The <code>Scanner</code> handler triggers periodic scans or manual scans through methods like <code>forceScan</code>.</li>
+<li><strong>Filtering Results</strong>: Hidden or ad-hoc networks are ignored (<code>capabilities.contains(&quot;[IBSS]&quot;)</code>).</li>
+<li><strong>Access Points Handling</strong>:<ul>
+<li>A <code>Multimap</code> is used to map SSIDs to <code>AccessPoint</code> objects.</li>
+<li>The scan results are iterated, and <code>AccessPoint</code> objects are updated or created to represent networks.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="Access-Point-AP-Management"><a href="#Access-Point-AP-Management" class="headerlink" title="Access Point (AP) Management"></a><strong>Access Point (AP) Management</strong></h4><p>Access Points are managed using the <code>AccessPoint</code> class, which encapsulates information about a Wi-Fi network, including signal strength, encryption type, and SSID. This allows the <code>Settings.apk</code> to display network options in the UI and manage connections effectively.</p>
+<hr>
+<h4 id="Low-Level-Integration"><a href="#Low-Level-Integration" class="headerlink" title="Low-Level Integration"></a><strong>Low-Level Integration</strong></h4><ul>
+<li><strong>wpa_supplicant</strong>: <code>Settings.apk</code> interacts with the wpa_supplicant daemon via the Android Framework to manage low-level Wi-Fi protocols such as WPA handshake processes.</li>
+<li><strong>Startup Process</strong>: Upon system boot, <code>WifiManager</code> initializes and communicates with the driver through HAL (Hardware Abstraction Layer) and wpa_supplicant to enable Wi-Fi.</li>
+</ul>
+<hr>
+<h4 id="Wi-Fi-Utility-Methods"><a href="#Wi-Fi-Utility-Methods" class="headerlink" title="Wi-Fi Utility Methods"></a><strong>Wi-Fi Utility Methods</strong></h4><p>The <code>WifiUtils</code> class contains helper functions for:</p>
+<ul>
+<li>Identifying captive portals through network capabilities.</li>
+<li>Configuring networks by generating <code>WifiConfiguration</code> objects from scan results or existing entries.</li>
+<li>Enforcing network lockdown policies for managed devices.</li>
+</ul>
+<hr>
+<h3 id="Developer-APIs-for-Wi-Fi-in-Android"><a href="#Developer-APIs-for-Wi-Fi-in-Android" class="headerlink" title="Developer APIs for Wi-Fi in Android"></a>Developer APIs for Wi-Fi in Android</h3><p>Developers can leverage these APIs for advanced Wi-Fi handling:</p>
+<ol>
+<li><strong>Basic Connectivity</strong>: Using <code>WifiManager</code> for connecting, disconnecting, and retrieving scan results.</li>
+<li><strong>Advanced Configuration</strong>:<ul>
+<li>Add or update networks via <code>WifiConfiguration</code>.</li>
+<li>Manage Hotspot through <code>WifiP2pManager</code> or <code>SoftApConfiguration</code>.</li>
+</ul>
+</li>
+<li><strong>Scanning and Location</strong>: Perform scans and process <code>ScanResult</code> objects for available networks.</li>
+</ol>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>The <code>Settings.apk</code> provides a comprehensive implementation for Wi-Fi management, from handling cryptographic configurations to efficiently managing APs and leveraging low-level Linux components. Developers can build on these APIs to integrate advanced Wi-Fi features in their applications. For more details, the Android source repository is an excellent reference.</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="https://apexpeng.github.io/2025/02/13/android-wifi-applicatin/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="apexpeng.github.io">
+  </form>
+</div>
+
+
+  
+
+  
+
+  
+  <div class="widget widget-archives">
+    <h3 class="title">Archives</h3>
+    <div class="entry">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2025 apexpenn
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script>
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

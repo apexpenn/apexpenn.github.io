@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Penn&#39;s Blog</title>
+  <meta name="author" content="apexpenn">
+  
+  <meta name="description" content="Our life is shaped by our mind; we become what we think.">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Penn&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Penn&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/archives">ARCHIVE</a></li>
+    
+      <li><a href="/about">ABOUT</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-CS_Basis_TEE" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2025-02-13T00:58:39.019Z"><a href="/2025/02/13/CS_Basis_TEE/">2025-02-13</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name"></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Trusted Execution Environments (TEEs) are CPU-encrypted isolated private enclaves inside the memory, used for protecting data in use at the hardware level.</p>
+<p>While the sensitive data is inside an enclave, unauthorized entities cannot remove it, modify it, or add more data to it. The contents of an enclave remain invisible and inaccessible to external parties, protected against outsider and insider threats.</p>
+<p>As a result, a TEE ensures the following:</p>
+<ul>
+<li>Data integrity</li>
+<li>Code integrity</li>
+<li>Data confidentiality</li>
+</ul>
+<h1 id="TEE-terminology-and-operation"><a href="#TEE-terminology-and-operation" class="headerlink" title="TEE terminology and operation"></a>TEE terminology and operation</h1><p>In a system with a TEE, we have untrusted applications running on a Rich Execution Environment (REE) and trusted applications (TAs) running on a Trusted Execution Environment (TEE).</p>
+<p>Only trusted applications running on a TEE (Secure World) have complete access to the main processor, peripherals and memory, while hardware isolation protects these from untrusted applications running on the main operating system (Non-Secure World).</p>
+<h1 id="How-to-implement-a-TEE"><a href="#How-to-implement-a-TEE" class="headerlink" title="How to implement a TEE?"></a>How to implement a TEE?</h1><p>We could isolate applications in a “sandbox”, for example using containers. This would prevent an application from seeing and accessing data from other applications.</p>
+<p>But what about the kernel? How to prevent a code running in kernel space from being exploited to access a certain peripheral or memory region used by a trusted application?</p>
+<p>Software can’t protect software!</p>
+<p>So we need support in the hardware to implement a TEE. We need a way to partition and isolate the hardware (busses, peripherals, memory regions, interrupts, etc) so that the running code does not have access to protected resources.</p>
+<p>That’s where ARM’s TrustZone, RISC-V’s MultiZone and many other solutions come in.</p>
+<p>Hardware support to implement a TEE:</p>
+<ul>
+<li>ARM’s TrustZone</li>
+<li>RISC-V’s MultiZone</li>
+<li>AMD Platform Security Processor (PSP)</li>
+<li>Intel Software Guard Extensions (SGX)</li>
+<li>Apple SEP (Secure Enclave Processor)</li>
+<li>Google Titan M</li>
+</ul>
+<h2 id="ARM’s-TrustZone"><a href="#ARM’s-TrustZone" class="headerlink" title="ARM’s TrustZone"></a>ARM’s TrustZone</h2><p>Several commercial TEE implementations have been developed over the years:</p>
+<ul>
+<li>Trustonic Kinibi</li>
+<li>Samsung TEEGRIS</li>
+<li>Qualcomm  Qualcomm Secure Execution Environment (QSEE)</li>
+<li>Google Trusty(opensource)</li>
+<li>OP-TEE (<a target="_blank" rel="noopener" href="https://globalplatform.org/wp-content/uploads/2018/05/Introduction-to-Trusted-Execution-Environment-15May2018.pdf">Open Portable Trusted Execution Environment</a>) (opensource)</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="https://apexpeng.github.io/2025/02/13/CS_Basis_TEE/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="apexpeng.github.io">
+  </form>
+</div>
+
+
+  
+
+  
+
+  
+  <div class="widget widget-archives">
+    <h3 class="title">Archives</h3>
+    <div class="entry">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2025 apexpenn
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script>
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

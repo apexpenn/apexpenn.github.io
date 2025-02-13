@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Testing Linux I2C, USB, and PCI Drivers Using Userspace Tools and `Sysfs` | Penn&#39;s Blog</title>
+  <meta name="author" content="apexpenn">
+  
+  <meta name="description" content="Our life is shaped by our mind; we become what we think.">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Testing Linux I2C, USB, and PCI Drivers Using Userspace Tools and `Sysfs`"/>
+  <meta property="og:site_name" content="Penn&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Penn&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/archives">ARCHIVE</a></li>
+    
+      <li><a href="/about">ABOUT</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-linux-userspace-debug" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2025-02-13T00:58:39.588Z"><a href="/2025/02/13/linux-userspace-debug/">2025-02-13</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">Testing Linux I2C, USB, and PCI Drivers Using Userspace Tools and `Sysfs`</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>Linux provides robust mechanisms for interacting with devices via <code>sysfs</code>. This allows developers to query and manipulate kernel objects from user space. Tools like <code>lsusb</code>, <code>lsi2c</code>, and <code>lspci</code> offer easy ways to test USB, I2C, and PCI devices. This article explains how to use these tools, highlights their underlying mechanisms, and provides practical steps to test Linux drivers.</p>
+<hr>
+<h2 id="Understanding-sysfs"><a href="#Understanding-sysfs" class="headerlink" title="Understanding sysfs"></a><strong>Understanding <code>sysfs</code></strong></h2><p><code>sysfs</code> is a virtual filesystem used to expose kernel and device attributes to user space. It allows users to access hardware details directly.</p>
+<p>Key directories include:</p>
+<ul>
+<li><strong><code>/sys/class/</code></strong>: Lists device classes like <code>usb</code>, <code>i2c-dev</code>, and <code>pci</code>.</li>
+<li><strong><code>/sys/devices/</code></strong>: Provides a hierarchical view of devices.</li>
+<li><strong><code>/sys/bus/</code></strong>: Groups devices and drivers by their bus types (e.g., <code>usb</code>, <code>i2c</code>, <code>pci</code>).</li>
+</ul>
+<h3 id="Common-Commands"><a href="#Common-Commands" class="headerlink" title="Common Commands"></a><strong>Common Commands</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> /sys/bus/usb/devices/    <span class="comment"># List USB devices</span></span><br><span class="line"><span class="built_in">ls</span> /sys/bus/i2c/devices/    <span class="comment"># List I2C devices</span></span><br><span class="line"><span class="built_in">ls</span> /sys/bus/pci/devices/    <span class="comment"># List PCI devices</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Testing-USB-Drivers-with-lsusb"><a href="#Testing-USB-Drivers-with-lsusb" class="headerlink" title="Testing USB Drivers with lsusb"></a><strong>Testing USB Drivers with <code>lsusb</code></strong></h2><p><code>lsusb</code> is a user-space tool for listing USB devices. It retrieves device descriptors, vendor IDs, and product IDs using <code>sysfs</code> and <code>/proc</code>.</p>
+<h3 id="How-lsusb-Works"><a href="#How-lsusb-Works" class="headerlink" title="How lsusb Works"></a><strong>How <code>lsusb</code> Works</strong></h3><p>The source code of <code>lsusb</code> interacts with USB devices via <code>libusb</code>. Here’s a simplified excerpt from the <a target="_blank" rel="noopener" href="https://github.com/gregkh/usbutils/blob/master/lsusb.c">source code</a>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;libusb.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    libusb_context *ctx;</span><br><span class="line">    libusb_device **<span class="built_in">list</span>;</span><br><span class="line">    <span class="type">ssize_t</span> count;</span><br><span class="line"></span><br><span class="line">    libusb_init(&amp;ctx);</span><br><span class="line">    count = libusb_get_device_list(ctx, &amp;<span class="built_in">list</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">ssize_t</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">libusb_device_descriptor</span> <span class="title">desc</span>;</span></span><br><span class="line">        libusb_get_device_descriptor(<span class="built_in">list</span>[i], &amp;desc);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Vendor: %04x, Product: %04x\n&quot;</span>, desc.idVendor, desc.idProduct);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    libusb_free_device_list(<span class="built_in">list</span>, <span class="number">1</span>);</span><br><span class="line">    libusb_exit(ctx);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Installing-and-Running-lsusb"><a href="#Installing-and-Running-lsusb" class="headerlink" title="Installing and Running lsusb"></a><strong>Installing and Running <code>lsusb</code></strong></h3><ol>
+<li>Install <code>lsusb</code>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install usbutils</span><br></pre></td></tr></table></figure></li>
+<li>Run <code>lsusb</code> to list connected USB devices:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsusb</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="Testing-I2C-Drivers-with-lsi2c"><a href="#Testing-I2C-Drivers-with-lsi2c" class="headerlink" title="Testing I2C Drivers with lsi2c"></a><strong>Testing I2C Drivers with <code>lsi2c</code></strong></h2><p><code>lsi2c</code> is a user-space tool for detecting and interacting with I2C devices. It communicates with devices using the <code>/dev/i2c-*</code> interface provided by the <code>i2c-dev</code> kernel module.</p>
+<h3 id="How-lsi2c-Works"><a href="#How-lsi2c-Works" class="headerlink" title="How lsi2c Works"></a><strong>How <code>lsi2c</code> Works</strong></h3><p>The tool reads and writes I2C registers using the <code>ioctl</code> system call. Below is a simplified excerpt from the <a target="_blank" rel="noopener" href="https://github.com/costad2/i2cdev">source code</a>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/i2c-dev.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/ioctl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> file = open(<span class="string">&quot;/dev/i2c-1&quot;</span>, O_RDWR);</span><br><span class="line">    <span class="type">int</span> addr = <span class="number">0x48</span>;</span><br><span class="line"></span><br><span class="line">    ioctl(file, I2C_SLAVE, addr);</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    read(file, buf, <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Data: 0x%x\n&quot;</span>, buf[<span class="number">0</span>]);</span><br><span class="line">    close(file);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Installing-and-Running-lsi2c"><a href="#Installing-and-Running-lsi2c" class="headerlink" title="Installing and Running lsi2c"></a><strong>Installing and Running <code>lsi2c</code></strong></h3><ol>
+<li>Clone the repository:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/costad2/i2cdev.git</span><br><span class="line"><span class="built_in">cd</span> i2cdev</span><br></pre></td></tr></table></figure></li>
+<li>Build and run:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">./lsi2c</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="Testing-PCI-Drivers-with-lspci"><a href="#Testing-PCI-Drivers-with-lspci" class="headerlink" title="Testing PCI Drivers with lspci"></a><strong>Testing PCI Drivers with <code>lspci</code></strong></h2><p><code>lspci</code> is a user-space tool for listing PCI devices and querying their details. It uses the <code>/sys/bus/pci/devices/</code> directory and the <code>/proc/bus/pci</code> filesystem.</p>
+<h3 id="How-lspci-Works"><a href="#How-lspci-Works" class="headerlink" title="How lspci Works"></a><strong>How <code>lspci</code> Works</strong></h3><p>The <a target="_blank" rel="noopener" href="https://github.com/pciutils/pciutils/blob/master/lspci.c">source code</a> interacts with PCI configuration space and device information files. Here’s a simplified example:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pci/pci.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">pci_access</span> *<span class="title">pacc</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">pci_dev</span> *<span class="title">dev</span>;</span></span><br><span class="line">    <span class="type">char</span> namebuf[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line">    pacc = pci_alloc();</span><br><span class="line">    pci_init(pacc);</span><br><span class="line">    pci_scan_bus(pacc);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (dev = pacc-&gt;devices; dev; dev = dev-&gt;next) &#123;</span><br><span class="line">        pci_fill_info(dev, PCI_FILL_IDENT);</span><br><span class="line">        pci_lookup_name(pacc, namebuf, <span class="keyword">sizeof</span>(namebuf), PCI_LOOKUP_DEVICE, dev-&gt;vendor_id, dev-&gt;device_id);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%04x:%02x:%02x.%d %s\n&quot;</span>, dev-&gt;domain, dev-&gt;bus, dev-&gt;dev, dev-&gt;func, namebuf);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pci_cleanup(pacc);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Installing-and-Running-lspci"><a href="#Installing-and-Running-lspci" class="headerlink" title="Installing and Running lspci"></a><strong>Installing and Running <code>lspci</code></strong></h3><ol>
+<li>Install <code>lspci</code>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install pciutils</span><br></pre></td></tr></table></figure></li>
+<li>Run <code>lspci</code> to list PCI devices:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci</span><br></pre></td></tr></table></figure></li>
+<li>Use <code>lspci -vvv</code> to display detailed information about each device.</li>
+</ol>
+<hr>
+<h2 id="Practical-Examples"><a href="#Practical-Examples" class="headerlink" title="Practical Examples"></a><strong>Practical Examples</strong></h2><h3 id="USB-Device-Testing"><a href="#USB-Device-Testing" class="headerlink" title="USB Device Testing"></a><strong>USB Device Testing</strong></h3><ol>
+<li>Connect a USB device.</li>
+<li>Use <code>lsusb</code> to verify detection:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsusb</span><br></pre></td></tr></table></figure></li>
+<li>Check driver binding:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> /sys/bus/usb/drivers/</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="I2C-Device-Testing"><a href="#I2C-Device-Testing" class="headerlink" title="I2C Device Testing"></a><strong>I2C Device Testing</strong></h3><ol>
+<li>Load the <code>i2c-dev</code> kernel module:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> modprobe i2c-dev</span><br></pre></td></tr></table></figure></li>
+<li>Use <code>lsi2c</code> to interact with an I2C device:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./lsi2c</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="PCI-Device-Testing"><a href="#PCI-Device-Testing" class="headerlink" title="PCI Device Testing"></a><strong>PCI Device Testing</strong></h3><ol>
+<li>Run <code>lspci</code> to list devices:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci</span><br></pre></td></tr></table></figure></li>
+<li>Check driver binding for a specific device:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci -vvv -s &lt;bus:slot.func&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p><code>sysfs</code> provides a rich interface for querying and manipulating kernel devices, while tools like <code>lsusb</code>, <code>lsi2c</code>, and <code>lspci</code> simplify testing and debugging of USB, I2C, and PCI devices. Understanding how these tools interact with the kernel and hardware equips developers to validate driver functionality and troubleshoot issues effectively.</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="https://apexpeng.github.io/2025/02/13/linux-userspace-debug/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="apexpeng.github.io">
+  </form>
+</div>
+
+
+  
+
+  
+
+  
+  <div class="widget widget-archives">
+    <h3 class="title">Archives</h3>
+    <div class="entry">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2025 apexpenn
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script>
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

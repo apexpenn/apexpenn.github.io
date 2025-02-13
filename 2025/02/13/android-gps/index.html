@@ -1,0 +1,276 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>A Technical Overview of Android&#39;s GPS System | Penn&#39;s Blog</title>
+  <meta name="author" content="apexpenn">
+  
+  <meta name="description" content="Our life is shaped by our mind; we become what we think.">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="A Technical Overview of Android&#39;s GPS System"/>
+  <meta property="og:site_name" content="Penn&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Penn&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/archives">ARCHIVE</a></li>
+    
+      <li><a href="/about">ABOUT</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-android-gps" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2025-02-13T00:58:39.199Z"><a href="/2025/02/13/android-gps/">2025-02-13</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">A Technical Overview of Android&#39;s GPS System</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>Global Positioning System (GPS) is a core feature of Android devices, enabling location-based services for navigation, tracking, and geospatial applications. Android’s GPS system is a complex, multi-layered framework that processes data from GPS hardware and provides interfaces for developers to access and utilize this information.</p>
+<p>This article covers the NMEA protocol, Android’s GPS handling architecture, available APIs, and what developers can achieve with these tools.</p>
+<hr>
+<h2 id="1-NMEA-Protocol-The-Foundation-of-GPS-Data"><a href="#1-NMEA-Protocol-The-Foundation-of-GPS-Data" class="headerlink" title="1. NMEA Protocol: The Foundation of GPS Data"></a><strong>1. NMEA Protocol: The Foundation of GPS Data</strong></h2><p>The National Marine Electronics Association (NMEA) protocol is the industry standard for communicating GPS data. It consists of structured sentences sent over serial interfaces, describing satellite information, location coordinates, timestamps, and other metadata.</p>
+<h3 id="Key-NMEA-Sentences"><a href="#Key-NMEA-Sentences" class="headerlink" title="Key NMEA Sentences:"></a><strong>Key NMEA Sentences:</strong></h3><ul>
+<li><strong>$GPGGA</strong>: Global Positioning System Fix Data (e.g., latitude, longitude, altitude).</li>
+<li><strong>$GPRMC</strong>: Recommended Minimum Specific GPS Data (e.g., speed, direction).</li>
+<li><strong>$GPGSV</strong>: Satellites in View (e.g., satellite count and signal strength).</li>
+<li><strong>$GPVTG</strong>: Track Made Good and Ground Speed.</li>
+</ul>
+<h3 id="Example-NMEA-Sentence"><a href="#Example-NMEA-Sentence" class="headerlink" title="Example NMEA Sentence:"></a><strong>Example NMEA Sentence:</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47</span><br></pre></td></tr></table></figure>
+
+<h3 id="How-to-Obtain-NMEA-Sentences-on-Android"><a href="#How-to-Obtain-NMEA-Sentences-on-Android" class="headerlink" title="How to Obtain NMEA Sentences on Android:"></a><strong>How to Obtain NMEA Sentences on Android:</strong></h3><p>Android’s <strong>Location Manager</strong> and related system components process NMEA data. Developers can listen to raw NMEA strings for debugging or custom GPS processing:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocationManager</span> <span class="variable">locationManager</span> <span class="operator">=</span> (LocationManager) getSystemService(Context.LOCATION_SERVICE);</span><br><span class="line">locationManager.addNmeaListener((timestamp, nmea) -&gt; &#123;</span><br><span class="line">    Log.d(<span class="string">&quot;NMEA&quot;</span>, <span class="string">&quot;Timestamp: &quot;</span> + timestamp + <span class="string">&quot; NMEA: &quot;</span> + nmea);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="2-How-Android-Handles-GPS-Data"><a href="#2-How-Android-Handles-GPS-Data" class="headerlink" title="2. How Android Handles GPS Data"></a><strong>2. How Android Handles GPS Data</strong></h2><h3 id="Key-Components-of-Android-GPS-System"><a href="#Key-Components-of-Android-GPS-System" class="headerlink" title="Key Components of Android GPS System:"></a><strong>Key Components of Android GPS System:</strong></h3><ol>
+<li><p><strong>GPS Hardware:</strong></p>
+<ul>
+<li>Embedded in the device, communicates with GPS satellites to retrieve location data.</li>
+<li>Supports additional GNSS systems like GLONASS, Galileo, and BeiDou for enhanced accuracy.</li>
+</ul>
+</li>
+<li><p><strong>GNSS HAL (Hardware Abstraction Layer):</strong></p>
+<ul>
+<li>A standardized interface (<code>gps.h</code>) to interact with GPS hardware.</li>
+<li>Converts low-level GPS hardware output, including NMEA sentences, into a format the Android framework can use.</li>
+</ul>
+</li>
+<li><p><strong>Location Service:</strong></p>
+<ul>
+<li>A system-level service in the Android framework that interacts with the GNSS HAL.</li>
+<li>Provides a unified interface for accessing location data from various sources (GPS, Wi-Fi, Cellular).</li>
+</ul>
+</li>
+<li><p><strong>Location Provider:</strong></p>
+<ul>
+<li>The <strong>Fused Location Provider</strong> (FLP) integrates data from multiple sources to provide the most accurate and power-efficient location.</li>
+<li>Combines GPS, network-based location, and inertial sensors.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Processing-Workflow"><a href="#Processing-Workflow" class="headerlink" title="Processing Workflow:"></a><strong>Processing Workflow:</strong></h3><ol>
+<li>GPS hardware acquires signals and generates raw data (e.g., NMEA sentences).</li>
+<li>GNSS HAL processes this data, forwarding it to the Location Service.</li>
+<li>The Location Service refines and aggregates location data, exposing it to apps via the <strong>LocationManager</strong> API.</li>
+</ol>
+<hr>
+<h2 id="3-Developer-APIs-for-GPS"><a href="#3-Developer-APIs-for-GPS" class="headerlink" title="3. Developer APIs for GPS"></a><strong>3. Developer APIs for GPS</strong></h2><p>Android provides several APIs to access and utilize GPS functionality. The main entry point for developers is the <strong>LocationManager</strong> class, alongside support for advanced features via the <strong>Fused Location Provider API</strong>.</p>
+<h3 id="Core-GPS-APIs"><a href="#Core-GPS-APIs" class="headerlink" title="Core GPS APIs:"></a><strong>Core GPS APIs:</strong></h3><ol>
+<li><p><strong><code>LocationManager</code>:</strong></p>
+<ul>
+<li>Manages access to the device’s location services.</li>
+<li>Provides methods to request location updates, manage listeners, and query providers.</li>
+</ul>
+<p>Example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocationManager</span> <span class="variable">locationManager</span> <span class="operator">=</span> (LocationManager) getSystemService(Context.LOCATION_SERVICE);</span><br><span class="line">locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, <span class="number">1000</span>, <span class="number">10</span>, <span class="keyword">new</span> <span class="title class_">LocationListener</span>() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onLocationChanged</span><span class="params">(Location location)</span> &#123;</span><br><span class="line">        <span class="type">double</span> <span class="variable">latitude</span> <span class="operator">=</span> location.getLatitude();</span><br><span class="line">        <span class="type">double</span> <span class="variable">longitude</span> <span class="operator">=</span> location.getLongitude();</span><br><span class="line">        Log.d(<span class="string">&quot;GPS&quot;</span>, <span class="string">&quot;Lat: &quot;</span> + latitude + <span class="string">&quot;, Lon: &quot;</span> + longitude);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>FusedLocationProviderClient</code>:</strong></p>
+<ul>
+<li>Part of Google Play Services, provides more accurate and battery-efficient location data.</li>
+<li>Combines GPS, Wi-Fi, cellular, and sensor data for better accuracy.</li>
+</ul>
+<p>Example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">FusedLocationProviderClient</span> <span class="variable">fusedLocationClient</span> <span class="operator">=</span> LocationServices.getFusedLocationProviderClient(<span class="built_in">this</span>);</span><br><span class="line">fusedLocationClient.getLastLocation()</span><br><span class="line">        .addOnSuccessListener(location -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (location != <span class="literal">null</span>) &#123;</span><br><span class="line">                Log.d(<span class="string">&quot;FLP&quot;</span>, <span class="string">&quot;Lat: &quot;</span> + location.getLatitude() + <span class="string">&quot;, Lon: &quot;</span> + location.getLongitude());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Geofencing API:</strong></p>
+<ul>
+<li>Allows developers to define geographical boundaries and receive notifications when a user enters or exits these zones.</li>
+</ul>
+<p>Example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">GeofencingRequest</span> <span class="variable">geofencingRequest</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GeofencingRequest</span>.Builder()</span><br><span class="line">        .addGeofence(<span class="keyword">new</span> <span class="title class_">Geofence</span>.Builder()</span><br><span class="line">            .setRequestId(<span class="string">&quot;example&quot;</span>)</span><br><span class="line">            .setCircularRegion(latitude, longitude, radius)</span><br><span class="line">            .setExpirationDuration(Geofence.NEVER_EXPIRE)</span><br><span class="line">            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)</span><br><span class="line">            .build())</span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>GNSS Status API:</strong></p>
+<ul>
+<li>Provides satellite status and metadata for debugging and advanced use cases.</li>
+<li>Example: Check satellite visibility.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">locationManager.registerGnssStatusCallback(<span class="keyword">new</span> <span class="title class_">GnssStatus</span>.Callback() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onSatelliteStatusChanged</span><span class="params">(GnssStatus status)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">satelliteCount</span> <span class="operator">=</span> status.getSatelliteCount();</span><br><span class="line">        Log.d(<span class="string">&quot;GNSS&quot;</span>, <span class="string">&quot;Satellites: &quot;</span> + satelliteCount);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="4-What-Developers-Can-Do-with-GPS-APIs"><a href="#4-What-Developers-Can-Do-with-GPS-APIs" class="headerlink" title="4. What Developers Can Do with GPS APIs"></a><strong>4. What Developers Can Do with GPS APIs</strong></h2><p>Android’s GPS APIs allow developers to create a wide range of applications, including:</p>
+<ol>
+<li><p><strong>Navigation and Mapping Applications:</strong></p>
+<ul>
+<li>Turn-by-turn navigation apps.</li>
+<li>Real-time traffic visualization.</li>
+</ul>
+</li>
+<li><p><strong>Fitness and Tracking:</strong></p>
+<ul>
+<li>Track activities like running, cycling, or hiking.</li>
+<li>Log routes and performance metrics.</li>
+</ul>
+</li>
+<li><p><strong>Geofencing Applications:</strong></p>
+<ul>
+<li>Create location-based reminders.</li>
+<li>Trigger app events when entering specific areas.</li>
+</ul>
+</li>
+<li><p><strong>Augmented Reality (AR):</strong></p>
+<ul>
+<li>Combine GPS with camera and sensor data for location-based AR experiences.</li>
+</ul>
+</li>
+<li><p><strong>Emergency Services:</strong></p>
+<ul>
+<li>Provide precise location during SOS calls.</li>
+</ul>
+</li>
+<li><p><strong>Geospatial Analysis:</strong></p>
+<ul>
+<li>Analyze movement patterns and spatial data.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h2><p>Android’s GPS system, powered by the NMEA protocol and advanced GNSS handling, provides developers with powerful tools for location-based app development. Whether leveraging raw GPS data for custom applications or using high-level APIs for efficient and accurate location services, Android’s framework enables a wide range of use cases. By mastering these APIs, developers can create innovative solutions tailored to user needs.</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="https://apexpeng.github.io/2025/02/13/android-gps/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="apexpeng.github.io">
+  </form>
+</div>
+
+
+  
+
+  
+
+  
+  <div class="widget widget-archives">
+    <h3 class="title">Archives</h3>
+    <div class="entry">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2025 apexpenn
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script>
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

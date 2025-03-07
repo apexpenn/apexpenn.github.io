@@ -1,0 +1,503 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>AutoSar IDS Architecture | Penn&#39;s Blog</title>
+  <meta name="author" content="apexpenn">
+  
+  <meta name="description" content="Our life is shaped by our mind; we become what we think.">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="AutoSar IDS Architecture"/>
+  <meta property="og:site_name" content="Penn&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Penn&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/archives">ARCHIVE</a></li>
+    
+      <li><a href="/about">ABOUT</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-CS_Basis_IDS" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2025-02-10T02:41:56.730Z"><a href="/2025/02/10/CS_Basis_IDS/">2025-02-10</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">AutoSar IDS Architecture</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>Here,</p>
+<ul>
+<li><code>Doc Name</code> refer to docs that AutoSar published.</li>
+<li><em>Section</em> as item to its parent.</li>
+<li><strong>Definition</strong> The definition to important concept.</li>
+</ul>
+<h1 id="AutoSar-IDS-Reference-Documents"><a href="#AutoSar-IDS-Reference-Documents" class="headerlink" title="AutoSar IDS Reference Documents"></a>AutoSar IDS Reference Documents</h1><table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Documents</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IdsM</td>
+<td>AUTOSAR_RS_IntrusionDetectionSystem.pdf</td>
+<td>This document specifies requirements for the AUTOSAR Intrusion Detection System (IDS) .</td>
+</tr>
+<tr>
+<td>IDS Protocol Layer</td>
+<td>AUTOSAR_PRS_IntrusionDetectionSystem.pdf</td>
+<td>This Protocol Requirements Specification defines the format, message sequences and semantics of the AUTOSAR Protocol IDS</td>
+</tr>
+<tr>
+<td>IdsM specification</td>
+<td>AUTOSAR_SWS_IntrusionDetectionSystemManager.pdf</td>
+<td>This specification describes the functionality, API, and the configuration for the AUTOSAR Basic Software module Intrusion Detection System Manager ( IdsM).</td>
+</tr>
+</tbody></table>
+<h1 id="General-Architecture-of-a-distributed-onboard-IDS"><a href="#General-Architecture-of-a-distributed-onboard-IDS" class="headerlink" title="General Architecture of a distributed onboard IDS"></a>General Architecture of a distributed onboard IDS</h1><p>An onboard IDS according to the AUTOSAR standard consists of the following elements</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">graph BT;</span><br><span class="line">subgraph In-Vehicle</span><br><span class="line">subgraph ECUA</span><br><span class="line">A(Host Sensor)--&gt;C(IdsM)</span><br><span class="line">B(Ethernet Sensor)--&gt;C(IdsM)</span><br><span class="line">I(Sem)---C</span><br><span class="line">end</span><br><span class="line">subgraph ECUB</span><br><span class="line">E(Host Sensor)--&gt;G(IdsM)</span><br><span class="line">F(Ethernet Sensor)--&gt;G(IdsM)</span><br><span class="line">J(Sem)---G</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">C--&gt;D(IdsR)</span><br><span class="line">G--&gt;D</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">subgraph TSP</span><br><span class="line">H</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">D--&gt;H(SOC)</span><br><span class="line"></span><br><span class="line">style D stroke:#333,stroke-width:2px,stroke-dasharray: 5 5;</span><br></pre></td></tr></table></figure>
+
+<p>As  listed, we got the following elements that constitute AutoSar IDS standard:</p>
+<ul>
+<li>Secure Sensor</li>
+<li>Intrusion Detection System Manager(IDSM)</li>
+<li>Security Event Memory(Sem)</li>
+<li>Intrusion Detection System Repoter(IDSR)</li>
+</ul>
+<p>The Intrusion Detection System Manager (IdsM) is a Basic Software module (for the AUTOSAR Classic Platform) or a Platform Service (for the AUTOSAR Adaptive Platform) that collects and centrally aggregates security incidents that possibly result from malicious attacks on the vehicle’s software, communications or electronics system. In each of the security relevant ECUs or machines within the vehicle, an instance of the IdSM module or service collects and filters security events (optionally including additional data) in order to store them in a local Security Event Memory (Sem) and&#x2F;or to forward them over the vehicle network to a central Intrusion Detection System Reporter (IdsR). This IdsR might be, for example, located within a telematics unit enabling it to send security reports and associated data via a cellular network to an OEM’s Security Operations Center (SOC). This information is then analyzed by the Security Incident and Event Management (SIEM) and, if necessary, used to develop and decide on appropriate defense or mitigation actions to counter the attack.</p>
+<h2 id="Security-Sensors-and-Security-Events"><a href="#Security-Sensors-and-Security-Events" class="headerlink" title="Security Sensors and Security Events"></a>Security Sensors and Security Events</h2><p>AUTOSAR BSW modules, CDD and SWC can act as Security Sensors. Security sensors report Security Events (SEv) to the IdsM, and the module IdsM itself can also be used as a Security Event sensor.</p>
+<h2 id="IDSR"><a href="#IDSR" class="headerlink" title="IDSR"></a>IDSR</h2><p>IdsR is the bridge between Car and Backend, which is NOT SPECIFIED by AutoSar actually. The IdsR should typically further enrich the received data e.g. geo-position based on OEM requirement for the needs of SIEM.</p>
+<h2 id="IDS-protocol"><a href="#IDS-protocol" class="headerlink" title="IDS protocol"></a>IDS protocol</h2><p>This Protocol Requirements Specification <code>AUTOSAR_PRS_IntrusionDetectionSystem</code> defines the format, message sequences and semantics of the AUTOSAR Protocol IDS.</p>
+<p>The main use case for the IDS protocol is the propagation of Qualified Security Events QSEv to the IdsR in a way that is independent from the kind of ECU or the used communication mechanism.</p>
+<h3 id="Protocol-specification"><a href="#Protocol-specification" class="headerlink" title="Protocol specification"></a>Protocol specification</h3><h4 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h4><table>
+<thead>
+<tr>
+<th>Event Frame</th>
+<th>Timestamp(optional)</th>
+<th>Context Data(optional)</th>
+<th>Signature(optional)</th>
+</tr>
+</thead>
+</table>
+<h4 id="Protocol-Detail"><a href="#Protocol-Detail" class="headerlink" title="Protocol Detail"></a>Protocol Detail</h4><table>
+<thead>
+<tr>
+<th>FieldName</th>
+<th>Length</th>
+<th>Purpose</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Protocol Version</td>
+<td>4 Bit</td>
+<td>The version of the IdsM protocol</td>
+<td></td>
+</tr>
+<tr>
+<td>Protocol Header</td>
+<td>4 Bit</td>
+<td>IdsM protocol header information:</td>
+<td>Bit 0: 0 - No Context Data included, 1 - Context Data included<br />Bit 1: 0 - No Timestamp included, 1 - Timestamp included<br />Bit 2: 0 - No Signature included, 1 - Signature included<br />Bit 3: reserved</td>
+</tr>
+<tr>
+<td>IdsM Instance ID</td>
+<td>10 Bit</td>
+<td>Unique identifier of the sending, IdsM - Instance 0 - 1023</td>
+<td></td>
+</tr>
+<tr>
+<td>Sensor Instance ID</td>
+<td>6 Bit</td>
+<td>Identifier to differ between multiple instances of sensors</td>
+<td></td>
+</tr>
+<tr>
+<td>Event Definition ID</td>
+<td>16 Bit</td>
+<td>Unique identifier of a Security Event</td>
+<td>Range of AUTOSAR internal IDs: 0…0x7FFF<br />Range of Customer specific IDs: 0x8000…0xFFFE</td>
+</tr>
+<tr>
+<td>Count</td>
+<td>16 Bit</td>
+<td>Number of IdsM calls which result in the current event after processing the configured filter,</td>
+<td>e.g. EventAggregation 1.. 65535 .</td>
+</tr>
+<tr>
+<td>Reserved</td>
+<td>8 Bit</td>
+<td>Reserved for future use</td>
+<td></td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>64 Bit</td>
+<td>Timestamp&#x2F;Timestamp when event was detected: (optional)</td>
+<td>Byte0 - Bit7: 0 - AUTOSAR Standard, 1 - Auxiliary&#x2F; OEM specific<br />Byte0 - Bit 6: reserved<br />Resolution in ms. Maybe not necessary for every event type (optional).</td>
+</tr>
+<tr>
+<td>Context Data</td>
+<td>2..(2^31 + len) Bytes</td>
+<td>Binary blob attached by the sensor. (optional)</td>
+<td>Most Significant Bit of first byte signals if ContextData Length is encoded in<br />7 Bit (1 Byte) or 63 Bit (4 Bytes):<br />Context Data [0]: MSB &#x3D; 0 - 7 Bit Length Information encoded in Context Data [0]: 1..127<br />Context Data [0]: MSB &#x3D; 1 - 63 Bit Length Information encoded in Context Data [0..3]: 1..2^31<br />len &#x3D; 1 or 4</td>
+</tr>
+<tr>
+<td>Signature</td>
+<td>3…65537 Bytes</td>
+<td>Signature for encryption of security event. (optional)</td>
+<td>Signature calculated with Event Frame + optional Timestamp + optional Context Data<br />Signature[0..1]: Signature Length 1..65535</td>
+</tr>
+</tbody></table>
+<p><strong>Byte Order</strong> The IDS protocol uses big endianess as byte order also known as Motorola format</p>
+<h5 id="Event-Frame"><a href="#Event-Frame" class="headerlink" title="Event Frame"></a>Event Frame</h5><p>Event Frame consists of <strong>Protocol Version</strong>, <strong>Protocol Header</strong>, <strong>IdsM Instance ID</strong>, <strong>Sensor Instance ID</strong>, <strong>Event Definition ID</strong>, <strong>Count</strong> and <strong>Reserved</strong> part.</p>
+<h5 id="Timestamp"><a href="#Timestamp" class="headerlink" title="Timestamp"></a>Timestamp</h5><table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Reserved</th>
+<th>Nanoseconds</th>
+<th>Seconds</th>
+</tr>
+</thead>
+</table>
+<p><strong>Bit 7: Souerce</strong></p>
+<ul>
+<li>0: AUTOSAR Standard CP: StbM - AP: ara::tsync</li>
+<li>1: Auxiliary&#x2F; OEM Specific timestamp</li>
+</ul>
+<p>If Bit 7 &#x3D; 0, then:</p>
+<ul>
+<li>Reserve:Bit 6</li>
+<li>Nanoseconds:Byte 0(0::5)::3</li>
+<li>Seconds: Byte 4::7</li>
+</ul>
+<h5 id="Context-Data"><a href="#Context-Data" class="headerlink" title="Context Data"></a>Context Data</h5><p>The IDS protocol provides an optional feature to enrich the standard security event transfered in the Event Frame with more detailed information. Therefore context data can be added. It is a binary blob attached by the sensor. These data includes specific detailed information about the security event which can be used by the SOC for improved analysis of the security incident, e.g. a malformed message detected by a communication sensor.</p>
+<p>IdsM has no knowledge of the content or structure of these data. Only the issuing sensor and the Backend or SOC knows it</p>
+<h5 id="Signature"><a href="#Signature" class="headerlink" title="Signature"></a>Signature</h5><p>The IDS protocol provides an optional feature to make the transmission of QSEv more secure. A digital signature can be added to the IDS message. It can be used to ensure authenticity as well as to prove integrity of signed messages from the IdsM via all communication systems until reaching the Backend or SOC (End2End-Security).</p>
+<h2 id="IDSM"><a href="#IDSM" class="headerlink" title="IDSM"></a>IDSM</h2><p>The Intrusion Detection System Manager handles security events reported by security sensors.</p>
+<ul>
+<li>IDSM privides a standardized interface for receiving SEvs. SEv can be reported with optional context data.</li>
+<li>IDSM has the capability of qualifying SEvs, filters and transforms reported SEVs into QSEvs</li>
+<li>QSEvs can be stroed locally on Security Event Memory(Sem) or forwarded towards configured sinks, or both.</li>
+<li>Sinks could be Diagnostic Event Manager(Dem) and IDSR. Both may pass QSEv data to SOC.</li>
+</ul>
+<p>The IdsM shall provide interfaces for <strong>reporting SEv</strong>. The interfaces shall allow to report the following SEv properties:</p>
+<ul>
+<li>Security event type: Uniquely identifies the security event type</li>
+<li>Context data: Optional data which can be used to analyze the security event in the SOC.</li>
+<li>Timestamp: Optional timestamp provided by the sensor.</li>
+<li>Count: Optional count provided by the sensor.</li>
+</ul>
+<p>IdsM shall provide mechanisms to add <strong>timestamps</strong> to SEvs.</p>
+<p><strong>Timestamp Source</strong>s: IdsM shall provide mechanisms to let application or sensor software provide timestamps.</p>
+<p>IdsM shall allow to transmit the QSEv and context data by <strong>using an IDS protocol</strong>, which is independent from the underlying bus technology</p>
+<p>The IdsM shall be able to locally persist QSEvs via a user defined diagnostic memory. The user defined diagnostic memory shall be separate from the main diagnostic memory to allow separate access control and protection of the NVM block which is used to store the QSEv records. Persisted QSEvs can be accessed at a later point in time for analysis without relying on, e.g., network connectivity.</p>
+<p>IdsM shall support limiting the rate of QSEvs transmitted to the IdsR and the bandwidth consumed by these transmissions.</p>
+<h2 id="AUTOSAR-TPS-SecurityExtractTemplate"><a href="#AUTOSAR-TPS-SecurityExtractTemplate" class="headerlink" title="AUTOSAR_TPS_SecurityExtractTemplate"></a>AUTOSAR_TPS_SecurityExtractTemplate</h2><p>The Security Extract Template (SECXT) is part of the Intrusion Detection System (IDS).  In the context of ECU development projects, the SECXT serves multiple use cases. The SECXT specifies the security events and their properties for a vehicle on system level. The Security Extract as a specific, “standalone” file for security event definitions is in particular useful in view of the reasonable expectation that new approaches or kinds of attacks are identified after SOP of a vehicle. The resulting new or changed security events lead to an updated SECXT file that can subsequently be deployed onto the affected ECUs or machines of a vehicle together with a software update. Additionally, the SECXT file can potentially be used by the SIEM and SOC to interpret incoming reports of the IdsR instances of the vehicles in field.</p>
+<p>To summarize, the Security Extract Template defines a standardized AUTOSAR exchange format for defining security events and their properties. The Security Extract (SECXT) is formalized as an ARXML file and applicable for both the AUTOSAR Adaptive and AUTOSAR Classic Platforms in a way similar to a Diagnostic Extract file.</p>
+<h3 id="Conceptual-Background"><a href="#Conceptual-Background" class="headerlink" title="Conceptual Background"></a>Conceptual Background</h3><h4 id="Main-Development-Phases-for-an-IDS"><a href="#Main-Development-Phases-for-an-IDS" class="headerlink" title="Main Development Phases for an IDS"></a>Main Development Phases for an IDS</h4><p>Typically, an Intrusion Detection System (IDS) is based on the system parts IdsM, IdsR and the Security Operation Center (SOC) as exemplarily depicted in <a href="#general-architecture-of-a-distributed-onboard-ids">General Architecture of a distributed onboard IDS</a></p>
+<p>The development of such an IDS can be divided into the following main phases:</p>
+<ol>
+<li>Security Analysis phase</li>
+<li>IDS Design phase</li>
+<li>IDS Deployment phase</li>
+<li>IDS Operational phase</li>
+</ol>
+<p>The Security Extract Template supports all these four phases and can both be used for specification and exchange of IDS related definitions by and between OEMs and their suppliers. Therefore, a Security Extract file has potentially a high number of release cycles starting with security analysis and ending with “end of support” for a specific vehicle.</p>
+<h5 id="Security-Analysis-Phase"><a href="#Security-Analysis-Phase" class="headerlink" title="Security Analysis Phase"></a>Security Analysis Phase</h5><p>In the Security Analysis phase, the vehicle’s electronics and software system is examined and analyzed by security experts to identify and evaluate potential approaches of attacks on the components of the system that could lead to a security breach. In a second step, based on these potential attack approaches, detectable events that deviate from the normal behavior of the system are identified and defined as Security Events.</p>
+<h5 id="IDS-Design-Phase"><a href="#IDS-Design-Phase" class="headerlink" title="IDS Design Phase"></a>IDS Design Phase</h5><p>The IDS Design phase distributes, customizes and adapts the generic IDS components towards a concrete vehicle electronics and software system taking into consideration the security events identified in the previous phase</p>
+<p>In this phase, the Security Extract Template is enriched with the design decisions such as definition of IdsM instances, the mapping of security events onto them and the configuration of filters</p>
+<h5 id="IDS-Deployment-Phase"><a href="#IDS-Deployment-Phase" class="headerlink" title="IDS Deployment Phase"></a>IDS Deployment Phase</h5><p>The IDS Deployment phase comprises the realization of the IDS Design from the previous step towards the real system in hardware and software.</p>
+<p>This phase is supported by the Security Extract Template through definition of IdsM instance deployment onto specific ECU-HW and the possibility to derive ECU configuration parameters for the IdsM modules on the Classic Platform</p>
+<h5 id="IDS-Operational-Phase"><a href="#IDS-Operational-Phase" class="headerlink" title="IDS Operational Phase"></a>IDS Operational Phase</h5><p>The IDS Operational phase refers to the running IDS in the field when the vehicle is used by the end customer. </p>
+<p>This phase is still regarded as part of the development process because it typically involves an IDS update process to keep the IDS up to date with new versions of application and platform software as well as with newly identified attack approaches and thus new security events.</p>
+<p>During the IDS update process, Security Extract files can be used to reconfigure the IdsM instances of the IDS and also to make these reconfigurations known to the IdsR. </p>
+<p>This is a notable difference to other AUTOSAR (M2 level) exchange files (e.g. System Description) which usually do not evolve further after the final configuration of the ECU-HW devices of the vehicle has been specified for SOP. On the other hand, the Security Extract file is expected to be maintained and further extended even after SOP of the vehicle it relates to due to its involvement in the IDS update process.</p>
+<h1 id="Abbreviations"><a href="#Abbreviations" class="headerlink" title="Abbreviations"></a>Abbreviations</h1><table>
+<thead>
+<tr>
+<th>Abbr</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>API</td>
+<td>Application Programming Interface</td>
+</tr>
+<tr>
+<td>BSW</td>
+<td>Basic Software</td>
+</tr>
+<tr>
+<td>BswM</td>
+<td>Basic Software Mode Manager</td>
+</tr>
+<tr>
+<td>CDD</td>
+<td>Complex Device Driver</td>
+</tr>
+<tr>
+<td>Csm</td>
+<td>Crypto Service Manager</td>
+</tr>
+<tr>
+<td>Dcm</td>
+<td>Diagnostic Communication Manager</td>
+</tr>
+<tr>
+<td>Dem</td>
+<td>Diagnostic Event Manager module</td>
+</tr>
+<tr>
+<td>DET</td>
+<td>Default Error Tracer</td>
+</tr>
+<tr>
+<td>ECU</td>
+<td>Electronic Control Unit</td>
+</tr>
+<tr>
+<td>ECUC</td>
+<td>ECU configuration</td>
+</tr>
+<tr>
+<td>ID</td>
+<td>Identifier</td>
+</tr>
+<tr>
+<td>IDS</td>
+<td>Intrusion Detection System</td>
+</tr>
+<tr>
+<td>IdsM</td>
+<td>Intrusion Detection System Manager</td>
+</tr>
+<tr>
+<td>IdsR</td>
+<td>Intrusion Detection System Reporter</td>
+</tr>
+<tr>
+<td>IF</td>
+<td>Interface</td>
+</tr>
+<tr>
+<td>MCU</td>
+<td>Microcontroller Unit</td>
+</tr>
+<tr>
+<td>NvM</td>
+<td>Non-volatile memory</td>
+</tr>
+<tr>
+<td>NVRAM</td>
+<td>Non-volatile random access memory</td>
+</tr>
+<tr>
+<td>OEM</td>
+<td>Original Equipment Manufacturer</td>
+</tr>
+<tr>
+<td>PDU</td>
+<td>Protocol Data Unit</td>
+</tr>
+<tr>
+<td>PDU ID</td>
+<td>PDU Identifier</td>
+</tr>
+<tr>
+<td>PduR</td>
+<td>PDU Router</td>
+</tr>
+<tr>
+<td>QSEv</td>
+<td>Qualified Security Event</td>
+</tr>
+<tr>
+<td>RTE</td>
+<td>Runtime Environment</td>
+</tr>
+<tr>
+<td>SecXT</td>
+<td>Security Extract</td>
+</tr>
+<tr>
+<td>Sem</td>
+<td>Security Event Memory</td>
+</tr>
+<tr>
+<td>SEv</td>
+<td>On-board Security Event</td>
+</tr>
+<tr>
+<td>SIEM</td>
+<td>Security Incident and Event Management</td>
+</tr>
+<tr>
+<td>StbM</td>
+<td>Synchronized Time-Base Manager</td>
+</tr>
+<tr>
+<td>SW-C</td>
+<td>Software Component</td>
+</tr>
+<tr>
+<td>SOC</td>
+<td>Security Operation Center</td>
+</tr>
+<tr>
+<td>TP</td>
+<td>Transport Protocol</td>
+</tr>
+<tr>
+<td>BSW</td>
+<td>Basic Software</td>
+</tr>
+<tr>
+<td>CDD</td>
+<td>Complex Device Driver</td>
+</tr>
+<tr>
+<td>SWC</td>
+<td>Software Component</td>
+</tr>
+<tr>
+<td>SWS</td>
+<td>Software Specification</td>
+</tr>
+<tr>
+<td>SOC</td>
+<td>Security Operation Center</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="https://apexpeng.github.io/2025/02/10/CS_Basis_IDS/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="apexpeng.github.io">
+  </form>
+</div>
+
+
+  
+
+  
+
+  
+  <div class="widget widget-archives">
+    <h3 class="title">Archives</h3>
+    <div class="entry">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">34</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2025 apexpenn
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+
+
+<script src="/js/gallery.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script>
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

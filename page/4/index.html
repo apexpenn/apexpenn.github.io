@@ -57,7 +57,7 @@
       
       
   
-    <h1 class="title"><a href="/2025/02/13/CS_Basis_TEE/"></a></h1>
+    <h1 class="title"><a href="/2025/02/13/CS_Basis_TEE/">Comprehensive Guide to TEE</a></h1>
   
 
     </header>
@@ -121,7 +121,7 @@
       
       
   
-    <h1 class="title"><a href="/2025/02/13/CS_Basis_HSM/"></a></h1>
+    <h1 class="title"><a href="/2025/02/13/CS_Basis_HSM/">Comprehensive Guide to HSM</a></h1>
   
 
     </header>
@@ -210,65 +210,1049 @@
 
 
 
-  <article id="post-CS_AUTOSAR_01intro" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-CS_Basis_IDS" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
     <header>
       
         <div class="icon"></div>
-        <time class="dt-published" datetime="2025-02-13T00:58:38.948Z"><a href="/2025/02/13/CS_AUTOSAR_01intro/">2025-02-13</a></time>
+        <time class="dt-published" datetime="2025-02-10T02:41:56.730Z"><a href="/2025/02/10/CS_Basis_IDS/">2025-02-10</a></time>
       
       
   
-    <h1 class="title"><a href="/2025/02/13/CS_AUTOSAR_01intro/"></a></h1>
+    <h1 class="title"><a href="/2025/02/10/CS_Basis_IDS/">AutoSar IDS Architecture</a></h1>
   
 
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <h1 id="BEGINNING"><a href="#BEGINNING" class="headerlink" title="BEGINNING"></a>BEGINNING</h1><p>This artical copys the introduction from <a target="_blank" rel="noopener" href="https://www.autosar.org/">AUTOSAR</a>, but a unformal reference can be used <a href="autosar.ltd">here</a>.</p>
-<h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>AUTOSAR (AUTomotive Open System ARchitecture) is a global partnership of leading companies in the automotive and software industry to develop and establish the standardized software framework and open E&#x2F;E system architecture for intelligent mobility.</p>
-<h2 id="HISTORY"><a href="#HISTORY" class="headerlink" title="HISTORY"></a>HISTORY</h2><p>Nine companies founded the AUTOSAR partnership to consolidate the expertise of partner companies in the automotive industries and define an automotive open system architecture standard to support the needs of future automotive applications</p>
-<h2 id="AUTOSAR-STANDARDS-and-SPECIFICATIONS"><a href="#AUTOSAR-STANDARDS-and-SPECIFICATIONS" class="headerlink" title="AUTOSAR STANDARDS and SPECIFICATIONS"></a>AUTOSAR STANDARDS and SPECIFICATIONS</h2><p>The primary goal of the AUTOSAR development partnership is the standardization of basic system functions and functional interfaces.</p>
-<h3 id="CLASSIC-PLATFORM"><a href="#CLASSIC-PLATFORM" class="headerlink" title="CLASSIC PLATFORM"></a>CLASSIC PLATFORM</h3><p>The AUTOSAR Classic Platform is a software platform with a layered software architecture defined by AUTOSAR which is used for deeply embedded systems and application software with high requirements for predictability, safety, security and responsiveness. It distinguishes at the highest level of abstraction between three software layers running on a microcontroller: Application, Runtime Environment (RTE) and Basic Software (BSW), and provides a modular and scalable approach to software development.</p>
-<h3 id="ADAPTIVE-PLATFORM"><a href="#ADAPTIVE-PLATFORM" class="headerlink" title="ADAPTIVE PLATFORM"></a>ADAPTIVE PLATFORM</h3><p>The AUTOSAR Adaptive Platform implements the AUTOSAR Runtime for Adaptive Applications (ARA) and consists of functional clusters grouped into Services and the Adaptive AUTOSAR Basis. It provides two types of interfaces, Services and APIs, and is the AUTOSAR solution for high-performance ECUs to build safety-related systems. The platform is designed to meet the requirements of highly automated vehicles and supports dynamic updates and reconfigurations of software systems.</p>
-<h1 id="AUTOSAR-STANDARDS"><a href="#AUTOSAR-STANDARDS" class="headerlink" title="AUTOSAR STANDARDS"></a>AUTOSAR STANDARDS</h1><p>Now, lets take a closer look at AUTOSAR <a target="_blank" rel="noopener" href="https://www.autosar.org/standards">standards</a>.</p>
-<p>Autosar has 2 kinds of standards, classic platform and adaptive paltform, all contain well formart engineering documentations, these include:</p>
+        <p>Here,</p>
 <ul>
-<li>MOD: mode</li>
-<li>MMOD: Meta Mode</li>
-<li>RS: Requirement Specification</li>
-<li>PRS: Protocol Requirement Specification</li>
-<li>TR: Technical Report</li>
-<li>SWS: Software Specification</li>
-<li>EXP: Explaination</li>
-<li>SRS: Software Requirement Specification</li>
-<li>TPS: Template Specification</li>
+<li><code>Doc Name</code> refer to docs that AutoSar published.</li>
+<li><em>Section</em> as item to its parent.</li>
+<li><strong>Definition</strong> The definition to important concept.</li>
 </ul>
-<h2 id="CLASSIC-PLATFORM-1"><a href="#CLASSIC-PLATFORM-1" class="headerlink" title="CLASSIC PLATFORM"></a>CLASSIC PLATFORM</h2><h3 id="About"><a href="#About" class="headerlink" title="About"></a>About</h3><p>The AUTOSAR Classic Platform architecture distinguishes on the highest abstraction level between three software layers which run on a microcontroller: application, runtime environment (RTE) and basic software (BSW).</p>
+<h1 id="AutoSar-IDS-Reference-Documents"><a href="#AutoSar-IDS-Reference-Documents" class="headerlink" title="AutoSar IDS Reference Documents"></a>AutoSar IDS Reference Documents</h1><table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Documents</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IdsM</td>
+<td>AUTOSAR_RS_IntrusionDetectionSystem.pdf</td>
+<td>This document specifies requirements for the AUTOSAR Intrusion Detection System (IDS) .</td>
+</tr>
+<tr>
+<td>IDS Protocol Layer</td>
+<td>AUTOSAR_PRS_IntrusionDetectionSystem.pdf</td>
+<td>This Protocol Requirements Specification defines the format, message sequences and semantics of the AUTOSAR Protocol IDS</td>
+</tr>
+<tr>
+<td>IdsM specification</td>
+<td>AUTOSAR_SWS_IntrusionDetectionSystemManager.pdf</td>
+<td>This specification describes the functionality, API, and the configuration for the AUTOSAR Basic Software module Intrusion Detection System Manager ( IdsM).</td>
+</tr>
+</tbody></table>
+<h1 id="General-Architecture-of-a-distributed-onboard-IDS"><a href="#General-Architecture-of-a-distributed-onboard-IDS" class="headerlink" title="General Architecture of a distributed onboard IDS"></a>General Architecture of a distributed onboard IDS</h1><p>An onboard IDS according to the AUTOSAR standard consists of the following elements</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">graph BT;</span><br><span class="line">subgraph In-Vehicle</span><br><span class="line">subgraph ECUA</span><br><span class="line">A(Host Sensor)--&gt;C(IdsM)</span><br><span class="line">B(Ethernet Sensor)--&gt;C(IdsM)</span><br><span class="line">I(Sem)---C</span><br><span class="line">end</span><br><span class="line">subgraph ECUB</span><br><span class="line">E(Host Sensor)--&gt;G(IdsM)</span><br><span class="line">F(Ethernet Sensor)--&gt;G(IdsM)</span><br><span class="line">J(Sem)---G</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">C--&gt;D(IdsR)</span><br><span class="line">G--&gt;D</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">subgraph TSP</span><br><span class="line">H</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">D--&gt;H(SOC)</span><br><span class="line"></span><br><span class="line">style D stroke:#333,stroke-width:2px,stroke-dasharray: 5 5;</span><br></pre></td></tr></table></figure>
+
+<p>As  listed, we got the following elements that constitute AutoSar IDS standard:</p>
 <ul>
-<li>The application software layer is mostly hardware independent.</li>
-<li>Communication between software components and access to BSW via RTE.</li>
-<li>The RTE represents the full interface for applications.</li>
-<li>The BSW is divided in three major layers and complex drivers:<ul>
-<li>Services, ECU (Electronic Control Unit) abstraction and microcontroller abstraction.</li>
+<li>Secure Sensor</li>
+<li>Intrusion Detection System Manager(IDSM)</li>
+<li>Security Event Memory(Sem)</li>
+<li>Intrusion Detection System Repoter(IDSR)</li>
 </ul>
-</li>
-<li>Services are divided furthermore into functional groups representing the infrastructure for system, memory and communication services.</li>
+<p>The Intrusion Detection System Manager (IdsM) is a Basic Software module (for the AUTOSAR Classic Platform) or a Platform Service (for the AUTOSAR Adaptive Platform) that collects and centrally aggregates security incidents that possibly result from malicious attacks on the vehicle’s software, communications or electronics system. In each of the security relevant ECUs or machines within the vehicle, an instance of the IdSM module or service collects and filters security events (optionally including additional data) in order to store them in a local Security Event Memory (Sem) and&#x2F;or to forward them over the vehicle network to a central Intrusion Detection System Reporter (IdsR). This IdsR might be, for example, located within a telematics unit enabling it to send security reports and associated data via a cellular network to an OEM’s Security Operations Center (SOC). This information is then analyzed by the Security Incident and Event Management (SIEM) and, if necessary, used to develop and decide on appropriate defense or mitigation actions to counter the attack.</p>
+<h2 id="Security-Sensors-and-Security-Events"><a href="#Security-Sensors-and-Security-Events" class="headerlink" title="Security Sensors and Security Events"></a>Security Sensors and Security Events</h2><p>AUTOSAR BSW modules, CDD and SWC can act as Security Sensors. Security sensors report Security Events (SEv) to the IdsM, and the module IdsM itself can also be used as a Security Event sensor.</p>
+<h2 id="IDSR"><a href="#IDSR" class="headerlink" title="IDSR"></a>IDSR</h2><p>IdsR is the bridge between Car and Backend, which is NOT SPECIFIED by AutoSar actually. The IdsR should typically further enrich the received data e.g. geo-position based on OEM requirement for the needs of SIEM.</p>
+<h2 id="IDS-protocol"><a href="#IDS-protocol" class="headerlink" title="IDS protocol"></a>IDS protocol</h2><p>This Protocol Requirements Specification <code>AUTOSAR_PRS_IntrusionDetectionSystem</code> defines the format, message sequences and semantics of the AUTOSAR Protocol IDS.</p>
+<p>The main use case for the IDS protocol is the propagation of Qualified Security Events QSEv to the IdsR in a way that is independent from the kind of ECU or the used communication mechanism.</p>
+<h3 id="Protocol-specification"><a href="#Protocol-specification" class="headerlink" title="Protocol specification"></a>Protocol specification</h3><h4 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h4><table>
+<thead>
+<tr>
+<th>Event Frame</th>
+<th>Timestamp(optional)</th>
+<th>Context Data(optional)</th>
+<th>Signature(optional)</th>
+</tr>
+</thead>
+</table>
+<h4 id="Protocol-Detail"><a href="#Protocol-Detail" class="headerlink" title="Protocol Detail"></a>Protocol Detail</h4><table>
+<thead>
+<tr>
+<th>FieldName</th>
+<th>Length</th>
+<th>Purpose</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Protocol Version</td>
+<td>4 Bit</td>
+<td>The version of the IdsM protocol</td>
+<td></td>
+</tr>
+<tr>
+<td>Protocol Header</td>
+<td>4 Bit</td>
+<td>IdsM protocol header information:</td>
+<td>Bit 0: 0 - No Context Data included, 1 - Context Data included<br />Bit 1: 0 - No Timestamp included, 1 - Timestamp included<br />Bit 2: 0 - No Signature included, 1 - Signature included<br />Bit 3: reserved</td>
+</tr>
+<tr>
+<td>IdsM Instance ID</td>
+<td>10 Bit</td>
+<td>Unique identifier of the sending, IdsM - Instance 0 - 1023</td>
+<td></td>
+</tr>
+<tr>
+<td>Sensor Instance ID</td>
+<td>6 Bit</td>
+<td>Identifier to differ between multiple instances of sensors</td>
+<td></td>
+</tr>
+<tr>
+<td>Event Definition ID</td>
+<td>16 Bit</td>
+<td>Unique identifier of a Security Event</td>
+<td>Range of AUTOSAR internal IDs: 0…0x7FFF<br />Range of Customer specific IDs: 0x8000…0xFFFE</td>
+</tr>
+<tr>
+<td>Count</td>
+<td>16 Bit</td>
+<td>Number of IdsM calls which result in the current event after processing the configured filter,</td>
+<td>e.g. EventAggregation 1.. 65535 .</td>
+</tr>
+<tr>
+<td>Reserved</td>
+<td>8 Bit</td>
+<td>Reserved for future use</td>
+<td></td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>64 Bit</td>
+<td>Timestamp&#x2F;Timestamp when event was detected: (optional)</td>
+<td>Byte0 - Bit7: 0 - AUTOSAR Standard, 1 - Auxiliary&#x2F; OEM specific<br />Byte0 - Bit 6: reserved<br />Resolution in ms. Maybe not necessary for every event type (optional).</td>
+</tr>
+<tr>
+<td>Context Data</td>
+<td>2..(2^31 + len) Bytes</td>
+<td>Binary blob attached by the sensor. (optional)</td>
+<td>Most Significant Bit of first byte signals if ContextData Length is encoded in<br />7 Bit (1 Byte) or 63 Bit (4 Bytes):<br />Context Data [0]: MSB &#x3D; 0 - 7 Bit Length Information encoded in Context Data [0]: 1..127<br />Context Data [0]: MSB &#x3D; 1 - 63 Bit Length Information encoded in Context Data [0..3]: 1..2^31<br />len &#x3D; 1 or 4</td>
+</tr>
+<tr>
+<td>Signature</td>
+<td>3…65537 Bytes</td>
+<td>Signature for encryption of security event. (optional)</td>
+<td>Signature calculated with Event Frame + optional Timestamp + optional Context Data<br />Signature[0..1]: Signature Length 1..65535</td>
+</tr>
+</tbody></table>
+<p><strong>Byte Order</strong> The IDS protocol uses big endianess as byte order also known as Motorola format</p>
+<h5 id="Event-Frame"><a href="#Event-Frame" class="headerlink" title="Event Frame"></a>Event Frame</h5><p>Event Frame consists of <strong>Protocol Version</strong>, <strong>Protocol Header</strong>, <strong>IdsM Instance ID</strong>, <strong>Sensor Instance ID</strong>, <strong>Event Definition ID</strong>, <strong>Count</strong> and <strong>Reserved</strong> part.</p>
+<h5 id="Timestamp"><a href="#Timestamp" class="headerlink" title="Timestamp"></a>Timestamp</h5><table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Reserved</th>
+<th>Nanoseconds</th>
+<th>Seconds</th>
+</tr>
+</thead>
+</table>
+<p><strong>Bit 7: Souerce</strong></p>
+<ul>
+<li>0: AUTOSAR Standard CP: StbM - AP: ara::tsync</li>
+<li>1: Auxiliary&#x2F; OEM Specific timestamp</li>
 </ul>
-<h3 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h3><h4 id="VIRTUAL-FUNCTIONAL-BUS-VFB-–-THE-BACKBONE"><a href="#VIRTUAL-FUNCTIONAL-BUS-VFB-–-THE-BACKBONE" class="headerlink" title="VIRTUAL FUNCTIONAL BUS(VFB) – THE BACKBONE"></a>VIRTUAL FUNCTIONAL BUS(VFB) – THE BACKBONE</h4><p>One essential concept is the virtual functional bus (VFB). This virtual bus decouples the applications from the infrastructure. It communicates via dedicated ports, which means that the communication interfaces of the application software must be mapped to these ports. The VFB handles communication both within the individual ECU and between ECUs. From an application point of view, no detailed knowledge of lower-level technologies or dependencies is required. This supports hardware-independent development and usage of application software.</p>
-<h4 id="AUTOSAR-CLASSIC-PLATFORM-ARCHITECTURE"><a href="#AUTOSAR-CLASSIC-PLATFORM-ARCHITECTURE" class="headerlink" title="AUTOSAR CLASSIC PLATFORM ARCHITECTURE"></a>AUTOSAR CLASSIC PLATFORM ARCHITECTURE</h4><p>Refer autosar.architecture.drawio for the architecture of autosar classic platform defined by AUTOSAR.</p>
-<p>The AUTOSAR layered architecture is offering all the mechanisms needed for software and hardware independence. It distinguishes between three main software layers which run on a Microcontroller (µC): application layer, runtime environment (RTE), and basic software (BSW).</p>
-<p>The applications of the different automotive domains interface the basic software by means of the RTE.</p>
-<p>In addition to defining architecture and interfaces, AUTOSAR also defines a methodology which enables the configuration of the complete AUTOSAR stack and enhances interoperability between different tool chains. On the one hand this is important for the collaboration within development projects and on the other hand this is important to cut down development costs.</p>
-<h3 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h3><p>The main concept of the standardized ECU software architecture is the separation of hardware-independent application software and hardware-oriented basic software (BSW) by means of the software abstraction layer RTE (runtime environment). On the upper side of the RTE, this abstraction layer enables the development of OEM-specific and competitive software applications. On the lower side of the RTE, it enables the standardization and OEM-independence of basic software. Further characteristics of the AUTOSAR software architecture are the scalability of ECU software for several car lines and variants, the possibility to distribute applications (functional software modules) across ECUs, and the ability to integrate software modules from different sources.</p>
-<p>The basic software within the AUTOSAR software architecture is further divided into the following layers: services, ECU abstraction, and microcontroller abstraction. The separation of the application layer from the basic software, realized by the RTE, includes the control of the data exchange between these layers. This forms the basis for a component-oriented, hardware-independent software structure on application level, with software components (SWCs) as individual units. Because of their hardware independence, it is thus possible to develop SWCs without specific knowledge of the hardware used or planned, as well as to flexibly relocate existing SWCs to ECUs during development.</p>
-<h3 id="Methodology-and-Templates"><a href="#Methodology-and-Templates" class="headerlink" title="Methodology and Templates"></a>Methodology and Templates</h3><p>In addition to a software architecture, AUTOSAR introduced a harmonized methodology approach for the development of automotive software. This is mainly driven by the need to improve the collaboration between the different parties involved in today’s automotive projects.  </p>
-<p>AUTOSAR provides means to specify all aspects necessary to integrate a software component on an ECU and to integrate different ECUs to the whole network communication over a variety of different bus systems. The methodology defines the dependencies of activities on work products and is foreseen to support activities, descriptions and usage of tools in AUTOSAR.</p>
-<p>The descriptions (.arxml) are based on the AUTOSAR Templates which define the formal exchange format (AUTOSAR Schema) and the semantic constraints which go along with the exchange format.  The descriptions are used to hold the information that is produced or consumed in the AUTOSAR methodology. Various generators can utilize the information from the descriptions to support the configuration and generation of the RTE and the AUTOSAR basic software (including the operating system).</p>
-<h2 id="ADAPTIVE-PLATFORM-1"><a href="#ADAPTIVE-PLATFORM-1" class="headerlink" title="ADAPTIVE PLATFORM"></a>ADAPTIVE PLATFORM</h2><h3 id="About-1"><a href="#About-1" class="headerlink" title="About"></a>About</h3><p>The AUTOSAR Adaptive Platform implements the AUTOSAR Runtime for Adaptive Applications (ARA). Two types of interfaces are available, services and APIs. The platform consists of functional clusters which are grouped in services and the AUTOSAR Adaptive Basis.</p>
-<p>In comparison to the AUTOSAR Classic Platform the AUTOSAR Runtime Environment for the Adaptive Platform dynamically links services and clients during runtime.</p>
-<h3 id="Methodology"><a href="#Methodology" class="headerlink" title="Methodology"></a>Methodology</h3><p>AUTOSAR extends the existing Methodology to be able to have a common Methodology approach for both: Classic and Adaptive Platform. The support for distributed, independent, and agile development of functional applications requires a standardized approach on the development methodology. AUTOSAR adaptive methodology involves the standardization of work products and their respective tasks. Work products describe artifacts such as services, applications, machines, and their configuration. The respective tasks define how the work products exchange design information for the activities required which are needed to develop products based on the adaptive platform.</p>
+<p>If Bit 7 &#x3D; 0, then:</p>
+<ul>
+<li>Reserve:Bit 6</li>
+<li>Nanoseconds:Byte 0(0::5)::3</li>
+<li>Seconds: Byte 4::7</li>
+</ul>
+<h5 id="Context-Data"><a href="#Context-Data" class="headerlink" title="Context Data"></a>Context Data</h5><p>The IDS protocol provides an optional feature to enrich the standard security event transfered in the Event Frame with more detailed information. Therefore context data can be added. It is a binary blob attached by the sensor. These data includes specific detailed information about the security event which can be used by the SOC for improved analysis of the security incident, e.g. a malformed message detected by a communication sensor.</p>
+<p>IdsM has no knowledge of the content or structure of these data. Only the issuing sensor and the Backend or SOC knows it</p>
+<h5 id="Signature"><a href="#Signature" class="headerlink" title="Signature"></a>Signature</h5><p>The IDS protocol provides an optional feature to make the transmission of QSEv more secure. A digital signature can be added to the IDS message. It can be used to ensure authenticity as well as to prove integrity of signed messages from the IdsM via all communication systems until reaching the Backend or SOC (End2End-Security).</p>
+<h2 id="IDSM"><a href="#IDSM" class="headerlink" title="IDSM"></a>IDSM</h2><p>The Intrusion Detection System Manager handles security events reported by security sensors.</p>
+<ul>
+<li>IDSM privides a standardized interface for receiving SEvs. SEv can be reported with optional context data.</li>
+<li>IDSM has the capability of qualifying SEvs, filters and transforms reported SEVs into QSEvs</li>
+<li>QSEvs can be stroed locally on Security Event Memory(Sem) or forwarded towards configured sinks, or both.</li>
+<li>Sinks could be Diagnostic Event Manager(Dem) and IDSR. Both may pass QSEv data to SOC.</li>
+</ul>
+<p>The IdsM shall provide interfaces for <strong>reporting SEv</strong>. The interfaces shall allow to report the following SEv properties:</p>
+<ul>
+<li>Security event type: Uniquely identifies the security event type</li>
+<li>Context data: Optional data which can be used to analyze the security event in the SOC.</li>
+<li>Timestamp: Optional timestamp provided by the sensor.</li>
+<li>Count: Optional count provided by the sensor.</li>
+</ul>
+<p>IdsM shall provide mechanisms to add <strong>timestamps</strong> to SEvs.</p>
+<p><strong>Timestamp Source</strong>s: IdsM shall provide mechanisms to let application or sensor software provide timestamps.</p>
+<p>IdsM shall allow to transmit the QSEv and context data by <strong>using an IDS protocol</strong>, which is independent from the underlying bus technology</p>
+<p>The IdsM shall be able to locally persist QSEvs via a user defined diagnostic memory. The user defined diagnostic memory shall be separate from the main diagnostic memory to allow separate access control and protection of the NVM block which is used to store the QSEv records. Persisted QSEvs can be accessed at a later point in time for analysis without relying on, e.g., network connectivity.</p>
+<p>IdsM shall support limiting the rate of QSEvs transmitted to the IdsR and the bandwidth consumed by these transmissions.</p>
+<h2 id="AUTOSAR-TPS-SecurityExtractTemplate"><a href="#AUTOSAR-TPS-SecurityExtractTemplate" class="headerlink" title="AUTOSAR_TPS_SecurityExtractTemplate"></a>AUTOSAR_TPS_SecurityExtractTemplate</h2><p>The Security Extract Template (SECXT) is part of the Intrusion Detection System (IDS).  In the context of ECU development projects, the SECXT serves multiple use cases. The SECXT specifies the security events and their properties for a vehicle on system level. The Security Extract as a specific, “standalone” file for security event definitions is in particular useful in view of the reasonable expectation that new approaches or kinds of attacks are identified after SOP of a vehicle. The resulting new or changed security events lead to an updated SECXT file that can subsequently be deployed onto the affected ECUs or machines of a vehicle together with a software update. Additionally, the SECXT file can potentially be used by the SIEM and SOC to interpret incoming reports of the IdsR instances of the vehicles in field.</p>
+<p>To summarize, the Security Extract Template defines a standardized AUTOSAR exchange format for defining security events and their properties. The Security Extract (SECXT) is formalized as an ARXML file and applicable for both the AUTOSAR Adaptive and AUTOSAR Classic Platforms in a way similar to a Diagnostic Extract file.</p>
+<h3 id="Conceptual-Background"><a href="#Conceptual-Background" class="headerlink" title="Conceptual Background"></a>Conceptual Background</h3><h4 id="Main-Development-Phases-for-an-IDS"><a href="#Main-Development-Phases-for-an-IDS" class="headerlink" title="Main Development Phases for an IDS"></a>Main Development Phases for an IDS</h4><p>Typically, an Intrusion Detection System (IDS) is based on the system parts IdsM, IdsR and the Security Operation Center (SOC) as exemplarily depicted in <a href="#general-architecture-of-a-distributed-onboard-ids">General Architecture of a distributed onboard IDS</a></p>
+<p>The development of such an IDS can be divided into the following main phases:</p>
+<ol>
+<li>Security Analysis phase</li>
+<li>IDS Design phase</li>
+<li>IDS Deployment phase</li>
+<li>IDS Operational phase</li>
+</ol>
+<p>The Security Extract Template supports all these four phases and can both be used for specification and exchange of IDS related definitions by and between OEMs and their suppliers. Therefore, a Security Extract file has potentially a high number of release cycles starting with security analysis and ending with “end of support” for a specific vehicle.</p>
+<h5 id="Security-Analysis-Phase"><a href="#Security-Analysis-Phase" class="headerlink" title="Security Analysis Phase"></a>Security Analysis Phase</h5><p>In the Security Analysis phase, the vehicle’s electronics and software system is examined and analyzed by security experts to identify and evaluate potential approaches of attacks on the components of the system that could lead to a security breach. In a second step, based on these potential attack approaches, detectable events that deviate from the normal behavior of the system are identified and defined as Security Events.</p>
+<h5 id="IDS-Design-Phase"><a href="#IDS-Design-Phase" class="headerlink" title="IDS Design Phase"></a>IDS Design Phase</h5><p>The IDS Design phase distributes, customizes and adapts the generic IDS components towards a concrete vehicle electronics and software system taking into consideration the security events identified in the previous phase</p>
+<p>In this phase, the Security Extract Template is enriched with the design decisions such as definition of IdsM instances, the mapping of security events onto them and the configuration of filters</p>
+<h5 id="IDS-Deployment-Phase"><a href="#IDS-Deployment-Phase" class="headerlink" title="IDS Deployment Phase"></a>IDS Deployment Phase</h5><p>The IDS Deployment phase comprises the realization of the IDS Design from the previous step towards the real system in hardware and software.</p>
+<p>This phase is supported by the Security Extract Template through definition of IdsM instance deployment onto specific ECU-HW and the possibility to derive ECU configuration parameters for the IdsM modules on the Classic Platform</p>
+<h5 id="IDS-Operational-Phase"><a href="#IDS-Operational-Phase" class="headerlink" title="IDS Operational Phase"></a>IDS Operational Phase</h5><p>The IDS Operational phase refers to the running IDS in the field when the vehicle is used by the end customer. </p>
+<p>This phase is still regarded as part of the development process because it typically involves an IDS update process to keep the IDS up to date with new versions of application and platform software as well as with newly identified attack approaches and thus new security events.</p>
+<p>During the IDS update process, Security Extract files can be used to reconfigure the IdsM instances of the IDS and also to make these reconfigurations known to the IdsR. </p>
+<p>This is a notable difference to other AUTOSAR (M2 level) exchange files (e.g. System Description) which usually do not evolve further after the final configuration of the ECU-HW devices of the vehicle has been specified for SOP. On the other hand, the Security Extract file is expected to be maintained and further extended even after SOP of the vehicle it relates to due to its involvement in the IDS update process.</p>
+<h1 id="Abbreviations"><a href="#Abbreviations" class="headerlink" title="Abbreviations"></a>Abbreviations</h1><table>
+<thead>
+<tr>
+<th>Abbr</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>API</td>
+<td>Application Programming Interface</td>
+</tr>
+<tr>
+<td>BSW</td>
+<td>Basic Software</td>
+</tr>
+<tr>
+<td>BswM</td>
+<td>Basic Software Mode Manager</td>
+</tr>
+<tr>
+<td>CDD</td>
+<td>Complex Device Driver</td>
+</tr>
+<tr>
+<td>Csm</td>
+<td>Crypto Service Manager</td>
+</tr>
+<tr>
+<td>Dcm</td>
+<td>Diagnostic Communication Manager</td>
+</tr>
+<tr>
+<td>Dem</td>
+<td>Diagnostic Event Manager module</td>
+</tr>
+<tr>
+<td>DET</td>
+<td>Default Error Tracer</td>
+</tr>
+<tr>
+<td>ECU</td>
+<td>Electronic Control Unit</td>
+</tr>
+<tr>
+<td>ECUC</td>
+<td>ECU configuration</td>
+</tr>
+<tr>
+<td>ID</td>
+<td>Identifier</td>
+</tr>
+<tr>
+<td>IDS</td>
+<td>Intrusion Detection System</td>
+</tr>
+<tr>
+<td>IdsM</td>
+<td>Intrusion Detection System Manager</td>
+</tr>
+<tr>
+<td>IdsR</td>
+<td>Intrusion Detection System Reporter</td>
+</tr>
+<tr>
+<td>IF</td>
+<td>Interface</td>
+</tr>
+<tr>
+<td>MCU</td>
+<td>Microcontroller Unit</td>
+</tr>
+<tr>
+<td>NvM</td>
+<td>Non-volatile memory</td>
+</tr>
+<tr>
+<td>NVRAM</td>
+<td>Non-volatile random access memory</td>
+</tr>
+<tr>
+<td>OEM</td>
+<td>Original Equipment Manufacturer</td>
+</tr>
+<tr>
+<td>PDU</td>
+<td>Protocol Data Unit</td>
+</tr>
+<tr>
+<td>PDU ID</td>
+<td>PDU Identifier</td>
+</tr>
+<tr>
+<td>PduR</td>
+<td>PDU Router</td>
+</tr>
+<tr>
+<td>QSEv</td>
+<td>Qualified Security Event</td>
+</tr>
+<tr>
+<td>RTE</td>
+<td>Runtime Environment</td>
+</tr>
+<tr>
+<td>SecXT</td>
+<td>Security Extract</td>
+</tr>
+<tr>
+<td>Sem</td>
+<td>Security Event Memory</td>
+</tr>
+<tr>
+<td>SEv</td>
+<td>On-board Security Event</td>
+</tr>
+<tr>
+<td>SIEM</td>
+<td>Security Incident and Event Management</td>
+</tr>
+<tr>
+<td>StbM</td>
+<td>Synchronized Time-Base Manager</td>
+</tr>
+<tr>
+<td>SW-C</td>
+<td>Software Component</td>
+</tr>
+<tr>
+<td>SOC</td>
+<td>Security Operation Center</td>
+</tr>
+<tr>
+<td>TP</td>
+<td>Transport Protocol</td>
+</tr>
+<tr>
+<td>BSW</td>
+<td>Basic Software</td>
+</tr>
+<tr>
+<td>CDD</td>
+<td>Complex Device Driver</td>
+</tr>
+<tr>
+<td>SWC</td>
+<td>Software Component</td>
+</tr>
+<tr>
+<td>SWS</td>
+<td>Software Specification</td>
+</tr>
+<tr>
+<td>SOC</td>
+<td>Security Operation Center</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article id="post-CS_Basis_Diagnostic" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2025-02-10T02:41:56.728Z"><a href="/2025/02/10/CS_Basis_Diagnostic/">2025-02-10</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2025/02/10/CS_Basis_Diagnostic/">Comprehensive Guide to Diagnostic</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Diagnostic related history and concept, from OBD, UDS to DoCAN, DoIP etc.</p>
+<h2 id="OBD"><a href="#OBD" class="headerlink" title="OBD"></a>OBD</h2><p>OBD stands for On-Board Diagnostics and is a computer system inside of a vehicle that tracks and regulates a car’s performance. This on-board computer system collects information from the network of sensors inside the vehicle, which the system can then use to regulate car systems or alert the user to problems. A technician can then simply plug into the OBD system to collect vehicle data and diagnose the problem. OBD systems have been a great help in helping users better understand vehicle diagnostics.</p>
+<p>Based on ISO15765-1:2011(DoCAN) and ISO 13400-1:2011(DoIP), enhanced and legislated WWH-OBD diagnostic specifications applicable to the OSI layers are divided into:</p>
+<table>
+<thead>
+<tr>
+<th align="center">ISO 7498-1&#x2F;ISO 10731<br /> OSI 7 layers</th>
+<th align="center">Vehicle manufacturer<br /> enhanced diagnostics</th>
+<th>Legislated OBD</th>
+<th align="left">Legislated WWH-OBD</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Application Layer</td>
+<td align="center">ISO 14229-1,<br /> ISO 14229-3</td>
+<td>ISO 15031-5</td>
+<td align="left">ISO 27145-3,<br /> ISO 14229-1</td>
+</tr>
+<tr>
+<td align="center">Presentation (layer 6)</td>
+<td align="center">Vehicle manufacturer specific</td>
+<td>ISO 15031-2,<br />  ISO 15031-5, <br />ISO 15031-6, <br />SAE J1930-DA, <br />SAE J1979-DA, <br />SAE J2012-DA</td>
+<td align="left">ISO 27145-2,<br />SAE 1930-DA, <br />SAE J1979-DA, <br />SAE J2012-DA, <br />SAE J1939:2011, Appendix C (SPN),  <br />SAE J1939-73:2010,  Appendix A (FMI)</td>
+</tr>
+<tr>
+<td align="center">Session (layer 5)</td>
+<td align="center">ISO 14229-2</td>
+<td>ISO 14229-2</td>
+<td align="left">ISO 14229-2</td>
+</tr>
+<tr>
+<td align="center">Transport protocol (layer 4)</td>
+<td align="center">ISO 15765-2,<br />ISO 13400-2</td>
+<td>ISO 15765-2,<br />ISO 15765-4</td>
+<td align="left">ISO 15765-4,<br />ISO 15765-2, <br />ISO 27145-4,<br />ISO 13400-2</td>
+</tr>
+<tr>
+<td align="center">Network (layer 3)</td>
+<td align="center">ISO 15765-2,<br />ISO 13400-2</td>
+<td>ISO 15765-2,<br />ISO 15765-4</td>
+<td align="left">ISO 15765-4,<br />ISO 15765-2,<br />ISO 27145-4,<br />ISO 13400-2</td>
+</tr>
+<tr>
+<td align="center">Data link (layer 2)<br />Physical (layer 1)</td>
+<td align="center">ISO 11898-1,<br />ISO 11898-2, <br />ISO 11898-3, <br />ISO 11898-5,<br />ISO 13400-3,<br />or user defined</td>
+<td>ISO 11898-1,<br />ISO 11898-2,<br />ISO 15765-4</td>
+<td align="left">ISO 15765-4,<br />ISO 11898-1, <br />ISO 11898-2,<br />ISO 27145-4,<br />ISO 13400-3</td>
+</tr>
+</tbody></table>
+<h3 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h3><p>A basic OBD system consists of a central system, a network of sensors, a connection point and indicators, creating a complete monitoring system with standardized access and readability. The OBD system consists of the following components:</p>
+<ul>
+<li><strong>ECU:</strong> The central part of the OBD system is the Electronic Control Unit, or ECU. The ECU collects input from various sensors throughout the vehicle. The ECU then uses this data to either control parts of the vehicle, like fuel injectors, or monitor for issues.</li>
+<li><strong>Sensors:</strong> There are sensors throughout vehicles covering every area from the engine and chassis to the electronic system itself. Each one of these systems sends codes to the ECU, specifying the source and the parameters of the signal. The ECU then “reads” and interprets this signal.</li>
+<li><strong>DTC:</strong> If a sensor sends information to the ECU that falls outside of the normal range, the ECU saves the information as a code called a Diagnostic Trouble Code, or DTC. The DTC code essentially is a list of letters and numbers, which indicate the source and nature of the problem. DTC codes are usually standardized but may be manufacturer-specific. When a DTC is saved, the ECU sends a signal to your indicator light to state that a problem has been found. The DTC can also be pulled by linking a sensor to the connector for the OBD system.</li>
+<li><strong>MIL:</strong> When the ECU collects a DTC code, it sends a signal to the vehicle dashboard to turn on the appropriate indicator lights. These lights, known formally as Malfunction Indicator Lights or MILs, provide an early warning system for vehicle malfunctions. Generally speaking, if the light turns on and stays on, the problem is minor. If the light flashes, the problem is urgent.</li>
+<li><strong>DLC:</strong> All of the data and DTC codes collected by the ECU can be accessed via the Diagnostic Link Connector or DLC. The DLC port is the point of access for vehicles with OBD systems and is often found beneath the dashboard on the driver’s side of the vehicle, though it may be located elsewhere in commercial vehicles. Current vehicles are made with a standard OBDII system so that any scan tool with a type 2 cable can connect to the type 2 connector.</li>
+</ul>
+<h3 id="History"><a href="#History" class="headerlink" title="History"></a>History</h3><p>The history of on-board diagnostics goes back to the 1960s. Several organizations set the groundwork for the standard, including the California Air Resources Board (CARB), the Society of Automotive Engineers (SAE), the International Organization for Standardization (ISO) and the Environmental Protection Agency (EPA).</p>
+<p>It’s important to note that before standardization, manufacturers were creating their own systems. The tools from each manufacturer (and sometimes models from the same manufacturer) had their own connector type, electronic interface requirements. They also used their own custom codes for reporting problems.</p>
+<p><strong>1968</strong> — The first OBD computer system with scanning capability was introduced by Volkswagen.</p>
+<p><strong>1975</strong> — Datsun introduced a simple OBD system with limited non-standardized capabilities.</p>
+<p><strong>1979</strong> — The Society of Automotive Engineers (SAE) recommends a standardized diagnostic connector and set of diagnostic test signals.</p>
+<p><strong>1980</strong> — GM introduced a proprietary interface and protocol capable of providing engine diagnostics through an RS-232 interface or more simply, by flashing the Check Engine Light.</p>
+<p><strong>1988</strong> — Standardization of on-board diagnostics came in the late 1980s after the 1988 SAE recommendation that called for a standard connector and set of diagnostics.</p>
+<p><strong>1991</strong> — The state of California required all vehicles to have some form of basic on-board diagnostics. This is referred to as <strong>OBD I</strong>.</p>
+<p><strong>1994</strong> — The state of California mandated that all vehicles sold in the state starting in 1996 must have OBD as recommended by SAE — now referred to as <strong>OBDII</strong>. This stems from the desire to perform across the board emissions testing. OBDII included a series of standardized <strong>diagnostic trouble codes</strong> (DTCs).</p>
+<p><strong>1996</strong> — OBD-II becomes mandatory for all cars manufactured in the United States.</p>
+<p><strong>2001</strong> — EOBD (European version of OBD) becomes mandatory for all gasoline vehicles in the European Union (EU).</p>
+<p><strong>2003</strong> — EOBD becomes mandatory for all diesel vehicles in the EU.</p>
+<p><strong>2006</strong> — All vehicles manufactured in Australia and New Zealand were required to be OBD2 compatible.</p>
+<p><strong>2008</strong> — Starting in 2008, all vehicles in the US are required to implement OBDII through a <strong>Controller Area Network</strong> as specified by ISO 15765-4.</p>
+<p><strong>2012</strong> — ISO 27145 consists of the following parts, under the general title Road vehicles <em>—</em> Implementation of <strong>World-Wide Harmonized On-Board Diagnostics</strong> (WWH-OBD) communication requirements</p>
+<p><strong>2013</strong> — The ISO 13400 series has been established in order to define common requirements for vehicle diagnostic systems implemented on an IP communication link</p>
+<p><strong>2021</strong> — SAE J1979-2 (“<strong>OBDonUDS</strong>”) , describes the communication between the vehicle’s OBD systems and test equipment required by OBD regulations. The new standard will be introduced in the USA from 2023 and will be mandatory from 2027</p>
+<h2 id="UDS-ISO-14229"><a href="#UDS-ISO-14229" class="headerlink" title="UDS (ISO 14229)"></a>UDS (ISO 14229)</h2><p>The Automotive UDS Protocol, also known as Unified Diagnostic Services, is a communication protocol used in the automotive industry for diagnostics, debugging, and vehicle communication. It provides a standardized way for electronic control units (ECUs) in vehicles to communicate with diagnostic tools and software applications. The protocol is based on the ISO 14229 standard and is widely used by automotive manufacturers and service technicians.</p>
+<p>ISO 14229 has been established in order to define common requirements for diagnostic systems, whatever the serial data link is.</p>
+<p>To achieve this, ISO 14229 is based on the Open Systems Interconnection (OSI) Basic Reference Model in accordance with ISO&#x2F;IEC 7498-1 and ISO&#x2F;IEC 10731, which structures communication systems into seven layers. When mapped on this model, the services used by a diagnostic tester (client) and an Electronic Control Unit (ECU, server) are broken into the following layers in accordance with below table:</p>
+<ul>
+<li><strong>—</strong> Application layer (layer 7), unified diagnostic services specified in this document, ISO 14229-3 UDSonCAN, ISO 14229-4 UDSonFR, ISO 14229-5 UDSonIP, ISO 14229-6 UDSonK-Line, ISO 14229-7 UDSonLIN, ISO 14229-8 UDSonCXPI, further standards and ISO 27145-3 VOBD.</li>
+<li><strong>—</strong> Presentation layer (layer 6), vehicle manufacturer specific, ISO 27145-2 <strong>VOBD</strong>.</li>
+<li><strong>—</strong> Session layer services (layer 5) specified in ISO 14229-2.</li>
+<li><strong>—</strong> Transport layer services (layer 4), specified in ISO 15765-2 DoCAN, ISO 10681-2 Communication on FlexRay, ISO 13400-2 DoIP, ISO 17987-2 LIN, ISO 20794-3 CXPI, ISO 27145-4 VOBD.</li>
+<li><strong>—</strong> Network layer services (layer 3), specified in ISO 15765-2 DoCAN, ISO 10681-2 Communication on FlexRay, ISO 13400-2 DoIP, ISO 17987-2 LIN, ISO 20794-3 CXPI, ISO 27145-4 VOBD.</li>
+<li><strong>—</strong> Data link layer (layer 2), specified in ISO 11898-1, ISO 11898-2, ISO 17458-2, ISO 13400-3, IEEE 802.3, ISO 14230-2, ISO 17987-3 LIN, ISO 20794-4 CXPI, and further standards, ISO 27145-4 VOBD.</li>
+<li><strong>—</strong> Physical layer (layer 1), specified in ISO 11898-1, ISO 11898-2, ISO 17458-4, ISO 13400-3, IEEE 802.3, ISO 14230-1, ISO 17987-4 LIN, ISO 20794-4 CXPI, and further standards, ISO 27145-4 VOBD.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">ISO 7498-1&#x2F;ISO 10731<br /> OSI 7 layers</th>
+<th align="center">Vehicle manufacturer<br /> enhanced diagnostics</th>
+<th>VOBD</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Application Layer</td>
+<td align="center">ISO 14229-1,<br />ISO 14229-3 UDSonCAN, <br />ISO 14229-4 UDSonFR,<br />ISO 14229-5 UDSonIP,<br /> ISO 14229-6 UDSonK-Line,<br /> ISO 14229-7 UDSonLIN, <br />ISO 14229-8 UDSonCXPI,<br /> further standards</td>
+<td>ISO 27145-3</td>
+</tr>
+<tr>
+<td align="center">Presentation (layer 6)</td>
+<td align="center">Vehicle manufacturer specific</td>
+<td>ISO 27145-2</td>
+</tr>
+<tr>
+<td align="center">Session (layer 5)</td>
+<td align="center">ISO 14229-2</td>
+<td>ISO 14229-2</td>
+</tr>
+<tr>
+<td align="center">Transport protocol (layer 4)</td>
+<td align="center">ISO 15765-2,<br />ISO 13400-2</td>
+<td>ISO 27145-4</td>
+</tr>
+<tr>
+<td align="center">Network (layer 3)</td>
+<td align="center">ISO 15765-2,<br />ISO 13400-2</td>
+<td>ISO 27145-4</td>
+</tr>
+<tr>
+<td align="center">Data link (layer 2)<br />Physical (layer 1)</td>
+<td align="center">ISO 11898-1,<br />ISO 11898-2, <br />ISO 11898-3, <br />ISO 11898-5,<br />ISO 13400-3,<br />or user defined</td>
+<td>ISO 27145-4</td>
+</tr>
+</tbody></table>
+<h1 id="UDS-Protocol"><a href="#UDS-Protocol" class="headerlink" title="UDS Protocol"></a>UDS Protocol</h1><p>The UDS protocol is a diagnostic protocol used in Automotive Vehicles to find the cause of a problem for the health check. Basically, it is used in the automotive field for vehicle diagnostic, ECU new software flashing, etc. Nowadays the use of the protocol is increasing due to its flexibility. This protocol is defined in ISO-14229-1 standard and it is derived from the ISO 14230-3 (KWP-2000) and ISO 15765-3 (Diagnostic Communication over the CAN (DoCAN).</p>
+<p>The UDS (Unified Diagnostic Services) protocol operates at the 5th (Session layer) and 7th (Application layer) of the OSI model.</p>
+<h2 id="UDS-Protocol-Architecture"><a href="#UDS-Protocol-Architecture" class="headerlink" title="UDS Protocol Architecture"></a><strong>UDS Protocol Architecture</strong></h2><p>Those services allow a tester (client) to control diagnostic functions in an on-vehicle Electronic Control Unit (server) applied for example on the electronic fuel injection, automatic gearbox, anti-lock braking system, etc., connected on a serial data link embedded in a road vehicle.</p>
+<p>The server, usually a function that is part of the ECU, uses the application layer services to send response data, provided by the requested diagnostic service back to the client. The client is usually referred to as an External Test Equipment when it is off-board but can in some systems, also be an on-board tester. The usage of the application layer services is independent of the client being an off-board or on-board tester. It is a possibility to have more than one client on the same vehicle system.</p>
+<p>The most typical network configuration of the client-server communication for the vehicle diagnostics: the client as an Off-board tester. Communication is based on a request-response model. In the context of diagnostics, the following concepts are useful for a better understanding of the semantics handled on the UDS standard environment:</p>
+<ol>
+<li><strong>Diagnostic Trouble Codes (DTC</strong> ): The numerical common identifier fault condition identified by the on-board diagnostic system.</li>
+<li><strong>Diagnostic Data:</strong> Data that is located in the memory of an electronic control unit that may be inspected and&#x2F;or possibly modified by the tester (diagnostic data includes analogue inputs and outputs, digital inputs and outputs, intermediate values and various status information). EXAMPLES: vehicle speed, throttle angle, mirror position, system status, etc.</li>
+<li><strong>Diagnostic Session</strong>: The current model of the server, which affects the level of diagnostic functionality.</li>
+<li><strong>Diagnostic Routine</strong>: The routine that is embedded in an electronic control unit and that may be started by a server upon a request from the client. NOTE: It could either run instead of the normal operating program or run concurrently to the normal operating program. In the first case, the normal operation of the ECU is not possible. In the second case, multiple diagnostic routines may be enabled that run while all other parts of the electronic control unit are functioning normally.</li>
+<li><strong>Tester</strong>: The system that controls functions such as test, inspection, monitoring or diagnosis of an in-vehicle electronic control unit and which may be dedicated to a specific type of operator (e.g. a scan tool dedicated to garage mechanics or a test tool dedicated to the assembly plant agents).</li>
+</ol>
+<h2 id="UDS-Protocol-Frame-Format"><a href="#UDS-Protocol-Frame-Format" class="headerlink" title="UDS Protocol Frame Format"></a>UDS Protocol Frame Format</h2><p>UDS is a Request and Response-based protocol based on client-server architecture, and it has having unique service ID(SID). SID is the size of one byte, and it ranges from <strong><code>0x00</code></strong> to  <strong><code>0x3E</code></strong> .</p>
+<p>Basically, there are 4 types of frame formats:</p>
+<ol>
+<li>Request frame with sub-function ID</li>
+<li>Request frame without sub-function ID</li>
+<li>Positive Response Frame</li>
+<li>Negative Response Frame</li>
+</ol>
+<p>Use 0x11(ECU Reset) service as an example:</p>
+<table>
+<thead>
+<tr>
+<th>SID</th>
+<th>Sub-function ID</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x11</td>
+<td>0x01</td>
+<td>Hard Reset</td>
+</tr>
+<tr>
+<td>0x11</td>
+<td>0x02</td>
+<td>Key-Off On Reset</td>
+</tr>
+<tr>
+<td>0x11</td>
+<td>0x03</td>
+<td>Soft Reset</td>
+</tr>
+</tbody></table>
+<h3 id="Request-Frame-Format"><a href="#Request-Frame-Format" class="headerlink" title="Request Frame Format"></a>Request Frame Format</h3><table>
+<thead>
+<tr>
+<th><strong>Service ID (SID)</strong></th>
+<th><strong>Sub-Function ID (optional)</strong></th>
+<th><strong>Data Parameters</strong></th>
+</tr>
+</thead>
+</table>
+<h3 id="Response-Frame-Format"><a href="#Response-Frame-Format" class="headerlink" title="Response Frame Format"></a>Response Frame Format</h3><h4 id="Positive-Response"><a href="#Positive-Response" class="headerlink" title="Positive Response"></a><strong>Positive Response</strong></h4><p>In UDS diagnostics, the tester acts as a client, and ECUs act as a server. When the server (ECU)receives the service request from the tester, the server checks the message. If everything is fine, then it executes the requested service and responds to the client with a positive response. If the response is positive, then the 6th bit of the <strong>SID</strong> should be  <strong>1</strong> .</p>
+<p>For example,</p>
+<p>Service ID – 0x31 &#x3D;&gt;  0 0 1 1 0 0 0 1</p>
+<p>For a positive response, 0 <strong>1</strong> 1 1 0 0 0 1 is equal to 0x71 (0x31 + 0x40).</p>
+<p>In another way, we can say the positive response means  <strong>SID+ 0x40</strong> , There is no logical reason for this. Simply, it is defined in International standard IS0-14229-1:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Service ID (SID) + 0x40</strong></th>
+<th><strong>Sub-Function ID (optional)</strong></th>
+<th><strong>Data Response Code</strong></th>
+</tr>
+</thead>
+</table>
+<h4 id="Negative-Response"><a href="#Negative-Response" class="headerlink" title="Negative Response"></a><strong>Negative Response</strong></h4><p>In UDS diagnostics, the tester acts as a client, and ECUs act as a server. When the server (ECU) receives the service request from the tester, ECU checks the message. If the server finds something wrong, then it executes the negative response and sends the Negative response code(NRC). There are some Negative Response Codes given below.</p>
+<ol>
+<li>General Rejection – <strong><code>0x10</code></strong></li>
+<li>Sub-Function Not Supported – <strong><code>0x12</code></strong></li>
+<li>Incorrect Message Length(IML) – <strong><code>0x13</code></strong></li>
+<li>Busy Repeat Request – <strong><code>0x21</code></strong></li>
+<li>Condition not correct – <strong><code>0x22</code></strong></li>
+<li>Request sequence Error – <strong><code>0x24</code></strong></li>
+<li>Request Out Of Range(ROOR) – <strong><code>0x31</code></strong></li>
+<li>Security Access Denied – <strong><code>0x33</code></strong></li>
+<li>Invalid Key – <strong><code>0x35</code></strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th><strong>0x7F</strong></th>
+<th><strong>Service ID</strong></th>
+<th><strong>Negative Response Code</strong></th>
+</tr>
+</thead>
+</table>
+<h2 id="Functions-of-Diagnostic-Services-In-UDS-Protocol"><a href="#Functions-of-Diagnostic-Services-In-UDS-Protocol" class="headerlink" title="Functions of Diagnostic Services In UDS Protocol"></a>Functions of Diagnostic Services In UDS Protocol</h2><p>Besides specifying services’ primitives and protocols that describe the client-server interaction, UDS also defines within its framework several functional units that comprise several services each, identified with a hexadecimal code. These units are intended for the different individual purposes that support the overall diagnostic function&#x2F;task. The UDS protocol having different services for the different types of work tasks to do on the server. These are having 6- types as:</p>
+<ol>
+<li>Diagnostic and communication management.</li>
+<li>Data Transmission.</li>
+<li>Stored Data Transmission.</li>
+<li>Input&#x2F;Output Control.</li>
+<li>Remote activation of routine.</li>
+<li>Upload&#x2F;Download.</li>
+</ol>
+<p>Each functional group has more than one service ID for different-2 tasks so to get the detail of the above functional group and related services.</p>
+<h3 id="Diagnostic-Session-Control"><a href="#Diagnostic-Session-Control" class="headerlink" title="Diagnostic Session Control"></a>Diagnostic Session Control</h3><p>The diagnostic session’s service ID is **0x10 **and the Response SID is  <strong>0x50</strong> . Diagnostic Session control is used for controlling the diagnostic session of the ECU. This service is used to change the current diagnostic session to a different session. These sessions are used to enable or disable a particular set of diagnostic functions and features in an ECU.</p>
+<p>The main purpose of this diagnostic session is to give security to the ECU. It will prevent the ECU from unwanted access. And only an authorized person can access it. If every diagnostics service can access the ECU, it may get damaged by the wrong flashing of software.</p>
+<p>So before making any diagnostic request, the Client must make sure that this service is accessible or not in the ECU current session. if not, then first send a request for session change after that desirable request shall be performed.</p>
+<p>If the Server(ECU) is in a non-default session or if there is diagnostic inactivity for 5 seconds, the ECU goes back to the default session.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Sub-function</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Default Session(0x01)</strong></td>
+<td>* This session is in an idle state. Whenever the ECU is powered ON, it will be in this default session only. ECU remains in default session until another diagnostic session is requested from the client.<br />* Services like Write data byte identifier (0x2E), Read data byte identifier (0x22), ECU Reset (0x11), Tester Present (0x3E), and Reading DTC (0x19) are available in this session.<br />* Security access (0x27) is not available. This service has low security compared to all other diagnostics session control sub-functions.<br /><strong>Example</strong> : In a garage, a person is trying to read the Diagnostic Trouble Code(DTC).</td>
+</tr>
+<tr>
+<td><strong>Programming Session(0x02)</strong></td>
+<td>* This Session is used to program the ECU or transfer data from client to server.<br />* All the services that are allowed in the Default session are allowed in this session.<br />* ECUs are entered into default session if this session is ended or expired.<br /><strong>Example</strong> : Programming session is End line engineer flashing calibration software.</td>
+</tr>
+<tr>
+<td><strong>Extended Session(0x03)</strong></td>
+<td>* All services allowed in the Default session are allowed in this session<br />* This session is used to unlock the additional diagnostic functions also<br />* Security access(0x27) is allowed in this session, meaning security levels are unlocked in this session<br />* ECUs entered into default session if this session is ended or expired<br /><strong>Example</strong> : This session is End of line engineers doing a dynamic vehicle test to check the security level</td>
+</tr>
+<tr>
+<td><strong>Safety system Diagnostic system(0x04)</strong></td>
+<td>* Used to test all safety-critical diagnostic functions.<br />* This diagnostics session control sub-function has a high level of security.<br /><strong>Example</strong> : This session is checking the safety of Airbags, and tire pressure monitors.</td>
+</tr>
+<tr>
+<td><strong>0x05 to 0x3F</strong></td>
+<td>Reserved</td>
+</tr>
+<tr>
+<td><strong>Vehicle Manufacture Specific (0x40 to 0x5F)</strong></td>
+<td>This session depends on Each OEM, If they want to implement any session based on their requirement they can use it.</td>
+</tr>
+<tr>
+<td><strong>System supplier Specific (0x60 to 0X7E)</strong></td>
+<td>This session is also like Vehicle Manufacture Specific only but instead of the vehicle manufacturer, if the system suppliers want to implement any session based on their specific requirement they can use it.</td>
+</tr>
+<tr>
+<td><strong>0x7F</strong></td>
+<td>Reserved</td>
+</tr>
+</tbody></table>
+<h3 id="ECU-Reset"><a href="#ECU-Reset" class="headerlink" title="ECU Reset"></a>ECU Reset</h3><p>The ECU reset’s service ID is <strong>0x11</strong> and the Response SID is  <strong>0x51</strong> .</p>
+<table>
+<thead>
+<tr>
+<th><strong>Sub-function</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Hard Reset (0x01)</strong></td>
+<td>* Hard reset means removing the battery (power supply) from the ECU and connecting the ECU again with the battery.* In this type of reset, ECU re-initializes the core hardware components of the system and also It will re-initializes the Non-volatile and volatile memory.* This reset may lose some data because the battery is removed suddenly during the running time of the ECU.</td>
+</tr>
+<tr>
+<td><strong>Key off On Reset (0x02))</strong></td>
+<td>* The Key Off-On Reset is simply the ignition Off-On process of a vehicle. It is the normal sleep-wake-up mode of a Microcontroller.* When we are doing Key Off On reset ECUs will not get the power down immediately. It will go to the boot mode then it will store all the data in Non-Volatile memory and de-initialize the hardware variables without losing any data.* In this method of resetting, there is no chance of losing data. This is the proper way to reset, and most of the OEMs are using this type of ECU Reset.</td>
+</tr>
+<tr>
+<td><strong>Soft Reset (0x03)</strong></td>
+<td>* A soft reset is nothing but restarting the application’s main software. When we do this type of reset, the stack pointer of the microcontroller points to the**<code>main()</code>** function’s address. Then it will start to execute from first.For <strong>Example,</strong> will take a watchdog reset. Whenever hanging or any malfunctions are happening, this watchdog timer will reset the microcontroller and it will start from the <strong><code>main()</code></strong> function.</td>
+</tr>
+<tr>
+<td><strong>Enable Rapid Power shutdown (0x04)</strong></td>
+<td>* In this type of reset, ignition off will not occur. ECU will go to sleep mode and ECU is ready to wake up at any time.</td>
+</tr>
+<tr>
+<td><strong>Disable Rapid Power shutdown (0x05)</strong></td>
+<td>* This service is used to disable the previously enabled rapid power shutdown.</td>
+</tr>
+</tbody></table>
+<h3 id="Security-Access"><a href="#Security-Access" class="headerlink" title="Security Access"></a>Security Access</h3><p>The Security Access’s service ID is **0x27 **and the Response SID is  <strong>0x67</strong>. This service will grant Read, and Write access to the particular service. Before processing any of the Service IDs(SID) operation, it’s mandatory to check the security access, to know whether, for this SID, the client has access to read or write.</p>
+<p>Security access is granted based on these two:</p>
+<ol>
+<li>Seed (0x01)</li>
+<li>Key (0x02)</li>
+</ol>
+<ul>
+<li>The tester sends the request to unlock the ECU using SID <strong>0x27</strong> and sub-function ID  <strong>0x01</strong> . <strong>0x01</strong> means requesting for seed.</li>
+<li>The UDS server receives the request assumes conditions are correct and generates the random seed and key based on a cryptographic algorithm and the Server sends the Seed to the client with a positive response.</li>
+<li>With the received seed, the tester tool generates the key and sends this key to the server to unlock the ECU using SID <strong>0x27</strong> and sub-function ID  <strong>0x02</strong> . <strong>0x02</strong> means key.</li>
+<li>If the unlock key sent by the tester tool(client) matches with the server expecting key it will send the positive response and Unlock the ECU otherwise it will send a negative response with the specific negative response code.</li>
+</ul>
+<h3 id="Authentication-Service"><a href="#Authentication-Service" class="headerlink" title="Authentication Service"></a>Authentication Service</h3><p>This Authentication service was added after the year 2020, and this is used to provide a standardized approach to more modern methods of authentication than are permitted by the Security Access ( <strong>0x27</strong> ) service, including bidirectional <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Authentication" title="Authentication">authentication</a> with PKI-based Certificate Exchange.</p>
+<p>The Authentication’s service ID is <strong>0x29</strong> and the Response SID is  <strong>0x69</strong> .</p>
+<h3 id="ReadMemoryByAddress-0x23-UDS-Protocol"><a href="#ReadMemoryByAddress-0x23-UDS-Protocol" class="headerlink" title="ReadMemoryByAddress (0x23): UDS Protocol"></a><strong>ReadMemoryByAddress (0x23):</strong> <strong>UDS Protocol</strong></h3><p>The ReadMemoryByAddress service enables the client to request memory data from the server. It involves specifying a starting address and the size of memory to be read.</p>
+<p>The ReadMemoryByAddress request message is used to request memory data from the server based on the specified memory address and size. The byte count for the memory address and size is determined by the addressAndLengthFormatIdentifier (low and high nibble). Using a fixed addressAndLengthFormatIdentifier is also an option. Any unused bytes in the memory address or size parameter are padded with the value 00 hex in the higher range address locations.</p>
+<h3 id="WriteMemoryByAddress-0x3D-UDS-Protocol"><a href="#WriteMemoryByAddress-0x3D-UDS-Protocol" class="headerlink" title="WriteMemoryByAddress (0x3D): UDS Protocol"></a><strong>WriteMemoryByAddress (0x3D):</strong> <strong>UDS Protocol</strong></h3><p>This service allows the client&#x2F;Tester to write information into the server&#x2F;ECU at one or more contiguous memory locations. The tester sends a memory address, and the number of bytes, and a data string (according to the number of bytes ). The ECU writes the data string into its memory. The addressAndLengthFormatIdentifier parameter in the request specifies The number of bytes used for the memory address and memory size parameter.</p>
+<h3 id="Routine-Control-31-hex-UDS-Protocol"><a href="#Routine-Control-31-hex-UDS-Protocol" class="headerlink" title="Routine Control (31 hex): UDS Protocol"></a><strong>Routine Control (31 hex):</strong> <strong>UDS Protocol</strong></h3><p>The Vehicle Diagnostics may require testing the faulty component in a given range of parameters. During vehicle testing, certain system tests may need an extended runtime. To initiate a test, the client triggers a routine in the server’s memory. Two methods exist in this UDS Protocol remote request service: one where the client interrupts the routine to halt it, and the other where the server&#x2F;ECU completes the routine after a specified time frame. This service allows the client to initiate, interrupt, and check the result of a routine after successful execution.</p>
+<p><strong>Requests:</strong> RoutineControlType:</p>
+<ol>
+<li>startRoutine (01 hex).</li>
+<li>stopRoutine (02 hex).</li>
+<li>reqestRoutineControl (03 hex).</li>
+</ol>
+<h3 id="Other-OBD-and-UDS-Ddiagnostic-Services"><a href="#Other-OBD-and-UDS-Ddiagnostic-Services" class="headerlink" title="Other OBD and UDS Ddiagnostic Services"></a>Other OBD and UDS Ddiagnostic Services</h3><p>One of the most important concepts in UDS is the diagnostic service identifier (SID), which is a one-byte code that specifies what kind of service the tester is requesting from the ECU.</p>
+<table>
+<thead>
+<tr>
+<th>SID</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>01-0Ahex</td>
+<td>OBD services</td>
+</tr>
+<tr>
+<td>10hex</td>
+<td>DiagnosticSessionControl</td>
+</tr>
+<tr>
+<td>11hex</td>
+<td>ECUReset</td>
+</tr>
+<tr>
+<td>14hex</td>
+<td>ClearDiagnosticInformation</td>
+</tr>
+<tr>
+<td>19hex</td>
+<td>ReadDTCInformation</td>
+</tr>
+<tr>
+<td>22hex</td>
+<td>ReadDataByIdentifier</td>
+</tr>
+<tr>
+<td>23hex</td>
+<td>ReadMemoryByAddress</td>
+</tr>
+<tr>
+<td>27hex</td>
+<td>SecurtityAccess</td>
+</tr>
+<tr>
+<td>29hex</td>
+<td>Secure Diagnostics</td>
+</tr>
+<tr>
+<td>2Ehex</td>
+<td>WriteDataByIdentifier</td>
+</tr>
+<tr>
+<td>2Fhex</td>
+<td>InputOutputControlByIdentifier</td>
+</tr>
+<tr>
+<td>31hex</td>
+<td>RoutineControl</td>
+</tr>
+<tr>
+<td>34hex</td>
+<td>RequestDownload</td>
+</tr>
+<tr>
+<td>35hex</td>
+<td>RequestUpload</td>
+</tr>
+<tr>
+<td>36hex</td>
+<td>TransferData</td>
+</tr>
+<tr>
+<td>37hex</td>
+<td>RequestTransferExit</td>
+</tr>
+<tr>
+<td>38hex</td>
+<td>RequestFileTransfer</td>
+</tr>
+<tr>
+<td>3Dhex</td>
+<td>WriteMemoryByAddress</td>
+</tr>
+<tr>
+<td>3Ehex</td>
+<td>TesterPresent</td>
+</tr>
+<tr>
+<td>85hex</td>
+<td>ControlDTCSetting</td>
+</tr>
+<tr>
+<td>86hex</td>
+<td>ResponseOnEvent</td>
+</tr>
+<tr>
+<td>87hex</td>
+<td>LinkControl</td>
+</tr>
+</tbody></table>
+<h1 id="ODX-Open-Diagnostic-data-eXchange"><a href="#ODX-Open-Diagnostic-data-eXchange" class="headerlink" title="ODX (Open Diagnostic data eXchange)"></a>ODX (Open Diagnostic data eXchange)</h1><p>The standard ODX ISO 22901-1 (O pen D iagnostic data e X change) describes an <strong>XML format</strong> for exchanging diagnostic data. It contains both diagnostic specifics and flash data for individual ECUs, as well as Information on accessing the entire vehicle network. The data is usually processed on a D-Server in accordance with ISO 22900-3.</p>
+<p><strong>PDX</strong> （Packaged ODX）, a collection of CDX</p>
+<h1 id="Timing-Performance"><a href="#Timing-Performance" class="headerlink" title="Timing Performance"></a>Timing Performance</h1><p>Timing parameters play a crucial role in Unified Diagnostic Services (UDS) for managing the timing aspects of diagnostic communication between electronic control units (ECUs) in vehicles and diagnostic tools. These parameters help regulate the timing of various diagnostic services and functions within the UDS protocol to ensure efficient and reliable communication. Some common timing parameters in UDS include:</p>
+<ol>
+<li><strong>P2 Timeout</strong> : This parameter defines the time interval between consecutive diagnostic requests from the diagnostic tool to the ECU. It ensures that the diagnostic tool does not overwhelm the ECU with requests.</li>
+<li><em><em>P2</em> Timeout</em> *: This parameter is similar to P2 Timeout but is used for specific services that require a different timing interval.</li>
+<li><strong>P3 Timeout</strong> : This parameter specifies the maximum time allowed for an ECU to respond to a diagnostic request. If the response is not received within this timeout period, the diagnostic tool may consider the request as failed.</li>
+<li><strong>S3 Timeout</strong> : This parameter specifies the time interval for which an ECU should stay in the “response pending” state after receiving a request. If the ECU does not provide a response within this timeout, the diagnostic tool may consider the request as failed.</li>
+<li><strong>Communication Timeout</strong> : This parameter sets the maximum time allowed for the completion of a diagnostic communication session between the diagnostic tool and the ECU.</li>
+</ol>
+<p>Proper configuration and management of timing parameters in UDS are essential for ensuring efficient and reliable diagnostic communication, minimizing delays, and preventing communication errors. Timing parameters help in optimizing the timing aspects of diagnostic services and ensuring timely exchange of diagnostic information between ECUs and diagnostic tools.</p>
+<h1 id="Abbreviation"><a href="#Abbreviation" class="headerlink" title="Abbreviation"></a>Abbreviation</h1><table>
+<thead>
+<tr>
+<th align="center">Abbreviation</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">BRS</td>
+<td align="left">bit rate switch</td>
+</tr>
+<tr>
+<td align="center">BS</td>
+<td align="left">BlockSize</td>
+</tr>
+<tr>
+<td align="center">CAN</td>
+<td align="left">controller area network</td>
+</tr>
+<tr>
+<td align="center">CAN FD</td>
+<td align="left">controller area network with flexible data rate and larger payload as defined in ISO 11898-1</td>
+</tr>
+<tr>
+<td align="center">CLASSICAL CAN</td>
+<td align="left">controller area network with static data rate and up to 8 data bytes as defined in ISO 11898-1</td>
+</tr>
+<tr>
+<td align="center">CF</td>
+<td align="left">ConsecutiveFrame</td>
+</tr>
+<tr>
+<td align="center">CTS</td>
+<td align="left">continue to send</td>
+</tr>
+<tr>
+<td align="center">DA</td>
+<td align="left">destination address</td>
+</tr>
+<tr>
+<td align="center">DLC</td>
+<td align="left">CAN frame data link layer data length code</td>
+</tr>
+<tr>
+<td align="center">DoCAN</td>
+<td align="left">diagnostic communication over controller area network</td>
+</tr>
+<tr>
+<td align="center">ECM</td>
+<td align="left">Engine Control Module</td>
+</tr>
+<tr>
+<td align="center">ECU</td>
+<td align="left">Electronic Control Unit</td>
+</tr>
+<tr>
+<td align="center">FC</td>
+<td align="left">FlowControl</td>
+</tr>
+<tr>
+<td align="center">FF</td>
+<td align="left">FirstFrame</td>
+</tr>
+<tr>
+<td align="center">FF_DL</td>
+<td align="left">FirstFrame data length in bytes</td>
+</tr>
+<tr>
+<td align="center">FMI</td>
+<td align="left">failure mode indicator</td>
+</tr>
+<tr>
+<td align="center">FS</td>
+<td align="left">FlowStatus</td>
+</tr>
+<tr>
+<td align="center">ID</td>
+<td align="left">identifier</td>
+</tr>
+<tr>
+<td align="center">Mtype</td>
+<td align="left">message type</td>
+</tr>
+<tr>
+<td align="center">N&#x2F;A</td>
+<td align="left">not applicable</td>
+</tr>
+<tr>
+<td align="center">NA</td>
+<td align="left">network address</td>
+</tr>
+<tr>
+<td align="center">N_AE</td>
+<td align="left">network address extension</td>
+</tr>
+<tr>
+<td align="center">N_AI</td>
+<td align="left">network address information</td>
+</tr>
+<tr>
+<td align="center">N_Ar</td>
+<td align="left">network layer timing parameter Ar</td>
+</tr>
+<tr>
+<td align="center">N_As</td>
+<td align="left">network layer timing parameter As</td>
+</tr>
+<tr>
+<td align="center">N_Br</td>
+<td align="left">network layer timing parameter Br</td>
+</tr>
+<tr>
+<td align="center">N_Bs</td>
+<td align="left">network layer timing parameter Bs</td>
+</tr>
+<tr>
+<td align="center">N_ChangeParameter</td>
+<td align="left">network layer service name</td>
+</tr>
+<tr>
+<td align="center">N_Cr</td>
+<td align="left">network layer timing parameter Cr</td>
+</tr>
+<tr>
+<td align="center">N_Cs</td>
+<td align="left">network layer timing parameter Cs</td>
+</tr>
+<tr>
+<td align="center">N_Data</td>
+<td align="left">network data</td>
+</tr>
+<tr>
+<td align="center">N_PCI</td>
+<td align="left">network protocol control information</td>
+</tr>
+<tr>
+<td align="center">N_PCItype</td>
+<td align="left">network protocol control information type</td>
+</tr>
+<tr>
+<td align="center">N_PDU</td>
+<td align="left">network protocol data unit</td>
+</tr>
+<tr>
+<td align="center">N_SA</td>
+<td align="left">network source address</td>
+</tr>
+<tr>
+<td align="center">N_SDU</td>
+<td align="left">network service data unit</td>
+</tr>
+<tr>
+<td align="center">N_TA</td>
+<td align="left">network target address</td>
+</tr>
+<tr>
+<td align="center">SOM</td>
+<td align="left">start of message</td>
+</tr>
+<tr>
+<td align="center">SP</td>
+<td align="left">nominal sample point</td>
+</tr>
+<tr>
+<td align="center">SPN</td>
+<td align="left">suspect parameter number</td>
+</tr>
+<tr>
+<td align="center">STmin</td>
+<td align="left">Separation Time minimum</td>
+</tr>
+<tr>
+<td align="center">STRT</td>
+<td align="left">serviceToRespondTo</td>
+</tr>
+<tr>
+<td align="center">TA</td>
+<td align="left">target address</td>
+</tr>
+<tr>
+<td align="center">TCM</td>
+<td align="left">transmission control module</td>
+</tr>
+<tr>
+<td align="center">UDS</td>
+<td align="left">unified diagnostic services</td>
+</tr>
+<tr>
+<td align="center">USDT</td>
+<td align="left">unacknowledged segmented data transfer</td>
+</tr>
+<tr>
+<td align="center">UUDT</td>
+<td align="left">unacknowledged unsegmented data transfer</td>
+</tr>
+<tr>
+<td align="center">WWH-OBD</td>
+<td align="left">world-wide harmonized on-board diagnostics</td>
+</tr>
+<tr>
+<td align="center">ISO 15031</td>
+<td align="left">OBD</td>
+</tr>
+<tr>
+<td align="center">ISO 15765</td>
+<td align="left">DoCAN</td>
+</tr>
+<tr>
+<td align="center">ISO 13400</td>
+<td align="left">DoIP</td>
+</tr>
+<tr>
+<td align="center">ISO 14229</td>
+<td align="left">UDS</td>
+</tr>
+<tr>
+<td align="center">ISO 27145</td>
+<td align="left">WWH-OBD</td>
+</tr>
+</tbody></table>
 
       
     </div>
@@ -430,7 +1414,7 @@
   <div class="widget widget-archives">
     <h3 class="title">Archives</h3>
     <div class="entry">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">34</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 

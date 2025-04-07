@@ -47,6 +47,85 @@
 </header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
+  <article id="post-android-wifi-applicatin" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2025-02-13T00:58:39.327Z"><a href="/2025/02/13/android-wifi-applicatin/">2025-02-13</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2025/02/13/android-wifi-applicatin/">Understanding the Source Code of `Settings.apk`: Wi-Fi Features</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>The Android <code>Settings.apk</code> includes detailed implementations for handling Wi-Fi features such as encryption, scanning, and managing Access Points (APs). Below is an analysis of its components and processes based on the source code and architecture.</p>
+<hr>
+<h4 id="Wi-Fi-Encryption-Methods"><a href="#Wi-Fi-Encryption-Methods" class="headerlink" title="Wi-Fi Encryption Methods"></a><strong>Wi-Fi Encryption Methods</strong></h4><p>The <code>Settings.apk</code> manages Wi-Fi encryption through configurations defined in the <code>WifiConfiguration</code> class. Security types supported include:</p>
+<ul>
+<li><strong>Open Networks (No encryption)</strong>: Defined as <code>SECURITY_TYPE_OPEN</code>.</li>
+<li><strong>WEP</strong>: Older and less secure.</li>
+<li><strong>PSK&#x2F;SAE (WPA2&#x2F;WPA3)</strong>: Uses shared keys or the Simultaneous Authentication of Equals protocol for security.</li>
+<li><strong>Enterprise (EAP)</strong>: For networks using authentication servers.</li>
+</ul>
+<p>The <code>getWifiConfig</code> method extracts security details from the <code>ScanResult</code> or <code>WifiEntry</code> and applies appropriate encryption parameters, such as <code>SAE</code> for WPA3 or <code>OWE</code> for opportunistic encryption.</p>
+<hr>
+<h4 id="Wi-Fi-Scanning-Logic"><a href="#Wi-Fi-Scanning-Logic" class="headerlink" title="Wi-Fi Scanning Logic"></a><strong>Wi-Fi Scanning Logic</strong></h4><p>Wi-Fi scanning is handled via the <code>WifiManager</code>‘s <code>getScanResults</code> method. The key points include:</p>
+<ol>
+<li><strong>Initiating Scans</strong>: The <code>Scanner</code> handler triggers periodic scans or manual scans through methods like <code>forceScan</code>.</li>
+<li><strong>Filtering Results</strong>: Hidden or ad-hoc networks are ignored (<code>capabilities.contains(&quot;[IBSS]&quot;)</code>).</li>
+<li><strong>Access Points Handling</strong>:<ul>
+<li>A <code>Multimap</code> is used to map SSIDs to <code>AccessPoint</code> objects.</li>
+<li>The scan results are iterated, and <code>AccessPoint</code> objects are updated or created to represent networks.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="Access-Point-AP-Management"><a href="#Access-Point-AP-Management" class="headerlink" title="Access Point (AP) Management"></a><strong>Access Point (AP) Management</strong></h4><p>Access Points are managed using the <code>AccessPoint</code> class, which encapsulates information about a Wi-Fi network, including signal strength, encryption type, and SSID. This allows the <code>Settings.apk</code> to display network options in the UI and manage connections effectively.</p>
+<hr>
+<h4 id="Low-Level-Integration"><a href="#Low-Level-Integration" class="headerlink" title="Low-Level Integration"></a><strong>Low-Level Integration</strong></h4><ul>
+<li><strong>wpa_supplicant</strong>: <code>Settings.apk</code> interacts with the wpa_supplicant daemon via the Android Framework to manage low-level Wi-Fi protocols such as WPA handshake processes.</li>
+<li><strong>Startup Process</strong>: Upon system boot, <code>WifiManager</code> initializes and communicates with the driver through HAL (Hardware Abstraction Layer) and wpa_supplicant to enable Wi-Fi.</li>
+</ul>
+<hr>
+<h4 id="Wi-Fi-Utility-Methods"><a href="#Wi-Fi-Utility-Methods" class="headerlink" title="Wi-Fi Utility Methods"></a><strong>Wi-Fi Utility Methods</strong></h4><p>The <code>WifiUtils</code> class contains helper functions for:</p>
+<ul>
+<li>Identifying captive portals through network capabilities.</li>
+<li>Configuring networks by generating <code>WifiConfiguration</code> objects from scan results or existing entries.</li>
+<li>Enforcing network lockdown policies for managed devices.</li>
+</ul>
+<hr>
+<h3 id="Developer-APIs-for-Wi-Fi-in-Android"><a href="#Developer-APIs-for-Wi-Fi-in-Android" class="headerlink" title="Developer APIs for Wi-Fi in Android"></a>Developer APIs for Wi-Fi in Android</h3><p>Developers can leverage these APIs for advanced Wi-Fi handling:</p>
+<ol>
+<li><strong>Basic Connectivity</strong>: Using <code>WifiManager</code> for connecting, disconnecting, and retrieving scan results.</li>
+<li><strong>Advanced Configuration</strong>:<ul>
+<li>Add or update networks via <code>WifiConfiguration</code>.</li>
+<li>Manage Hotspot through <code>WifiP2pManager</code> or <code>SoftApConfiguration</code>.</li>
+</ul>
+</li>
+<li><strong>Scanning and Location</strong>: Perform scans and process <code>ScanResult</code> objects for available networks.</li>
+</ol>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>The <code>Settings.apk</code> provides a comprehensive implementation for Wi-Fi management, from handling cryptographic configurations to efficiently managing APs and leveraging low-level Linux components. Developers can build on these APIs to integrate advanced Wi-Fi features in their applications. For more details, the Android source repository is an excellent reference.</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
   <article id="post-android-video-IP" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
@@ -1000,138 +1079,6 @@
 
 
 
-  <article id="post-CS_TEC_Linux_PAM" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time class="dt-published" datetime="2025-02-13T00:58:39.040Z"><a href="/2025/02/13/CS_TEC_Linux_PAM/">2025-02-13</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2025/02/13/CS_TEC_Linux_PAM/">Understanding Linux PAM (Pluggable Authentication Modules)</a></h1>
-  
-
-    </header>
-    <div class="e-content entry" itemprop="articleBody">
-      
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Linux PAM (Pluggable Authentication Modules) represents a powerful framework that provides dynamic authentication support for applications and services in Linux systems. This article explores the fundamentals of PAM, its architecture, configuration syntax, and practical implementation examples.</p>
-<h2 id="Core-Concepts"><a href="#Core-Concepts" class="headerlink" title="Core Concepts"></a>Core Concepts</h2><p>PAM operates as a middle layer between applications and authentication mechanisms. When an application needs to authenticate a user, it doesn’t need to know the details of how authentication works - it simply makes calls to the PAM framework, which handles the actual authentication process based on the system’s configuration.</p>
-<h3 id="Key-Benefits"><a href="#Key-Benefits" class="headerlink" title="Key Benefits"></a>Key Benefits</h3><p>The modular nature of PAM provides several advantages:</p>
-<ol>
-<li>Applications don’t need to be modified to support new authentication mechanisms</li>
-<li>System administrators can modify authentication requirements without changing application code</li>
-<li>Multiple authentication methods can be combined flexibly</li>
-<li>Authentication policies can be standardized across the system</li>
-</ol>
-<h2 id="PAM-Architecture"><a href="#PAM-Architecture" class="headerlink" title="PAM Architecture"></a>PAM Architecture</h2><h3 id="Service-Modules"><a href="#Service-Modules" class="headerlink" title="Service Modules"></a>Service Modules</h3><p>PAM divides authentication tasks into four independent management groups:</p>
-<ol>
-<li><strong>account</strong>: Verifies account accessibility, expiration, and access hours</li>
-<li><strong>auth</strong>: Handles user authentication and sets credentials</li>
-<li><strong>password</strong>: Manages password updates and validation</li>
-<li><strong>session</strong>: Manages tasks needed to set up and tear down user sessions</li>
-</ol>
-<h3 id="Module-Types"><a href="#Module-Types" class="headerlink" title="Module Types"></a>Module Types</h3><p>Each management group can use various module types:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">required      - Must succeed for authentication to continue</span><br><span class="line">requisite     - Must succeed, but fails immediately if not met</span><br><span class="line">sufficient    - Success is sufficient to satisfy the module requirements</span><br><span class="line">optional      - Module success/failure doesn&#x27;t impact authentication</span><br><span class="line">include       - Include other configuration files</span><br><span class="line">substack      - Similar to include but treats the included stack as a subunit</span><br></pre></td></tr></table></figure>
-
-<h2 id="Configuration-Syntax"><a href="#Configuration-Syntax" class="headerlink" title="Configuration Syntax"></a>Configuration Syntax</h2><p>PAM configuration files are typically stored in <code>/etc/pam.d/</code>. Each service has its own configuration file. The basic syntax is:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type    control_flag    module_path    module_arguments</span><br></pre></td></tr></table></figure>
-
-<p>Example from <code>/etc/pam.d/sshd</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#%PAM-1.0</span><br><span class="line">auth       required     pam_securetty.so</span><br><span class="line">auth       required     pam_unix.so nullok</span><br><span class="line">account    required     pam_nologin.so</span><br><span class="line">account    required     pam_unix.so</span><br><span class="line">password   required     pam_unix.so nullok obscure min=4 max=8</span><br><span class="line">session    required     pam_unix.so</span><br><span class="line">session    required     pam_limits.so</span><br></pre></td></tr></table></figure>
-
-<h2 id="Common-PAM-Modules"><a href="#Common-PAM-Modules" class="headerlink" title="Common PAM Modules"></a>Common PAM Modules</h2><h3 id="pam-unix-so"><a href="#pam-unix-so" class="headerlink" title="pam_unix.so"></a>pam_unix.so</h3><p>The standard Unix authentication module supporting standard Unix password authentication:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_unix.so try_first_pass nullok</span><br></pre></td></tr></table></figure>
-
-<p>Parameters:</p>
-<ul>
-<li><code>try_first_pass</code>: Try using previously entered password</li>
-<li><code>nullok</code>: Allow empty passwords</li>
-<li><code>remember=N</code>: Remember N previous passwords</li>
-</ul>
-<h3 id="pam-ldap-so"><a href="#pam-ldap-so" class="headerlink" title="pam_ldap.so"></a>pam_ldap.so</h3><p>Provides LDAP authentication support:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth sufficient pam_ldap.so use_first_pass</span><br></pre></td></tr></table></figure>
-
-<h3 id="pam-time-so"><a href="#pam-time-so" class="headerlink" title="pam_time.so"></a>pam_time.so</h3><p>Controls access based on time:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">account required pam_time.so</span><br></pre></td></tr></table></figure>
-
-<p>Configuration in <code>/etc/security/time.conf</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">services;ttys;users;times</span><br><span class="line">login;tty*;!root;Al0800-1800</span><br></pre></td></tr></table></figure>
-
-<h2 id="Practical-Examples"><a href="#Practical-Examples" class="headerlink" title="Practical Examples"></a>Practical Examples</h2><h3 id="Example-1-Enforcing-Strong-Passwords"><a href="#Example-1-Enforcing-Strong-Passwords" class="headerlink" title="Example 1: Enforcing Strong Passwords"></a>Example 1: Enforcing Strong Passwords</h3><p>To enforce password complexity, modify <code>/etc/pam.d/system-auth</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">password required pam_pwquality.so retry=3 minlen=12 dcredit=1 ucredit=1 ocredit=1 lcredit=1</span><br><span class="line">password required pam_unix.so use_authtok sha512 shadow</span><br></pre></td></tr></table></figure>
-
-<p>This configuration:</p>
-<ul>
-<li>Requires minimum 12 characters</li>
-<li>Requires at least one digit, uppercase, special character, and lowercase</li>
-<li>Allows 3 retry attempts</li>
-<li>Uses SHA-512 hashing</li>
-</ul>
-<h3 id="Example-2-Limiting-Login-Attempts"><a href="#Example-2-Limiting-Login-Attempts" class="headerlink" title="Example 2: Limiting Login Attempts"></a>Example 2: Limiting Login Attempts</h3><p>To implement login attempt limits, add to <code>/etc/pam.d/system-auth</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_tally2.so deny=3 unlock_time=300 onerr=fail</span><br></pre></td></tr></table></figure>
-
-<p>This configuration:</p>
-<ul>
-<li>Denies access after 3 failed attempts</li>
-<li>Unlocks the account after 300 seconds</li>
-<li>Fails closed (denies access) on errors</li>
-</ul>
-<h2 id="Debugging-PAM"><a href="#Debugging-PAM" class="headerlink" title="Debugging PAM"></a>Debugging PAM</h2><h3 id="Debug-Mode"><a href="#Debug-Mode" class="headerlink" title="Debug Mode"></a>Debug Mode</h3><p>Add the debug option to the module:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_unix.so debug</span><br></pre></td></tr></table></figure>
-
-<p>View debug output in system logs:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -f /var/log/auth.log</span><br></pre></td></tr></table></figure>
-
-<h3 id="Testing-Configurations"><a href="#Testing-Configurations" class="headerlink" title="Testing Configurations"></a>Testing Configurations</h3><p>Use the <code>pamtester</code> utility to test PAM configurations:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pamtester sshd username authenticate</span><br></pre></td></tr></table></figure>
-
-<h2 id="Security-Considerations"><a href="#Security-Considerations" class="headerlink" title="Security Considerations"></a>Security Considerations</h2><ol>
-<li><p><strong>Order Matters</strong>: PAM processes modules in the order listed. Ensure critical security modules are placed appropriately.</p>
-</li>
-<li><p><strong>Fail Secure</strong>: Use appropriate control flags to ensure authentication fails securely when modules fail.</p>
-</li>
-<li><p><strong>Module Parameters</strong>: Carefully consider module parameters - some can weaken security if misconfigured.</p>
-</li>
-<li><p><strong>File Permissions</strong>: PAM configuration files should be owned by root and not writable by others:</p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 644 /etc/pam.d/*</span><br><span class="line"><span class="built_in">chown</span> root:root /etc/pam.d/*</span><br></pre></td></tr></table></figure>
-
-<h2 id="Best-Practices"><a href="#Best-Practices" class="headerlink" title="Best Practices"></a>Best Practices</h2><ol>
-<li><p><strong>Documentation</strong>: Always document PAM changes in configuration files using comments.</p>
-</li>
-<li><p><strong>Backup</strong>: Create backups before modifying PAM configurations:</p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> -r /etc/pam.d /etc/pam.d.backup</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li><p><strong>Testing</strong>: Test changes in a non-production environment first.</p>
-</li>
-<li><p><strong>Monitoring</strong>: Regularly monitor auth logs for unusual patterns or failures.</p>
-</li>
-</ol>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Linux PAM provides a flexible and powerful framework for managing authentication in Linux systems. Understanding its architecture, configuration syntax, and proper implementation is crucial for system administrators and security professionals. Through careful configuration and following best practices, PAM can significantly enhance system security while maintaining usability.</p>
-<p>Remember that PAM configurations can lock users out of the system if implemented incorrectly. Always maintain a root session when testing new PAM configurations, and have a backup plan for recovery if authentication breaks.</p>
-<p>For further information, consult the official Linux-PAM documentation and system-specific guides for your distribution.</p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
@@ -1159,7 +1106,7 @@
   <div class="widget widget-archives">
     <h3 class="title">Archives</h3>
     <div class="entry">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">34</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">34</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
